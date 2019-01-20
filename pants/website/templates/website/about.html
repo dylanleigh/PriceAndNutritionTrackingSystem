@@ -58,7 +58,7 @@
    system is reworked to be less kludgy - see TODOs</dd>
 </dl>
 
-<h3>TODOs (including known bugs/issues):</h3>
+<h3>TODOs (including known bugs/issues/kludges):</h3>
 <ol>
    <li>Util funcs to get current user daily target, and current user
    diary today/last24 data (done)</li>
@@ -78,12 +78,16 @@
    <li>404 template</li>
    <br>
    <li><b>Unit tests are severely incomplete!</b></li>
+   <li>Fix all the kludgy FIXMEs in the code</li>
    <br>
    <li>API-based frontend? Use DRF API - Don't bother with substatial FE
    improvements until this is done!</li>
-   <li>Use django-filter (replace custom tag view handling etc)</li>
+   <li>Use django-filter (replace custom tag view handling etc) (work in
+   progress)</li>
    <br>
-   <li>Add preparation_loss_factor to ingredient for e.g. peeling and trimming losses (can be half quantity for some ingredients)</li>
+   <li>Add preparation_loss_factor to ingredient for e.g. peeling and
+   trimming losses (can be half quantity for some vegetables, making
+   them less cost-effective; also required for shopping list quantities etc)</li>
    <li>View-on-site in all admin</li>
    <li>"Favourite" (integer?) - use to sort, then updated-at</li>
    <li>Multilayer navigation, put little-used components in a misc section</li>
