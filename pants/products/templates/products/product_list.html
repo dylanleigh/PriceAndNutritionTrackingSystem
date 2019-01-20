@@ -1,0 +1,34 @@
+{% extends 'pants/base.html' %}
+
+{% block title %}
+<title>Products - P.A.N.T.S.</title>
+{% endblock %}
+
+{% block headline %}
+<h1>Products - P.A.N.T.S.</h1>
+{% endblock %}
+
+{% block content %}
+<table class="w3-table-all w3-hoverable">
+      <tr>
+         <th>Name</th>
+         <th>Ingredient</th>
+         <th>Brand</th>
+         <th>Stores</th>
+         <th>Lowest Price/kg</th>
+      <tr>
+   {% for prod in object_list %}
+      <tr>
+         <th>{{prod.name}}</th>
+         <td>{{prod.ingredient.name}}</td>
+         <td>{{prod.brand}}</td>
+         <td>{{prod.supplier_set.name}}</td>
+         <td>todo</td>
+      </tr>
+   {% empty %}
+      <tr><th>No products loaded.</tr></th>
+   {% endfor %}
+</table>
+{% endblock %}
+
+

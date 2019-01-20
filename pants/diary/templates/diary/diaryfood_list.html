@@ -1,0 +1,52 @@
+{% extends 'pants/base.html' %}
+
+{% load css_visuals %}
+
+{% block title %}
+<title>Diary - P.A.N.T.S.</title>
+{% endblock %}
+
+{% block headline %}
+<h1>Diary - P.A.N.T.S.</h1>
+{% endblock %}
+
+{% block content %}
+
+<table class="w3-table-all w3-hoverable">
+      <tr>
+         <th>Time</th>
+         <th>Name</th>
+         <th>Cost</th>
+         <th>Wt.</th>
+         <th>KJ</th>
+         <th>KCal</th>
+         <th>Prot.</th>
+         <th>Fibre</th>
+         <th>Carb.</th>
+         <th>Fat</th>
+         <th>Sugar</th>
+         <th>Rank</th>
+      </tr>
+   {% for entry in object_list %}
+      <tr>
+         <th>{{entry.start_time}}</a></th>
+         <th>{{entry.name}}</a></th>
+          {% with entry.nutrition_data as ndata %}
+            <td>{{ndata.cost}}</td>
+            <td>{{entry.weight}}</td>
+            <td>{{ndata.kilojoules|css_progressbar:2500}}</td>
+            <td>{{ndata.kilocalories|css_progressbar:1000}}</td>
+            <td>{{ndata.protein|css_progressbar:75}}</td>
+            <td>{{ndata.fibre|css_progressbar:50}}</td>
+            <td>{{ndata.carbohydrate|css_progressbar:75}}</td>
+            <td>{{ndata.fat|css_progressbar:50}}</td>
+            <td>{{ndata.sugar|css_progressbar:50}}</td>
+            <td>{{ndata.rank|css_progressbar:50}}</td>
+         {% endwith %}
+      </tr>
+   {% endfor %}
+</table>
+
+{% endblock %}
+
+

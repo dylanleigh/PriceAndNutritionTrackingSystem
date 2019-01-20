@@ -1,0 +1,134 @@
+{% extends 'pants/base.html' %}
+
+{% load css_visuals %}
+
+{% block title %}
+<title>{{ object.name }} Recipe - P.A.N.T.S.</title>
+{% endblock %}
+
+{% block headline %}
+<h1>{{ object.name }} Recipe - P.A.N.T.S.</h1>
+{% endblock %}
+
+{% block content %}
+
+<p>{{object.description}}</p>
+
+<p>Serves: {{object.serves}}</p>
+
+<p>Tags:
+
+{% for tag in object.tags.all %} {# FIXME this should be in context with values_list #}
+   <a href="{% url 'recipe-list-by-tag' tag.name %}">{{ tag.name }}</a>,.
+   {% empty %}
+       (none)
+   {% endfor %}
+ </p>
+
+
+<h3>Components:</h3>
+<table class="w3-table-all w3-hoverable">
+      <tr>
+         <th>Component</th>
+         <th>Quantity</th>
+         <th>Cost</th>
+         <th>KJ</th>
+         <th>KCal</th>
+         <th>Prot.</th>
+         <th>Fibre</th>
+         <th>Carb.</th>
+         <th>Fat</th>
+         <th>Prot./$</th>
+         <th>Fib./$</th>
+         <th>Prot./J</th>
+         <th>Fib.J</th>
+         <th>Rank</th>
+         <th>Notes</th>
+      </tr>
+   {% for q in object.components.all %}
+      <tr>
+         {% if q.of_ingredient %}
+            <td><a href="{% url 'ingredient-detail' q.of_ingredient.slug %}">{{q.name}}</a></td>
+         {% else %}
+            {% if q.of_recipe %}
+               <td><a href="{% url 'recipe-detail' q.of_recipe.slug %}">{{q.name}}</a></td>
+            {% else %}
+               <td>{{q.name}}</td>
+            {% endif %}
+         {% endif %}
+
+         <td>{{q.weight|floatformat}}</td>
+         {% with q.nutrition_data as ndata %}
+            <td>{{ndata.cost|floatformat:2}}</td>
+            <td>{{ndata.kilojoules|floatformat}}</td>
+            <td>{{ndata.kilocalories|css_progressbar:200}}</td>
+            <td>{{ndata.protein|css_progressbar:100}}</td>
+            <td>{{ndata.fibre|css_progressbar:50}}</td>
+            <td>{{ndata.carbohydrate|css_progressbar:100}}</td>
+            <td>{{ndata.fat|css_progressbar:50}}</td>
+            <td>{{ndata.protein_per_cost|css_progressbar:100}}</td>
+            <td>{{ndata.fibre_per_cost|css_progressbar:50}}</td>
+            <td>{{ndata.protein_per_j|css_progressbar:100}}</td>
+            <td>{{ndata.fibre_per_j|css_progressbar:50}}</td>
+            <td>{{ndata.rank|css_progressbar:50}}</td>
+         {% endwith %}
+         <td>{{q.note}}</td>
+      </tr>
+   {% empty %}
+      <tr><th>No ingredients entered.</tr></th>
+   {% endfor %}
+   <tr>
+      <th>Total:</th>
+      <td>{{object.nutrition_data.grams|floatformat:1}}</td>
+      <td>{{object.nutrition_data.cost|floatformat:2}}</td>
+      <td>{{object.nutrition_data.kilojoules|floatformat}}</td>
+      <td>{{object.nutrition_data.kilocalories|css_progressbar:200}}</td>
+      <td>{{object.nutrition_data.protein|css_progressbar:100}}</td>
+      <td>{{object.nutrition_data.fibre|css_progressbar:50}}</td>
+      <td>{{object.nutrition_data.carbohydrate|css_progressbar:100}}</td>
+      <td>{{object.nutrition_data.fat|css_progressbar:50}}</td>
+      <td>.</td>
+      <td>.</td>
+      <td>.</td>
+      <td>.</td>
+      <td>.</td>
+      <td>.</td>
+   </tr>
+   <tr>
+      <th>Per Serve:</th>
+      <td>{{object.nutrition_data.grams_serve|floatformat:1}}</td>
+      <td>{{object.nutrition_data.cost_serve|floatformat:2}}</td>
+      <td>{{object.nutrition_data.kilojoules_serve}}</td>
+      <td>{{object.nutrition_data.kilocalories_serve|css_progressbar:200}}</td>
+      <td>{{object.nutrition_data.protein_serve|css_progressbar:100}}</td>
+      <td>{{object.nutrition_data.fibre_serve|css_progressbar:50}}</td>
+      <td>{{object.nutrition_data.carbohydrate_serve|css_progressbar:100}}</td>
+      <td>{{object.nutrition_data.fat_serve|css_progressbar:50}}</td>
+      <td>{{object.nutrition_data.protein_per_cost|css_progressbar:100}}</td>
+      <td>{{object.nutrition_data.fibre_per_cost|css_progressbar:50}}</td>
+      <td>{{object.nutrition_data.protein_per_j|css_progressbar:100}}</td>
+      <td>{{object.nutrition_data.fibre_per_j|css_progressbar:50}}</td>
+      <td>{{object.nutrition_data.rank|css_progressbar:50}}</td>
+   </tr>
+</table>
+
+<h3>Used in Recipes:</h3>
+
+<ul>
+   {% for slug,name in object.used_in_recipes.items %}
+      <li><a href="{% url 'recipe-detail' slug %}">{{ name }}</a></li>
+   {% empty %}
+      (none)
+   {% endfor %}
+</ul>
+
+<hr>
+
+<div class="w3-card-4 w3-container">
+<h3>Method:</h3>
+{{object.method}}
+</div>
+
+{% endblock %}
+
+

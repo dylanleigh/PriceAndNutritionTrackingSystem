@@ -1,0 +1,138 @@
+{% extends 'pants/base.html' %}
+
+{% load css_visuals %}
+
+{% block headline %}
+<h1>Price And Nutrition Tracking System</h1>
+{% endblock %}
+
+{% block content %}
+
+<h3>Daily Summary [UI TODO]:</h3>
+<table class="w3-table-all w3-hoverable">
+   <tr>
+      <th> </th>
+      <th> </th>
+      <th>KJ</th>
+      <th>KCal.</th>
+      <th>Prot.</th>
+      <th>Fibre</th>
+      <th>Fat</th>
+      <th>Carb.</th>
+      <th>Pro/kj</th>
+      <th>Fib/kj</th>
+      <th>Cost</th>
+   </tr><tr>
+      {% if daily_target %}
+         <th><a href="/targets"/>{{ daily_target.name }}</a></th>
+         <td>max</td>
+         {% with daily_target.maximum.nutrition_data as ndata %}
+            <td>{{ndata.kilojoules}}</td>
+            <td>{{ndata.kilocalories}}</td>
+            <td>{{ndata.protein}}</td>
+            <td>{{ndata.fibre}}</td>
+            <td>{{ndata.fat}}</td>
+            <td>{{ndata.carbohydrate}}</td>
+            <td>{{ndata.protein_per_j}}</td>
+            <td>{{ndata.fibre_per_j}}</td>
+            <td>${{ndata.cost}}</td>
+         {% endwith %}
+         </tr><tr><th> </th>
+         {% with daily_target.minimum.nutrition_data as ndata %}
+         <td>min</td>
+            <td>{{ndata.kilojoules}}</td>
+            <td>{{ndata.kilocalories}}</td>
+            <td>{{ndata.protein}}</td>
+            <td>{{ndata.fibre}}</td>
+            <td>{{ndata.fat}}</td>
+            <td>{{ndata.carbohydrate}}</td>
+            <td>{{ndata.protein_per_j}}</td>
+            <td>{{ndata.fibre_per_j}}</td>
+            <td>${{ndata.cost}}</td>
+         {% endwith %}
+
+      {% else %}
+         <th><a href="/targets"/>No Daily Target set!</a></th>
+            <td> </td>
+      {% endif %}
+   </tr><tr>
+      <th>Today</th>
+      <td> </td>
+      {% if daily_target %}
+         {% with daily_target.minimum.nutrition_data as ndata %}
+            <td>{{diary_today.kilojoules|css_progressbar:ndata.kilojoules}}</td>
+            <td>{{diary_today.kilocalories|css_progressbar:ndata.kilocalories}}</td>
+            <td>{{diary_today.protein|css_progressbar:ndata.protein}}</td>
+            <td>{{diary_today.fibre|css_progressbar:ndata.fibre}}</td>
+            <td>{{diary_today.fat|css_progressbar:ndata.fat}}</td>
+            <td>{{diary_today.carbohydrate|css_progressbar:ndata.carbohydrate}}</td>
+            <td>{{diary_today.protein_per_j|css_progressbar:ndata.protein_per_j}}</td>
+            <td>{{diary_today.fibre_per_j|css_progressbar:ndata.fibre_per_j}}</td>
+         {% endwith %}
+      {% else %}
+            <td>{{diary_today.kilojoules|css_progressbar:6500}}</td>
+            <td>{{diary_today.kilocalories|css_progressbar:1500}}</td>
+            <td>{{diary_today.protein|css_progressbar:120}}</td>
+            <td>{{diary_today.fibre|css_progressbar:40}}</td>
+            <td>{{diary_today.fat|css_progressbar:60}}</td>
+            <td>{{diary_today.carbohydrate|css_progressbar:150}}</td>
+            <td>{{diary_today.protein_per_j|css_progressbar:30}}</td>
+            <td>{{diary_today.fibre_per_j|css_progressbar:10}}</td>
+      {% endif %}
+            <td>{{diary_today.cost}}</td>
+   </tr><tr>
+      <th>Last 24 hours</th>
+      <td> </td>
+      {% if daily_target %}
+         {% with daily_target.maximum.nutrition_data as ndata %}
+            <td>{{diary_last24.kilojoules|css_progressbar:ndata.kilojoules}}</td>
+            <td>{{diary_last24.kilocalories|css_progressbar:ndata.kilocalories}}</td>
+            <td>{{diary_last24.protein|css_progressbar:ndata.protein}}</td>
+            <td>{{diary_last24.fibre|css_progressbar:ndata.fibre}}</td>
+            <td>{{diary_last24.fat|css_progressbar:ndata.fat}}</td>
+            <td>{{diary_last24.carbohydrate|css_progressbar:ndata.carbohydrate}}</td>
+            <td>{{diary_last24.protein_per_j|css_progressbar:ndata.protein_per_j}}</td>
+            <td>{{diary_last24.fibre_per_j|css_progressbar:ndata.fibre_per_j}}</td>
+         {% endwith %}
+      {% else %}
+         <td>{{diary_last24.kilojoules|css_progressbar:6500}}</td>
+         <td>{{diary_last24.kilocalories|css_progressbar:1500}}</td>
+         <td>{{diary_last24.protein|css_progressbar:120}}</td>
+         <td>{{diary_last24.fibre|css_progressbar:40}}</td>
+         <td>{{diary_last24.fat|css_progressbar:60}}</td>
+         <td>{{diary_last24.carbohydrate|css_progressbar:150}}</td>
+         <td>{{diary_last24.protein_per_j|css_progressbar:30}}</td>
+         <td>{{diary_last24.fibre_per_j|css_progressbar:10}}</td>
+      {% endif %}
+         <td>{{diary_last24.cost}}</td>
+   </tr>
+</table>
+
+<h3>PANTS Contents:</h3>
+<dl>
+   <dt><a href="/diary/">Diary</a></dt>
+   <dd>Record of food intake over the last two days by time period.
+   Older records can be seen at <a href="/diary/flat">/diary/flat</a>.</dd>
+   <dt><a href="/ingredients/">Ingredients</a></dt>
+   <dd>Generic ingredients, like "Rolled Oats", "Green Split Peas",
+   "Skim Milk", not any particular brand or store.
+   <br>You can compare relative data such as Protein per Joule or Fibre per
+   Dollar on the ingredients pages.</dd>
+   <dt><a href="/products/">Products</a></dt>
+   <dd>Specific versions of an ingredient like "Supermarket X's Own
+   Brand Skim Milk".</dd>
+   <dt><a href="/recipes/">Recipes</a></dt>
+   <dd>A collection of ingredients, showing the combined
+   nutritional value and cost of each serve of the recipe, as well as the relative
+   per-calorie and per-dollar values.</dd>
+   <dd>Recipes can include other recipes.</dd>
+   <dt><a href="/targets/">Targets</a></dt>
+   <dd>Daily targets; can also set targets for particular meals (e.g. a
+   pre/post workout meal.</dd>
+   <br>
+   <dt><a href="/about/">About page</a></dt>
+   <dd>Includes overview, todos, DB statistics and sanity checks.
+</dl>
+
+{% endblock %}
+

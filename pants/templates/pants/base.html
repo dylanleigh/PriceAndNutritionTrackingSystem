@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<html>
+<head>
+   {% block title %}
+   <title>P.A.N.T.S.</title>
+   {% endblock %}
+   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> {# FIXME Local #}
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+   <div class="page-headline w3-container">
+      {% block headline %}
+      <h1>P.A.N.T.S.</h1>
+      {% endblock %}
+   </div>
+   <div class="w3-container"> {# w3-row for sidebar #}
+      <div class="w3-bar w3-black w3-card-4 page-nav">
+         {% block topnav %}
+         <a href="/" class="w3-bar-item w3-button w3-mobile">Home</a>
+         <a href="/diary/" class="w3-bar-item w3-button w3-mobile">Diary</a>
+         <a href="/ingredients/" class="w3-bar-item w3-button w3-mobile">Ingredients</a>
+         <a href="/recipes/" class="w3-bar-item w3-button w3-mobile">Recipes</a>
+         <a href="/collections/" class="w3-bar-item w3-button w3-mobile">Collections</a>
+         <a href="/products/" class="w3-bar-item w3-button w3-mobile">Products</a>
+         <a href="/targets/" class="w3-bar-item w3-button w3-mobile">Targets</a>
+
+         <a href="/logout/" class="w3-bar-item w3-button w3-mobile
+         w3-right">Log out [{{ request.user.username }}]</a>
+         {% endblock %}
+         <a href="/about/" class="w3-bar-item w3-button w3-mobile
+         w3-right">About</a>
+      </div>
+      <div class="w3-container w3-padding">
+         <div class="w3-card-4">
+            <div class="page-content">
+               {% block content %}
+               {% endblock %}
+            </div>
+         </div>
+      </div>
+   </div>
+</body>
+</html>

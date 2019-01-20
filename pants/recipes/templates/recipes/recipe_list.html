@@ -1,0 +1,75 @@
+{% extends 'pants/base.html' %}
+
+{% load css_visuals %}
+
+{% block title %}
+<title>Recipes - P.A.N.T.S.</title>
+{% endblock %}
+
+{% block headline %}
+<h1>Recipes - P.A.N.T.S.</h1>
+{% endblock %}
+
+{% block content %}
+
+<p>
+   <a href="{% url 'recipe-csv-export' %}"
+      class="w3-button w3-black w3-round-large"> Export CSV </a>
+
+   <em>Tags:</em>
+   {% for t in alltags %}
+      <a href="{% url 'recipe-list-by-tag' t %}"
+      {% if t == tag.name %}
+         class="w3-button w3-green w3-round-large"
+      {% else %}
+         class="w3-button w3-black w3-round-large"
+      {% endif %}
+      >{{ t }}</a>
+   {% empty %}
+      (none)
+   {% endfor %}
+</p>
+
+<table class="w3-table-all w3-hoverable">
+      <tr>
+         <th>Recipe</th>
+         <th>Cost/s</th>
+         <th>KJ/serve</th>
+         <th>KCal/s.</th>
+         <th>Prot./s.</th>
+         <th>Fibre/s.</th>
+         <th>Carb/s.</th>
+         <th>Fat/s.</th>
+         <th>g/s.</th>
+         <th>Prot./$</th>
+         <th>Fibre/$</th>
+         <th>Prot./J</th>
+         <th>Fibre/J</th>
+         <th>Rank</th>
+      </tr>
+   {% for rec in object_list %}
+      <tr>
+         <th><a href="{% url 'recipe-detail' rec.slug %}">{{rec.name}}</a></th>
+         {% with rec.nutrition_data as ndata %}
+            <td>{{ndata.cost_serve|css_progressbar:2}}</td>
+            <td>{{ndata.kilojoules_serve|css_progressbar:2500}}</td>
+            <td>{{ndata.kilocalories_serve|css_progressbar:1000}}</td>
+            <td>{{ndata.protein_serve|css_progressbar:75}}</td>
+            <td>{{ndata.fibre_serve|css_progressbar:50}}</td>
+            <td>{{ndata.carbohydrate_serve|css_progressbar:75}}</td>
+            <td>{{ndata.fat_serve|css_progressbar:50}}</td>
+            <td>{{ndata.grams_serve|css_progressbar:300}}</td>
+            <td>{{ndata.protein_per_cost|css_progressbar:75}}</td>
+            <td>{{ndata.fibre_per_cost|css_progressbar:50}}</td>
+            <td>{{ndata.protein_per_j|css_progressbar:limits.protein_per_j}}</td>
+            <td>{{ndata.fibre_per_j|css_progressbar:limits.fibre_per_j}}</td>
+            <td>{{ndata.rank|css_progressbar:limits.rank}}</td>
+         {% endwith %}
+      </tr>
+  {% empty %}
+      <tr><th>No recipes loaded.</tr></th>
+   {% endfor %}
+</table>
+{% endblock %}
+
+

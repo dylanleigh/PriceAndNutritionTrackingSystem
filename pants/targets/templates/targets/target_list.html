@@ -1,0 +1,66 @@
+{% extends 'pants/base.html' %}
+
+{% load css_visuals %}
+
+{% block title %}
+<title>Targets - P.A.N.T.S.</title>
+{% endblock %}
+
+{% block headline %}
+<h1>Targets - P.A.N.T.S.</h1>
+{% endblock %}
+
+{% block content %}
+
+<p>
+   <a href="{% url 'ingredient-csv-export' %}"
+      class="w3-button w3-black w3-round-large"> Export CSV </a>
+</p>
+
+<table class="w3-table-all w3-hoverable">
+      <tr>
+         <th>Target</th>
+         <th>Cost</th>
+         <th>KJ</th>
+         <th>KCal</th>
+         <th>Prot. g</th>
+         <th>Fibre g</th>
+         <th>Fat g</th>
+         <th>Carb. g</th>
+         <th>Sugar g</th>
+      </tr>
+   {% for targ in object_list %}
+      <tr>
+         <th>{{targ.name}}</th>
+         {% with targ.maximum.nutrition_data as ndata %}
+            <td>${{ndata.cost}}</td>
+            <td>{{ndata.kilojoules}}</td>
+            <td>{{ndata.kilocalories}}</td>
+            <td>{{ndata.protein}}</td>
+            <td>{{ndata.fibre}}</td>
+            <td>{{ndata.fat}}</td>
+            <td>{{ndata.carbohydrate}}</td>
+            <td>{{ndata.sugar}}</td>
+         {% endwith %}
+      </tr>
+      <tr>
+         <th>FIXME TOGGLE {{targ.daily_target}}</th>
+         {% with targ.minimum.nutrition_data as ndata %}
+            <td>${{ndata.cost}}</td>
+            <td>{{ndata.kilojoules}}</td>
+            <td>{{ndata.kilocalories}}</td>
+            <td>{{ndata.protein}}</td>
+            <td>{{ndata.fibre}}</td>
+            <td>{{ndata.fat}}</td>
+            <td>{{ndata.carbohydrate}}</td>
+            <td>{{ndata.sugar}}</td>
+         {% endwith %}
+      </tr>
+      <tr>
+         <th> </th>
+      </tr>
+   {% empty %}
+      <tr><th>No targets set.</tr></th>
+   {% endfor %}
+</table>
+{% endblock %}

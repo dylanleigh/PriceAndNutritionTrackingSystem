@@ -1,0 +1,77 @@
+{% extends 'pants/base.html' %}
+
+{% load css_visuals %}
+
+{% block title %}
+<title>{{ object.name }} - P.A.N.T.S.</title>
+{% endblock %}
+
+{% block headline %}
+<h1>{{ object.name }} - P.A.N.T.S.</h1>
+{% endblock %}
+
+{% block content %}
+
+<p>{{object.description}}</p>
+
+<p>Tags:
+
+{% for tag in object.tags.all %} {# FIXME this should be in context with values_list #}
+ <a href="{% url 'ingredient-list-by-tag' tag.name %}">{{ tag.name }}</a>, 
+{% empty %}
+   (none)
+{% endfor %}
+</p>
+
+<h3>Nutrition Data:</h3>
+<table class="w3-table-all w3-hoverable">
+   {% with object.nutrition_data as ndata %}
+      <tr>
+         <th>KJ/kg</th>
+         <th>KCal/kg</th>
+         <th>Prot. g/kg</th>
+         <th>Fibre g/kg</th>
+         <th>Fat g/kg</th>
+         <th>Carb. g/kg</th>
+         <th>Sugar g/kg</th>
+      </tr><tr>
+         <td>{{ndata.kilojoules|css_progressbar:30000}}</td>
+         <td>{{ndata.kilocalories|css_progressbar:5000}}</td>
+         <td>{{ndata.protein|css_progressbar:1000}}</td>
+         <td>{{ndata.fibre|default_if_none:"???"|css_progressbar:1000}}</td>
+         <td>{{ndata.fat|default_if_none:" "|css_progressbar:1000}}</td>
+         <td>{{ndata.carbohydrate|default_if_none:" "|css_progressbar:1000}}</td>
+         <td>{{ndata.sugar|default_if_none:" "|css_progressbar:1000}}</td>
+      </tr><tr>
+         <th>Min. $/kg</th>
+         <th>Prot. g/J</th>
+         <th>Prot. g/$</th>
+         <th>Fibre g/J</th>
+         <th>Fibre g/$</th>
+         <th>Rank</th>
+      </tr><tr>
+            <td>${{ndata.cost|default_if_none:"?"|floatformat:2}}</td>
+            <td>{{ndata.protein_per_j|css_progressbar:75}}</td>
+            <td>{{ndata.protein_per_cost|css_progressbar:100}}</td>
+            <td>{{ndata.fibre_per_j|css_progressbar:100}}</td>
+            <td>{{ndata.fibre_per_cost|css_progressbar:100}}</td>
+            <td>{{ndata.rank|css_progressbar:5}}</td>
+      </tr>
+   {% endwith %}
+</table>
+
+<h3>Used in Recipes:</h3>
+
+<ul>
+   {% for slug,name in object.used_in_recipes.items %}
+      <li><a href="{% url 'recipe-detail' slug %}">{{ name }}</a></li>
+   {% empty %}
+      (none)
+   {% endfor %}
+</ul>
+
+<hr>
+
+{% endblock %}
+
+

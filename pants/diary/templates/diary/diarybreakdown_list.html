@@ -1,0 +1,247 @@
+{% extends 'pants/base.html' %}
+
+{% load css_visuals %}
+
+{% block title %}
+<title>Diary - P.A.N.T.S.</title>
+{% endblock %}
+
+{% block headline %}
+<h1>Diary - P.A.N.T.S.</h1>
+{% endblock %}
+
+{% block content %}
+
+<h3>{{ ref_today }} to {{ ref_now }}</h3>
+<table class="w3-table-all w3-hoverable">
+      <tr>
+         <th>Time</th>
+         <th>Name</th>
+         <th>Amt.</th>
+         <th>Srv.</th>
+         <th>KJ</th>
+         <th>KCal.</th>
+         <th>Prot.</th>
+         <th>Fibre</th>
+         <th>Carb.</th>
+         <th>Fat</th>
+         <th>Sugar</th>
+         <th>Pro/kj</th>
+         <th>Fib/kj</th>
+         <th>Cost</th>
+      </tr>
+   {% for entry in today_objects %}
+      <tr>
+         <th>{{entry.start_time|date:'H:i'}}</a></th>
+
+         {% if entry.of_ingredient %}
+            <td><a href="{% url 'ingredient-detail' entry.of_ingredient.slug %}">{{entry.name}}</a></td>
+         {% else %}
+            {% if entry.of_recipe %}
+               <td><a href="{% url 'recipe-detail' entry.of_recipe.slug %}">{{entry.name}}</a></td>
+            {% else %}
+               <td>{{entry.name}}</td>
+            {% endif %}
+         {% endif %}
+
+          {% with entry.nutrition_data as ndata %}
+            <td>{{entry.weight}}</td>
+            <td>{{entry.servings}}</td>
+            <td>{{ndata.kilojoules|css_progressbar:today_total.kilojoules}}</td>
+            <td>{{ndata.kilocalories|css_progressbar:today_total.kilocalories}}</td>
+            <td>{{ndata.protein|css_progressbar:today_total.protein}}</td>
+            <td>{{ndata.fibre|css_progressbar:today_total.fibre}}</td>
+            <td>{{ndata.carbohydrate|css_progressbar:today_total.carbohydrate}}</td>
+            <td>{{ndata.fat|css_progressbar:today_total.fat}}</td>
+            <td>{{ndata.sugar|css_progressbar:today_total.sugar}}</td>
+            <td>{{ndata.protein_per_j|css_progressbar:30}}</td>
+            <td>{{ndata.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{ndata.cost}}</td>
+         {% endwith %}
+      </tr>
+   {% endfor %}
+      <tr>
+         <th>Total</th>
+         <th>since midnight</th>
+         <td>{{today_total.grams}}</td>
+         <td> </td>
+         <td>{{today_total.kilojoules|css_progressbar:6500}}</td>
+         <td>{{today_total.kilocalories|css_progressbar:1500}}</td>
+         <td>{{today_total.protein|css_progressbar:120}}</td>
+         <td>{{today_total.fibre|css_progressbar:40}}</td>
+         <td>{{today_total.carbohydrate|css_progressbar:150}}</td>
+         <td>{{today_total.fat|css_progressbar:60}}</td>
+         <td>{{today_total.sugar|css_progressbar:80}}</td>
+         <td>{{today_total.protein_per_j|css_progressbar:30}}</td>
+         <td>{{today_total.fibre_per_j|css_progressbar:10}}</td>
+         <td>{{today_total.cost}}</td>
+      </tr>
+</table>
+
+<h3>{{ ref_last24 }} to {{ ref_today }}</h3>
+<table class="w3-table-all w3-hoverable">
+      <tr>
+         <th>Time</th>
+         <th>Name</th>
+         <th>Amt.</th>
+         <th>Srv.</th>
+         <th>KJ</th>
+         <th>KCal.</th>
+         <th>Prot.</th>
+         <th>Fibre</th>
+         <th>Carb.</th>
+         <th>Fat</th>
+         <th>Sugar</th>
+         <th>Pro/kj</th>
+         <th>Fib/kj</th>
+         <th>Cost</th>
+      </tr>
+   {% for entry in last24_objects %}
+      <tr>
+         <th>{{entry.start_time|date:'H:i'}}</a></th>
+
+         {% if entry.of_ingredient %}
+            <td><a href="{% url 'ingredient-detail' entry.of_ingredient.slug %}">{{entry.name}}</a></td>
+         {% else %}
+            {% if entry.of_recipe %}
+               <td><a href="{% url 'recipe-detail' entry.of_recipe.slug %}">{{entry.name}}</a></td>
+            {% else %}
+               <td>{{entry.name}}</td>
+            {% endif %}
+         {% endif %}
+
+          {% with entry.nutrition_data as ndata %}
+            <td>{{entry.weight}}</td>
+            <td>{{entry.servings}}</td>
+            <td>{{ndata.kilojoules|css_progressbar:2000}}</td>
+            <td>{{ndata.kilocalories|css_progressbar:500}}</td>
+            <td>{{ndata.protein|css_progressbar:40}}</td>
+            <td>{{ndata.fibre|css_progressbar:20}}</td>
+            <td>{{ndata.carbohydrate|css_progressbar:40}}</td>
+            <td>{{ndata.fat|css_progressbar:20}}</td>
+            <td>{{ndata.sugar|css_progressbar:20}}</td>
+            <td>{{ndata.protein_per_j|css_progressbar:30}}</td>
+            <td>{{ndata.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{ndata.cost}}</td>
+         {% endwith %}
+      </tr>
+   {% endfor %}
+      <tr>
+         <th>Total</th>
+         <th>this period only</th>
+         <td>{{last24_total.grams}}</td>
+         <td> </td>
+         <td>{{last24_total.kilojoules|css_progressbar:6500}}</td>
+         <td>{{last24_total.kilocalories|css_progressbar:1500}}</td>
+         <td>{{last24_total.protein|css_progressbar:120}}</td>
+         <td>{{last24_total.fibre|css_progressbar:40}}</td>
+         <td>{{last24_total.carbohydrate|css_progressbar:150}}</td>
+         <td>{{last24_total.fat|css_progressbar:60}}</td>
+         <td>{{last24_total.sugar|css_progressbar:80}}</td>
+         <td>{{last24_total.protein_per_j|css_progressbar:30}}</td>
+         <td>{{last24_total.fibre_per_j|css_progressbar:10}}</td>
+         <td>{{last24_total.cost}}</td>
+      </tr>
+      <tr>
+         <th>Total</th>
+         <th>last 24 hours</th>
+         <td>{{last24_sum.grams}}</td>
+         <td> </td>
+         <td>{{last24_sum.kilojoules|css_progressbar:6500}}</td>
+         <td>{{last24_sum.kilocalories|css_progressbar:1500}}</td>
+         <td>{{last24_sum.protein|css_progressbar:120}}</td>
+         <td>{{last24_sum.fibre|css_progressbar:40}}</td>
+         <td>{{last24_sum.carbohydrate|css_progressbar:150}}</td>
+         <td>{{last24_sum.fat|css_progressbar:60}}</td>
+         <td>{{last24_sum.sugar|css_progressbar:80}}</td>
+         <td>{{last24_sum.protein_per_j|css_progressbar:30}}</td>
+         <td>{{last24_sum.fibre_per_j|css_progressbar:10}}</td>
+         <td>{{last24_sum.cost}}</td>
+      </tr>
+</table>
+
+<h3>{{ ref_lastday }} to {{ ref_last24 }}</h3>
+<table class="w3-table-all w3-hoverable">
+      <tr>
+         <th>Time</th>
+         <th>Name</th>
+         <th>Amt.</th>
+         <th>Srv.</th>
+         <th>KJ</th>
+         <th>KCal.</th>
+         <th>Prot.</th>
+         <th>Fibre</th>
+         <th>Carb.</th>
+         <th>Fat</th>
+         <th>Sugar</th>
+         <th>Pro/kj</th>
+         <th>Fib/kj</th>
+         <th>Cost</th>
+      </tr>
+   {% for entry in lastday_objects %}
+      <tr>
+         <th>{{entry.start_time|date:'H:i'}}</a></th>
+
+         {% if entry.of_ingredient %}
+            <td><a href="{% url 'ingredient-detail' entry.of_ingredient.slug %}">{{entry.name}}</a></td>
+         {% else %}
+            {% if entry.of_recipe %}
+               <td><a href="{% url 'recipe-detail' entry.of_recipe.slug %}">{{entry.name}}</a></td>
+            {% else %}
+               <td>{{entry.name}}</td>
+            {% endif %}
+         {% endif %}
+
+          {% with entry.nutrition_data as ndata %}
+            <td>{{entry.weight}}</td>
+            <td>{{entry.servings}}</td>
+            <td>{{ndata.kilojoules|css_progressbar:2000}}</td>
+            <td>{{ndata.kilocalories|css_progressbar:500}}</td>
+            <td>{{ndata.protein|css_progressbar:40}}</td>
+            <td>{{ndata.fibre|css_progressbar:20}}</td>
+            <td>{{ndata.carbohydrate|css_progressbar:40}}</td>
+            <td>{{ndata.fat|css_progressbar:20}}</td>
+            <td>{{ndata.sugar|css_progressbar:20}}</td>
+            <td>{{ndata.protein_per_j|css_progressbar:30}}</td>
+            <td>{{ndata.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{ndata.cost}}</td>
+         {% endwith %}
+      </tr>
+   {% endfor %}
+      <tr>
+         <th>Total</th>
+         <th>this period only</th>
+         <td>{{lastday_total.grams}}</td>
+         <td> </td>
+         <td>{{lastday_total.kilojoules|css_progressbar:6500}}</td>
+         <td>{{lastday_total.kilocalories|css_progressbar:1500}}</td>
+         <td>{{lastday_total.protein|css_progressbar:120}}</td>
+         <td>{{lastday_total.fibre|css_progressbar:40}}</td>
+         <td>{{lastday_total.carbohydrate|css_progressbar:150}}</td>
+         <td>{{lastday_total.fat|css_progressbar:60}}</td>
+         <td>{{lastday_total.sugar|css_progressbar:80}}</td>
+         <td>{{lastday_total.protein_per_j|css_progressbar:30}}</td>
+         <td>{{lastday_total.fibre_per_j|css_progressbar:10}}</td>
+         <td>{{lastday_total.cost}}</td>
+      </tr>
+      <tr>
+         <th>Total</th>
+         <th>yesterday</th>
+         <td>{{lastday_sum.grams}}</td>
+         <td> </td>
+         <td>{{lastday_sum.kilojoules|css_progressbar:6500}}</td>
+         <td>{{lastday_sum.kilocalories|css_progressbar:1500}}</td>
+         <td>{{lastday_sum.protein|css_progressbar:120}}</td>
+         <td>{{lastday_sum.fibre|css_progressbar:40}}</td>
+         <td>{{lastday_sum.carbohydrate|css_progressbar:150}}</td>
+         <td>{{lastday_sum.fat|css_progressbar:60}}</td>
+         <td>{{lastday_sum.sugar|css_progressbar:80}}</td>
+         <td>{{lastday_sum.protein_per_j|css_progressbar:30}}</td>
+         <td>{{lastday_sum.fibre_per_j|css_progressbar:10}}</td>
+         <td>{{lastday_sum.cost}}</td>
+      </tr>
+</table>
+
+{% endblock %}
+
+
