@@ -21,7 +21,12 @@
 </dl>
 
 <h3>About PANTS</h3>
-<p>PANTS is an open source tool designed for:</p>
+
+<p>PANTS is a self-hosted, open-source nutrition tracking system. It can
+be run on your own computer or as a multiuser web service
+(e.g. for use by a dietician/trainer and their clients).</p>
+
+<p>In particular it is designed for:</p>
 <ul>
    <li>Tracking the calories and other nutrients in your food, especially
    things cooked frequently</li>
@@ -33,7 +38,7 @@
    <li>Long term dietary planning - working out which products or
    recipes you want to include regularly in your diet.</li>
 </ul>
-<p>PANTS is not made for:</p>
+<p>PANTS is not ideal for:</p>
 <ul>
    <li>Tracking ready-to-eat/takeaway/restaraunt meals or prepackaged
    snack foods (rather than stuff you prepare yourself from basic ingredients)</li>
@@ -62,6 +67,8 @@
  almost-identical code across ingredient/recipe/diary)</li>
    <li>Fix per-serve/per-weight dichotomy in recipe components</li>
    <li>Merge recipe and ingredient handling in diary save() and elsewhere</li>
+   <li>Allow filtering on calculated ndata</li>
+   <li>Remove NDATA_ settings cruft</li>
    <li>ndata should handle micronutrients in some generic way</li>
    <br>
    <h4>API / filter</h4>
@@ -69,6 +76,7 @@
    improvements until this is done!</li>
    <li>Use django-filter (replace custom tag view handling etc) (work in
    progress)</li>
+   <li>Allow filtering on calculated ndata</li>
    <li>Fix/style form in ing-filter template</li>
    <li>filter recipe, diary as for ings</li>
    <br>
