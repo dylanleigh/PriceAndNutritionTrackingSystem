@@ -20,7 +20,7 @@
    <dd> {{ target_count }} Targets</dd>
 </dl>
 
-<h3>What is (are?) PANTS for?</h3>
+<h3>About PANTS</h3>
 <p>PANTS is designed for:</p>
 <ul>
    <li>Tracking the calories and nutrients in your food, especially
@@ -42,19 +42,6 @@
    there for long-term planning)</li>
    <li>Comparing the cost of products across different regions.</li>
 </ul>
-
-<h3>Removed Sections:</h3>
-<dl>
-   <dt><a>Plots</a></dt>
-   <dd>Recipes/Ingredients now have a CSV export button, use that to
-   create charts externally via a spreadsheet.</dd>
-   <dt><a>Amino Acids</a></dt>
-   <dd>The original design was intended to handle detailed micronutrient
-   stats (including individual amino acids, minerals, EFAs, fibre types)
-   but when the nutrients object was merged into ingredient this was
-   dropped. It was very underused but may be readded when the
-   nutrient_data class/cache system is reworked to be less kludgy - see TODOs</dd>
-</dl>
 
 <h3>TODOs (including known bugs/issues/kludges):</h3>
 <ol>
@@ -126,6 +113,24 @@
    <li>User preferences (e.g. KJ or calories display, don't show some columns)</li>
    <li>User-custom data (consider split DB vs duped tables?)</li>
 </ol>
+
+<h3>Removed Features:</h3>
+<dl>
+   <dt>Collections</dt>
+   <dd>Never properly implemented; need for this is reduced by heavier
+   use of tags, using recursive recipes (e.g. an "ideal day" as a
+   recipe), better frontend comparison tools and CSV export to
+   spreadsheet for doing analysis there.
+   <dt>Plots</dt>
+   <dd>Recipes/Ingredients now have a CSV export button, use that to
+   create charts externally via a spreadsheet.</dd>
+   <dt>Amino Acids</dt>
+   <dd>The original design was intended to handle detailed micronutrient
+   stats (including individual amino acids, minerals, EFAs, fibre types)
+   but when the nutrients object was merged into ingredient this was
+   dropped. It was very underused but may be readded when the
+   nutrient_data class/cache system is reworked to be less kludgy - see TODOs</dd>
+</dl>
 
 {% endblock %}
 
