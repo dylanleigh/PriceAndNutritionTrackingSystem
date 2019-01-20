@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django_filters.views import FilterView
 
 from . import views
-from .models import Ingredient
+from .filters import IngredientFilter
 
 urlpatterns = [
    # /ingredients/   # TODO: Make a landing page?
@@ -26,7 +26,7 @@ urlpatterns = [
    # /ingredients/list/<args>/
    url(
       r'^list/$',
-      FilterView.as_view(model=Ingredient),
+      FilterView.as_view(filterset_class=IngredientFilter),
       name='ingredient-list',
    ),
 
