@@ -1,1 +1,11 @@
 *.pyc
+.svn/
+bin/
+include/
+lib/
+model-overview.png
+model-recurse-overview.png
+pants/backups/
+pants/db.sqlite3
+share/
+
