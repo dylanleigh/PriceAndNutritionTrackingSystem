@@ -1,9 +1,11 @@
 from django.conf.urls import url
+from django_filters.views import FilterView
 
 from . import views
+from .models import Ingredient
 
 urlpatterns = [
-   # /ingredients/
+   # /ingredients/   # TODO: Make a landing page?
    url(r'^$', views.IngredientListView.as_view(), name='ingredient-list'),
 
    # /ingredients/all/
@@ -20,16 +22,24 @@ urlpatterns = [
       name='ingredient-csv-export',
    ),
 
-   # /ingredients/tag/<tag>/
+   # Django-filter list
+   # /ingredients/list/<args>/
+   url(
+      r'^list/$',
+      FilterView.as_view(model=Ingredient),
+      name='ingredient-list',
+   ),
+
+   # TODO deprecated by above filter /ingredients/tag/<tag>/
    url(
       r'^tag/([0-9A-Za-z_-]+)/$',
       views.IngredientListByTagView.as_view(),
       name='ingredient-list-by-tag',
    ),
 
-   # /ingredients/<slug>/    #NOTE: Can't be /all/, /tag/ or /csvexport/
+   # /ingredients/detail/<slug>/
    url(
-      r'^(?P<slug>[0-9A-Za-z_-]+)/$',
+      r'^detail/(?P<slug>[0-9A-Za-z_-]+)/$',
       views.IngredientDetailView.as_view(),
       name='ingredient-detail',
    ),
