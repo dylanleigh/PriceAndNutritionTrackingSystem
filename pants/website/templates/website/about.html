@@ -51,40 +51,46 @@
    <dt><a>Amino Acids</a></dt>
    <dd>The original design was intended to handle detailed micronutrient
    stats (including individual amino acids, minerals, EFAs, fibre types)
-   but was unworkable without nutrients as a generic, separate DB
-   object, which in turn was dropped as it was making work on
-   recipe/diary hard and the micronutrient tracking features were
-   underused. It may be readded when the nutrient_data class/cache
-   system is reworked to be less kludgy - see TODOs</dd>
+   but when the nutrients object was merged into ingredient this was
+   dropped. It was very underused but may be readded when the
+   nutrient_data class/cache system is reworked to be less kludgy - see TODOs</dd>
 </dl>
 
 <h3>TODOs (including known bugs/issues/kludges):</h3>
 <ol>
+   <h4>Urgent</h4>
+   <li><b>Unit tests are severely incomplete!</b></li>
+   <li>Fix all the kludgy FIXMEs in the code</li>
+   <br>
+   <h4>Target comparison</h4>
    <li>Util funcs to get current user daily target, and current user
-   diary today/last24 data (done)</li>
+   diary today/last24 data (done, used on home page)</li>
    <li>Use to show target on diary breakdown page</li>
    <li>Use target on recipe/ingredient detail pages</li>
    <br>
+   <h4>NData and calculation DRYing</h4>
    <li>all the nutrition_data properties should be its own class that generates/caches individual
-# values as required and enforces access/validation/etc, and does
-# operations like summing and averaging (would DRY a lot of code across ingredient/recipe/diary)</li>
+ values as required and enforces access/validation/etc, and does
+ operations like summing and averaging (would remove LOTS of
+ almost-identical code across ingredient/recipe/diary)</li>
    <li>Fix per-serve/per-weight dichotomy in recipe components</li>
    <li>Merge recipe and ingredient handling in diary save() and elsewhere</li>
+   <li>ndata should handle micronutrients in some generic way</li>
    <br>
+   <h4>Deploy tasks</h4>
    <li>Deploy target assuming Heroku - include sub-parts below</li>
    <li>Proper non-admin login page</li>
    <li>Use login middleware instead of requiring mixins/decorators every view</li>
    <li>logout working</li>
    <li>404 template</li>
    <br>
-   <li><b>Unit tests are severely incomplete!</b></li>
-   <li>Fix all the kludgy FIXMEs in the code</li>
-   <br>
+   <h4>API</h4>
    <li>API-based frontend? Use DRF API - Don't bother with substatial FE
    improvements until this is done!</li>
    <li>Use django-filter (replace custom tag view handling etc) (work in
    progress)</li>
    <br>
+   <h4>Misc</h4>
    <li>Add preparation_loss_factor to ingredient for e.g. peeling and
    trimming losses (can be half quantity for some vegetables, making
    them less cost-effective; also required for shopping list quantities etc)</li>
