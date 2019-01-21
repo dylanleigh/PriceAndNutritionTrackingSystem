@@ -29,7 +29,7 @@ PANTS is *not* ideal for:
 - Determing the best place to buy a shopping list of items (cost is not designed to be updated regularly or automatically, it is there for long-term planning).
 - Comparing the cost of products across different regions.
 
-Features and Glossary
+Overview and Features
 =====================
 
 There are 5 basic sections of the system:
@@ -59,6 +59,8 @@ Targets
    Minimum and Maximum nutritional and cost values you are aiming to
    reach each day. As well as daily targets you can also set targets
    for particular meals (e.g. a pre/post workout meal).
+
+Some example screenshots can be seen at https://github.com/dylanleigh/PriceAndNutritionTrackingSystem/tree/master/screenshots
 
 Other Feature Notes and Tips
 ----------------------------
