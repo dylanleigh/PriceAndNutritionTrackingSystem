@@ -65,16 +65,31 @@
          <th>since midnight</th>
          <td>{{today_total.grams}}</td>
          <td> </td>
-         <td>{{today_total.kilojoules|css_progressbar:6500}}</td>
-         <td>{{today_total.kilocalories|css_progressbar:1500}}</td>
-         <td>{{today_total.protein|css_progressbar:120}}</td>
-         <td>{{today_total.fibre|css_progressbar:40}}</td>
-         <td>{{today_total.carbohydrate|css_progressbar:150}}</td>
-         <td>{{today_total.fat|css_progressbar:60}}</td>
-         <td>{{today_total.sugar|css_progressbar:80}}</td>
-         <td>{{today_total.protein_per_j|css_progressbar:30}}</td>
-         <td>{{today_total.fibre_per_j|css_progressbar:10}}</td>
-         <td>{{today_total.cost}}</td>
+         {% if daily_target %}
+            {% with daily_target.maximum.nutrition_data as max_ndata %}
+               <td>{{today_total.kilojoules|css_progressbar:max_ndata.kilojoules}}</td>
+               <td>{{today_total.kilocalories|css_progressbar:max_ndata.kilocalories}}</td>
+               <td>{{today_total.protein|css_progressbar:max_ndata.protein}}</td>
+               <td>{{today_total.fibre|css_progressbar:max_ndata.fibre}}</td>
+               <td>{{today_total.carbohydrate|css_progressbar:max_ndata.carbohydrate}}</td>
+               <td>{{today_total.fat|css_progressbar:max_ndata.fat}}</td>
+               <td>{{today_total.sugar|css_progressbar:max_ndata.sugar}}</td>
+               <td>{{today_total.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
+               <td>{{today_total.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
+               <td>{{today_total.cost}}</td>
+            {% endwith %}
+         {% else %}
+            <td>{{today_total.kilojoules|css_progressbar:6500}}</td>
+            <td>{{today_total.kilocalories|css_progressbar:1500}}</td>
+            <td>{{today_total.protein|css_progressbar:120}}</td>
+            <td>{{today_total.fibre|css_progressbar:40}}</td>
+            <td>{{today_total.carbohydrate|css_progressbar:150}}</td>
+            <td>{{today_total.fat|css_progressbar:60}}</td>
+            <td>{{today_total.sugar|css_progressbar:80}}</td>
+            <td>{{today_total.protein_per_j|css_progressbar:30}}</td>
+            <td>{{today_total.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{today_total.cost}}</td>
+         {% endif %}
       </tr>
       {% if daily_target %}
          <tr>
