@@ -79,10 +79,13 @@ comes with a Makefile which TODO
 Developer Notes
 ===============
 
-Roadmap/TODO/Bugs
------------------
+As mentioned earlier the code contains many TODO
 
-   - See seperate file TODO
+
+Roadmap, Todos and Issues
+-------------------------
+
+See https://github.com/dylanleigh/PriceAndNutritionTrackingSystem/blob/master/TODO.rst
 
 Removed Features
 ================
