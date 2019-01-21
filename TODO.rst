@@ -13,8 +13,9 @@ Target comparison (Currently WIP)
 =================================
 
 - Util funcs to get current user daily target, and current user diary today/last24 data (done, used on home page)
-- Use to show target on diary breakdown page
-- Use target on recipe/ingredient detail pages
+- Use to show target on diary breakdown page (done, just last calendar day so far)
+- Add daily target comparison on recipe/ingredient detail pages
+- Add daily target comparison as an option on recipe/ingredient list pages
 
 NData and calculation DRYing
 ============================
@@ -29,12 +30,12 @@ NData and calculation DRYing
 API / filter (Currently WIP)
 ============================
 
-- API-based frontend? Use DRF API - Don't bother with substatial FE improvements until this is done!
 - Use django-filter (replace custom tag view handling etc) (work in progress, mostly done)
 - Limits and other context in FilterView
 - Allow filtering on calculated ndata
 - Fix/style form in ing-filter template
 - filter recipe, diary as for ings
+- API-based frontend? Use DRF API - Don't bother with substatial FE improvements until this is done!
 
 Deploy tasks
 ============
