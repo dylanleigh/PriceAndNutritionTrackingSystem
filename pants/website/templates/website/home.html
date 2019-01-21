@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<h3>Daily Summary [UI TODO]:</h3>
+<h3>Daily Summary</h3>
 <table class="w3-table-all w3-hoverable">
    <tr>
       <th> </th>
@@ -22,22 +22,10 @@
       <th>Pro/kj</th>
       <th>Fib/kj</th>
       <th>Cost</th>
-   </tr><tr>
+   </tr>
       {% if daily_target %}
+      <tr>
          <th><a href="/targets"/>{{ daily_target.name }}</a></th>
-         <td>max</td>
-         {% with daily_target.maximum.nutrition_data as ndata %}
-            <td>{{ndata.kilojoules}}</td>
-            <td>{{ndata.kilocalories}}</td>
-            <td>{{ndata.protein}}</td>
-            <td>{{ndata.fibre}}</td>
-            <td>{{ndata.fat}}</td>
-            <td>{{ndata.carbohydrate}}</td>
-            <td>{{ndata.protein_per_j}}</td>
-            <td>{{ndata.fibre_per_j}}</td>
-            <td>${{ndata.cost}}</td>
-         {% endwith %}
-         </tr><tr><th> </th>
          {% with daily_target.minimum.nutrition_data as ndata %}
          <td>min</td>
             <td>{{ndata.kilojoules}}</td>
@@ -106,6 +94,22 @@
       {% endif %}
          <td>{{diary_last24.cost}}</td>
    </tr>
+      {% if daily_target %}
+         <th><a href="/targets"/>{{ daily_target.name }}</a></th>
+         <td>max</td>
+         {% with daily_target.maximum.nutrition_data as ndata %}
+            <td>{{ndata.kilojoules}}</td>
+            <td>{{ndata.kilocalories}}</td>
+            <td>{{ndata.protein}}</td>
+            <td>{{ndata.fibre}}</td>
+            <td>{{ndata.fat}}</td>
+            <td>{{ndata.carbohydrate}}</td>
+            <td>{{ndata.protein_per_j}}</td>
+            <td>{{ndata.fibre_per_j}}</td>
+            <td>${{ndata.cost}}</td>
+         {% endwith %}
+         </tr>
+      {% endif %}
 </table>
 
 <br><br>
