@@ -23,30 +23,8 @@
 <h3>About PANTS</h3>
 
 <p>PANTS is a self-hosted, open-source nutrition tracking and analysis
-system. It can be run on your own computer or as a multiuser web service
-(e.g. for use by a dietician/trainer and their clients).</p>
-
-<p>In particular it is designed for:</p>
-<ul>
-   <li>Tracking the calories and other nutrients in your food, especially
-   things cooked frequently</li>
-   <li>Storing a list of recipes, and determining the cost and nutritional values of a recipe</li>
-   <li>Comparing the cost and nutritional values of different
-   ingredients or recipes <br>(e.g. "What food has the most
-   protein-per-dollar?" or "Which of these recipes has the least
-   calories but is still high in fibre?")</li>
-   <li>Long term dietary planning - working out which products or
-   recipes you want to include regularly in your diet.</li>
-</ul>
-<p>PANTS is not ideal for:</p>
-<ul>
-   <li>Tracking ready-to-eat/takeaway/restaraunt meals or prepackaged
-   snack foods (rather than stuff you prepare yourself from basic ingredients)</li>
-   <li>Determing the best place to buy a shopping list of items 
-   (cost is not designed to be updated regularly or automatically, it is
-   there for long-term planning)</li>
-   <li>Comparing the cost of products across different regions.</li>
-</ul>
+system. <a href="https://github.com/dylanleigh/PriceAndNutritionTrackingSystem">Code
+and Documentation is available on GitHub.</a></p>
 
 <h3>TODOs (including known bugs/issues/kludges):</h3>
 <ol>
@@ -122,24 +100,6 @@ system. It can be run on your own computer or as a multiuser web service
    <li>User preferences (e.g. KJ or calories display, don't show some columns)</li>
    <li>User-custom data (consider split DB vs duped tables?)</li>
 </ol>
-
-<h3>Removed Features:</h3>
-<dl>
-   <dt>Collections</dt>
-   <dd>Never properly implemented; need for this is reduced by heavier
-   use of tags, using recursive recipes (e.g. an "ideal day" as a
-   recipe), better frontend comparison tools and CSV export to
-   spreadsheet for doing analysis there.
-   <dt>Plots</dt>
-   <dd>Recipes/Ingredients now have a CSV export button, use that to
-   create charts externally via a spreadsheet.</dd>
-   <dt>Amino Acids</dt>
-   <dd>The original design was intended to handle detailed micronutrient
-   stats (including individual amino acids, minerals, EFAs, fibre types)
-   but when the nutrients object was merged into ingredient this was
-   dropped. It was very underused but may be readded when the
-   nutrient_data class/cache system is reworked to be less kludgy - see TODOs</dd>
-</dl>
 
 {% endblock %}
 
