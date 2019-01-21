@@ -13,6 +13,9 @@ so updates should be fairly frequent. On the other hand, the code
 tends to be quick and dirty as new things get added because
 the author wanted to use them ASAP while cooking his dinner.
 
+It is currently not recommended for non-technical users; basic
+familiarity with Django is useful.
+
 Use Cases
 =========
 
@@ -86,6 +89,13 @@ comes with a requirements.txt for pip::
    . bin/activate
    git clone https://github.com/dylanleigh/PriceAndNutritionTrackingSystem.git
    pip install -r requirements.txt
+
+Requirements
+------------
+
+- Django 1.11+
+- Django-extensions 1.8+
+- Future versions may require djangorestframework and django-filter.
 
 Setup
 -----
