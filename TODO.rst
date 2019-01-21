@@ -14,8 +14,6 @@ Target comparison (Currently WIP)
 
 - Util funcs to get current user daily target, and current user diary today/last24 data (done, used on home page)
 - Use to show target on diary breakdown page (done, just last calendar day so far)
-- Add daily target comparison on recipe/ingredient detail pages
-- Add daily target comparison as an option on recipe/ingredient list pages
 
 NData and calculation DRYing
 ============================
@@ -51,6 +49,8 @@ Miscellaneous
 
 - Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc
 - Add preparation_loss_factor to ingredient for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc)
+- Add daily target comparison on recipe/ingredient detail pages
+- Add daily target comparison as an option on recipe/ingredient list pages
 - View-on-site in all admin
 - "Favourite" (integer?) - use to sort, then updated-at
 - Multilayer navigation, put little-used components in a misc section
