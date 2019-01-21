@@ -155,8 +155,22 @@ Roadmap, Todos and Issues
 
 See https://github.com/dylanleigh/PriceAndNutritionTrackingSystem/blob/master/TODO.rst
 
+History
+=======
+
+PANTS grew out of a spreadsheet I was using in early 2017 to do
+nutritional analysis of different foods, looking for the best ratios
+of protein and fibre to calories and cost.
+
+I wanted to add recipes which combined different ingredients and this
+became so cumbersome I realised it would be easier to do in a DB and
+started the project in Django, importing the initial set of
+ingredients from the spreadsheet. Soon I also realised since I was
+entering in all my recipes here it would also be easier if I used it
+as my daily calorie counter and added that as well.
+
 Removed Features
-================
+----------------
 
 Collections
    Never properly implemented; need for this is reduced by heavier
@@ -169,10 +183,10 @@ Plots
    create charts externally via a spreadsheet.
 
 Amino Acids
-   The original design was intended to handle detailed micronutrient
+   The original design could intended to handle detailed micronutrient
    stats (including individual amino acids, minerals, EFAs, fibre types)
    but when the nutrients object was merged into ingredient this was
-   dropped. It was very underused but may be readded when the
+   dropped. It was rarely used, but may be readded when the
    nutrient_data class/cache system is reworked to be less kludgy - see TODOs
 
 Authors
