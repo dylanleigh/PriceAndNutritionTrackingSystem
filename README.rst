@@ -93,6 +93,8 @@ comes with a requirements.txt for pip::
 Requirements
 ------------
 
+These will be installed automatically via pip:
+
 - Django 1.11+
 - Django-extensions 1.8+
 - Future versions may require djangorestframework and django-filter.
@@ -105,7 +107,10 @@ ingredients, recipes etc::
 
    ./manage.py createsuperuser
 
-Then run the server locally and access it via a browser::
+Starting
+--------
+
+To run the server locally and access it via a browser::
 
    ./manage.py runserver
 
@@ -174,16 +179,16 @@ Removed Features
 
 Collections
    Never properly implemented; need for this is reduced by heavier
-   use of tags, using recursive recipes (e.g. an "ideal day" as a
-   recipe), better frontend comparison tools and CSV export to
-   spreadsheet for doing analysis there.
+   use of tags, creative use of recursive recipes (e.g. a "daily meal
+   plan" as a "recipe"), better frontend comparison tools and CSV
+   export to spreadsheet for doing analysis there.
 
 Plots
    Recipes/Ingredients now have a CSV export button, use that to
    create charts externally via a spreadsheet.
 
 Amino Acids
-   The original design could intended to handle detailed micronutrient
+   The original design could handle detailed micronutrient
    stats (including individual amino acids, minerals, EFAs, fibre types)
    but when the nutrients object was merged into ingredient this was
    dropped. It was rarely used, but may be readded when the
