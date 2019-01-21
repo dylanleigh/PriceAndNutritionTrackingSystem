@@ -51,8 +51,9 @@ Recipes
    per-calorie and per-dollar values.
 
 Diary
-   Record of food intake. By default, this shows the last two days,
-   split over both the last calendar day and the last 24 hours.
+   Record of food intake; compares the total to your target and also
+   shows how much each food contributed to your total for the time
+   period.
 
 Targets
    Minimum and Maximum nutritional and cost values you are aiming to
