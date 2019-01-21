@@ -14,7 +14,7 @@ tends to be quick and dirty as new things get added because
 the author wanted to use them ASAP while cooking his dinner.
 
 Use Cases
----------
+=========
 
 In particular PANTS is designed for:
 
