@@ -62,14 +62,14 @@ Targets
 Other Feature Notes and Tips
 ----------------------------
 
-- Ingredients and recipes can be tagged for easier searching and analysis; this makes it much easier to compare the fibre per calorie in different vegetables or the calories per serve of different desserts.
+- Ingredients and recipes can be tagged for easier searching and analysis; this makes it much easier to (for example) compare the fibre per calorie in different vegetables or the calories per serve of different desserts
 - PANTS prioritizes not showing bad data. If an ingredient has something missing (e.g. no fibre listed, no product so no prices), any derived statistics will also be missing (e.g. no fibre-per-kj, or no protein-per-$ if there is no price). This also means that recipes which use that ingredient will not show a value for the sum of fibre in that recipe until all ingredients have that data entered in.
 - Recursive recipes can be used for other semantic purposes, e.g. to make an "average breakfast" recipe which is your other breakfast recipes combined (then divided by number of serves). These can be in turn combined to make an "average day" overview which can be used as a meal plan.
 - Diary shows breakdown of nutrients by both calendar day and 24-hour periods, so it can be used by shift workers or those with irregular sleep cycles.
-- Diary entries are crystallized so future changes to a recipe do not past entries (on the other hand, changes to an ingredient/recipe immediately show up in any recipes which use them). 
-- Diary entries do not have to be linked to a specific ingredient/recipe/product, one off entries can be created with manual nutritional data e.g. when going out for the night and you can only guess how many calories are in dinner.
+- Diary entries are crystallized so future changes to a recipe do not affect past entries (on the other hand, changes to an ingredient/recipe immediately show up in any recipes which use them).
+- Diary entries do not have to be linked to a specific ingredient/recipe, one off diary entries can be created with manual nutritional data e.g. when going out for the night and you can only guess how many calories are in dinner.
 - All Australian standard nutritional data is stored (e.g. sodium and saturated fat) but not everything is shown in all views by default. There was support for micronutrients such as individual amino acids which was removed as part of a DB schema change but this is planned to be readded in a more stable way (see roadmap for details).
-- Diary is per-user, but ingredient/product/recipe are global. There are plans to add per-user recipes but this is very far down the roadmap as the focus is on adding features for personal use.
+- Diary is per-user, but ingredient/product/recipe are global. There are plans to add per-user recipes but this is very far down the roadmap as the focus is on adding features for personal use (it wouldn't be complex however).
 - A default target must be set for progress bars to appear on the data on the home page.
 
 Installation
@@ -110,28 +110,29 @@ ingredients which are missing nutritional data and other potential
 issues.
 
 No ingredients/recipes need to be created to start using the diary
-(although every entry will have to have all its data added manually).
+(although every entry will have to have all its data added manually if
+there are no recipes or ingredients to use).
 
 Developer Notes
 ===============
 
-As mentioned earlier the code contains many crufty bits because
+As mentioned earlier the code contains many crufty bits because many
 features were added quickly when immediately required.
 
 In particular, sets of "nutrition data" are often passed around as a
 dict with a few specific sets of keys (specified in settings) and
 there is an ongoing project to convert this to a class that manages it
 in a sane way, handling all comparisons, additions and per-weight
-calculations sensibly. A lot of future work is on hold pending this to
-be completed.
+calculations sensibly. A lot of future work is on hold pending this
+tech debt cleanup to be completed.
 
-Also, the django template backend is quite basic. It is not really
-intended for end-user use, only for personal or debugging purposes.
-All data entry including diary is done via the admin interface.
-Ideally "customer" users should access the service through an app or a
-single page frontend. Future frontend work will mostly therefore be
-via other projects (I do plan to add an Android app for my personal
-use).
+Also, the django template frontend is quite basic. It is not really
+intended for end-user use, only for personal or debugging purposes. It
+does not have any forms so all data entry including diary is done via
+the admin interface. Ideally "customer" users should access the
+service through an app or a single page frontend. Future frontend work
+will mostly therefore be via other projects using an API (I do plan to
+add an Android app for my personal use).
 
 See the todo list below for more details.
 
