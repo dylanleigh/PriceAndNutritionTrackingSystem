@@ -9,7 +9,9 @@ Urgent
 - ** Unit tests are severely incomplete!**
 - Fix all the kludgy FIXMEs in the code (see "make fixme" output)
 
-- Target comparison
+Target comparison (Currently WIP)
+=================================
+
 - Util funcs to get current user daily target, and current user
    diary today/last24 data (done, used on home page)
 - Use to show target on diary breakdown page
@@ -28,8 +30,8 @@ NData and calculation DRYing
 - Remove NDATA_ settings cruft
 - ndata should handle micronutrients in some generic way
 
-API / filter
-============
+API / filter (Currently WIP)
+============================
 
 - API-based frontend? Use DRF API - Don't bother with substatial FE
    improvements until this is done!

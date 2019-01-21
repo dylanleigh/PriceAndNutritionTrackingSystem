@@ -8,18 +8,26 @@ nutritional data analysis of ingredients and recipes. It can be run on
 your own computer or as a multiuser web service (e.g. for use by a
 dietician/trainer/researcher and their clients).
 
-In particular it is designed for:
+PANTS is currently (as of 2019) under active, daily use by the author
+so updates should be fairly frequent. On the other hand, the code
+tends to be quick and dirty as new things get added because
+the author wanted to use them ASAP while cooking his dinner.
+
+Use Cases
+---------
+
+In particular PANTS is designed for:
 
 - Tracking the calories and other nutrients in your food, especially things cooked frequently.
 - Storing a list of recipes, and determining the cost and
   nutritional values of a recipe.
-   - Storing recipes which are used in other recipes (recursively)
-     e.g. a dough recipe and a filling recipe can both be
-     components in a pie recipe.
+  - Storing recipes which are used in other recipes (recursively)
+    e.g. a dough recipe and a filling recipe can both be
+    components in a pie recipe.
 - Comparing the cost and nutritional values of different
   ingredients or recipes.
-   - "What food has the most protein-per-dollar?"
-   - "Which of these recipes has the least calories but is still high in fibre?"
+  - "What food has the most protein-per-dollar?"
+  - "Which of these recipes has the least calories but is still high in fibre?"
 - Long term dietary planning - working out which products or
   recipes you want to include regularly in your diet, based on cost
   and other factors.
@@ -67,8 +75,12 @@ Installation
 It is highly recommended that PANTS is installed in a virtualenv. It
 comes with a Makefile which TODO
 
+
+Developer Notes
+===============
+
 Roadmap/TODO/Bugs
-=================
+-----------------
 
    - See seperate file TODO
 
