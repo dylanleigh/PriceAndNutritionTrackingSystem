@@ -19,8 +19,7 @@ Target comparison (Currently WIP)
 NData and calculation DRYing
 ============================
 
-- all the nutrition_data properties should be its own class that generates/caches individual values as required and enforces access/validation/etc, and does operations like summing and averaging (would remove LOTS of
- almost-identical code across ingredient/recipe/diary)
+- all the nutrition_data properties should be its own class that generates/caches individual values as required and enforces access/validation/etc, and does operations like summing and averaging (would remove LOTS of almost-identical code across ingredient/recipe/diary)
 - Fix per-serve/per-weight dichotomy in recipe components
 - Merge recipe and ingredient handling in diary save() and elsewhere
 - Allow filtering on calculated ndata
