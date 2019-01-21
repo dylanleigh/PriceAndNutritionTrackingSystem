@@ -23,8 +23,8 @@
       <th>Fib/kj</th>
       <th>Cost</th>
    </tr>
-      {% if daily_target %}
       <tr>
+      {% if daily_target %}
          <th><a href="/targets"/>{{ daily_target.name }}</a></th>
          {% with daily_target.minimum.nutrition_data as ndata %}
          <td>min</td>
@@ -94,6 +94,7 @@
       {% endif %}
          <td>{{diary_last24.cost}}</td>
    </tr>
+   <tr>
       {% if daily_target %}
          <th><a href="/targets"/>{{ daily_target.name }}</a></th>
          <td>max</td>
