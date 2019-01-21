@@ -25,8 +25,8 @@ NData and calculation DRYing
 - Remove NDATA_ settings cruft
 - ndata should handle micronutrients in some generic way
 
-API / filter (Currently WIP)
-============================
+API / filter
+============
 
 - Use django-filter (replace custom tag view handling etc) (work in progress, mostly done)
 - Limits and other context in FilterView
@@ -39,9 +39,8 @@ Deploy tasks
 ============
 
 - Deploy target assuming Heroku - include sub-parts below
-- Proper non-admin login page
+- Proper non-admin login/logout pages
 - Use login middleware instead of requiring mixins/decorators every view
-- logout working
 - 404 template
 
 Miscellaneous
