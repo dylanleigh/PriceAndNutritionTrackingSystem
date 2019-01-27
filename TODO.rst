@@ -6,9 +6,10 @@ PANTS TODOs (including known bugs/issues/kludges)
 Urgent
 ======
 
-- Fix known issues from pre-release (some below)
 - ** Unit tests are severely incomplete! **
 - Fix all the kludgy FIXMEs in the code (see "make fixme" output)
+- Product list view half-finished
+- Fix per-serve/per-weight dichotomy in recipe components (waiting on Ndata work)
 - Provide a fixture with some initial basic ingredients and a few recipes so new users can get started ASAP.
 - Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc
 - Add preparation_loss_factor to ingredient for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc)
@@ -41,8 +42,8 @@ API / filter
 - filter recipe, diary as for ings
 - API-based frontend? Use DRF API - Don't bother with substatial FE improvements until this is done!
 
-Deploy tasks
-============
+Deploy and Login
+================
 
 - Deploy target assuming Heroku - include sub-parts below
 - Proper non-admin login/logout pages
@@ -74,6 +75,7 @@ Miscellaneous
 - Multilayer navigation, put little-used components in a misc section
 - Diary nav for historic data - ArchiveView / TodayArchiveView/ DayArchiveView ?
 - Diary edit/create/delete forms using generic views too
+- Product has no detail view
 - admin command or buttons on DE list view to export ALL ing data and ALL recipe data as big tables
 - Consider: Move to per-100g instead of per-kg?
 - Consider: Deprecate Product by merging price functionality into ProductPrice and making Ingredients recurse to more generic/specific versions? Product concept is underused
