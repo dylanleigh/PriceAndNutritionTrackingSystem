@@ -188,32 +188,32 @@ class Ingredient(AbstractBaseNutrients):
    #)
 
    @cached_property
-   def best_store(self):
+   def best_supplier(self):
       """
-      Return (store,price) with lowest price per kg from all products
+      Return (supplier,price) with lowest price per kg from all products
       of this ingredient, or (None,None).
-      Only use latest per-store price (exclude historic prices).
+      Only use latest per-supplier price (exclude historic prices).
       """
-      # FIXME fix this 
+      # FIXME fix this using method from product.lowest_price_kg
       best_price = None
-      best_store = None
-      for store in self.suppliers:
-         current_price = store.price_set.filter(
+      best_supplier = None
+      for supplier in self.suppliers:
+         current_price = supplier.price_set.filter(
             product__ingredient=self,
          ).latest(field_name='updated_at')
-         if best_store is None or current_price.per_kg < best_price.per_kg:
-            best_store = store
+         if best_supplier is None or current_price.per_kg < best_price.per_kg:
+            best_supplier = supplier
             best_price = current_price
-      return (best_store,best_price)
+      return (best_supplier,best_price)
 
    @cached_property
    def best_price(self):
       """
       Return lowest price per kg from all products of this ingredient.
-      Only use latest per-store price (exclude historic prices).
+      Only use latest per-supplier price (exclude historic prices).
       """
       # TODO Get this more efficiently without obtaining the store?
-      price = self.best_store[1]
+      price = self.best_supplier[1]
       if not price:
          return None
       return Decimal.quantize(price.per_kg, settings.DECIMAL_CENTS)   # round to cents

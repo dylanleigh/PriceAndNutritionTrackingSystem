@@ -15,12 +15,12 @@ not_negative = MinValueValidator(0)
 # Schema overview:
 # Supplier - just a name, maybe tags like online/bulk/etc
 # Product - one ingredient, brand string in descr
-#         - NOT unique per store, per brand, per product etc
+#         - NOT unique per supplier, per brand, per product etc
 #         - optional link to its own macronutrientset, else property
 #           to go through to generic
 #         - If products changing data - new product? mark older as
 #           old-pre-yyyy-mm
-# Price   - Unique product,store,date - and tracks weight
+# Price   - Unique product,supplier,date - and tracks weight
 #         - track historic prices or not?
 # ProductNutrient - (Not yet implemented) - override ingredient nutrients
 
@@ -54,7 +54,7 @@ class Supplier(models.Model):
       """
       Number of products this supplier has prices listed for
       """
-      return Product.objects.filter(price__store=self).distinct().count()
+      return Product.objects.filter(price__supplier=self).distinct().count()
 
 
 class Product(models.Model):
@@ -67,10 +67,15 @@ class Product(models.Model):
    Different quantities are determined in price; changes in size or
    packaging only are NOT different products.
    """
+
+   class Meta:
+      ordering = ["-updated_at"]
+      unique_together = ("name", "brand")
+
    name = models.CharField(
       max_length=settings.NAME_LENGTH,
       blank=False,
-      unique=True,   # FIXME name and brand unique together, name not unique
+      unique=False,   # NOTE name and brand unique together, but name not unique
    )
    slug = models.CharField(
       max_length=settings.SLUG_LENGTH,
@@ -78,6 +83,7 @@ class Product(models.Model):
       unique=True,
    )
    brand = models.CharField(max_length=settings.NAME_LENGTH,blank=False)
+
    description = models.CharField(max_length=settings.DESCR_LENGTH,blank=True)
    # TODO tags ("online", "bulk", "supermarket" etc)
 
@@ -100,7 +106,7 @@ class Product(models.Model):
    def lowest_price_kg(self):
       """
       Determines the lowest price per kg of all the most recent prices
-      at all stores
+      from all suppliers
       """
       pass # FIXME WIP awaiting rename migrate
       #return self.price_set.filter(
@@ -114,8 +120,7 @@ class Price(models.Model):
    Includes the weight of the product (we don't want to create a bunch
    of extra products when packaging or volume fluctuates!)
    """
-   # FIXME store renamed to supplier
-   store = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+   supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
    price = models.DecimalField(
@@ -133,7 +138,7 @@ class Price(models.Model):
    updated_at = models.DateTimeField(auto_now=True)
 
    def __str__(self):
-      return "%s@%s $%f/kg"%(self.product,self.store,self.per_kg)
+      return "%s@%s $%f/kg"%(self.product,self.supplier,self.per_kg)
 
    @cached_property
    def per_kg(self):

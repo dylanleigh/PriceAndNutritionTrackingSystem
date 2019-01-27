@@ -10,7 +10,7 @@ class IngredientAdmin(admin.ModelAdmin):
    save_as = True    # Allow cloning items by replacing "save and add another"
 
    list_display = ('name', 'updated_at', 'product_count')
-   readonly_fields = ('created_at','updated_at','suppliers','best_store','product_count')
+   readonly_fields = ('created_at','updated_at','suppliers','best_supplier','product_count')
    search_fields = ['name', 'description']
 
    fieldsets = (
@@ -41,7 +41,7 @@ class IngredientAdmin(admin.ModelAdmin):
                ('created_at','updated_at'),
                ('slug',),
                ('suppliers',),
-               ('best_store',),
+               ('best_supplier',),
             )
       }),
    )
