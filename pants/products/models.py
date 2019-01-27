@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models import F
 from django.template.defaultfilters import slugify
 from django.utils.functional import cached_property
 
@@ -40,7 +41,7 @@ class Supplier(models.Model):
       unique=True,
    )
    description = models.CharField(max_length=settings.DESCR_LENGTH,blank=True)
-   # TODO tags ("online", "bulk", "supermarket" etc)
+   # TODO tags ("online", "bulk", "supermarket" etc) ?
 
    def __str__(self):
       return self.name
@@ -94,15 +95,16 @@ class Product(models.Model):
          self.slug = slugify("%s_%s"%(self.brand, self.name)) # FIXME handle clashes
       super(Product, self).save(*args, **kwargs)
 
-   # FIXME manager methods instead of properties?
-
-#   @cached_property
-#   def lowest_price_kg(self):
-#      """
-#      Determines the lowest price per kg of all the most recent prices
-#      at all stores
-#      """
-#      return FIXME
+   # TODO manager method instead of properties?
+   @cached_property
+   def lowest_price_kg(self):
+      """
+      Determines the lowest price per kg of all the most recent prices
+      at all stores
+      """
+      pass # FIXME WIP awaiting rename migrate
+      #return self.price_set.filter(
+      #).first()
 
 
 class Price(models.Model):

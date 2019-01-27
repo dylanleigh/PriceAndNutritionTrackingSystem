@@ -194,7 +194,7 @@ class Ingredient(AbstractBaseNutrients):
       of this ingredient, or (None,None).
       Only use latest per-store price (exclude historic prices).
       """
-      # TODO how to do this efficiently? see above
+      # FIXME fix this 
       best_price = None
       best_store = None
       for store in self.suppliers:
@@ -212,7 +212,7 @@ class Ingredient(AbstractBaseNutrients):
       Return lowest price per kg from all products of this ingredient.
       Only use latest per-store price (exclude historic prices).
       """
-      # TODO how to do this efficiently?
+      # TODO Get this more efficiently without obtaining the store?
       price = self.best_store[1]
       if not price:
          return None
