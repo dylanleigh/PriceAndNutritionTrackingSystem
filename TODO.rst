@@ -6,18 +6,20 @@ PANTS TODOs (including known bugs/issues/kludges)
 Urgent
 ======
 
+- Fix known issues from pre-release (some below)
 - ** Unit tests are severely incomplete! **
 - Fix all the kludgy FIXMEs in the code (see "make fixme" output)
 - Provide a fixture with some initial basic ingredients and a few recipes so new users can get started ASAP.
 - Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc
 - Add preparation_loss_factor to ingredient for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc)
-- Add daily target comparison on recipe/ingredient detail pages
 
 Target comparison (Currently WIP)
 =================================
 
 - Util funcs to get current user daily target, and current user diary today/last24 data (done, used on home page)
 - Use to show target on diary breakdown page (done, just last calendar day so far)
+- Add daily target comparison on recipe/ingredient detail pages
+- Add chosen target comparison on recipe/ingredient detail pages (for pre/post workout targets etc)
 
 NData and calculation DRYing
 ============================
@@ -47,6 +49,22 @@ Deploy tasks
 - Use login middleware instead of requiring mixins/decorators every view
 - 404 template
 
+Exercise and Physiological Diary
+================================
+
+- Exercise diary item (start/stop time, calories, distance, etc)
+- Physiological data diary item (weight, resting pulse, peak breath flow, body tape measurements, body fat caliper measurements, blood sugar etc)
+- Show above in same table (3 rows of headers for item types)
+- Derived physio data (BMR, body fat % from multiple sources, lean mass...)
+- Deltas of physio data (weight loss, body fat % loss, lean mass gain etc)
+- Totals and other aggregates for exercise/physio data
+
+User Profiles
+=============
+
+- User-object to hold age,height etc (age required for some physio calcs)
+- User preferences for FE (e.g. KJ or calories display, don't show some columns)
+
 Miscellaneous
 =============
 
@@ -54,7 +72,6 @@ Miscellaneous
 - View-on-site in all admin
 - "Favourite" (integer?) - use to sort, then updated-at
 - Multilayer navigation, put little-used components in a misc section
-- Flat (view all) view for Ing/Rec
 - Diary nav for historic data - ArchiveView / TodayArchiveView/ DayArchiveView ?
 - Diary edit/create/delete forms using generic views too
 - admin command or buttons on DE list view to export ALL ing data and ALL recipe data as big tables
@@ -70,7 +87,6 @@ Miscellaneous
 - Flatten and/or Crystallize ingredients option on recipe detail view?
 - Collections app for free-form showcases of recipes, products and ingredients
 - Bottom nav buttons
-- Sanity Check page also listing out of date (e.g. nutrition over a year (?), price over a quarter) 
-- User preferences (e.g. KJ or calories display, don't show some columns)
-- User-custom data (consider split DB vs duped tables?)
+- Sanity Check page also listing out of date (e.g. nutrition over 2 year (?), price over 6 months) 
+- User-custom ing/rec data (Nullable user field; exclude if user!= request.user)
 
