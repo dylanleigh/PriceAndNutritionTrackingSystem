@@ -163,7 +163,7 @@ class Ingredient(AbstractBaseNutrients):
 
    def save(self, *args, **kwargs):
       if not self.slug:
-         self.slug = slugify(self.name)      # FIXME handle clashes
+         self.slug = slugify(self.name)      # NOTE will Exception on clashes
       super(Ingredient, self).save(*args, **kwargs)
 
    @cached_property

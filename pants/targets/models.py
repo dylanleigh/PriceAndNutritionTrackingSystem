@@ -70,7 +70,7 @@ class Target(models.Model):
 
    def save(self, *args, **kwargs):
       if not self.slug:
-         self.slug = slugify(self.name)      # FIXME handle clashes gracefully
+         self.slug = slugify(self.name)      # NOTE will Exception on clash
       super(Target, self).save(*args, **kwargs)
 
    @staticmethod

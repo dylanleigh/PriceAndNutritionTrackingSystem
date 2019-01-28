@@ -83,7 +83,7 @@ class Recipe(models.Model):
 
    def save(self, *args, **kwargs):
       if not self.slug:
-         self.slug = slugify(self.name)      # FIXME handle clashes
+         self.slug = slugify(self.name)      # NOTE will Exception on clash
       super(Recipe, self).save(*args, **kwargs)
 
    # TODO: How much of this logic should be in the template or client side?

@@ -98,7 +98,7 @@ class Product(models.Model):
 
    def save(self, *args, **kwargs):
       if not self.slug:
-         self.slug = slugify("%s_%s"%(self.brand, self.name)) # FIXME handle clashes
+         self.slug = slugify("%s_%s"%(self.brand, self.name)) # NOTE will Exception on clash
       super(Product, self).save(*args, **kwargs)
 
    # TODO use manager methods instead of properties with annotations?
