@@ -80,8 +80,15 @@ User Profiles
 - User-custom ing/rec data (Nullable user field; exclude if user!= request.user)
 - Fix setting of daily target on target list page
 
-Django Frontend (Low Priority)
-==============================
+Django Frontend
+===============
+
+Note that the Django template frontend is only for personal/debugging
+use; "real" clients should be accessing PANTS via an API. This is all
+"nice to have" and major frontend improvements should be done via
+another application that uses that API.
+
+As such most of these range from nice-to-have to wont-fix.
 
 - Clean up templates by using more templatetags
 - Handle particular target values set as None gracefully where they are displayed in lists

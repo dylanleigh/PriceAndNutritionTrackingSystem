@@ -9,44 +9,97 @@ register = template.Library()
 @register.simple_tag
 def valminmaxdiv(value, min_target, max_target):
    """
-   Given a value and minimum/maximum target for that value, return
-   text "X (Y%-Z%)" where X is the value and Y/Z are
+   Given a value and minimum/maximum target for that value, return a
+   set of nested divs using w3css styles that create a multiple-element
+   progressbar showing how far away the value is from min/max.
+
+   The divs contain the text "X (Y%-Z%)" where X is the value and Y/Z are
    the value as a percentage of the minimum/maximum target respectively.
    The bit in the brackets is put within a <small> tag.
 
    Exceptions:
-   Returns an empty string if the value cannot be converted to float.
-   Only shows one % if one of min/max are specified (or are
-   non-floats), and does not show any brackets if neither are specified.
+   - Returns an empty string if the value cannot be converted to float.
+   - Only shows one % if one of min/max are specified (or are
+     non-floats), and does not show any brackets if neither are specified.
+   - Doesn't cope with negative values for anything, this shouldn't ever
+     appear in the data, if it does something is seriously wrong.
    """
    try:
       val = float(value)
    except:
       return ''   # There is literally no value in this
 
-   try:
-      minp = int(100 * val / float(min_target))
-   except:     # divide by zero or cannot convert to float
-      minp = None
+   # Part 1: Generate the string with the text in the cell
 
    try:
-      maxp = int(100 * val / float(max_target))
-   except:
-      maxp = None
+      min_t = float(min_target)
+      min_p = int(100 * val / min_t)
+   except:  # divide by zero or cannot convert to float
+      min_t = 0   # For bar chart later
+      min_p = None
 
-   if minp and maxp:
-      contents = '%s<small> (%s%%-%s%%)</small>'%(val,minp,maxp)
-   elif minp:
-      contents = '%s<small> (%s%%)</small>'%(val,minp)
-   elif maxp:
-      contents = '%s<small> (%s%%)</small>'%(val,minp)
+   try:
+      max_t = float(max_target)
+      max_p = int(100 * val / max_t)
+   except:  # divide by zero or cannot convert to float
+      max_t = 0   # For bar chart later
+      max_p = None
+
+   if min_p and max_p:
+      contents = '%s<small> (%s%%-%s%%)</small>'%(val,min_p,max_p)
+   elif min_p:
+      contents = '%s<small> (%s%%)</small>'%(val,min_p)
+   elif max_p:
+      contents = '%s<small> (%s%%)</small>'%(val,min_p)
    else:
       contents = '%s'%val
 
-   # FIXME WIP after above confirmed, add CSS
-   return mark_safe(contents)
+   # Part 2: Do the div, similar to css_progressbar but
+   # with three components to the bar.
 
-# FIXME: replace usage of this with the above tag when its fixed
+   if (min_t > max_t):   # Swap here so max >= min for CSS; note one may be 0
+      min_t, max_t = max_t, min_t
+
+   # TODO: Make these arguments?
+   under_colour = 'w3-green'  # Under minimum
+   warn_colour = 'w3-orange'  # Over minium
+   over_colour = 'w3-red'     # Max or over
+
+   # There are 3 possibilities:
+   # val < min < max : 3 colours with val as a % of min which is % max
+   # min <= val < max : 2 colours with val as a % of max using middle colour
+   # val >= max : 1 colour
+
+   if (val >= max_t):
+      return mark_safe(
+         '<div class="%s">%s</div>'%(
+            over_colour,
+            contents,
+         )
+      )
+   elif (val >= min_t):
+      return mark_safe(
+         '<div class="%s"><div class="%s" style="width:%d%%">%s</div></div>'%(
+            warn_colour,
+            over_colour,
+            max_p,
+            contents,
+         )
+      )
+   else:
+      return mark_safe(
+         '<div class="%s"><div class="%s" style="width:%d%%"><div class="%s" style="width:%d%%">%s</div></div>'%(
+            under_colour,
+            warn_colour,
+            min_p,
+            over_colour,
+            max_p,
+            contents,
+         )
+      )
+
+
+# FIXME: deprecated; replace usage of this with the above tag
 @register.simple_tag
 def percminmax(value, min_target, max_target):
    """

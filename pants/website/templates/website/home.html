@@ -8,9 +8,10 @@
 
 {% block content %}
 
-<h3>Daily Summary (REPLACING)</h3>
+<h3>Daily Summary</h3>
 <table class="w3-table-all w3-hoverable">
    <tr>
+      <tr>
       <th> </th>
       <th> </th>
       <th>KJ</th>
@@ -30,6 +31,9 @@
          {% with daily_target.minimum.nutrition_data as min_ndata %}
             {% with daily_target.maximum.nutrition_data as max_ndata %}
                <td>{% valminmaxdiv diary_today.kilojoules min_ndata.kilojoules max_ndata.kilojoules %}</td>
+               <td>{% valminmaxdiv diary_today.kilocalories min_ndata.kilocalories max_ndata.kilocalories %}</td>
+               <td>{% valminmaxdiv diary_today.protein min_ndata.protein max_ndata.protein %}</td>
+               <td>{% valminmaxdiv diary_today.fibre min_ndata.fibre max_ndata.fibre %}</td>
             {% endwith %}
          {% endwith %}
       {% else %}
@@ -44,7 +48,7 @@
             <td>{{diary_today.cost}}</td>
       {% endif %}
    </tr><tr>
-      <th>Today</th>
+      <th>Today (OLD)</th>
       <td> </td>
       {% if daily_target %}
          {% with daily_target.minimum.nutrition_data as ndata %}
@@ -69,7 +73,7 @@
       {% endif %}
             <td>{{diary_today.cost}}</td>
    </tr><tr>
-      <th>Last 24 hours</th>
+      <th>Last 24 hours (OLD)</th>
       <td> </td>
       {% if daily_target %}
          {% with daily_target.maximum.nutrition_data as ndata %}
@@ -97,7 +101,6 @@
    <tr>
       {% if daily_target %}
          <th><small><a href="/targets"/>{{ daily_target.name }}</a></small></th>
-         <td> </td>
          {% with daily_target.minimum.nutrition_data as min_ndata %}
             {% with daily_target.maximum.nutrition_data as max_ndata %}
                <td> </td>
