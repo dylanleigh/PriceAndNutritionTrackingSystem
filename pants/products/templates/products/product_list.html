@@ -14,16 +14,16 @@
          <th>Name</th>
          <th>Ingredient</th>
          <th>Brand</th>
-         <th>Stores</th>
-         <th>Lowest Price/kg</th>
+         <th>Lowest $/kg</th>
+         <th>at Supplier</th>
       <tr>
    {% for prod in object_list %}
       <tr>
          <th>{{prod.name}}</th>
          <td>{{prod.ingredient.name}}</td>
          <td>{{prod.brand}}</td>
-         <td>{{prod.supplier_set.name}}</td>
-         <td>todo</td>
+         <td>{{prod.lowest_price.per_kg|floatformat:2}}</td>
+         <td>{{prod.lowest_price.supplier.name}}</td>
       </tr>
    {% empty %}
       <tr><th>No products loaded.</tr></th>

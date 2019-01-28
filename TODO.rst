@@ -63,16 +63,17 @@ Exercise and Physiological Diary
 User Profiles
 =============
 
-- User-object to hold age,height etc (age required for some physio calcs)
+- User-prof-object to hold age, height etc (age required for some physio calcs)
 - User preferences for FE (e.g. KJ or calories display, don't show some columns)
+- User-custom ing/rec data (Nullable user field; exclude if user!= request.user)
+- Fix setting of daily target on target list page
 
 Miscellaneous
 =============
 
 - Add daily target comparison as an option on recipe/ingredient list pages
 - View-on-site in all admin
-- "Favourite" (integer?) - use to sort, then updated-at
-- Multilayer navigation, put little-used components in a misc section
+- "Favourite" ings/recs - show first in diary
 - Diary nav for historic data - ArchiveView / TodayArchiveView/ DayArchiveView ?
 - Diary edit/create/delete forms using generic views too
 - Product has no detail view
@@ -90,5 +91,4 @@ Miscellaneous
 - Collections app for free-form showcases of recipes, products and ingredients
 - Bottom nav buttons
 - Sanity Check page also listing out of date (e.g. nutrition over 2 year (?), price over 6 months) 
-- User-custom ing/rec data (Nullable user field; exclude if user!= request.user)
 

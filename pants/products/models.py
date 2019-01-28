@@ -101,16 +101,18 @@ class Product(models.Model):
          self.slug = slugify("%s_%s"%(self.brand, self.name)) # FIXME handle clashes
       super(Product, self).save(*args, **kwargs)
 
-   # TODO manager method instead of properties?
+   # TODO use manager methods instead of properties with annotations?
+   # FIXME use this annotation method in similar ing/rec calcs!
    @cached_property
-   def lowest_price_kg(self):
+   def lowest_price(self):
       """
       Determines the lowest price per kg of all the most recent prices
       from all suppliers
       """
-      pass # FIXME WIP awaiting rename migrate
-      #return self.price_set.filter(
-      #).first()
+      prices = self.price_set.annotate(
+         price_per_kg = F('price') - F('weight')
+      )
+      return prices.order_by('price_per_kg').first()
 
 
 class Price(models.Model):
@@ -145,7 +147,7 @@ class Price(models.Model):
       """
       Returns price per kg - should be used in all calculations
       """
-      # TODO make F expression?
+      # FIXME replace with F expression stuff
       try:
          return self.price/self.weight
       except TypeError:
