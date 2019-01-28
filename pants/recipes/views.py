@@ -60,8 +60,6 @@ def RecipeCSVExportView(request):
    response = HttpResponse(content_type='text/csv')
    response['Content-Disposition'] = 'attachment; filename="pants-recipes.csv"'
 
-   # FIXME Blog post on this method!
-
    # Use dictionary writer to export nutrition data dicts.
    # Fields are all standard items plus 'name' and calories which should be 1st
    fields = [
