@@ -19,13 +19,22 @@ Target comparison (Currently WIP)
 - Util funcs to get current user daily target, and current user diary today/last24 data (done)
 - Use on home page summary (done)
 - Use to show target on diary breakdown page (done)
-- Add daily target comparison on recipe/ingredient detail pages
-- Handle particular values set as None gracefully
+- Add daily target comparison on recipe detail page
+- Add daily target comparison on ingredient detail page (as for recipe)
 
-NData and calculation DRYing
-============================
+NData and calculation DRYing (urgent, blocking)
+===============================================
 
-- all the nutrition_data properties should be its own class that generates/caches individual values as required and enforces access/validation/etc, and does operations like summing and averaging (would remove LOTS of almost-identical code across ingredient/recipe/diary)
+All the nutrition_data properties should be its own class that
+generates/caches individual values as required and enforces
+access/validation/etc, and does operations like summing and averaging.
+This will remove LOTS of almost-identical code across
+ingredient/recipe/diary.
+
+- ndata class
+- ndata class for ing
+- ndata class for rec
+- ndata class for diary
 - Fix per-serve/per-weight dichotomy in recipe components
 - Merge recipe and ingredient handling in diary save() and elsewhere
 - Use F()/aggregate/annotate expressions in recipe calcs
@@ -72,6 +81,8 @@ User Profiles
 Django Frontend (Low Priority)
 ==============================
 
+- Handle particular target values set as None gracefully where they are displayed in lists
+- 3-part bar chart templatetag for max-min-current target comparison
 - Sanity Check page also listing out of date (e.g. nutrition over 2 year (?), price over 6 months) 
 - Add chosen target comparison on recipe/ingredient detail pages (for pre/post workout targets etc)
 - Consider Daily target comparison as an option on recipe/ingredient list pages
