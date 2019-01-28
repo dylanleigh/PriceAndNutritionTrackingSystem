@@ -22,6 +22,7 @@ Target comparison (Currently WIP)
 - Add daily target comparison on recipe detail page (done)
 - Add % to home and clean up ui (done)
 - Add % to diary (done)
+- Fix new bar charts on recipe detail (ui?)
 - Add daily target comparison on ingredient detail page (as for recipe)
 
 NData and calculation DRYing (urgent, blocking)
