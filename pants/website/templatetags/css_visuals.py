@@ -63,7 +63,7 @@ def valminmaxdiv(value, min_target, max_target):
    # TODO: Make these arguments?
    under_colour = 'w3-green'  # Under minimum
    warn_colour = 'w3-orange'  # Over minium
-   over_colour = 'w3-red'     # Max or over
+   over_colour = 'w3-red'     # Over maximum
 
    # There are 3 possibilities:
    # val < min < max : 3 colours with val as a % of min which is % max
@@ -99,8 +99,7 @@ def valminmaxdiv(value, min_target, max_target):
       )
 
 
-# FIXME: deprecated; replace usage of this with the above tag
-@register.simple_tag
+# TODO: deprecated; the above all-in-one tag is preferred
 def percminmax(value, min_target, max_target):
    """
    Returns a string like 'x%-y%' where x is the value/min_target% and y is
@@ -132,6 +131,10 @@ def percminmax(value, min_target, max_target):
 
    return '%s%%-%s%%'%(minp,maxp)
 
+
+# TODO: deprecated; most cases of this should use valminmaxdiv
+# instead, although there are some cases where not showing the % might
+# be preferred.
 @register.filter
 def css_progressbar(value, maxvalue=100, fgclass='w3-deep-purple', bgclass='w3-black'):
    """
@@ -165,7 +168,7 @@ def css_progressbar(value, maxvalue=100, fgclass='w3-deep-purple', bgclass='w3-b
 
 
 # TODO: This is more general than CSS visuals and should really go
-# elsewhere. Preferably in the core django filters tbh.
+# elsewhere. Preferably in the core django filters...
 @register.filter
 def divide(num, den):
    """
