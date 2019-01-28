@@ -8,7 +8,6 @@ Urgent
 
 - ** Unit tests are severely incomplete! **
 - Fix all the kludgy FIXMEs in the code (see "make fixme" output)
-- Product list view half-finished
 - Fix per-serve/per-weight dichotomy in recipe components (waiting on Ndata work)
 - Provide a fixture with some initial basic ingredients and a few recipes so new users can get started ASAP.
 - Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc
@@ -68,27 +67,31 @@ User Profiles
 - User-custom ing/rec data (Nullable user field; exclude if user!= request.user)
 - Fix setting of daily target on target list page
 
+Django Frontend (Low Priority)
+==============================
+
+- Sanity Check page also listing out of date (e.g. nutrition over 2 year (?), price over 6 months) 
+- Add daily target comparison as an option on recipe/ingredient list pages
+- "tags:" text should be a button that toggles tag-bar visibility on/off
+- Diary edit/create/delete forms using generic views too
+- Ing list column with recipe count (recursive/nonrecursive), click for recipe list filtered to ing?
+- Add Store/Price data to views (Ingredient/Product detail?)
+- Bottom nav buttons for convenience
+- View-on-site in all admin
+- Product has no detail view
+
 Miscellaneous
 =============
 
-- Add daily target comparison as an option on recipe/ingredient list pages
-- View-on-site in all admin
-- "Favourite" ings/recs - show first in diary
-- Diary nav for historic data - ArchiveView / TodayArchiveView/ DayArchiveView ?
-- Diary edit/create/delete forms using generic views too
-- Product has no detail view
-- admin command or buttons on DE list view to export ALL ing data and ALL recipe data as big tables
-- Consider: Move to per-100g instead of per-kg?
+- Improved bulk import/export facilities in general
 - Consider: Deprecate Product by merging price functionality into ProductPrice and making Ingredients recurse to more generic/specific versions? Product concept is underused
-- Ing list column with recipe count (recursive/nonrecursive), click for recipe list filtered to ing?
+- Consider: Move to per-100g instead of per-kg?
+- Import from standard sources (i.e. open source nutrition data)
+- "Favourite" ings/recs - show first in add-diary-item etc
+- Diary nav for historic data - ArchiveView / TodayArchiveView/ DayArchiveView ?
 - Recipe is_vegan/is_vegetarian/gluten_free/has_gluten properties - check via ingredient tags
 - Invalidate cache of ingredient/recipe/quantity on nutrients change
 - Invalidate cache of product/ingredient/etc on price change
-- Add missing data on Products list view
-- Add Store/Price data to views (Ingredient/Product detail?)
-- "tags:" text should be a button that toggles tag-bar visibility on/off
 - Flatten and/or Crystallize ingredients option on recipe detail view?
 - Collections app for free-form showcases of recipes, products and ingredients
-- Bottom nav buttons
-- Sanity Check page also listing out of date (e.g. nutrition over 2 year (?), price over 6 months) 
 
