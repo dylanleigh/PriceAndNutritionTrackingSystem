@@ -175,17 +175,20 @@
          <td>{{last24_total.grams}}</td>
          <td> </td>
          {% if daily_target %}
-            {% with daily_target.maximum.nutrition_data as max_ndata %}
-               <td>{{last24_total.kilojoules|css_progressbar:max_ndata.kilojoules}}</td>
-               <td>{{last24_total.kilocalories|css_progressbar:max_ndata.kilocalories}}</td>
-               <td>{{last24_total.protein|css_progressbar:max_ndata.protein}}</td>
-               <td>{{last24_total.fibre|css_progressbar:max_ndata.fibre}}</td>
-               <td>{{last24_total.carbohydrate|css_progressbar:max_ndata.carbohydrate}}</td>
-               <td>{{last24_total.fat|css_progressbar:max_ndata.fat}}</td>
-               <td>{{last24_total.sugar|css_progressbar:max_ndata.sugar}}</td>
-               <td>{{last24_total.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
-               <td>{{last24_total.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
-               <td>{{last24_total.cost}}</td>
+            {% with daily_target.minimum.nutrition_data as min_ndata %}
+               {% with daily_target.maximum.nutrition_data as max_ndata %}
+
+                  <td>{% valminmaxdiv last24_total.kilojoules min_ndata.kilojoules max_ndata.kilojoules %}</td>
+                  <td>{% valminmaxdiv last24_total.kilocalories min_ndata.kilocalories max_ndata.kilocalories %}</td>
+                  <td>{% valminmaxdiv last24_total.protein min_ndata.protein max_ndata.protein %}</td>
+                  <td>{% valminmaxdiv last24_total.fibre min_ndata.fibre max_ndata.fibre %}</td>
+                  <td>{% valminmaxdiv last24_total.carbohydrate min_ndata.carbohydrate max_ndata.carbohydrate %}</td>
+                  <td>{% valminmaxdiv last24_total.fat min_ndata.fat max_ndata.fat %}</td>
+                  <td>{% valminmaxdiv last24_total.sugar min_ndata.sugar max_ndata.sugar %}</td>
+                  <td>{{last24_total.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
+                  <td>{{last24_total.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
+                  <td>{% valminmaxdiv last24_total.cost min_ndata.cost max_ndata.cost %}</td>
+               {% endwith %}
             {% endwith %}
          {% else %}
             <td>{{last24_total.kilojoules|css_progressbar:6500}}</td>
@@ -205,6 +208,23 @@
          <th>last 24 hours</th>
          <td>{{last24_sum.grams}}</td>
          <td> </td>
+         {% if daily_target %}
+            {% with daily_target.minimum.nutrition_data as min_ndata %}
+               {% with daily_target.maximum.nutrition_data as max_ndata %}
+
+                  <td>{% valminmaxdiv last24_sum.kilojoules min_ndata.kilojoules max_ndata.kilojoules %}</td>
+                  <td>{% valminmaxdiv last24_sum.kilocalories min_ndata.kilocalories max_ndata.kilocalories %}</td>
+                  <td>{% valminmaxdiv last24_sum.protein min_ndata.protein max_ndata.protein %}</td>
+                  <td>{% valminmaxdiv last24_sum.fibre min_ndata.fibre max_ndata.fibre %}</td>
+                  <td>{% valminmaxdiv last24_sum.carbohydrate min_ndata.carbohydrate max_ndata.carbohydrate %}</td>
+                  <td>{% valminmaxdiv last24_sum.fat min_ndata.fat max_ndata.fat %}</td>
+                  <td>{% valminmaxdiv last24_sum.sugar min_ndata.sugar max_ndata.sugar %}</td>
+                  <td>{{last24_sum.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
+                  <td>{{last24_sum.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
+                  <td>{% valminmaxdiv last24_sum.cost min_ndata.cost max_ndata.cost %}</td>
+               {% endwith %}
+            {% endwith %}
+         {% else %}
          <td>{{last24_sum.kilojoules|css_progressbar:6500}}</td>
          <td>{{last24_sum.kilocalories|css_progressbar:1500}}</td>
          <td>{{last24_sum.protein|css_progressbar:120}}</td>
@@ -215,6 +235,7 @@
          <td>{{last24_sum.protein_per_j|css_progressbar:30}}</td>
          <td>{{last24_sum.fibre_per_j|css_progressbar:10}}</td>
          <td>{{last24_sum.cost}}</td>
+         {% endif %}
       </tr>
       {% if daily_target %}
          <tr>
