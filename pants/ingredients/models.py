@@ -6,6 +6,7 @@ from django.apps import apps
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models import F
 from django.template.defaultfilters import slugify
 from django.utils.functional import cached_property
 
@@ -165,27 +166,27 @@ class Ingredient(AbstractBaseNutrients):
          self.slug = slugify(self.name)      # FIXME handle clashes
       super(Ingredient, self).save(*args, **kwargs)
 
-   # FIXME all/most of the below should be in a custom manager instead!
-   # FIXME many with logic should be possible with Q and F and annotations
-   # e.g.  s.price_set.filter(product__ingredient=i).annotate(
-   #                                            cost=F('price')/F('weight'))
+   # TODO all/most of the below should be in a custom manager instead!
 
    @cached_property
-   def suppliers(self):    # TODO: used?
+   def suppliers(self):    # FIXME: is this used anymore?
       """
       Return (qset) stores which stock this ingredient (i.e. a product)
       """
       Supplier = apps.get_model('products','Supplier')
       return Supplier.objects.filter(price__product__ingredient=self)
 
-   # def store_price_values
-   # """return list of store/price tuples with current price data"""
-   # Supplier.objects.filter(
-   #     price__product__ingredient=self
-   #   ).annotate(price.filter(              TODO ideas....
-   #         product__ingredient=self,
-   #   ).latest(field_name='updated_at')
-   #)
+   @cached_property
+   def lowest_price(self):
+      '''
+      Return the price object which has the lowest price-per-kg of
+      this ingredient.
+      '''
+      Price = apps.get_model('products','Price')
+      prices = Price.objects.filter(product__ingredient=self).annotate(
+         price_per_kg = F('price') - F('weight')
+      )
+      return prices.order_by('price_per_kg').first()
 
    @cached_property
    def best_supplier(self):
@@ -194,17 +195,12 @@ class Ingredient(AbstractBaseNutrients):
       of this ingredient, or (None,None).
       Only use latest per-supplier price (exclude historic prices).
       """
-      # FIXME fix this using method from product.lowest_price_kg
-      best_price = None
-      best_supplier = None
-      for supplier in self.suppliers:
-         current_price = supplier.price_set.filter(
-            product__ingredient=self,
-         ).latest(field_name='updated_at')
-         if best_supplier is None or current_price.per_kg < best_price.per_kg:
-            best_supplier = supplier
-            best_price = current_price
-      return (best_supplier,best_price)
+      # FIXME: Deprecate this... is it used apart from below??
+      lp = self.lowest_price
+      if (lp):
+         return (lp.supplier,lp)
+      else:
+         return (None,None)
 
    @cached_property
    def best_price(self):
@@ -218,7 +214,7 @@ class Ingredient(AbstractBaseNutrients):
          return None
       return Decimal.quantize(price.per_kg, settings.DECIMAL_CENTS)   # round to cents
 
-   # FIXME custom manager for the generic nutrients, use db rather than going
+   # TODO custom manager for the generic nutrients, use db rather than going
    # through properties! Would also reduce redundancy of these properties
    @cached_property
    def nutrition_data(self):
