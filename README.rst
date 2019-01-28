@@ -68,15 +68,66 @@ Some example screenshots can be seen at https://github.com/dylanleigh/PriceAndNu
 Other Feature Notes and Tips
 ----------------------------
 
-- Ingredients and recipes can be tagged for easier searching and analysis; this makes it much easier to (for example) compare the fibre per calorie in different vegetables or the calories per serve of different desserts
-- PANTS prioritizes not showing bad data. If an ingredient has something missing (e.g. no fibre listed, no product so no prices), any derived statistics will also be missing (e.g. no fibre-per-kj, or no protein-per-$ if there is no price). This also means that recipes which use that ingredient will not show a value for the sum of fibre in that recipe until all ingredients have that data entered in.
-- Recursive recipes can be used for other semantic purposes, e.g. to make an "average breakfast" recipe which is your other breakfast recipes combined (then divided by number of serves). These can be in turn combined to make an "average day" overview which can be used as a meal plan.
-- Diary shows breakdown of nutrients by both calendar day and 24-hour periods, so it can be used by shift workers or those with irregular sleep cycles.
-- Diary entries are crystallized so future changes to a recipe do not affect past entries (on the other hand, changes to an ingredient/recipe immediately show up in any recipes which use them).
-- Diary entries do not have to be linked to a specific ingredient/recipe, one off diary entries can be created with manual nutritional data e.g. when going out for the night and you can only guess how many calories are in dinner.
-- All Australian standard nutritional data is stored (e.g. sodium and saturated fat) but not everything is shown in all views by default. There was support for micronutrients such as individual amino acids which was removed as part of a DB schema change but this is planned to be readded in a more stable way (see roadmap for details).
-- Diary is per-user, but ingredient/product/recipe are global. There are plans to add per-user recipes but this is very far down the roadmap as the focus is on adding features for personal use (it wouldn't be complex however).
-- A default target must be set for progress bars to appear on the data on the home page.
+Tagging
+   Ingredients and recipes can be given multiple tags for easier searching and
+   analysis; this makes it much easier to (for example) compare the fibre
+   per calorie in different vegetables or the calories per serve of
+   different dessert.
+
+Repurposing Recursive Recipes
+   As recipes can include other recipes, this can be used for other
+   planning purposes, e.g. to  make an "average breakfast" recipe
+   which is your other breakfast
+   recipes combined (then divided by number of serves). These can be in
+   turn combined to make an "average day" overview which can be used as a
+   meal plan.
+
+PANTS doesn't make assumptions or guesses
+   It is preferable to show no data instead of wrong data. If an ingredient has
+   something missing (e.g. no fibre listed, no product so no prices), any
+   derived statistics will also be missing (e.g. no fibre-per-kj, or no
+   protein-per-$ if there is no price). This also means that recipes
+   which use that ingredient will not show a value for the sum of fibre
+   in that recipe until all ingredients have that data entered in.
+
+PANTS doesn't assume everyone sleeps at midnight
+   Diary shows breakdown of nutrients by both calendar day and 24-hour
+   periods, so it can be used by shift workers or those with irregular
+   sleep cycles.
+
+Recipes update; Diary doesn't change
+   Diary entries are "crystallized" (future changes to a recipe do not
+   affect past entries). On the other hand, changes to an
+   ingredient/recipe immediately show up in any recipes which use them.
+
+Once-off Diary entries
+   Diary entries do not have to be linked to a specific
+   ingredient/recipe, one off diary entries can be created with manual
+   nutritional data e.g. when going out for the night and you can only
+   guess how many calories are in dinner.
+
+Micronutrients
+   All Australian standard nutritional data is stored (e.g. sodium and
+   saturated fat) but not everything is shown in all views by default.
+   There was support for micronutrients such as individual amino acids
+   which was removed as part of a DB schema change but this is planned to
+   be readded in a more stable way (see roadmap for details).
+
+Per-user and global data
+   Diary is per-user, but ingredient/product/recipe are global. There
+   are plans to add per-user recipes but this is very far down the
+   roadmap as the focus is on adding features for personal use (it
+   wouldn't be complex however).
+
+Progress/Percentage bars
+   Once your default target is set, it will be used to compare against
+   ingredients/recipes you view so you can see how much % of your
+   daily intake that recipe/ingredient will satisfy. On most pages,
+   Green/Yellow/Red bars indicate how much of the daily target's
+   minimum/maximum are accounted for; Purple progress bars are used
+   to show percentage out of the current total, or amount compared to the
+   highest value in a list of recipes/ingredients.
+
 
 Installation
 ============
