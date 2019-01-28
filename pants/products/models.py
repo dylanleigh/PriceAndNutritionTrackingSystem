@@ -102,7 +102,6 @@ class Product(models.Model):
       super(Product, self).save(*args, **kwargs)
 
    # TODO use manager methods instead of properties with annotations?
-   # FIXME use this annotation method in similar ing/rec calcs!
    @cached_property
    def lowest_price(self):
       """
@@ -145,9 +144,8 @@ class Price(models.Model):
    @cached_property
    def per_kg(self):
       """
-      Returns price per kg - should be used in all calculations
+      Returns price per kg - for display use
       """
-      # FIXME replace with F expression stuff
       try:
          return self.price/self.weight
       except TypeError:
