@@ -16,10 +16,11 @@ Urgent
 Target comparison (Currently WIP)
 =================================
 
-- Util funcs to get current user daily target, and current user diary today/last24 data (done, used on home page)
-- Use to show target on diary breakdown page (done, just last calendar day so far)
+- Util funcs to get current user daily target, and current user diary today/last24 data (done)
+- Use on home page summary (done)
+- Use to show target on diary breakdown page (done)
 - Add daily target comparison on recipe/ingredient detail pages
-- Add chosen target comparison on recipe/ingredient detail pages (for pre/post workout targets etc)
+- Handle particular values set as None gracefully
 
 NData and calculation DRYing
 ============================
@@ -72,7 +73,8 @@ Django Frontend (Low Priority)
 ==============================
 
 - Sanity Check page also listing out of date (e.g. nutrition over 2 year (?), price over 6 months) 
-- Add daily target comparison as an option on recipe/ingredient list pages
+- Add chosen target comparison on recipe/ingredient detail pages (for pre/post workout targets etc)
+- Consider Daily target comparison as an option on recipe/ingredient list pages
 - "tags:" text should be a button that toggles tag-bar visibility on/off
 - Diary edit/create/delete forms using generic views too
 - Ing list column with recipe count (recursive/nonrecursive), click for recipe list filtered to ing?

@@ -10,13 +10,16 @@ def css_progressbar(value, maxvalue=100, fgclass='w3-deep-purple', bgclass='w3-b
    The value (recieved from filter) is displayed on the element.
    Maxvalue should be specified if value is not already out of 100.
 
-   If value (or maxvalue) is not convertable to float, will return the
-   value unfiltered.
+   If value is not convertable to float, will return the value unfiltered.
    """
-   width = 100    # maximum % cap
+   if not maxvalue:
+      maxvalue=100   # If maxvalue is passed explicitly as None e.g. for targets
+
    try:
       if value < maxvalue:
          width = int(float(100) * float(value) / float(maxvalue))
+      else:
+         width=100   # Cap % at maximum
    except TypeError:
       return value  # If not a float, allow the value to be shown unaltered
 

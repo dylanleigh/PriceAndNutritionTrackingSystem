@@ -34,15 +34,17 @@
       <tr>
          <th>{{entry.start_time|date:'H:i'}}</a></th>
 
+         <td><small>
          {% if entry.of_ingredient %}
-            <td><a href="{% url 'ingredient-detail' entry.of_ingredient.slug %}">{{entry.name}}</a></td>
+            <a href="{% url 'ingredient-detail' entry.of_ingredient.slug %}">{{entry.name}}</a>
          {% else %}
             {% if entry.of_recipe %}
-               <td><a href="{% url 'recipe-detail' entry.of_recipe.slug %}">{{entry.name}}</a></td>
+               <a href="{% url 'recipe-detail' entry.of_recipe.slug %}">{{entry.name}}</a>
             {% else %}
-               <td>{{entry.name}}</td>
+               {{entry.name}}
             {% endif %}
          {% endif %}
+         </small></td>
 
           {% with entry.nutrition_data as ndata %}
             <td>{{entry.weight}}</td>
@@ -169,16 +171,31 @@
          <th>this period only</th>
          <td>{{last24_total.grams}}</td>
          <td> </td>
-         <td>{{last24_total.kilojoules|css_progressbar:6500}}</td>
-         <td>{{last24_total.kilocalories|css_progressbar:1500}}</td>
-         <td>{{last24_total.protein|css_progressbar:120}}</td>
-         <td>{{last24_total.fibre|css_progressbar:40}}</td>
-         <td>{{last24_total.carbohydrate|css_progressbar:150}}</td>
-         <td>{{last24_total.fat|css_progressbar:60}}</td>
-         <td>{{last24_total.sugar|css_progressbar:80}}</td>
-         <td>{{last24_total.protein_per_j|css_progressbar:30}}</td>
-         <td>{{last24_total.fibre_per_j|css_progressbar:10}}</td>
-         <td>{{last24_total.cost}}</td>
+         {% if daily_target %}
+            {% with daily_target.maximum.nutrition_data as max_ndata %}
+               <td>{{last24_total.kilojoules|css_progressbar:max_ndata.kilojoules}}</td>
+               <td>{{last24_total.kilocalories|css_progressbar:max_ndata.kilocalories}}</td>
+               <td>{{last24_total.protein|css_progressbar:max_ndata.protein}}</td>
+               <td>{{last24_total.fibre|css_progressbar:max_ndata.fibre}}</td>
+               <td>{{last24_total.carbohydrate|css_progressbar:max_ndata.carbohydrate}}</td>
+               <td>{{last24_total.fat|css_progressbar:max_ndata.fat}}</td>
+               <td>{{last24_total.sugar|css_progressbar:max_ndata.sugar}}</td>
+               <td>{{last24_total.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
+               <td>{{last24_total.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
+               <td>{{last24_total.cost}}</td>
+            {% endwith %}
+         {% else %}
+            <td>{{last24_total.kilojoules|css_progressbar:6500}}</td>
+            <td>{{last24_total.kilocalories|css_progressbar:1500}}</td>
+            <td>{{last24_total.protein|css_progressbar:120}}</td>
+            <td>{{last24_total.fibre|css_progressbar:40}}</td>
+            <td>{{last24_total.carbohydrate|css_progressbar:150}}</td>
+            <td>{{last24_total.fat|css_progressbar:60}}</td>
+            <td>{{last24_total.sugar|css_progressbar:80}}</td>
+            <td>{{last24_total.protein_per_j|css_progressbar:30}}</td>
+            <td>{{last24_total.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{last24_total.cost}}</td>
+         {% endif %}
       </tr>
       <tr>
          <th>Total</th>
@@ -273,16 +290,31 @@
          <th>this period only</th>
          <td>{{lastday_total.grams}}</td>
          <td> </td>
-         <td>{{lastday_total.kilojoules|css_progressbar:6500}}</td>
-         <td>{{lastday_total.kilocalories|css_progressbar:1500}}</td>
-         <td>{{lastday_total.protein|css_progressbar:120}}</td>
-         <td>{{lastday_total.fibre|css_progressbar:40}}</td>
-         <td>{{lastday_total.carbohydrate|css_progressbar:150}}</td>
-         <td>{{lastday_total.fat|css_progressbar:60}}</td>
-         <td>{{lastday_total.sugar|css_progressbar:80}}</td>
-         <td>{{lastday_total.protein_per_j|css_progressbar:30}}</td>
-         <td>{{lastday_total.fibre_per_j|css_progressbar:10}}</td>
-         <td>{{lastday_total.cost}}</td>
+         {% if daily_target %}
+            {% with daily_target.maximum.nutrition_data as max_ndata %}
+               <td>{{lastday_total.kilojoules|css_progressbar:max_ndata.kilojoules}}</td>
+               <td>{{lastday_total.kilocalories|css_progressbar:max_ndata.kilocalories}}</td>
+               <td>{{lastday_total.protein|css_progressbar:max_ndata.protein}}</td>
+               <td>{{lastday_total.fibre|css_progressbar:max_ndata.fibre}}</td>
+               <td>{{lastday_total.carbohydrate|css_progressbar:max_ndata.carbohydrate}}</td>
+               <td>{{lastday_total.fat|css_progressbar:max_ndata.fat}}</td>
+               <td>{{lastday_total.sugar|css_progressbar:max_ndata.sugar}}</td>
+               <td>{{lastday_total.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
+               <td>{{lastday_total.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
+               <td>{{lastday_total.cost}}</td>
+            {% endwith %}
+         {% else %}
+            <td>{{lastday_total.kilojoules|css_progressbar:6500}}</td>
+            <td>{{lastday_total.kilocalories|css_progressbar:1500}}</td>
+            <td>{{lastday_total.protein|css_progressbar:120}}</td>
+            <td>{{lastday_total.fibre|css_progressbar:40}}</td>
+            <td>{{lastday_total.carbohydrate|css_progressbar:150}}</td>
+            <td>{{lastday_total.fat|css_progressbar:60}}</td>
+            <td>{{lastday_total.sugar|css_progressbar:80}}</td>
+            <td>{{lastday_total.protein_per_j|css_progressbar:30}}</td>
+            <td>{{lastday_total.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{lastday_total.cost}}</td>
+         {% endif %}
       </tr>
       <tr>
          <th>Total</th>
