@@ -20,8 +20,8 @@ Target comparison (Currently WIP)
 - Use on home page summary (done)
 - Use to show target on diary breakdown page (done)
 - Add daily target comparison on recipe detail page (done)
-- Add % to home and clean up ui (WIP)
-- Add % to diary
+- Add % to home and clean up ui (done)
+- Add % to diary (done)
 - Add daily target comparison on ingredient detail page (as for recipe)
 
 NData and calculation DRYing (urgent, blocking)
