@@ -166,10 +166,8 @@ class Ingredient(AbstractBaseNutrients):
          self.slug = slugify(self.name)      # FIXME handle clashes
       super(Ingredient, self).save(*args, **kwargs)
 
-   # TODO all/most of the below should be in a custom manager instead!
-
    @cached_property
-   def suppliers(self):    # FIXME: is this used anymore?
+   def suppliers(self):
       """
       Return (qset) stores which stock this ingredient (i.e. a product)
       """
@@ -189,30 +187,15 @@ class Ingredient(AbstractBaseNutrients):
       return prices.order_by('price_per_kg').first()
 
    @cached_property
-   def best_supplier(self):
-      """
-      Return (supplier,price) with lowest price per kg from all products
-      of this ingredient, or (None,None).
-      Only use latest per-supplier price (exclude historic prices).
-      """
-      # FIXME: Deprecate this... is it used apart from below??
-      lp = self.lowest_price
-      if (lp):
-         return (lp.supplier,lp)
-      else:
-         return (None,None)
-
-   @cached_property
    def best_price(self):
       """
-      Return lowest price per kg from all products of this ingredient.
-      Only use latest per-supplier price (exclude historic prices).
+      Return lowest price per kg from all products of this ingredient,
+      as a decimal quantized for display.
       """
-      # TODO Get this more efficiently without obtaining the store?
-      price = self.best_supplier[1]
-      if not price:
-         return None
-      return Decimal.quantize(price.per_kg, settings.DECIMAL_CENTS)   # round to cents
+      # TODO rename this to "display_lowest_price" or something...
+      price = self.lowest_price
+      if price:
+         return Decimal.quantize(price.per_kg, settings.DECIMAL_CENTS)   # round to cents
 
    # TODO custom manager for the generic nutrients, use db rather than going
    # through properties! Would also reduce redundancy of these properties
