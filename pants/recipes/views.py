@@ -12,6 +12,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from .models import Recipe, RecipeTag
+from targets.models import Target
 from ingredients.utils import get_nutrition_limits
 
 
@@ -48,11 +49,16 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
    model = Recipe
 
    def get_context_data(self, **kwargs):
-       context = super(RecipeDetailView, self).get_context_data(**kwargs)
-       # TODO extra rendering context here...
-       # TODO Should have all the nutrients and detailed visualisation
-       # on this!
-       return context
+      context = super(RecipeDetailView, self).get_context_data(**kwargs)
+
+      # User's current daily target for comparison
+      # TODO: Should let user compare to different targets, and scale
+      # to maximise something (etc)
+      user = self.request.user
+      daily_target = Target.get_primary_target(user)
+      context.update({'daily_target': daily_target})
+
+      return context
 
 @login_required
 def RecipeCSVExportView(request):
