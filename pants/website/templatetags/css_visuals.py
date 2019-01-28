@@ -3,12 +3,50 @@ from django.utils.safestring import mark_safe
 
 register = template.Library()
 
-# TODO: This is not CSS and should probably go elsewhere
-# TODO: Replace with just 'xx%' when both are the same or one is not specified
-# TODO: Combine this with progressbar to create an all-in-one tag that
-#       creates a table cell with content and CSS
-# TODO: Then use that to create a tag that loops over a specified set
+# TODO: Then use this to create a tag that loops over a specified set
 #       of dict keys and creates the table cells....
+
+@register.simple_tag
+def valminmaxdiv(value, min_target, max_target):
+   """
+   Given a value and minimum/maximum target for that value, return
+   text "X (Y%-Z%)" where X is the value and Y/Z are
+   the value as a percentage of the minimum/maximum target respectively.
+   The bit in the brackets is put within a <small> tag.
+
+   Exceptions:
+   Returns an empty string if the value cannot be converted to float.
+   Only shows one % if one of min/max are specified (or are
+   non-floats), and does not show any brackets if neither are specified.
+   """
+   try:
+      val = float(value)
+   except:
+      return ''   # There is literally no value in this
+
+   try:
+      minp = int(100 * val / float(min_target))
+   except:     # divide by zero or cannot convert to float
+      minp = None
+
+   try:
+      maxp = int(100 * val / float(max_target))
+   except:
+      maxp = None
+
+   if minp and maxp:
+      contents = '%s<small> (%s%%-%s%%)</small>'%(val,minp,maxp)
+   elif minp:
+      contents = '%s<small> (%s%%)</small>'%(val,minp)
+   elif maxp:
+      contents = '%s<small> (%s%%)</small>'%(val,minp)
+   else:
+      contents = '%s'%val
+
+   # FIXME WIP after above confirmed, add CSS
+   return mark_safe(contents)
+
+# FIXME: replace usage of this with the above tag when its fixed
 @register.simple_tag
 def percminmax(value, min_target, max_target):
    """
@@ -73,8 +111,8 @@ def css_progressbar(value, maxvalue=100, fgclass='w3-deep-purple', bgclass='w3-b
    )
 
 
-# FIXME unused...
-# TODO: This is more general than CSS visuals and should really go elsewhere
+# TODO: This is more general than CSS visuals and should really go
+# elsewhere. Preferably in the core django filters tbh.
 @register.filter
 def divide(num, den):
    """

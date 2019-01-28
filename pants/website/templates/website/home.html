@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<h3>Daily Summary</h3>
+<h3>Daily Summary (REPLACING)</h3>
 <table class="w3-table-all w3-hoverable">
    <tr>
       <th> </th>
@@ -24,24 +24,24 @@
       <th>Cost</th>
    </tr>
       <tr>
+      <th>Today</th>
+      <td> </td>
       {% if daily_target %}
-         <th><a href="/targets"/>{{ daily_target.name }}</a></th>
-         {% with daily_target.minimum.nutrition_data as ndata %}
-         <td>min</td>
-            <td>{{ndata.kilojoules}}</td>
-            <td>{{ndata.kilocalories}}</td>
-            <td>{{ndata.protein}}</td>
-            <td>{{ndata.fibre}}</td>
-            <td>{{ndata.fat}}</td>
-            <td>{{ndata.carbohydrate}}</td>
-            <td>{{ndata.protein_per_j}}</td>
-            <td>{{ndata.fibre_per_j}}</td>
-            <td>${{ndata.cost}}</td>
+         {% with daily_target.minimum.nutrition_data as min_ndata %}
+            {% with daily_target.maximum.nutrition_data as max_ndata %}
+               <td>{% valminmaxdiv diary_today.kilojoules min_ndata.kilojoules max_ndata.kilojoules %}</td>
+            {% endwith %}
          {% endwith %}
-
       {% else %}
-         <th><a href="/targets"/>No Daily Target set!</a></th>
-            <td> </td>
+            <td>{{diary_today.kilojoules|css_progressbar:6500}}</td>
+            <td>{{diary_today.kilocalories|css_progressbar:1500}}</td>
+            <td>{{diary_today.protein|css_progressbar:120}}</td>
+            <td>{{diary_today.fibre|css_progressbar:40}}</td>
+            <td>{{diary_today.fat|css_progressbar:60}}</td>
+            <td>{{diary_today.carbohydrate|css_progressbar:150}}</td>
+            <td>{{diary_today.protein_per_j|css_progressbar:30}}</td>
+            <td>{{diary_today.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{diary_today.cost}}</td>
       {% endif %}
    </tr><tr>
       <th>Today</th>
@@ -96,18 +96,21 @@
    </tr>
    <tr>
       {% if daily_target %}
-         <th><a href="/targets"/>{{ daily_target.name }}</a></th>
-         <td>max</td>
-         {% with daily_target.maximum.nutrition_data as ndata %}
-            <td>{{ndata.kilojoules}}</td>
-            <td>{{ndata.kilocalories}}</td>
-            <td>{{ndata.protein}}</td>
-            <td>{{ndata.fibre}}</td>
-            <td>{{ndata.fat}}</td>
-            <td>{{ndata.carbohydrate}}</td>
-            <td>{{ndata.protein_per_j}}</td>
-            <td>{{ndata.fibre_per_j}}</td>
-            <td>${{ndata.cost}}</td>
+         <th><small><a href="/targets"/>{{ daily_target.name }}</a></small></th>
+         <td> </td>
+         {% with daily_target.minimum.nutrition_data as min_ndata %}
+            {% with daily_target.maximum.nutrition_data as max_ndata %}
+               <td> </td>
+               <td><small>{{min_ndata.kilojoules}}-{{max_ndata.kilojoules}}</small></td>
+               <td><small>{{min_ndata.kilocalories}}-{{max_ndata.kilocalories}}</small></td>
+               <td><small>{{min_ndata.protein}}-{{max_ndata.protein}}</small></td>
+               <td><small>{{min_ndata.fibre}}-{{max_ndata.fibre}}</small></td>
+               <td><small>{{min_ndata.fat}}-{{max_ndata.fat}}</small></td>
+               <td><small>{{min_ndata.carbohydrate}}-{{max_ndata.carbohydrate}}</small></td>
+               <td><small>{{min_ndata.protein_per_j}}-{{max_ndata.protein_per_j}}</small></td>
+               <td><small>{{min_ndata.fibre_per_j}}-{{max_ndata.fibre_per_j}}</small></td>
+               <td><small>${{min_ndata.cost}}-${{max_ndata.cost}}</small></td>
+            {% endwith %}
          {% endwith %}
          </tr>
       {% endif %}
@@ -117,7 +120,7 @@
 
 <p>PANTS is a self-hosted, open-source nutrition tracking and analysis
 system. <a href="https://github.com/dylanleigh/PriceAndNutritionTrackingSystem">The
-source code of PANTS and some Documentation is available on GitHub.</a></p>
+source code and documentation of PANTS is available on GitHub.</a></p>
 
 
 {% endblock %}

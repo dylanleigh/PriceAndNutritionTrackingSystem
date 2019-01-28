@@ -19,7 +19,9 @@ Target comparison (Currently WIP)
 - Util funcs to get current user daily target, and current user diary today/last24 data (done)
 - Use on home page summary (done)
 - Use to show target on diary breakdown page (done)
-- Add daily target comparison on recipe detail page
+- Add daily target comparison on recipe detail page (done)
+- Add % to home and clean up ui (WIP)
+- Add % to diary
 - Add daily target comparison on ingredient detail page (as for recipe)
 
 NData and calculation DRYing (urgent, blocking)
