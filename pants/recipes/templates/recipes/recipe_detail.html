@@ -18,8 +18,8 @@
 
 <p>Tags:
 
-{% for tag in object.tags.all %} {# FIXME this should be in context with values_list #}
-   <a href="{% url 'recipe-list-by-tag' tag.name %}">{{ tag.name }}</a>,.
+{% for tag in object.tags.all %}
+   <a href="{% url 'recipe-list-by-tag' tag.name %}">{{ tag.name }}</a>, 
    {% empty %}
        (none)
    {% endfor %}
@@ -110,6 +110,48 @@
       <td>{{object.nutrition_data.fibre_per_j|css_progressbar:50}}</td>
       <td>{{object.nutrition_data.rank|css_progressbar:50}}</td>
    </tr>
+      {% if daily_target %}
+         <tr>
+         <th><small>Target %</small></th>
+         {% with daily_target.minimum.nutrition_data as min_ndata %}
+            {% with daily_target.maximum.nutrition_data as max_ndata %}
+               <td> </td>
+               <td><small>{% percminmax object.nutrition_data.cost_serve min_ndata.cost max_ndata.cost %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.kilojoules_serve min_ndata.kilojoules max_ndata.kilojoules %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.kilocalories_serve min_ndata.kilocalories max_ndata.kilocalories %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.protein_serve min_ndata.protein max_ndata.protein %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.fibre_serve min_ndata.fibre max_ndata.fibre %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.carbohydrate_serve min_ndata.carbohydrate max_ndata.carbohydrate %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.fat_serve min_ndata.fat max_ndata.fat %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.protein_per_cost min_ndata.protein_per_cost max_ndata.protein_per_cost %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.fibre_per_cost min_ndata.fibre_per_cost max_ndata.fibre_per_cost %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.protein_per_j min_ndata.protein_per_j max_ndata.protein_per_j %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.fibre_per_j min_ndata.fibre_per_j max_ndata.fibre_per_j %} </small></td>
+               <td><small>{% percminmax object.nutrition_data.rank min_ndata.rank max_ndata.rank %} </small></td>
+            {% endwith %}
+         {% endwith %}
+         </tr>
+         <tr>
+         <th><small><a href="/targets"/>{{ daily_target.name }}</a></small></th>
+         {% with daily_target.minimum.nutrition_data as min_ndata %}
+            {% with daily_target.maximum.nutrition_data as max_ndata %}
+               <td> </td>
+               <td><small>${{min_ndata.cost}}-${{max_ndata.cost}}</small></td>
+               <td><small>{{min_ndata.kilojoules}}-{{max_ndata.kilojoules}}</small></td>
+               <td><small>{{min_ndata.kilocalories}}-{{max_ndata.kilocalories}}</small></td>
+               <td><small>{{min_ndata.protein}}-{{max_ndata.protein}}</small></td>
+               <td><small>{{min_ndata.fibre}}-{{max_ndata.fibre}}</small></td>
+               <td><small>{{min_ndata.carbohydrate}}-{{max_ndata.carbohydrate}}</small></td>
+               <td><small>{{min_ndata.fat}}-{{max_ndata.fat}}</small></td>
+               <td><small>{{min_ndata.protein_per_cost}}-{{max_ndata.protein_per_cost}}</small></td>
+               <td><small>{{min_ndata.fibre_per_cost}}-{{max_ndata.fibre_per_cost}}</small></td>
+               <td><small>{{min_ndata.protein_per_j}}-{{max_ndata.protein_per_j}}</small></td>
+               <td><small>{{min_ndata.fibre_per_j}}-{{max_ndata.fibre_per_j}}</small></td>
+               <td><small>{{min_ndata.rank}}-{{max_ndata.rank}}</small></td>
+            {% endwith %}
+         {% endwith %}
+         </tr>
+      {% endif %}
 </table>
 
 <h3>Used in Recipes:</h3>

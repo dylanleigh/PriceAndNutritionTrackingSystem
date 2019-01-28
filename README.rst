@@ -155,6 +155,13 @@ add an Android app for my personal use).
 See the todo list below for more details.
 
 
+Bits Useful for Other Projects
+------------------------------
+
+- Recipe/Ingredient have a very simple but effective CSV export view.
+- There are convenient templatetags to do division, combined min/max percentage display and generate a little CSS bar chart (most tabular data uses them, see the screenshots for examples).
+
+
 Roadmap, Todos and Issues
 -------------------------
 

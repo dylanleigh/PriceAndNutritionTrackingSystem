@@ -81,6 +81,7 @@ User Profiles
 Django Frontend (Low Priority)
 ==============================
 
+- Clean up templates by using more templatetags
 - Handle particular target values set as None gracefully where they are displayed in lists
 - 3-part bar chart templatetag for max-min-current target comparison
 - Sanity Check page also listing out of date (e.g. nutrition over 2 year (?), price over 6 months) 
