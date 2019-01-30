@@ -85,11 +85,11 @@ Django Frontend
 ===============
 
 Note that the Django template frontend is only for personal/debugging
-use; "real" clients should be accessing PANTS via an API. This is all
-"nice to have" and major frontend improvements should be done via
-another application that uses that API.
+use; "real" clients should be accessing PANTS via an API. Major
+frontend improvements should thus be done via other applications that use
+that API.
 
-As such most of these range from nice-to-have to wont-fix.
+As such most of these range from nice-to-have to wont-fix in priority.
 
 - Clean up templates by using more templatetags
 - Handle particular target values set as None gracefully where they are displayed in lists
