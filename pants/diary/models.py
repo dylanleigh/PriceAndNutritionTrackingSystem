@@ -30,6 +30,7 @@ not_negative = MinValueValidator(0)
 #              - effectively nutrition data crystallized when saving from ing/rec
 #            - viewing by 
 
+# TODO: Base off other apps? "Exercise" "Biometrics"?
 # DiaryExercise - record exercise TODO
 # DiaryStat - record weight or other data TODO
 
@@ -58,7 +59,6 @@ class DiaryFood(AbstractBaseNutrients):
    class Meta:
       ordering = ["-start_time"]
 
-   # FIXME preload from ing/rec if empty
    name = models.CharField(
       max_length=settings.NAME_LENGTH,
       blank=True,
@@ -173,12 +173,11 @@ class DiaryFood(AbstractBaseNutrients):
          ndata = self.of_recipe.nutrition_data
 
          # Must get correct weight & servings first, to scale the rest
-         # FIXME: It should be a validation error to use
-         # ingredients/recipe and not specify either weight or servings
          if self.servings:
             self.weight = ndata['grams_serve'] * self.servings   # servings overrides weight
          else:
-            self.servings = self.weight / ndata['grams_serve']    # FIXME validate weight exists if servings doesn't
+            # clean() ensures weight exists if servings doesn't
+            self.servings = self.weight / ndata['grams_serve']
 
          # Get basic items plus cost - use per-serve data
          for k in settings.NUTRITION_DATA_ITEMS_BASIC:
@@ -199,7 +198,8 @@ class DiaryFood(AbstractBaseNutrients):
 
          if self.servings and self.of_ingredient.serving:   # don't trust ndata['grams_serve']
             self.weight = self.of_ingredient.serving * self.servings   # servings overrides weight
-         elif self.weight is None: # no serving - we must have weight! # FIXME should be validation error
+         elif self.weight is None: # no serving - we must have weight!
+            # validation error should be raised earlier (unless this was created in code)
             raise ValueError('Ingredient has no serving - must explicitly specify weight')
 
          for k in settings.NUTRITION_DATA_ITEMS_BASIC:
