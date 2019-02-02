@@ -8,8 +8,8 @@ nutritional data analysis of ingredients and recipes. It can be run on
 your own computer or as a multiuser web service (e.g. for use by a
 dietician/trainer/researcher and their clients).
 
-As well as tracking daily calories etc, PANTS is designed around
-comparing and optimizing recipes which form a regular part of your
+As well as tracking daily calories etc, PANTS is designed to make 
+it easy to compare and optimize recipes which form a regular part of your
 diet; a key feature is the ability for recipes to be components of
 other recipes. For example a dough recipe and a filling recipe can
 both be components in a pie recipe; you can clone the pie recipe
