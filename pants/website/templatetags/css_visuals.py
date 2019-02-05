@@ -15,7 +15,7 @@ def valminmaxdiv(value, min_target, max_target):
 
    The divs contain the text "X (Y%-Z%)" where X is the value and Y/Z are
    the value as a percentage of the minimum/maximum target respectively.
-   The bit in the brackets is put within a <small> tag.
+   The bit in the brackets is put on a new line within a <small> tag.
 
    Exceptions:
    - Returns an empty string if the value cannot be converted to float.
@@ -51,7 +51,7 @@ def valminmaxdiv(value, min_target, max_target):
    elif min_p:
       contents = '%s<small><br>(%s%%)</small>'%(val,min_p)
    elif max_p:
-      contents = '%s<small><br>(%s%%)</small>'%(val,min_p)
+      contents = '%s<small><br>(%s%%)</small>'%(val,max_p)
    else:
       contents = '%s'%val
 
@@ -61,11 +61,11 @@ def valminmaxdiv(value, min_target, max_target):
    if (min_t > max_t):   # Swap here so max >= min for CSS; note one may be 0
       min_t, max_t = max_t, min_t
 
-   # TODO: Make these arguments?
+   # TODO: Make these arguments? Or have a few different "schemes" as arg?
    under_colour = 'w3-green'  # Under minimum
    warn_colour = 'w3-orange'  # Over minium
    over_colour = 'w3-red'     # Over maximum
-   # FIXME: Use these for when we only have 1 limit
+   # TODO: Use these for non-target cells (e.g. rec/ing)?
    fgclass = 'w3-deep-purple'
    bgclass = 'w3-black'
 
@@ -77,7 +77,7 @@ def valminmaxdiv(value, min_target, max_target):
    if (val >= max_t):
       return mark_safe(
          '<div class="%s">%s</div>'%(
-            over_colour,
+            warn_colour,
             contents,
          )
       )
@@ -103,42 +103,9 @@ def valminmaxdiv(value, min_target, max_target):
       )
 
 
-# TODO: deprecated; the above all-in-one tag is preferred
-def percminmax(value, min_target, max_target):
-   """
-   Returns a string like 'x%-y%' where x is the value/min_target% and y is
-   the value/max_target%.
-
-   E.g. 30|perc_min_max:100 150 returns "30%-20%".
-
-   Returns an empty string in place of results of any arguments which
-   cannot be converted to a float.
-
-   You can just specify the min/max the other way around if you
-   prefer the lower percentage to be on the left (it defaults to the
-   other way to emphasise that a lower percentage has a higher base).
-   """
-   try:
-      num = float(value)*100
-   except:
-      return ''
-
-   try:
-      minp = int(num / float(min_target))
-   except:     # divide by zero or cannot convert to float
-      minp=''
-
-   try:
-      maxp = int(num / float(max_target))
-   except:
-      maxp=''
-
-   return '%s%%-%s%%'%(minp,maxp)
-
-
 # TODO: deprecated; most cases of this should use valminmaxdiv
 # instead, although there are some cases where not showing the % might
-# be preferred.
+# be preferred. This should be an option on the above
 @register.filter
 def css_progressbar(value, maxvalue=100, fgclass='w3-deep-purple', bgclass='w3-black'):
    """
