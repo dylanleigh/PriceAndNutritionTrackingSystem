@@ -77,7 +77,7 @@ def valminmaxdiv(value, min_target, max_target):
    if (val >= max_t):
       return mark_safe(
          '<div class="%s">%s</div>'%(
-            warn_colour,
+            over_colour,
             contents,
          )
       )
