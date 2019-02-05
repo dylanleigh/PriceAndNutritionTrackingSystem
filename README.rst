@@ -15,7 +15,9 @@ other recipes. For example a dough recipe and a filling recipe can
 both be components in a pie recipe; you can clone the pie recipe
 with alternate fillings to compare the nutritional values of the
 alternatives. Any changes to the dough recipe will be reflected in
-the data for all of the pies.
+the data for all of the pies. This feature can also be used to easily
+compare between different similar meals and provide a "typical"
+meta-recipe for meal and diet planning.
 
 PANTS is currently (as of 2019) under active, daily use by the author
 so updates should be fairly frequent. On the other hand, the code
@@ -85,11 +87,23 @@ Tagging
 
 Repurposing Recursive Recipes
    As recipes can include other recipes, this can be used for other
-   planning purposes, e.g. to  make an "average breakfast" recipe
-   which is your other breakfast
-   recipes combined (then divided by number of serves). These can be in
-   turn combined to make an "average day" overview which can be used as a
-   meal plan.
+   analysis and planning purposes.
+
+   For example. an "average breakfast" meta-recipe which just contains one
+   of all the other breakfast recipes; divided by the number of serves
+   this provides an average breakfast which can be used for planning.
+   This can be combined with other "typical meal" meta-recipes to make
+   an "average day" overview which can be used as a meal plan.
+
+   Changes to a recipe (or ingredient) will be reflected in any
+   ingredient that uses them, so if you alter a recipe this will be
+   reflected in the "typical meal/day" recipes.
+
+   They can also be used as "variables" in other recipes, e.g. if you
+   sometimes use normal flour or gluten free flour, a "flour" recipe
+   can be created which can be used to toggle between them with one
+   change which effectively toggles the ingredient in multiple recipes
+   at once.
 
 PANTS doesn't make assumptions or guesses
    It is preferable to show no data instead of wrong data. If an ingredient has
