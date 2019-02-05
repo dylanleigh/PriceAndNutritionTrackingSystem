@@ -15,9 +15,16 @@ other recipes. For example a dough recipe and a filling recipe can
 both be components in a pie recipe; you can clone the pie recipe
 with alternate fillings to compare the nutritional values of the
 alternatives. Any changes to the dough recipe will be reflected in
-the data for all of the pies. This feature can also be used to easily
-compare between different similar meals and provide a "typical"
-meta-recipe for meal and diet planning.
+the data for all of the pies.
+
+These "meta-recipes" can also be used to easily compare between
+different similar meals and provide an "average" breakfast/snack/etc
+for meal and diet planning.
+
+Other features include support for multiple daily targets with a
+minimum and maximum desired values and visualisation of data across
+the last 24 hours (not just since mindnight like most other trackers)
+to allow for a more realistic view of daily consumption.
 
 PANTS is currently (as of 2019) under active, daily use by the author
 so updates should be fairly frequent. On the other hand, the code
