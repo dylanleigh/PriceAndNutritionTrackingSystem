@@ -81,6 +81,7 @@ def RecipeCSVExportView(request):
       'carbohydrate_serve',
       'fat_serve',
       'grams_serve',
+      'pf_per_j',
       'rank',
    ] + list(settings.NUTRITION_DATA_ITEMS) + [
       'tags',        # TODO: Add ingredient/component names somehow here!
