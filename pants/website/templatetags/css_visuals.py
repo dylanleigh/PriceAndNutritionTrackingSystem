@@ -45,12 +45,13 @@ def valminmaxdiv(value, min_target, max_target):
       max_t = 0   # For bar chart later
       max_p = None
 
+   # If there is only 1 limit, just use that as the sole %
    if min_p and max_p:
-      contents = '%s<small> (%s%%-%s%%)</small>'%(val,min_p,max_p)
+      contents = '%s<small><br>(%s%%-%s%%)</small>'%(val,min_p,max_p)
    elif min_p:
-      contents = '%s<small> (%s%%)</small>'%(val,min_p)
+      contents = '%s<small><br>(%s%%)</small>'%(val,min_p)
    elif max_p:
-      contents = '%s<small> (%s%%)</small>'%(val,min_p)
+      contents = '%s<small><br>(%s%%)</small>'%(val,min_p)
    else:
       contents = '%s'%val
 
@@ -64,6 +65,9 @@ def valminmaxdiv(value, min_target, max_target):
    under_colour = 'w3-green'  # Under minimum
    warn_colour = 'w3-orange'  # Over minium
    over_colour = 'w3-red'     # Over maximum
+   # FIXME: Use these for when we only have 1 limit
+   fgclass = 'w3-deep-purple'
+   bgclass = 'w3-black'
 
    # There are 3 possibilities:
    # val < min < max : 3 colours with val as a % of min which is % max
