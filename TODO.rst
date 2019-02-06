@@ -110,7 +110,8 @@ As such most of these range from nice-to-have to wont-fix in priority.
 Miscellaneous
 =============
 
-- Diary doesn't rewrite cost if there is no cost on ingredient/recipe - should be allowed as a manual overrite but at least igve a warning.
+- Add links back to my blog posts, and copy some of the cleaner explanations of the ratios and meta-recipes.
+- Diary doesn't rewrite cost if there is no cost on ingredient/recipe - should be allowed as a manual overrite but at least give a warning.
 - Improved bulk import facilities in general, especially open data
 - Consider: Deprecate Product by merging price functionality into ProductPrice and making Ingredients recurse to more generic/specific versions? Product concept is underused
 - Consider: Move to per-100g instead of per-kg?
