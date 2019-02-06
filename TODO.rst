@@ -3,15 +3,12 @@
 PANTS TODOs (including known bugs/issues/kludges)
 =================================================
 
-Urgent
-======
+Urgent / Important
+==================
 
 - ** Unit tests are severely incomplete! **
 - Fix all the kludgy FIXMEs in the code (see "make fixme" output)
 - Fix per-serve/per-weight dichotomy in recipe components (will be part of Ndata work)
-- Provide a fixture with some initial basic ingredients and a few recipes so new users can get started ASAP.
-- Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc, links to /all/ etc
-- Proper non-admin login/logout/404/etc pages
 - Add preparation_loss_factor to ingredient for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc). Add on product to allow e.g. pre-chopped vs whole veg price comparison
 
 Target comparison (Currently WIP)
@@ -46,6 +43,16 @@ ingredient/recipe/diary.
 - Remove NDATA_ settings cruft
 - ndata should handle micronutrients in some generic and graceful way
 
+Deploy and Login, Production-Readiness
+======================================
+
+- Provide a fixture with some initial basic ingredients and a few recipes so new users can get started ASAP.
+- All urgent/important stuff at top done
+- Deploy target assuming Heroku - include sub-parts below
+- Proper non-admin login/logout pages
+- Use login middleware instead of requiring mixins/decorators every view
+- 404 template
+
 API / filter
 ============
 
@@ -55,14 +62,6 @@ API / filter
 - Fix/style form in ing-filter template
 - filter recipe, diary as for ings
 - API-based frontend? Use DRF API - Don't bother with substatial FE improvements until this is done!
-
-Deploy and Login
-================
-
-- Deploy target assuming Heroku - include sub-parts below
-- Proper non-admin login/logout pages
-- Use login middleware instead of requiring mixins/decorators every view
-- 404 template
 
 Exercise and Physiological Diary
 ================================
@@ -92,6 +91,8 @@ that API.
 
 As such most of these range from nice-to-have to wont-fix in priority.
 
+- Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc, links to /all/ etc
+- Diary entry should default to logged in user, etc
 - Clean up templates by using more templatetags
 - Handle particular target values set as None gracefully where they are displayed in lists
 - 3-part bar chart templatetag for max-min-current target comparison
