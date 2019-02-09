@@ -48,12 +48,12 @@
          <td>{{ndata.fat|default_if_none:" "|css_progressbar:1000}}</td>
          <td>{{ndata.carbohydrate|default_if_none:" "|css_progressbar:1000}}</td>
          <td>{{ndata.sugar|default_if_none:" "|css_progressbar:1000}}</td>
-            <td>${{ndata.cost|default_if_none:"?"|floatformat:2}}</td>
-            <td>{{ndata.protein_per_j|css_progressbar:75}}</td>
-            <td>{{ndata.protein_per_cost|css_progressbar:100}}</td>
-            <td>{{ndata.fibre_per_j|css_progressbar:100}}</td>
-            <td>{{ndata.fibre_per_cost|css_progressbar:100}}</td>
-            <td>{{ndata.rank|css_progressbar:5}}</td>
+         <td>${{ndata.cost|default_if_none:"?"|floatformat:2}}</td>
+         <td>{{ndata.protein_per_j|css_progressbar:75}}</td>
+         <td>{{ndata.protein_per_cost|css_progressbar:100}}</td>
+         <td>{{ndata.fibre_per_j|css_progressbar:100}}</td>
+         <td>{{ndata.fibre_per_cost|css_progressbar:100}}</td>
+         <td>{{ndata.rank|css_progressbar:5}}</td>
       </tr>
    {% endwith %}
 </table>
