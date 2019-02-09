@@ -9,22 +9,17 @@ Urgent / Important
 - ** Unit tests are severely incomplete! **
 - Fix all the kludgy FIXMEs in the code (see "make fixme" output)
 - Fix per-serve/per-weight dichotomy in recipe components (will be part of Ndata work)
-- Add Wall/Prep/Cooking time to recipes
+- Proper non-admin login/logout pages - can't login without admin interface
 - Recipe method doesn't keep newlines or allow any kind of markup
+- Add Wall/Prep/Cooking time to recipes
 - Add preparation_loss_factor to ingredient for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc). Add on product to allow e.g. pre-chopped vs whole veg price comparison
 
-Target comparison (Currently WIP)
-=================================
+Target comparison (Completed 10-02-2019)
+========================================
 
-- Util funcs to get current user daily target, and current user diary today/last24 data (done)
-- Use on home page summary (done)
-- Use to show target on diary breakdown page (done)
-- Add daily target comparison on recipe detail page (done)
-- Add % to home and clean up ui (done)
-- Add % to diary (done)
-- Fix new bar charts on recipe detail (done)
-- Add daily target comparison on ingredient detail page (done, but
-  needs scaler to be useful)
+Target comparison on home/summary, diary breakdown, recipe detail and
+ingredient detail pages; uses new 3-colour bar cells to show how close
+it is to the min/max of the target.
 
 NData and calculation DRYing (urgent, blocking)
 ===============================================
