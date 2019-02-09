@@ -9,6 +9,7 @@ Urgent / Important
 - ** Unit tests are severely incomplete! **
 - Fix all the kludgy FIXMEs in the code (see "make fixme" output)
 - Fix per-serve/per-weight dichotomy in recipe components (will be part of Ndata work)
+- Add Wall/Prep/Cooking time to recipes
 - Add preparation_loss_factor to ingredient for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc). Add on product to allow e.g. pre-chopped vs whole veg price comparison
 
 Target comparison (Currently WIP)
@@ -91,6 +92,7 @@ that API.
 
 As such most of these range from nice-to-have to wont-fix in priority.
 
+- Recipe method doesn't keep newlines or allow any kind of markup
 - Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc, links to /all/ etc
 - Diary entry should default to logged in user, etc
 - Clean up templates by using more templatetags
@@ -110,7 +112,7 @@ As such most of these range from nice-to-have to wont-fix in priority.
 Miscellaneous
 =============
 
-- Add links back to my blog posts, and copy some of the cleaner explanations of the ratios and meta-recipes.
+- Add links back to my blog posts, and copy some of the cleaner explanations of the ratios and meta-recipes (clean up README too)
 - Diary doesn't rewrite cost if there is no cost on ingredient/recipe - should be allowed as a manual overrite but at least give a warning.
 - Improved bulk import facilities in general, especially open data
 - Consider: Deprecate Product by merging price functionality into ProductPrice and making Ingredients recurse to more generic/specific versions? Product concept is underused
