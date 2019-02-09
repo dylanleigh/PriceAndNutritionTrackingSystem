@@ -23,7 +23,8 @@ Target comparison (Currently WIP)
 - Add % to home and clean up ui (done)
 - Add % to diary (done)
 - Fix new bar charts on recipe detail (done)
-- Add daily target comparison on ingredient detail page (as for recipe)
+- Add daily target comparison on ingredient detail page (done, but
+  needs scaler to be useful)
 
 NData and calculation DRYing (urgent, blocking)
 ===============================================
@@ -93,6 +94,7 @@ that API.
 
 As such most of these range from nice-to-have to wont-fix in priority.
 
+- Ratio bar charts on ingredient detail aren't very useful without the ability to scale by grams or servings
 - Ratio bar charts on recipe detail use only max limit; should use midpoint of min/max
 - Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc, links to /all/ etc
 - Diary entry should default to logged in user, etc
@@ -113,7 +115,7 @@ As such most of these range from nice-to-have to wont-fix in priority.
 Miscellaneous
 =============
 
-- Add links back to my blog posts, and copy some of the cleaner explanations of the ratios and meta-recipes (clean up README too)
+- Add links back to my blog posts in README, and copy some of the cleaner explanations of the ratios and meta-recipes (clean up README in general)
 - Diary doesn't rewrite cost if there is no cost on ingredient/recipe - should be allowed as a manual overrite but at least give a warning.
 - Improved bulk import facilities in general, especially open data
 - Consider: Deprecate Product by merging price functionality into ProductPrice and making Ingredients recurse to more generic/specific versions? Product concept is underused

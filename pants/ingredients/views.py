@@ -13,6 +13,7 @@ from django.views.generic.list import ListView
 
 from .models import Ingredient, IngredientTag
 from .utils import get_nutrition_limits
+from targets.models import Target
 
 
 class IngredientListView(LoginRequiredMixin, ListView):
@@ -64,6 +65,14 @@ class IngredientDetailView(LoginRequiredMixin, DetailView):
 
    def get_context_data(self, **kwargs):
        context = super(IngredientDetailView, self).get_context_data(**kwargs)
+
+       # User's current daily target for comparison
+       # TODO: Should let user compare to different targets, and scale
+       # to maximise something (etc)
+       user = self.request.user
+       daily_target = Target.get_primary_target(user)
+       context.update({'daily_target': daily_target})
+
        return context
 
 @login_required
