@@ -34,6 +34,12 @@
          <th>Fat g/kg</th>
          <th>Carb. g/kg</th>
          <th>Sugar g/kg</th>
+         <th>Min. $/kg</th>
+         <th>Prot. g/J</th>
+         <th>Prot. g/$</th>
+         <th>Fibre g/J</th>
+         <th>Fibre g/$</th>
+         <th>Rank</th>
       </tr><tr>
          <td>{{ndata.kilojoules|css_progressbar:30000}}</td>
          <td>{{ndata.kilocalories|css_progressbar:5000}}</td>
@@ -42,14 +48,6 @@
          <td>{{ndata.fat|default_if_none:" "|css_progressbar:1000}}</td>
          <td>{{ndata.carbohydrate|default_if_none:" "|css_progressbar:1000}}</td>
          <td>{{ndata.sugar|default_if_none:" "|css_progressbar:1000}}</td>
-      </tr><tr>
-         <th>Min. $/kg</th>
-         <th>Prot. g/J</th>
-         <th>Prot. g/$</th>
-         <th>Fibre g/J</th>
-         <th>Fibre g/$</th>
-         <th>Rank</th>
-      </tr><tr>
             <td>${{ndata.cost|default_if_none:"?"|floatformat:2}}</td>
             <td>{{ndata.protein_per_j|css_progressbar:75}}</td>
             <td>{{ndata.protein_per_cost|css_progressbar:100}}</td>
