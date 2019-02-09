@@ -100,7 +100,7 @@
             <th>Per Serve:<br><small>(% Target)</small></th>
             {% with daily_target.minimum.nutrition_data as min_ndata %}
                {% with daily_target.maximum.nutrition_data as max_ndata %}
-                  <td> </td>
+                  <td>{{ndata.grams_serve|floatformat:1}}</td>
                   <td>{% valminmaxdiv ndata.cost_serve min_ndata.cost max_ndata.cost %} </td>
                   <td>{% valminmaxdiv ndata.kilojoules_serve min_ndata.kilojoules max_ndata.kilojoules %} </td>
                   <td>{% valminmaxdiv ndata.kilocalories_serve min_ndata.kilocalories max_ndata.kilocalories %} </td>
