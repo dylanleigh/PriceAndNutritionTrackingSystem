@@ -1,7 +1,9 @@
 
-=================================================
-PANTS TODOs (including known bugs/issues/kludges)
-=================================================
+=======================
+PANTS TODOs and Roadmap
+=======================
+
+(including known bugs/issues/kludges)
 
 Urgent / Important
 ==================
