@@ -143,15 +143,17 @@
       <tr>
          <th>{{entry.start_time|date:'H:i'}}</a></th>
 
+         <td><small>
          {% if entry.of_ingredient %}
-            <td><a href="{% url 'ingredient-detail' entry.of_ingredient.slug %}">{{entry.name}}</a></td>
+            <a href="{% url 'ingredient-detail' entry.of_ingredient.slug %}">{{entry.name}}</a>
          {% else %}
             {% if entry.of_recipe %}
-               <td><a href="{% url 'recipe-detail' entry.of_recipe.slug %}">{{entry.name}}</a></td>
+               <a href="{% url 'recipe-detail' entry.of_recipe.slug %}">{{entry.name}}</a>
             {% else %}
-               <td>{{entry.name}}</td>
+               {{entry.name}}
             {% endif %}
          {% endif %}
+         </small></td>
 
           {% with entry.nutrition_data as ndata %}
             <td>{{entry.weight}}</td>
@@ -283,15 +285,17 @@
       <tr>
          <th>{{entry.start_time|date:'H:i'}}</a></th>
 
+         <td><small>
          {% if entry.of_ingredient %}
-            <td><a href="{% url 'ingredient-detail' entry.of_ingredient.slug %}">{{entry.name}}</a></td>
+            <a href="{% url 'ingredient-detail' entry.of_ingredient.slug %}">{{entry.name}}</a>
          {% else %}
             {% if entry.of_recipe %}
-               <td><a href="{% url 'recipe-detail' entry.of_recipe.slug %}">{{entry.name}}</a></td>
+               <a href="{% url 'recipe-detail' entry.of_recipe.slug %}">{{entry.name}}</a>
             {% else %}
-               <td>{{entry.name}}</td>
+               {{entry.name}}
             {% endif %}
          {% endif %}
+         </small></td>
 
           {% with entry.nutrition_data as ndata %}
             <td>{{entry.weight}}</td>
