@@ -13,7 +13,7 @@ Urgent / Important
 - Fix per-serve/per-weight dichotomy in recipe components (will be part of Ndata work)
 - Proper non-admin login/logout pages - can't login without admin interface
 - Recipe method doesn't keep newlines or allow any kind of markup
-- Add Wall/Prep/Cooking time to recipes
+- Add Wall?/Prep/Cooking/Rest? time to recipes
 - Add preparation_loss_factor to ingredient for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc). Add on product to allow e.g. pre-chopped vs whole veg price comparison
 
 Target comparison (Completed 10-02-2019)

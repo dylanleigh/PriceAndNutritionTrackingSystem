@@ -34,6 +34,9 @@ the author wanted to use them ASAP while cooking his dinner.
 It is currently not recommended for non-technical users; basic
 familiarity with Django is useful.
 
+.. contents:: Contents:
+   :backlinks: none
+
 Use Cases
 =========
 
