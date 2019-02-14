@@ -185,8 +185,12 @@ class DiaryFood(AbstractBaseNutrients):
                setattr(self, k, self.servings * ndata["%s_serve"%k])
             except (KeyError,TypeError):
                setattr(self, k, None)
-         if ndata['cost_serve']:
-            self.cost = self.servings * ndata['cost_serve'] # cost not included in _BASIC
+         try:
+            if ndata['cost_serve']:
+               self.cost = self.servings * ndata['cost_serve'] # cost not included in _BASIC
+         except:
+            # TODO: Warn user that this recipe has no cost data - not critical
+            pass
 
          if not self.name:  # use name from source unless overridden
             self.name = self.of_recipe.name
