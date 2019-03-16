@@ -28,6 +28,7 @@
          <th>Sugar</th>
          <th>Pro/kj</th>
          <th>Fib/kj</th>
+         <th>Rank</th>
          <th>Cost</th>
       </tr>
    {% for entry in today_objects %}
@@ -58,6 +59,7 @@
             <td>{{ndata.sugar|css_progressbar:today_total.sugar}}</td>
             <td>{{ndata.protein_per_j|css_progressbar:30}}</td>
             <td>{{ndata.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{ndata.rank|css_progressbar:30}}</td>
             <td>{{ndata.cost}}</td>
          {% endwith %}
       </tr>
@@ -80,6 +82,7 @@
                   <td>{% valminmaxdiv today_total.sugar min_ndata.sugar max_ndata.sugar %}</td>
                   <td>{{today_total.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
                   <td>{{today_total.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
+                  <td>{{today_total.rank|css_progressbar:30}}</td>
                   <td>{% valminmaxdiv today_total.cost min_ndata.cost max_ndata.cost %}</td>
                {% endwith %}
             {% endwith %}
@@ -93,6 +96,7 @@
             <td>{{today_total.sugar|css_progressbar:80}}</td>
             <td>{{today_total.protein_per_j|css_progressbar:30}}</td>
             <td>{{today_total.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{today_total.rank|css_progressbar:30}}</td>
             <td>{{today_total.cost}}</td>
          {% endif %}
       </tr>
@@ -113,6 +117,7 @@
                <td><small>{{min_ndata.sugar}}-{{max_ndata.sugar}}</small></td>
                <td><small>{{min_ndata.protein_per_j}}-{{max_ndata.protein_per_j}}</small></td>
                <td><small>{{min_ndata.fibre_per_j}}-{{max_ndata.fibre_per_j}}</small></td>
+               <td></td>
                <td><small>${{min_ndata.cost}}-${{max_ndata.cost}}</small></td>
             {% endwith %}
          {% endwith %}
@@ -137,6 +142,7 @@
          <th>Sugar</th>
          <th>Pro/kj</th>
          <th>Fib/kj</th>
+         <th>Rank</th>
          <th>Cost</th>
       </tr>
    {% for entry in last24_objects %}
@@ -167,6 +173,7 @@
             <td>{{ndata.sugar|css_progressbar:20}}</td>
             <td>{{ndata.protein_per_j|css_progressbar:30}}</td>
             <td>{{ndata.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{ndata.rank|css_progressbar:30}}</td>
             <td>{{ndata.cost}}</td>
          {% endwith %}
       </tr>
@@ -189,6 +196,7 @@
                   <td>{% valminmaxdiv last24_total.sugar min_ndata.sugar max_ndata.sugar %}</td>
                   <td>{{last24_total.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
                   <td>{{last24_total.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
+                  <td>{{last24_total.rank|css_progressbar:30}}</td>
                   <td>{% valminmaxdiv last24_total.cost min_ndata.cost max_ndata.cost %}</td>
                {% endwith %}
             {% endwith %}
@@ -202,6 +210,7 @@
             <td>{{last24_total.sugar|css_progressbar:80}}</td>
             <td>{{last24_total.protein_per_j|css_progressbar:30}}</td>
             <td>{{last24_total.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{last24_total.rank}}</td>
             <td>{{last24_total.cost}}</td>
          {% endif %}
       </tr>
@@ -223,6 +232,7 @@
                   <td>{% valminmaxdiv last24_sum.sugar min_ndata.sugar max_ndata.sugar %}</td>
                   <td>{{last24_sum.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
                   <td>{{last24_sum.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
+                  <td>{{last24_sum.rank|css_progressbar:max_ndata.rank}}</td>
                   <td>{% valminmaxdiv last24_sum.cost min_ndata.cost max_ndata.cost %}</td>
                {% endwith %}
             {% endwith %}
@@ -236,6 +246,7 @@
             <td>{{last24_sum.sugar|css_progressbar:80}}</td>
             <td>{{last24_sum.protein_per_j|css_progressbar:30}}</td>
             <td>{{last24_sum.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{last24_sum.rank|css_progressbar:30}}</td>
             <td>{{last24_sum.cost}}</td>
          {% endif %}
       </tr>
@@ -256,6 +267,7 @@
                <td><small>{{min_ndata.sugar}}-{{max_ndata.sugar}}</small></td>
                <td><small>{{min_ndata.protein_per_j}}-{{max_ndata.protein_per_j}}</small></td>
                <td><small>{{min_ndata.fibre_per_j}}-{{max_ndata.fibre_per_j}}</small></td>
+               <td></td>
                <td><small>${{min_ndata.cost}}-${{max_ndata.cost}}</small></td>
             {% endwith %}
          {% endwith %}
@@ -279,6 +291,7 @@
          <th>Sugar</th>
          <th>Pro/kj</th>
          <th>Fib/kj</th>
+         <th>Rank</th>
          <th>Cost</th>
       </tr>
    {% for entry in lastday_objects %}
@@ -309,6 +322,7 @@
             <td>{{ndata.sugar|css_progressbar:20}}</td>
             <td>{{ndata.protein_per_j|css_progressbar:30}}</td>
             <td>{{ndata.fibre_per_j|css_progressbar:10}}</td>
+                  <td></td>
             <td>{{ndata.cost}}</td>
          {% endwith %}
       </tr>
@@ -331,6 +345,7 @@
                   <td>{% valminmaxdiv lastday_total.sugar min_ndata.sugar max_ndata.sugar %}</td>
                   <td>{{lastday_total.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
                   <td>{{lastday_total.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
+                  <td>{{lastday_total.rank|css_progressbar:max_ndata.rank}}</td>
                   <td>{% valminmaxdiv lastday_total.cost min_ndata.cost max_ndata.cost %}</td>
                {% endwith %}
             {% endwith %}
@@ -344,6 +359,7 @@
             <td>{{lastday_total.sugar|css_progressbar:80}}</td>
             <td>{{lastday_total.protein_per_j|css_progressbar:30}}</td>
             <td>{{lastday_total.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{lastday_total.rank|css_progressbar:30}}</td>
             <td>{{lastday_total.cost}}</td>
          {% endif %}
       </tr>
@@ -365,6 +381,7 @@
                   <td>{% valminmaxdiv lastday_sum.sugar min_ndata.sugar max_ndata.sugar %}</td>
                   <td>{{lastday_sum.protein_per_j|css_progressbar:max_ndata.protein_per_j}}</td>
                   <td>{{lastday_sum.fibre_per_j|css_progressbar:max_ndata.fibre_per_j}}</td>
+                  <td>{{lastday_sum.rank|css_progressbar:30}}</td>
                   <td>{% valminmaxdiv lastday_sum.cost min_ndata.cost max_ndata.cost %}</td>
                {% endwith %}
             {% endwith %}
@@ -378,6 +395,7 @@
             <td>{{lastday_sum.sugar|css_progressbar:80}}</td>
             <td>{{lastday_sum.protein_per_j|css_progressbar:30}}</td>
             <td>{{lastday_sum.fibre_per_j|css_progressbar:10}}</td>
+            <td>{{lastday_sum.rank|css_progressbar:30}}</td>
             <td>{{lastday_sum.cost}}</td>
          {% endif %}
       </tr>
@@ -398,6 +416,7 @@
                <td><small>{{min_ndata.sugar}}-{{max_ndata.sugar}}</small></td>
                <td><small>{{min_ndata.protein_per_j}}-{{max_ndata.protein_per_j}}</small></td>
                <td><small>{{min_ndata.fibre_per_j}}-{{max_ndata.fibre_per_j}}</small></td>
+               <td></td>
                <td><small>${{min_ndata.cost}}-${{max_ndata.cost}}</small></td>
             {% endwith %}
          {% endwith %}
