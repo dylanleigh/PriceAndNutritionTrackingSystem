@@ -109,7 +109,7 @@ class Product(models.Model):
       from all suppliers
       """
       prices = self.price_set.annotate(
-         price_per_kg = F('price') - F('weight')
+         price_per_kg = F('price') / F('weight')
       )
       return prices.order_by('price_per_kg').first()
 

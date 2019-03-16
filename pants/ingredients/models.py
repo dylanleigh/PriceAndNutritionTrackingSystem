@@ -182,7 +182,7 @@ class Ingredient(AbstractBaseNutrients):
       '''
       Price = apps.get_model('products','Price')
       prices = Price.objects.filter(product__ingredient=self).annotate(
-         price_per_kg = F('price') - F('weight')
+         price_per_kg = F('price') / F('weight')
       )
       return prices.order_by('price_per_kg').first()
 
