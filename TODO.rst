@@ -13,13 +13,11 @@ Urgent / Important
 - Fix per-serve/per-weight dichotomy in recipe components (will be part of Ndata work)
 - Proper non-admin login/logout pages - can't login without admin interface
 - Recipe method doesn't keep newlines or allow any kind of markup
-- Add Wall?/Prep/Cooking/Rest? time to recipes
-- Add preparation_loss_factor to Product for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc). Add on product to allow e.g. pre-chopped vs whole veg price comparison
 
 Target comparison (Completed 10-02-2019)
 ========================================
 
-Target comparison on home/summary, diary breakdown, recipe detail and
+Target comparison added to home/summary, diary breakdown, recipe detail and
 ingredient detail pages; uses new 3-colour bar cells to show how close
 it is to the min/max of the target.
 
@@ -112,6 +110,10 @@ As such most of these range from nice-to-have to wont-fix in priority.
 Miscellaneous
 =============
 
+- Add Wall?/Prep/Cooking/Rest? time to recipes
+- Add preparation_loss_factor to Product for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc). Add on product to allow e.g. pre-chopped vs whole veg price comparison
+- Bug: Does not detect recursion loops in recipes
+- Bug: User must handle out of date slugs on a name change
 - Add links back to my blog posts in README, and copy some of the cleaner explanations of the ratios and meta-recipes (clean up README in general)
 - Diary doesn't rewrite cost if there is no cost on ingredient/recipe - should be allowed as a manual overrite but at least give a warning.
 - Improved bulk import facilities in general, especially open data
