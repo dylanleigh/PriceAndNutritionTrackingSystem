@@ -47,7 +47,7 @@
          <th>Fibre/J</th>
          <th>Rank</th>
       </tr>
-   {% for rec in object_list %}
+   {% for rec in object_list|dictsortreversed:"sort_rank" %}
       <tr>
          <th><a href="{% url 'recipe-detail' rec.slug %}">{{rec.name}}</a></th>
          {% with rec.nutrition_data as ndata %}

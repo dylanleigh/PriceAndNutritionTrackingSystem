@@ -125,6 +125,19 @@ class Recipe(models.Model):
       # Finally determine desired weights per other weights
       return add_nutrition_ratios(data)
 
+   # NOTE: This is deprecated, only required for dictsort being flaky
+   @cached_property
+   def sort_rank(self):
+      '''
+      Returns the rank from nutrition data, as an integer.
+      Returns 0 if there is no rank.
+      Used for sorting things that can't sort floating point numbers
+      '''
+      try:
+         return self.nutrition_data['rank']
+      except:
+         return 0
+
    @cached_property
    def used_in_recipes(self):
       """
