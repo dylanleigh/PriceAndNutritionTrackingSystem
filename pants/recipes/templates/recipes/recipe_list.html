@@ -16,7 +16,24 @@
    <a href="{% url 'recipe-csv-export' %}"
       class="w3-button w3-black w3-round-large"> Export CSV </a>
 
+  <a href="{% url 'recipe-list-all' %}"
+   {% if listtype == 'all' %}
+      class="w3-button w3-green w3-round-large">
+   {% else %}
+      class="w3-button w3-black w3-round-large">
+   {% endif %}
+   Show All </a>
+
    <em>Tags:</em>
+
+   <a href="{% url 'recipe-list' %}"
+   {% if listtype == 'untagged' %}
+      class="w3-button w3-green w3-round-large">
+   {% else %}
+      class="w3-button w3-black w3-round-large">
+   {% endif %}
+   (untagged) </a>
+
    {% for t in alltags %}
       <a href="{% url 'recipe-list-by-tag' t %}"
       {% if t == tag.name %}
