@@ -6,6 +6,13 @@ urlpatterns = [
    # /recipes/
    url(r'^$', views.RecipeListView.as_view(), name='recipe-list'),
 
+   # /recipes/all/
+   url(
+      r'^all/$',
+      views.RecipeListAllView.as_view(),
+      name='recipe-list-all',
+   ),
+
    # /recipe/csvexport/
    url(
       r'^csvexport/$',

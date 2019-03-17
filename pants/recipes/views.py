@@ -29,6 +29,18 @@ class RecipeListView(LoginRequiredMixin, ListView):
       return context
 
 
+class RecipeListAllView(LoginRequiredMixin, ListView):
+   # - Table view - generic macros and cost for each ingredient
+   model = Recipe
+   queryset = Recipe.objects.all()
+
+   def get_context_data(self, **kwargs):
+      context = super(RecipeListAllView, self).get_context_data(**kwargs)
+      context['alltags'] = RecipeTag.objects.values_list('name', flat=True)
+      context['limits'] = get_nutrition_limits(self.queryset) #TODO: Too intensive?
+      context['listtype'] = 'all'
+      return context
+
 class RecipeListByTagView(LoginRequiredMixin, ListView):
    # - Table view filtered by tag
    model = Recipe
