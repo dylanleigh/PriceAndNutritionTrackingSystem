@@ -45,11 +45,11 @@ def add_nutrition_ratios(data):
             # Combined protein_per_j and fibre_per_j TODO better here or template/FE?
             data['pf_per_j']=data['protein_per_j']+data['fibre_per_j']
 
-            # Arbitrary "rank" - (2*protein + fibre) / 3*joules
+            # Arbitrary "rank" - (x*protein + y*fibre) / (x+y)*joules
             # (Given we want at least twice as much protein as fibre -
             #  probably even more, but weighting protein too much diminishes
-            #  the high fibre recipes too much)
-            data['rank']=THOUSAND * (data['protein'] * 2 + data['fibre']) / ( 3 * data['kilojoules'] )
+            #  the high fibre ingredients too much)
+            data['rank']=THOUSAND * (data['protein'] * 7 + 4 * data['fibre']) / ( 11 * data['kilojoules'] )
    except KeyError:
       pass  # no nutrition data to calc
 
