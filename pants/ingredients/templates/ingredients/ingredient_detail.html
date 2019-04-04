@@ -16,7 +16,7 @@
 
 <p>Tags:
 
-{% for tag in object.tags.all %} {# FIXME this should be in context with values_list #}
+{% for tag in object.tags.all %} {# TODO ideally this should be in context with values_list #}
  <a href="{% url 'ingredient-list-by-tag' tag.name %}">{{ tag.name }}</a>, 
 {% empty %}
    (none)
