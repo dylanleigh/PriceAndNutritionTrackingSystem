@@ -111,6 +111,7 @@ Miscellaneous
 =============
 
 - Add Wall?/Prep/Cooking/Rest? time to recipes
+- Add the capacity for recipes to lose water/oil during the process (changing the nutritional output to not be just the sum of ingredients)
 - Add preparation_loss_factor to Product for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc). Add on product to allow e.g. pre-chopped vs whole veg price comparison
 - Bug: Does not detect recursion loops in recipes
 - Bug: User must handle out of date slugs on a name change
