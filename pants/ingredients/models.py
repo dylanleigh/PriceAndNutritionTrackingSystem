@@ -27,12 +27,11 @@ class IngredientTag(models.Model):
    """
    verbose_name_plural = "Ingredient Tags"
 
-   name = models.CharField(
+   name = models.SlugField(
       max_length=settings.TAG_LENGTH,
       blank=False,
       unique=True,
    )
-   # FIXME verify slug rules
 
    def __str__(self):
       return self.name

@@ -38,7 +38,6 @@ class RecipeTag(models.Model):
       blank=False,
       unique=True,
    )
-   # FIXME verify slug rules
 
    def __str__(self):
       return self.name
@@ -186,13 +185,6 @@ class Component(models.Model):
    )
    of_recipe = models.ForeignKey(
       Recipe,
-      on_delete=models.PROTECT,
-      null=True,
-      blank=True,
-      related_name='used_in',
-   )
-   of_product = models.ForeignKey(
-      Product,
       on_delete=models.PROTECT,
       null=True,
       blank=True,
