@@ -161,7 +161,7 @@ class Component(models.Model):
    Component of a recipe; could be a (generic) ingredient, a
    (specific) product or another recipe.
 
-   Includes the weight in g or ml. As ingredient/product measure in kg
+   Includes the weight in grams. As ingredient/product measure in kg
    or L, Component is responsible for the converstion of units.
    TODO: Unify units - should all be g or kg.
 
@@ -191,13 +191,13 @@ class Component(models.Model):
       related_name='used_in',
    )
 
-   # TODO: quantity in in g or ml but nutrients measured per kg or L!
+   # TODO: quantity in in g but nutrients measured per kg or L!
    # TODO: unify g/number of serves
    weight = models.DecimalField(
       decimal_places=3,
       max_digits=7,
       validators=[not_negative],
-      help_text="g or ml for ingredients or products; number of serves for recipes"
+      help_text="grams for ingredients; number of serves for recipes"
    )
    note = models.CharField(max_length=settings.DESCR_LENGTH,blank=True)
 
@@ -237,7 +237,7 @@ class Component(models.Model):
       # NOTE: Requires conversion kg to grams
       if self.of_ingredient:
          # Special cases
-         data['grams']=self.weight  # FIXME or ml...
+         data['grams']=self.weight
          if self.of_ingredient.best_price:      # 0 should not be valid
             data['cost'] = self.weight * settings.G_PER_KG * self.of_ingredient.best_price
 
