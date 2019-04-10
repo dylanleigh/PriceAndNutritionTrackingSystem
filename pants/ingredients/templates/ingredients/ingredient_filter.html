@@ -43,7 +43,7 @@
          <th>P+F/J</th>
          <th>Rank</th>
       </tr>
-    {% for ing in filter.qs %}
+    {% for ing in filter.qs|dictsortreversed:"sort_rank" %}
       <tr>
          <th><a href="{% url 'ingredient-detail' ing.slug %}">{{ing.name}}</a></th>
          {% with ing.nutrition_data as ndata %}
