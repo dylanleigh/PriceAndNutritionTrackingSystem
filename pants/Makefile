@@ -19,9 +19,6 @@ shell:
 deploycheck:
 	python manage.py check --deploy
 
-deployalgy: deploycheck
-	echo TODO
-
 backup:
 	python manage.py dumpdata --indent 3 --no-color --natural-foreign --natural-primary -o backups/pants-backup-fixture-${DATE}.json
 

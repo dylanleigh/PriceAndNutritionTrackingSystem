@@ -183,11 +183,39 @@ These will be installed automatically via pip:
 - Django-extensions 1.8+
 - Future versions may require djangorestframework and django-filter.
 
-Setup
------
+Setup 1: Secret Key
+-------------------
 
-You will need to create an admin user first who can log in and create
-ingredients, recipes etc::
+The environment variable "PANTS_DJANGO_SECRET_KEY" needs to be set for
+Django to start.
+
+The exact place to set this will depend on the OS and environment you
+are using. For hosted infrastructure such as AWS/Heroku this can be
+set in the instance settings; for local installs you can set it as
+part of the virtualenv activation script or as a variable on the
+account of the user who will be running it::
+
+   echo export PANTS_DJANGO_SECRET_KEY='968af690a7bcca77c9261e395885af77bc661d1c' >> ~/.profile
+
+You can generate an appropriate secret key from the SHA1 of any
+randomly chosen phrase or file::
+
+   $ echo blahblahblah | sha1sum
+   968af690a7bcca77c9261e395885af77bc661d1c  -
+   $ export PANTS_DJANGO_SECRET_KEY='968af690a7bcca77c9261e395885af77bc661d1c'
+
+Warning
+   The Django Secret Key is used to generate session tokens and other
+   cryptographically important things. Keeping it in an environment
+   variable makes it easier to have seperate, secure secrets on different
+   installations. If someone knows the secret key it may be possible to
+   login as admin users and mess with things, so keep it secret.
+
+Setup 2: Admin User
+-------------------
+
+Finally you will need to create an admin user who can log in and
+create the initial ingredients, recipes etc::
 
    ./manage.py createsuperuser
 
