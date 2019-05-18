@@ -168,10 +168,11 @@ Installation
 It is highly recommended that PANTS is installed in a virtualenv, and
 comes with a requirements.txt for pip::
 
-   virtualenv pants
+   virtualenv -p python3 pants
    cd pants
    . bin/activate
    git clone https://github.com/dylanleigh/PriceAndNutritionTrackingSystem.git
+   cd PriceAndNutritionTrackingSystem
    pip install -r requirements.txt
 
 Requirements
