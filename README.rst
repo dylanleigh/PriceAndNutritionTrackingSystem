@@ -218,6 +218,7 @@ Setup 2: Admin User
 Finally you will need to create an admin user who can log in and
 create the initial ingredients, recipes etc::
 
+   cd pants
    ./manage.py createsuperuser
 
 Starting
