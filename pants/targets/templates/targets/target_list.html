@@ -44,7 +44,7 @@
          {% endwith %}
       </tr>
       <tr>
-         <th>FIXME TOGGLE {{targ.daily_target}}</th>
+         <th>{{targ.daily_target|yesno:"Current Daily Target,,"}}</th>
          {% with targ.minimum.nutrition_data as ndata %}
             <td>${{ndata.cost}}</td>
             <td>{{ndata.kilojoules}}</td>
