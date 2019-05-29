@@ -188,10 +188,10 @@ Setup 1: Secret Key
 -------------------
 
 The environment variable "PANTS_DJANGO_SECRET_KEY" needs to be set for
-Django to start.
+PANTS/Django to start.
 
 The exact place to set this will depend on the OS and environment you
-are using. For hosted infrastructure such as AWS/Heroku this can be
+are using. For hosted infrastructure such as AWS or Heroku this can be
 set in the instance settings; for local installs you can set it as
 part of the virtualenv activation script or as a variable on the
 account of the user who will be running it::
@@ -212,13 +212,14 @@ Warning
    installations. If someone knows the secret key it may be possible to
    login as admin users and mess with things, so keep it secret.
 
-Setup 2: Admin User
--------------------
+Setup 2: Migrations and Admin User
+----------------------------------
 
-Finally you will need to create an admin user who can log in and
-create the initial ingredients, recipes etc::
+Finally you will need to run initial migrations and create an admin
+user who can log in and create the initial ingredients, recipes etc::
 
    cd pants
+   ./manage.py migrate
    ./manage.py createsuperuser
 
 Starting
