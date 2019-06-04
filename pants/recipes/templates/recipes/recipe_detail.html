@@ -49,15 +49,17 @@
       <tr>
          {% if q.of_ingredient %}
             <td><a href="{% url 'ingredient-detail' q.of_ingredient.slug %}">{{q.name}}</a></td>
+            <td>{{q.weight|floatformat}}</td>
          {% else %}
             {% if q.of_recipe %}
                <td><a href="{% url 'recipe-detail' q.of_recipe.slug %}">{{q.name}}</a></td>
+               <td>{{q.weight|floatformat:2}}</td>
             {% else %}
                <td>{{q.name}}</td>
+               <td>{{q.weight|floatformat}}</td>
             {% endif %}
          {% endif %}
 
-         <td>{{q.weight|floatformat}}</td>
          {% with q.nutrition_data as ndata %}
             <td>{{ndata.cost|floatformat:2}}</td>
             <td>{{ndata.kilojoules|floatformat}}</td>

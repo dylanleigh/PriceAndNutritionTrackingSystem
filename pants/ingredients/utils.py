@@ -47,9 +47,9 @@ def add_nutrition_ratios(data):
 
             # Arbitrary "rank" - (x*protein + y*fibre) / (x+y)*joules
             # (Given we want at least twice as much protein as fibre -
-            #  probably even more, but weighting protein too much diminishes
-            #  the high fibre ingredients too much)
-            data['rank']=THOUSAND * (data['protein'] * 7 + 4 * data['fibre']) / ( 11 * data['kilojoules'] )
+            #  also, protein is "penalized" in the PF/J calculation as
+            #  more protein increases Joules but Fibre doesn't)
+            data['rank']=THOUSAND * (data['protein'] * 2 + 1 * data['fibre']) / ( 3 * data['kilojoules'] )
    except KeyError:
       pass  # no nutrition data to calc
 
