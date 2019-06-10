@@ -42,6 +42,7 @@
          <th>Fib./$</th>
          <th>Prot./J</th>
          <th>Fib.J</th>
+         <th>P+F/J</th>
          <th>Rank</th>
          <th>Notes</th>
       </tr>
@@ -72,6 +73,7 @@
             <td>{{ndata.fibre_per_cost|css_progressbar:50}}</td>
             <td>{{ndata.protein_per_j|css_progressbar:100}}</td>
             <td>{{ndata.fibre_per_j|css_progressbar:50}}</td>
+            <td>{{ndata.pf_per_j|css_progressbar:50}}</td>
             <td>{{ndata.rank|css_progressbar:50}}</td>
          {% endwith %}
          <td>{{q.note}}</td>
@@ -114,6 +116,7 @@
                   <td>{{ndata.fibre_per_cost|css_progressbar:max_ndata.fibre_per_cost }} </td>
                   <td>{{ndata.protein_per_j|css_progressbar:max_ndata.protein_per_j }} </td>
                   <td>{{ndata.fibre_per_j|css_progressbar:max_ndata.fibre_per_j }} </td>
+                  <td>{{ndata.pf_per_j|css_progressbar:max_ndata.pf_per_j}}</td>
                   <td>{{ndata.rank|css_progressbar:max_ndata.rank}} </td>
                {% endwith %}
             {% endwith %}
@@ -134,6 +137,7 @@
                   <td><small>{{min_ndata.fibre_per_cost}}-{{max_ndata.fibre_per_cost}}</small></td>
                   <td><small>{{min_ndata.protein_per_j}}-{{max_ndata.protein_per_j}}</small></td>
                   <td><small>{{min_ndata.fibre_per_j}}-{{max_ndata.fibre_per_j}}</small></td>
+                  <td><small>{{min_ndata.pf_per_j}}-{{max_ndata.pf_per_j}}</small></td>
                   <td><small>{{min_ndata.rank}}-{{max_ndata.rank}}</small></td>
                {% endwith %}
             {% endwith %}
@@ -153,6 +157,7 @@
                <td>{{ndata.fibre_per_cost|css_progressbar:50}}</td>
                <td>{{ndata.protein_per_j|css_progressbar:100}}</td>
                <td>{{ndata.fibre_per_j|css_progressbar:50}}</td>
+               <td>{{ndata.pf_per_j|css_progressbar:50}}</td>
                <td>{{ndata.rank|css_progressbar:50}}</td>
             </tr>
          {% endif %}
