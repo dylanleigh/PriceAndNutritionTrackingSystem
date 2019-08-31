@@ -69,6 +69,10 @@ class Recipe(models.Model):
    created_at = models.DateTimeField(auto_now_add=True)
    updated_at = models.DateTimeField(auto_now=True)
 
+   # TODO tested_at = models.DateTimeField(blank=True,null=True)
+   # TODO Option to turn off flagging for testing
+   # TODO Auto when added to diary? "Last used"?
+
    serves = models.DecimalField(
       decimal_places=2,
       max_digits=4,

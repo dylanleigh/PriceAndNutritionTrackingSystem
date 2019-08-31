@@ -1,0 +1,4767 @@
+[
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 1,
+   "fields": {
+      "name": "vegetable"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 2,
+   "fields": {
+      "name": "grain"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 3,
+   "fields": {
+      "name": "pulse-legume"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 4,
+   "fields": {
+      "name": "meat"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 5,
+   "fields": {
+      "name": "nuts-seeds"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 6,
+   "fields": {
+      "name": "dairy"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 7,
+   "fields": {
+      "name": "flour-meal"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 8,
+   "fields": {
+      "name": "supplement"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 9,
+   "fields": {
+      "name": "bran"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 10,
+   "fields": {
+      "name": "fats-oils"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 11,
+   "fields": {
+      "name": "snack-sort-meal"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 12,
+   "fields": {
+      "name": "cereal"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 13,
+   "fields": {
+      "name": "herb-spice-flavour"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 14,
+   "fields": {
+      "name": "fruit"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 16,
+   "fields": {
+      "name": "drinks"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 17,
+   "fields": {
+      "name": "pastry-making"
+   }
+},
+{
+   "model": "ingredients.ingredienttag",
+   "pk": 18,
+   "fields": {
+      "name": "ready-meal"
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 1,
+   "fields": {
+      "kilojoules": "14000.0",
+      "protein": "250.000",
+      "fibre": "129.000",
+      "carbohydrate": "446.000",
+      "fat": "30.000",
+      "sugar": "21.000",
+      "saturatedfat": "5.000",
+      "sodium": "25",
+      "created_at": "2017-07-09T07:37:17.980Z",
+      "updated_at": "2018-03-31T09:51:26.783Z",
+      "name": "Green Split Peas",
+      "slug": "green-split-peas",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 2,
+   "fields": {
+      "kilojoules": "14500.0",
+      "protein": "240.000",
+      "fibre": "133.000",
+      "carbohydrate": "489.000",
+      "fat": "29.000",
+      "sugar": "12.000",
+      "saturatedfat": "5.000",
+      "sodium": "25",
+      "created_at": "2017-07-09T07:50:47.554Z",
+      "updated_at": "2018-01-30T15:14:09.643Z",
+      "name": "Red Split Lentils",
+      "slug": "red-split-lentils",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 3,
+   "fields": {
+      "kilojoules": "17490.0",
+      "protein": "400.000",
+      "fibre": "125.000",
+      "carbohydrate": "160.000",
+      "fat": "190.000",
+      "sugar": "80.000",
+      "saturatedfat": "30.000",
+      "sodium": "56",
+      "created_at": "2017-07-09T09:06:36.718Z",
+      "updated_at": "2018-10-28T18:28:02.672Z",
+      "name": "Soy Grits",
+      "slug": "soy-grits",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 4,
+   "fields": {
+      "kilojoules": "13900.0",
+      "protein": "121.000",
+      "fibre": "120.000",
+      "carbohydrate": "600.000",
+      "fat": "21.000",
+      "sugar": "8.000",
+      "saturatedfat": "3.000",
+      "sodium": "50",
+      "created_at": "2017-07-09T09:13:12.856Z",
+      "updated_at": "2018-01-30T15:14:09.651Z",
+      "name": "Wheat Groats",
+      "slug": "wheat-groats",
+      "description": "aka Wheatberries, Wheat Grain, Cleaned Wheat etc",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 5,
+   "fields": {
+      "kilojoules": "13300.0",
+      "protein": "130.000",
+      "fibre": "185.000",
+      "carbohydrate": "549.000",
+      "fat": "23.000",
+      "sugar": "12.000",
+      "saturatedfat": "0.000",
+      "sodium": "40",
+      "created_at": "2017-07-09T09:26:24.116Z",
+      "updated_at": "2018-01-30T15:14:09.655Z",
+      "name": "Rye Groats",
+      "slug": "rye-groats",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 6,
+   "fields": {
+      "kilojoules": "14550.0",
+      "protein": "133.000",
+      "fibre": "103.000",
+      "carbohydrate": "715.000",
+      "fat": "34.000",
+      "sugar": "30.000",
+      "saturatedfat": "7.000",
+      "sodium": "50",
+      "created_at": "2017-07-09T09:35:19.831Z",
+      "updated_at": "2018-01-30T15:14:09.659Z",
+      "name": "Buckwheat Groats",
+      "slug": "buckwheat-groats",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 7,
+   "fields": {
+      "kilojoules": "14600.0",
+      "protein": "242.000",
+      "fibre": "122.000",
+      "carbohydrate": "473.000",
+      "fat": "40.000",
+      "sugar": "26.000",
+      "saturatedfat": "5.000",
+      "sodium": "5",
+      "created_at": "2017-07-09T09:38:33.657Z",
+      "updated_at": "2018-03-31T09:51:22.933Z",
+      "name": "Yellow Split Peas",
+      "slug": "yellow-split-peas",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 8,
+   "fields": {
+      "kilojoules": "750.0",
+      "protein": "19.000",
+      "fibre": "21.000",
+      "carbohydrate": "10.000",
+      "fat": "5.000",
+      "sugar": "10.000",
+      "saturatedfat": "2.500",
+      "sodium": "20",
+      "created_at": "2017-07-09T13:29:25.090Z",
+      "updated_at": "2018-01-30T15:14:09.666Z",
+      "name": "Leaf Salad",
+      "slug": "leaf-salad",
+      "description": "Spinach, Red/Green Oak Lettuce, Red/Green Coral Lettuce etc",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 10,
+   "fields": {
+      "kilojoules": "15000.0",
+      "protein": "108.000",
+      "fibre": "76.000",
+      "carbohydrate": "676.000",
+      "fat": "29.000",
+      "sugar": "12.000",
+      "saturatedfat": "5.000",
+      "sodium": "7",
+      "created_at": "2017-07-09T13:51:28.685Z",
+      "updated_at": "2018-01-30T15:14:09.670Z",
+      "name": "Pearl Barley",
+      "slug": "pearl-barley",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 11,
+   "fields": {
+      "kilojoules": "16100.0",
+      "protein": "39.000",
+      "fibre": "132.000",
+      "carbohydrate": "790.000",
+      "fat": "23.000",
+      "sugar": "10.000",
+      "saturatedfat": "5.000",
+      "sodium": "5",
+      "created_at": "2017-07-10T06:18:00.634Z",
+      "updated_at": "2018-01-30T15:14:09.674Z",
+      "name": "Puffed Corn",
+      "slug": "puffed-corn",
+      "description": "",
+      "serving": null,
+      "tags": [
+         11,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 12,
+   "fields": {
+      "kilojoules": "15680.0",
+      "protein": "750.000",
+      "fibre": "0.100",
+      "carbohydrate": "160.000",
+      "fat": "0.000",
+      "sugar": "0.100",
+      "saturatedfat": "0.000",
+      "sodium": "16",
+      "created_at": "2017-07-10T14:23:10.546Z",
+      "updated_at": "2018-10-06T16:50:14.916Z",
+      "name": "Gluten Concentrated Flour",
+      "slug": "gluten-concentrated-flour",
+      "description": "May be sold as gluten flour or gluten powder",
+      "serving": null,
+      "tags": [
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 13,
+   "fields": {
+      "kilojoules": "14000.0",
+      "protein": "322.000",
+      "fibre": "333.000",
+      "carbohydrate": "355.000",
+      "fat": "145.000",
+      "sugar": "22.000",
+      "saturatedfat": "13.000",
+      "sodium": "840",
+      "created_at": "2017-07-10T14:34:21.068Z",
+      "updated_at": "2019-07-20T01:44:38.092Z",
+      "name": "Flaxmeal",
+      "slug": "flaxmeal",
+      "description": "NOT flax flour!",
+      "serving": null,
+      "tags": [
+         5,
+         7,
+         9
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 14,
+   "fields": {
+      "kilojoules": "19300.0",
+      "protein": "466.000",
+      "fibre": "18.000",
+      "carbohydrate": "277.000",
+      "fat": "188.000",
+      "sugar": "40.000",
+      "saturatedfat": "29.000",
+      "sodium": "70",
+      "created_at": "2017-07-10T14:37:27.785Z",
+      "updated_at": "2018-01-30T15:14:09.684Z",
+      "name": "Soy Flour",
+      "slug": "soy-flour",
+      "description": "variation may be high",
+      "serving": null,
+      "tags": [
+         3,
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 15,
+   "fields": {
+      "kilojoules": "15300.0",
+      "protein": "755.000",
+      "fibre": "0.500",
+      "carbohydrate": "73.000",
+      "fat": "30.000",
+      "sugar": "18.000",
+      "saturatedfat": "15.000",
+      "sodium": "1200",
+      "created_at": "2017-07-12T17:21:28.029Z",
+      "updated_at": "2018-01-30T15:14:09.688Z",
+      "name": "Unflavoured Pea Protein Powder",
+      "slug": "unflavoured-pea-protein-powder",
+      "description": "Unflavoured / Pure",
+      "serving": null,
+      "tags": [
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 16,
+   "fields": {
+      "kilojoules": "15900.0",
+      "protein": "137.000",
+      "fibre": "105.000",
+      "carbohydrate": "554.000",
+      "fat": "85.000",
+      "sugar": "14.000",
+      "saturatedfat": "14.000",
+      "sodium": "2",
+      "created_at": "2017-07-12T17:42:47.730Z",
+      "updated_at": "2019-06-16T17:49:31.403Z",
+      "name": "Rolled Oats",
+      "slug": "rolled-oats",
+      "description": "40g per half cup",
+      "serving": "40.0",
+      "tags": [
+         2,
+         12,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 17,
+   "fields": {
+      "kilojoules": "14600.0",
+      "protein": "109.000",
+      "fibre": "40.000",
+      "carbohydrate": "704.000",
+      "fat": "13.000",
+      "sugar": "23.000",
+      "saturatedfat": "5.000",
+      "sodium": "2",
+      "created_at": "2017-07-12T19:30:20.364Z",
+      "updated_at": "2019-06-15T10:38:22.432Z",
+      "name": "Plain Wheat Flour",
+      "slug": "plain-wheat-flour",
+      "description": "Not raising, not wholemeal",
+      "serving": null,
+      "tags": [
+         2,
+         7,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 18,
+   "fields": {
+      "kilojoules": "1320.0",
+      "protein": "8.000",
+      "fibre": "39.000",
+      "carbohydrate": "50.000",
+      "fat": "1.000",
+      "sugar": "50.000",
+      "saturatedfat": "0.000",
+      "sodium": "400",
+      "created_at": "2017-07-12T22:39:41.323Z",
+      "updated_at": "2018-01-30T15:14:09.699Z",
+      "name": "Raw Carrot",
+      "slug": "raw-carrot",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 19,
+   "fields": {
+      "kilojoules": "900.0",
+      "protein": "24.000",
+      "fibre": "26.000",
+      "carbohydrate": "6.000",
+      "fat": "5.000",
+      "sugar": "6.000",
+      "saturatedfat": "0.900",
+      "sodium": "650",
+      "created_at": "2017-07-12T22:41:03.809Z",
+      "updated_at": "2018-01-30T15:14:09.703Z",
+      "name": "Frozen Spinach",
+      "slug": "frozen-spinach",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 20,
+   "fields": {
+      "kilojoules": "15070.0",
+      "protein": "850.000",
+      "fibre": "0.050",
+      "carbohydrate": "30.000",
+      "fat": "60.000",
+      "sugar": "0.000",
+      "saturatedfat": "3.000",
+      "sodium": "5500",
+      "created_at": "2017-07-13T05:47:32.299Z",
+      "updated_at": "2018-01-30T15:14:09.706Z",
+      "name": "Unflavoured Pea Protein Isolate",
+      "slug": "unflavoured-pea-protein-isolate",
+      "description": "",
+      "serving": null,
+      "tags": [
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 21,
+   "fields": {
+      "kilojoules": "16050.0",
+      "protein": "793.000",
+      "fibre": "58.000",
+      "carbohydrate": "122.000",
+      "fat": "13.000",
+      "sugar": "39.000",
+      "saturatedfat": "6.000",
+      "sodium": "1064",
+      "created_at": "2017-07-13T07:14:08.929Z",
+      "updated_at": "2018-01-30T15:14:09.710Z",
+      "name": "Unflavoured Rice Protein Isolate",
+      "slug": "unflavoured-rice-protein-isolate",
+      "description": "",
+      "serving": null,
+      "tags": [
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 22,
+   "fields": {
+      "kilojoules": "15200.0",
+      "protein": "933.000",
+      "fibre": "6.000",
+      "carbohydrate": "14.000",
+      "fat": "1.000",
+      "sugar": "0.000",
+      "saturatedfat": "0.000",
+      "sodium": "10800",
+      "created_at": "2017-07-13T07:35:10.760Z",
+      "updated_at": "2018-01-30T15:14:09.714Z",
+      "name": "Unflavoured Soy Protein Isolate",
+      "slug": "unflavoured-soy-protein-isolate",
+      "description": "",
+      "serving": null,
+      "tags": [
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 23,
+   "fields": {
+      "kilojoules": "1240.0",
+      "protein": "44.000",
+      "fibre": "36.000",
+      "carbohydrate": "4.000",
+      "fat": "3.000",
+      "sugar": "4.000",
+      "saturatedfat": "0.000",
+      "sodium": "220",
+      "created_at": "2017-07-13T07:44:53.026Z",
+      "updated_at": "2018-10-06T16:55:41.474Z",
+      "name": "Raw Broccoli",
+      "slug": "raw-broccoli",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 24,
+   "fields": {
+      "kilojoules": "1290.0",
+      "protein": "17.000",
+      "fibre": "21.000",
+      "carbohydrate": "47.000",
+      "fat": "1.000",
+      "sugar": "46.000",
+      "saturatedfat": "1.000",
+      "sodium": "170",
+      "created_at": "2017-07-13T08:50:28.559Z",
+      "updated_at": "2019-03-16T17:30:24.524Z",
+      "name": "Onions (raw,skinned)",
+      "slug": "onions-choppedsliced",
+      "description": "1 large 207g after peeling and chopping",
+      "serving": "207.0",
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 25,
+   "fields": {
+      "kilojoules": "3840.0",
+      "protein": "43.000",
+      "fibre": "46.000",
+      "carbohydrate": "157.000",
+      "fat": "2.000",
+      "sugar": "137.000",
+      "saturatedfat": "1.000",
+      "sodium": "1640",
+      "created_at": "2017-07-13T17:49:59.949Z",
+      "updated_at": "2018-01-30T15:53:41.583Z",
+      "name": "Tomato Paste (concentrated)",
+      "slug": "tomato-paste",
+      "description": "Variation may be high due to concentration",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 26,
+   "fields": {
+      "kilojoules": "16800.0",
+      "protein": "930.000",
+      "fibre": "0.000",
+      "carbohydrate": "6.000",
+      "fat": "9.000",
+      "sugar": "6.000",
+      "saturatedfat": null,
+      "sodium": "555",
+      "created_at": "2017-07-14T05:01:58.087Z",
+      "updated_at": "2018-11-06T10:16:58.800Z",
+      "name": "Unflavoured Whey Protein Isolate",
+      "slug": "unflavoured-whey-protein-isolate",
+      "description": "1 scoop per serving here (packet says 1+1/3 = 30g)",
+      "serving": "22.5",
+      "tags": [
+         6,
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 27,
+   "fields": {
+      "kilojoules": "14400.0",
+      "protein": "160.000",
+      "fibre": "280.000",
+      "carbohydrate": "243.000",
+      "fat": "145.000",
+      "sugar": "9.000",
+      "saturatedfat": "86.000",
+      "sodium": "2600",
+      "created_at": "2017-07-14T05:15:14.396Z",
+      "updated_at": "2019-06-16T17:49:18.148Z",
+      "name": "Cocoa Powder",
+      "slug": "cocoa-powder",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3,
+         13,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 28,
+   "fields": {
+      "kilojoules": "1500.0",
+      "protein": "36.000",
+      "fibre": "0.000",
+      "carbohydrate": "50.000",
+      "fat": "1.000",
+      "sugar": "50.000",
+      "saturatedfat": "1.000",
+      "sodium": "500",
+      "created_at": "2017-07-14T19:16:40.215Z",
+      "updated_at": "2019-06-15T10:39:11.233Z",
+      "name": "Skim Milk",
+      "slug": "skim-milk",
+      "description": "(",
+      "serving": null,
+      "tags": [
+         6,
+         16,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 29,
+   "fields": {
+      "kilojoules": "13000.0",
+      "protein": "162.000",
+      "fibre": "329.000",
+      "carbohydrate": "295.000",
+      "fat": "71.000",
+      "sugar": "20.000",
+      "saturatedfat": "18.000",
+      "sodium": "280",
+      "created_at": "2017-07-14T21:19:21.975Z",
+      "updated_at": "2019-08-12T13:36:23.356Z",
+      "name": "Unprocessed Wheat Bran",
+      "slug": "unprocessed-wheat-bran",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         9
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 30,
+   "fields": {
+      "kilojoules": "16000.0",
+      "protein": "161.000",
+      "fibre": "170.000",
+      "carbohydrate": "474.000",
+      "fat": "103.000",
+      "sugar": "16.000",
+      "saturatedfat": "20.000",
+      "sodium": "25",
+      "created_at": "2017-07-14T21:23:48.041Z",
+      "updated_at": "2019-08-12T13:36:17.898Z",
+      "name": "Oat Bran",
+      "slug": "oat-bran",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         9
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 31,
+   "fields": {
+      "kilojoules": "13900.0",
+      "protein": "167.000",
+      "fibre": "351.000",
+      "carbohydrate": "362.000",
+      "fat": "57.000",
+      "sugar": "88.000",
+      "saturatedfat": "12.000",
+      "sodium": "2750",
+      "created_at": "2017-07-14T21:37:25.239Z",
+      "updated_at": "2019-08-12T13:36:12.411Z",
+      "name": "Processed Wheat Bran",
+      "slug": "processed-wheat-bran",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         9,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 32,
+   "fields": {
+      "kilojoules": "18420.0",
+      "protein": "118.000",
+      "fibre": "79.000",
+      "carbohydrate": "560.000",
+      "fat": "174.000",
+      "sugar": "151.000",
+      "saturatedfat": "31.000",
+      "sodium": "100",
+      "created_at": "2017-07-14T21:48:27.849Z",
+      "updated_at": "2018-01-30T15:14:09.751Z",
+      "name": "Toasted Museli",
+      "slug": "toasted-museli",
+      "description": "",
+      "serving": null,
+      "tags": [
+         11,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 33,
+   "fields": {
+      "kilojoules": "23370.0",
+      "protein": "302.000",
+      "fibre": "60.000",
+      "carbohydrate": "107.000",
+      "fat": "491.000",
+      "sugar": "14.000",
+      "saturatedfat": "87.000",
+      "sodium": "70",
+      "created_at": "2017-07-14T21:55:09.126Z",
+      "updated_at": "2018-04-12T09:29:05.834Z",
+      "name": "Pepitas (Pumpkin Kernels)",
+      "slug": "pepitas-pumpkin-kernels",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 34,
+   "fields": {
+      "kilojoules": "30350.0",
+      "protein": "10.000",
+      "fibre": "0.000",
+      "carbohydrate": "0.000",
+      "fat": "820.000",
+      "sugar": "0.000",
+      "saturatedfat": "540.000",
+      "sodium": "100",
+      "created_at": "2017-07-14T22:11:33.977Z",
+      "updated_at": "2019-06-15T10:38:43.337Z",
+      "name": "Butter",
+      "slug": "butter",
+      "description": "",
+      "serving": null,
+      "tags": [
+         6,
+         10,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 35,
+   "fields": {
+      "kilojoules": "9450.0",
+      "protein": "199.000",
+      "fibre": "0.000",
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2017-07-15T15:03:58.656Z",
+      "updated_at": "2018-01-30T15:14:09.762Z",
+      "name": "Beef Mince (regular)",
+      "slug": "beef-mince-regular",
+      "description": "",
+      "serving": null,
+      "tags": [
+         4
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 36,
+   "fields": {
+      "kilojoules": "7410.0",
+      "protein": "201.000",
+      "fibre": "0.000",
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2017-07-15T15:05:19.823Z",
+      "updated_at": "2018-01-30T15:14:09.765Z",
+      "name": "Beef Mince (premium)",
+      "slug": "beef-mince-premium",
+      "description": "",
+      "serving": null,
+      "tags": [
+         4
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 37,
+   "fields": {
+      "kilojoules": "6900.0",
+      "protein": "310.000",
+      "fibre": "0.000",
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2017-07-15T15:05:57.521Z",
+      "updated_at": "2018-10-06T17:10:21.820Z",
+      "name": "Chicken Breast (Grilled)",
+      "slug": "chicken-breast-grilled",
+      "description": "",
+      "serving": null,
+      "tags": [
+         4
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 38,
+   "fields": {
+      "kilojoules": "8300.0",
+      "protein": "300.000",
+      "fibre": "0.000",
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2017-07-15T15:06:45.242Z",
+      "updated_at": "2018-01-30T15:14:09.773Z",
+      "name": "Chicken Legs (no skin or bone)",
+      "slug": "chicken-legs-no-skin-or-bone",
+      "description": "",
+      "serving": null,
+      "tags": [
+         4
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 39,
+   "fields": {
+      "kilojoules": "5870.0",
+      "protein": "127.000",
+      "fibre": "0.000",
+      "carbohydrate": "3.000",
+      "fat": "99.000",
+      "sugar": "3.000",
+      "saturatedfat": "27.000",
+      "sodium": "1340",
+      "created_at": "2017-07-15T18:16:21.799Z",
+      "updated_at": "2019-06-15T10:39:20.354Z",
+      "name": "Whole Egg (raw)",
+      "slug": "whole-egg-raw",
+      "description": "1 egg ~ 52g without shell",
+      "serving": null,
+      "tags": [
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 40,
+   "fields": {
+      "kilojoules": "14400.0",
+      "protein": "276.000",
+      "fibre": "173.000",
+      "carbohydrate": "432.000",
+      "fat": "26.000",
+      "sugar": "13.000",
+      "saturatedfat": "5.000",
+      "sodium": "25",
+      "created_at": "2017-07-15T18:31:14.868Z",
+      "updated_at": "2018-02-15T13:11:06.251Z",
+      "name": "Green Lentils",
+      "slug": "whole-green-lentils",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 41,
+   "fields": {
+      "kilojoules": "33800.0",
+      "protein": "0.000",
+      "fibre": "0.000",
+      "carbohydrate": "0.000",
+      "fat": "910.000",
+      "sugar": "0.000",
+      "saturatedfat": "133.000",
+      "sodium": "0",
+      "created_at": "2017-07-17T17:06:06.843Z",
+      "updated_at": "2018-01-30T15:14:09.784Z",
+      "name": "Extra Virgin Olive Oil",
+      "slug": "extra-virgin-olive-oil",
+      "description": "",
+      "serving": null,
+      "tags": [
+         10
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 42,
+   "fields": {
+      "kilojoules": "24650.0",
+      "protein": "268.000",
+      "fibre": "108.000",
+      "carbohydrate": "22.000",
+      "fat": "510.000",
+      "sugar": "20.000",
+      "saturatedfat": "43.000",
+      "sodium": "0",
+      "created_at": "2017-07-17T18:32:11.636Z",
+      "updated_at": "2018-04-12T09:29:09.809Z",
+      "name": "Sunflower Seeds",
+      "slug": "sunflower-seeds",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 43,
+   "fields": {
+      "kilojoules": "23974.0",
+      "protein": "180.000",
+      "fibre": "120.000",
+      "carbohydrate": "230.000",
+      "fat": "500.000",
+      "sugar": "3.000",
+      "saturatedfat": "70.000",
+      "sodium": "110",
+      "created_at": "2017-07-17T18:39:43.459Z",
+      "updated_at": "2018-01-30T15:14:09.791Z",
+      "name": "Sesame Seeds",
+      "slug": "sesame-seeds",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 44,
+   "fields": {
+      "kilojoules": "21966.0",
+      "protein": "180.000",
+      "fibre": "200.000",
+      "carbohydrate": "280.000",
+      "fat": "420.000",
+      "sugar": "30.000",
+      "saturatedfat": "45.000",
+      "sodium": "260",
+      "created_at": "2017-07-17T18:39:58.602Z",
+      "updated_at": "2018-01-30T15:14:09.794Z",
+      "name": "Poppy Seeds",
+      "slug": "poppy-seeds",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 45,
+   "fields": {
+      "kilojoules": "24300.0",
+      "protein": "219.000",
+      "fibre": "104.000",
+      "carbohydrate": "199.000",
+      "fat": "506.000",
+      "sugar": "50.000",
+      "saturatedfat": "39.000",
+      "sodium": "280",
+      "created_at": "2017-07-18T20:49:33.383Z",
+      "updated_at": "2019-06-23T12:06:54.746Z",
+      "name": "Almond Meal",
+      "slug": "almond-meal",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5,
+         7,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 46,
+   "fields": {
+      "kilojoules": "17000.0",
+      "protein": "0.000",
+      "fibre": "0.000",
+      "carbohydrate": "999.999",
+      "fat": "0.000",
+      "sugar": "999.999",
+      "saturatedfat": "0.000",
+      "sodium": "20",
+      "created_at": "2017-07-18T20:59:26.572Z",
+      "updated_at": "2019-06-15T10:38:34.345Z",
+      "name": "Sugar",
+      "slug": "sugar",
+      "description": "",
+      "serving": null,
+      "tags": [
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 47,
+   "fields": {
+      "kilojoules": "1970.0",
+      "protein": "112.000",
+      "fibre": "0.000",
+      "carbohydrate": "4.000",
+      "fat": "0.000",
+      "sugar": "4.000",
+      "saturatedfat": "0.000",
+      "sodium": "1750",
+      "created_at": "2017-07-18T21:03:28.028Z",
+      "updated_at": "2019-06-15T10:40:02.982Z",
+      "name": "Egg White",
+      "slug": "egg-white",
+      "description": "1 large egg, white only ~= 33g",
+      "serving": "33.0",
+      "tags": [
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 48,
+   "fields": {
+      "kilojoules": "4110.0",
+      "protein": "103.000",
+      "fibre": "0.000",
+      "carbohydrate": "81.000",
+      "fat": "0.000",
+      "sugar": "13.000",
+      "saturatedfat": "0.000",
+      "sodium": "64580",
+      "created_at": "2017-07-18T21:28:36.374Z",
+      "updated_at": "2018-01-30T15:14:09.809Z",
+      "name": "Soy Sauce",
+      "slug": "soy-sauce",
+      "description": "",
+      "serving": null,
+      "tags": [
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 49,
+   "fields": {
+      "kilojoules": "2360.0",
+      "protein": "31.000",
+      "fibre": "0.000",
+      "carbohydrate": "88.000",
+      "fat": "5.000",
+      "sugar": "36.000",
+      "saturatedfat": "2.000",
+      "sodium": "3550",
+      "created_at": "2017-07-18T21:30:20.149Z",
+      "updated_at": "2018-01-30T15:14:09.813Z",
+      "name": "Minced Garlic",
+      "slug": "minced-garlic",
+      "description": "Fibre - listed as 0 but likely wrong",
+      "serving": null,
+      "tags": [
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 50,
+   "fields": {
+      "kilojoules": "1970.0",
+      "protein": "22.000",
+      "fibre": "18.000",
+      "carbohydrate": "72.000",
+      "fat": "6.000",
+      "sugar": "54.000",
+      "saturatedfat": "0.000",
+      "sodium": "10",
+      "created_at": "2017-07-18T21:48:54.342Z",
+      "updated_at": "2018-01-30T15:14:09.816Z",
+      "name": "Butternut Pumpkin",
+      "slug": "butternut-pumpkin",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 51,
+   "fields": {
+      "kilojoules": "2970.0",
+      "protein": "19.000",
+      "fibre": "30.000",
+      "carbohydrate": "141.000",
+      "fat": "1.000",
+      "sugar": "56.000",
+      "saturatedfat": "0.000",
+      "sodium": "100",
+      "created_at": "2017-07-18T21:49:08.400Z",
+      "updated_at": "2018-01-30T15:14:09.820Z",
+      "name": "Sweet Potato",
+      "slug": "sweet-potato",
+      "description": "Orange flesh varieties",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 52,
+   "fields": {
+      "kilojoules": "567.0",
+      "protein": "7.400",
+      "fibre": "11.200",
+      "carbohydrate": "14.900",
+      "fat": "2.800",
+      "sugar": "14.900",
+      "saturatedfat": "0.000",
+      "sodium": "9",
+      "created_at": "2017-07-18T22:27:38.520Z",
+      "updated_at": "2018-01-30T15:14:09.823Z",
+      "name": "Zucchini",
+      "slug": "zucchini",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 53,
+   "fields": {
+      "kilojoules": "18670.0",
+      "protein": "365.000",
+      "fibre": "93.000",
+      "carbohydrate": "302.000",
+      "fat": "199.000",
+      "sugar": "73.000",
+      "saturatedfat": "29.000",
+      "sodium": null,
+      "created_at": "2017-07-19T12:10:11.254Z",
+      "updated_at": "2018-02-15T13:10:43.685Z",
+      "name": "Soy Beans (yellow/mature)",
+      "slug": "soy-beans-yellowmature-dried",
+      "description": "Yellow/Mature, dried beans",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 54,
+   "fields": {
+      "kilojoules": "15370.0",
+      "protein": "72.000",
+      "fibre": "32.000",
+      "carbohydrate": "765.000",
+      "fat": "24.000",
+      "sugar": "7.000",
+      "saturatedfat": "4.000",
+      "sodium": "50",
+      "created_at": "2017-07-19T13:45:43.540Z",
+      "updated_at": "2018-01-30T15:14:09.831Z",
+      "name": "Brown Rice",
+      "slug": "brown-rice",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 55,
+   "fields": {
+      "kilojoules": "17110.0",
+      "protein": "164.000",
+      "fibre": "87.000",
+      "carbohydrate": "684.000",
+      "fat": "66.000",
+      "sugar": "0.000",
+      "saturatedfat": "10.000",
+      "sodium": "25",
+      "created_at": "2017-07-22T14:52:58.920Z",
+      "updated_at": "2018-01-30T15:14:09.835Z",
+      "name": "Black Quinoa",
+      "slug": "black-quinoa",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 56,
+   "fields": {
+      "kilojoules": "13250.0",
+      "protein": "123.000",
+      "fibre": "183.000",
+      "carbohydrate": "541.000",
+      "fat": "13.000",
+      "sugar": "20.000",
+      "saturatedfat": "2.000",
+      "sodium": "170",
+      "created_at": "2017-07-22T14:53:25.920Z",
+      "updated_at": "2019-08-29T05:24:50.346Z",
+      "name": "Brown Bulgur/Bourghal (wholemeal)",
+      "slug": "fine-burgul-brownwholemeal",
+      "description": "Note: Confirmed 18% Fibre accurate",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 57,
+   "fields": {
+      "kilojoules": "16276.0",
+      "protein": "169.000",
+      "fibre": "106.000",
+      "carbohydrate": "660.000",
+      "fat": "69.000",
+      "sugar": null,
+      "saturatedfat": "13.000",
+      "sodium": "25",
+      "created_at": "2017-07-22T14:53:55.440Z",
+      "updated_at": "2019-07-30T05:56:02.156Z",
+      "name": "Oat Groats",
+      "slug": "oat-groats",
+      "description": "updated from USDA",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 58,
+   "fields": {
+      "kilojoules": "15700.0",
+      "protein": "444.000",
+      "fibre": "36.000",
+      "carbohydrate": "366.000",
+      "fat": "47.000",
+      "sugar": "1.000",
+      "saturatedfat": "5.000",
+      "sodium": "515",
+      "created_at": "2017-07-22T15:01:35.174Z",
+      "updated_at": "2018-01-30T15:14:09.846Z",
+      "name": "Yaki Nori (Seaweed Sheets)",
+      "slug": "yaki-nori-seaweed-sheets",
+      "description": "Unflavoured / Pure with no additives",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 59,
+   "fields": {
+      "kilojoules": "15700.0",
+      "protein": "134.000",
+      "fibre": "119.000",
+      "carbohydrate": "549.000",
+      "fat": "86.000",
+      "sugar": "8.000",
+      "saturatedfat": "11.000",
+      "sodium": "60",
+      "created_at": "2017-07-22T15:35:32.238Z",
+      "updated_at": "2019-08-31T14:01:56.316Z",
+      "name": "Steel Cut Oats",
+      "slug": "steel-cut-oats",
+      "description": "1 serving 1/4 cup 44 grams",
+      "serving": "44.0",
+      "tags": [
+         2,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 60,
+   "fields": {
+      "kilojoules": "14060.0",
+      "protein": "81.000",
+      "fibre": "30.000",
+      "carbohydrate": "689.000",
+      "fat": "20.000",
+      "sugar": "6.000",
+      "saturatedfat": "3.000",
+      "sodium": "1",
+      "created_at": "2017-07-22T15:38:02.714Z",
+      "updated_at": "2018-01-30T15:14:09.853Z",
+      "name": "Cornmeal (\"polenta\")",
+      "slug": "polenta",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 61,
+   "fields": {
+      "kilojoules": "15820.0",
+      "protein": "110.000",
+      "fibre": "85.000",
+      "carbohydrate": "643.000",
+      "fat": "42.000",
+      "sugar": "10.000",
+      "saturatedfat": "7.000",
+      "sodium": "50",
+      "created_at": "2017-07-22T15:38:11.366Z",
+      "updated_at": "2018-01-30T15:14:09.857Z",
+      "name": "Millet",
+      "slug": "millet",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 62,
+   "fields": {
+      "kilojoules": "14900.0",
+      "protein": "133.000",
+      "fibre": "80.000",
+      "carbohydrate": "651.000",
+      "fat": "24.000",
+      "sugar": "18.000",
+      "saturatedfat": "5.000",
+      "sodium": "120",
+      "created_at": "2017-07-22T15:43:34.818Z",
+      "updated_at": "2018-01-30T15:14:09.860Z",
+      "name": "Teff",
+      "slug": "teff",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 63,
+   "fields": {
+      "kilojoules": "15400.0",
+      "protein": "87.000",
+      "fibre": "120.000",
+      "carbohydrate": "766.000",
+      "fat": "100.000",
+      "sugar": "5.000",
+      "saturatedfat": "5.000",
+      "sodium": "3720",
+      "created_at": "2017-07-26T23:00:44.323Z",
+      "updated_at": "2018-01-30T15:14:09.864Z",
+      "name": "Corn & Grain Chips",
+      "slug": "corn-grain-chips",
+      "description": "",
+      "serving": null,
+      "tags": [
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 64,
+   "fields": {
+      "kilojoules": "23280.0",
+      "protein": "196.000",
+      "fibre": "190.000",
+      "carbohydrate": "248.000",
+      "fat": "463.000",
+      "sugar": "24.000",
+      "saturatedfat": "39.000",
+      "sodium": "234",
+      "created_at": "2017-07-26T23:25:15.206Z",
+      "updated_at": "2018-01-30T15:14:09.868Z",
+      "name": "LSA Mix",
+      "slug": "lsa-mix",
+      "description": "brands vary, traditionally 3:2:1 ratio",
+      "serving": null,
+      "tags": [
+         5,
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 65,
+   "fields": {
+      "kilojoules": "22342.0",
+      "protein": "180.000",
+      "fibre": "270.000",
+      "carbohydrate": "290.000",
+      "fat": "420.000",
+      "sugar": "16.000",
+      "saturatedfat": "37.000",
+      "sodium": "300",
+      "created_at": "2017-07-26T23:25:32.748Z",
+      "updated_at": "2018-01-30T15:14:09.871Z",
+      "name": "Flaxseed / Linseed",
+      "slug": "flaxseed-linseed",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 66,
+   "fields": {
+      "kilojoules": "15410.0",
+      "protein": "141.000",
+      "fibre": "70.000",
+      "carbohydrate": "642.000",
+      "fat": "61.000",
+      "sugar": "0.000",
+      "saturatedfat": "7.000",
+      "sodium": "50",
+      "created_at": "2017-07-26T23:37:31.620Z",
+      "updated_at": "2018-01-30T15:14:09.875Z",
+      "name": "White Quinoa",
+      "slug": "white-quinoa",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 67,
+   "fields": {
+      "kilojoules": "18700.0",
+      "protein": "204.000",
+      "fibre": "375.000",
+      "carbohydrate": "45.000",
+      "fat": "350.000",
+      "sugar": "5.000",
+      "saturatedfat": "40.000",
+      "sodium": "10",
+      "created_at": "2017-07-26T23:51:25.106Z",
+      "updated_at": "2018-01-30T15:14:09.879Z",
+      "name": "Chia Seeds",
+      "slug": "chia-seeds",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 68,
+   "fields": {
+      "kilojoules": "14300.0",
+      "protein": "242.000",
+      "fibre": "144.000",
+      "carbohydrate": "551.000",
+      "fat": "19.000",
+      "sugar": "40.000",
+      "saturatedfat": "4.000",
+      "sodium": "150",
+      "created_at": "2017-09-12T18:28:58.873Z",
+      "updated_at": "2018-02-15T12:52:50.627Z",
+      "name": "Mung Bean",
+      "slug": "mung-bean",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 69,
+   "fields": {
+      "kilojoules": "13500.0",
+      "protein": "400.000",
+      "fibre": "370.000",
+      "carbohydrate": "40.000",
+      "fat": "64.000",
+      "sugar": "25.000",
+      "saturatedfat": "11.000",
+      "sodium": "420",
+      "created_at": "2017-09-26T10:57:56.178Z",
+      "updated_at": "2018-10-06T16:48:33.472Z",
+      "name": "Lupin Flakes",
+      "slug": "lupin-flakes",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 70,
+   "fields": {
+      "kilojoules": "11600.0",
+      "protein": "385.000",
+      "fibre": "325.000",
+      "carbohydrate": "125.000",
+      "fat": "70.000",
+      "sugar": "28.000",
+      "saturatedfat": "1.000",
+      "sodium": "1010",
+      "created_at": "2017-09-26T11:02:31.952Z",
+      "updated_at": "2018-10-06T16:47:16.490Z",
+      "name": "Lupin Flour",
+      "slug": "lupin-flour",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3,
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 71,
+   "fields": {
+      "kilojoules": "19330.0",
+      "protein": "201.000",
+      "fibre": "91.000",
+      "carbohydrate": "717.000",
+      "fat": "26.000",
+      "sugar": "14.000",
+      "saturatedfat": "4.000",
+      "sodium": "10",
+      "created_at": "2017-09-26T11:22:11.496Z",
+      "updated_at": "2018-01-30T15:14:09.893Z",
+      "name": "Spelt Puffs",
+      "slug": "spelt-puffs",
+      "description": "",
+      "serving": null,
+      "tags": [
+         11,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 72,
+   "fields": {
+      "kilojoules": "1750.0",
+      "protein": "43.000",
+      "fibre": "2.000",
+      "carbohydrate": "58.000",
+      "fat": "1.000",
+      "sugar": "51.000",
+      "saturatedfat": "1.000",
+      "sodium": "1480",
+      "created_at": "2017-11-29T17:28:19.325Z",
+      "updated_at": "2019-06-15T05:26:24.412Z",
+      "name": "Low-Fat Low-Sugar Yogurt",
+      "slug": "low-fat-low-sugar-yogurt",
+      "description": "(Forme Yogurt (Strawberry)) - fibre unknown",
+      "serving": null,
+      "tags": [
+         6
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 73,
+   "fields": {
+      "kilojoules": "15500.0",
+      "protein": "112.000",
+      "fibre": "183.000",
+      "carbohydrate": "560.000",
+      "fat": "72.000",
+      "sugar": "49.000",
+      "saturatedfat": "13.000",
+      "sodium": "2400",
+      "created_at": "2017-11-29T19:45:21.432Z",
+      "updated_at": "2018-03-31T09:36:45.567Z",
+      "name": "Rye Multigrain Crispbread",
+      "slug": "rye-multigrain-crispbread",
+      "description": "",
+      "serving": "11.0",
+      "tags": [
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 74,
+   "fields": {
+      "kilojoules": "1690.0",
+      "protein": "39.000",
+      "fibre": "0.100",
+      "carbohydrate": "58.000",
+      "fat": "5.000",
+      "sugar": "33.000",
+      "saturatedfat": "2.500",
+      "sodium": "480",
+      "created_at": "2017-12-22T18:49:24.074Z",
+      "updated_at": "2019-06-15T04:29:45.610Z",
+      "name": "Greek Yogurt (Low fat)",
+      "slug": "greek-yogurt-low-fat",
+      "description": "",
+      "serving": null,
+      "tags": [
+         6
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 75,
+   "fields": {
+      "kilojoules": "1570.0",
+      "protein": "34.000",
+      "fibre": "20.000",
+      "carbohydrate": "14.000",
+      "fat": "16.000",
+      "sugar": "13.000",
+      "saturatedfat": "5.000",
+      "sodium": "430",
+      "created_at": "2017-12-22T19:15:53.492Z",
+      "updated_at": "2018-01-30T15:14:09.908Z",
+      "name": "Frozen Kale",
+      "slug": "frozen-kale",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 76,
+   "fields": {
+      "kilojoules": "680.0",
+      "protein": "6.000",
+      "fibre": "1.000",
+      "carbohydrate": "6.000",
+      "fat": "13.000",
+      "sugar": "2.000",
+      "saturatedfat": "1.000",
+      "sodium": "440",
+      "created_at": "2017-12-22T20:03:15.469Z",
+      "updated_at": "2018-01-30T15:14:09.912Z",
+      "name": "Almond Milk (unsweetened)",
+      "slug": "almond-milk-unsweetened",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 77,
+   "fields": {
+      "kilojoules": "4058.0",
+      "protein": "1.000",
+      "fibre": "22.000",
+      "carbohydrate": "469.000",
+      "fat": "4.000",
+      "sugar": "0.010",
+      "saturatedfat": "0.700",
+      "sodium": "900",
+      "created_at": "2017-12-22T20:28:10.554Z",
+      "updated_at": "2019-06-15T10:39:52.013Z",
+      "name": "Baking Powder",
+      "slug": "baking-powder",
+      "description": "",
+      "serving": null,
+      "tags": [
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 78,
+   "fields": {
+      "kilojoules": "3750.0",
+      "protein": "47.000",
+      "fibre": "5.000",
+      "carbohydrate": "132.000",
+      "fat": "19.000",
+      "sugar": "129.000",
+      "saturatedfat": "12.000",
+      "sodium": "500",
+      "created_at": "2017-12-28T16:33:00.634Z",
+      "updated_at": "2018-05-16T22:58:35.383Z",
+      "name": "Low-Fat Standard-Sugar Yogurt",
+      "slug": "low-fat-standard-sugar-yogurt",
+      "description": "fibre is est",
+      "serving": "150.0",
+      "tags": [
+         6
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 79,
+   "fields": {
+      "kilojoules": "940.0",
+      "protein": "12.000",
+      "fibre": "5.000",
+      "carbohydrate": "40.000",
+      "fat": "1.000",
+      "sugar": "33.000",
+      "saturatedfat": "0.500",
+      "sodium": "25",
+      "created_at": "2018-01-01T08:02:30.366Z",
+      "updated_at": "2018-01-30T15:14:09.922Z",
+      "name": "Diced Tomatoes (canned)",
+      "slug": "diced-tomatoes-canned",
+      "description": "Based on Woolworths - 60% tomato, tomato juice, citric acid. Fibre is estimated",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 80,
+   "fields": {
+      "kilojoules": "12552.0",
+      "protein": "50.000",
+      "fibre": "100.000",
+      "carbohydrate": "600.000",
+      "fat": "50.000",
+      "sugar": "0.000",
+      "saturatedfat": "0.000",
+      "sodium": "0",
+      "created_at": "2018-01-02T19:42:33.878Z",
+      "updated_at": "2018-01-30T15:14:09.926Z",
+      "name": "Ginger (ground)",
+      "slug": "ginger-ground",
+      "description": "WARNING Almost certainly wrong data",
+      "serving": null,
+      "tags": [
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 81,
+   "fields": {
+      "kilojoules": "16080.0",
+      "protein": "43.000",
+      "fibre": "370.000",
+      "carbohydrate": "650.000",
+      "fat": "67.000",
+      "sugar": "0.000",
+      "saturatedfat": "31.000",
+      "sodium": "300",
+      "created_at": "2018-01-02T19:42:47.115Z",
+      "updated_at": "2018-01-30T15:14:09.930Z",
+      "name": "Mixed Spice (ground)",
+      "slug": "mixed-spice-ground",
+      "description": "carb/fibre may be inaccurate",
+      "serving": null,
+      "tags": [
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 82,
+   "fields": {
+      "kilojoules": "25030.0",
+      "protein": "195.000",
+      "fibre": "88.000",
+      "carbohydrate": "48.000",
+      "fat": "547.000",
+      "sugar": "48.000",
+      "saturatedfat": "37.000",
+      "sodium": "50",
+      "created_at": "2018-01-02T19:55:48.263Z",
+      "updated_at": "2018-01-30T15:14:09.933Z",
+      "name": "Almonds (Raw)",
+      "slug": "almonds-raw",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 83,
+   "fields": {
+      "kilojoules": "13310.0",
+      "protein": "62.000",
+      "fibre": "0.000",
+      "carbohydrate": "713.000",
+      "fat": "0.000",
+      "sugar": "713.000",
+      "saturatedfat": "0.000",
+      "sodium": "350",
+      "created_at": "2018-01-02T20:01:59.705Z",
+      "updated_at": "2018-01-30T15:14:09.937Z",
+      "name": "Malt Extract (Syrup)",
+      "slug": "malt-extract-syrup",
+      "description": "",
+      "serving": null,
+      "tags": [
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 84,
+   "fields": {
+      "kilojoules": "22770.0",
+      "protein": "113.900",
+      "fibre": "206.000",
+      "carbohydrate": "351.900",
+      "fat": "381.600",
+      "sugar": "43.400",
+      "saturatedfat": "247.000",
+      "sodium": "1936",
+      "created_at": "2018-01-02T20:07:24.672Z",
+      "updated_at": "2018-02-27T18:21:17.717Z",
+      "name": "Cacao Nibs",
+      "slug": "cacao-nibs",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3,
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 85,
+   "fields": {
+      "kilojoules": "16620.0",
+      "protein": "95.000",
+      "fibre": "50.000",
+      "carbohydrate": "666.000",
+      "fat": "110.000",
+      "sugar": "10.000",
+      "saturatedfat": "5.000",
+      "sodium": "590",
+      "created_at": "2018-01-03T00:55:58.031Z",
+      "updated_at": "2019-02-09T20:51:55.693Z",
+      "name": "Mixed Herbs",
+      "slug": "mixed-herbs",
+      "description": "",
+      "serving": "5.0",
+      "tags": [
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 86,
+   "fields": {
+      "kilojoules": "14370.0",
+      "protein": "800.000",
+      "fibre": "0.000",
+      "carbohydrate": "45.000",
+      "fat": "0.000",
+      "sugar": "45.000",
+      "saturatedfat": "0.000",
+      "sodium": "12400",
+      "created_at": "2018-01-30T14:29:45.677Z",
+      "updated_at": "2018-04-03T08:37:42.805Z",
+      "name": "Egg Albumen Powder",
+      "slug": "egg-albumen-powder",
+      "description": "100% Powder as sold as supplement; 1 scoop = 24g ~= 6.4 egg whites ~= 4.3 whole eggs",
+      "serving": "24.0",
+      "tags": [
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 87,
+   "fields": {
+      "kilojoules": "1230.0",
+      "protein": "15.000",
+      "fibre": "13.000",
+      "carbohydrate": "47.000",
+      "fat": "2.000",
+      "sugar": "33.000",
+      "saturatedfat": "2.000",
+      "sodium": "150",
+      "created_at": "2018-01-30T15:44:17.616Z",
+      "updated_at": "2018-01-30T15:53:55.132Z",
+      "name": "Crushed Tomatoes (canned)",
+      "slug": "crushed-tomatoes",
+      "description": "Based on Woolworths - 60% tomato, 39% tomato puree, Fibre is listed",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 88,
+   "fields": {
+      "kilojoules": "670.0",
+      "protein": "7.000",
+      "fibre": "16.000",
+      "carbohydrate": "34.000",
+      "fat": "2.000",
+      "sugar": "18.000",
+      "saturatedfat": "0.000",
+      "sodium": "800",
+      "created_at": "2018-01-30T16:15:16.382Z",
+      "updated_at": "2018-01-30T16:15:16.382Z",
+      "name": "Celery Sticks",
+      "slug": "celery-sticks",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 89,
+   "fields": {
+      "kilojoules": "14900.0",
+      "protein": "245.000",
+      "fibre": "182.000",
+      "carbohydrate": "419.000",
+      "fat": "60.000",
+      "sugar": "30.000",
+      "saturatedfat": "5.000",
+      "sodium": "25",
+      "created_at": "2018-01-30T17:19:05.689Z",
+      "updated_at": "2018-01-30T17:19:05.689Z",
+      "name": "Chickpeas",
+      "slug": "chickpeas",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 90,
+   "fields": {
+      "kilojoules": "1910.0",
+      "protein": "19.000",
+      "fibre": "13.000",
+      "carbohydrate": "83.000",
+      "fat": "5.000",
+      "sugar": "78.000",
+      "saturatedfat": "2.500",
+      "sodium": "720",
+      "created_at": "2018-02-06T12:42:03.645Z",
+      "updated_at": "2018-02-06T12:42:03.646Z",
+      "name": "Beetroot (Whole)",
+      "slug": "beetroot-whole",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 91,
+   "fields": {
+      "kilojoules": "13900.0",
+      "protein": "251.000",
+      "fibre": "134.000",
+      "carbohydrate": "454.000",
+      "fat": "22.000",
+      "sugar": "12.000",
+      "saturatedfat": "5.000",
+      "sodium": "25",
+      "created_at": "2018-02-15T13:05:41.207Z",
+      "updated_at": "2019-04-04T04:16:36.970Z",
+      "name": "French Lentils",
+      "slug": "french-lentils",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 92,
+   "fields": {
+      "kilojoules": "13700.0",
+      "protein": "229.000",
+      "fibre": "157.000",
+      "carbohydrate": "459.000",
+      "fat": "21.000",
+      "sugar": "20.000",
+      "saturatedfat": "5.000",
+      "sodium": "25",
+      "created_at": "2018-02-15T13:12:54.069Z",
+      "updated_at": "2019-04-04T04:17:24.421Z",
+      "name": "Peas (dried)",
+      "slug": "peas-dried",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1,
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 93,
+   "fields": {
+      "kilojoules": "14800.0",
+      "protein": "150.000",
+      "fibre": "130.000",
+      "carbohydrate": "581.000",
+      "fat": "37.000",
+      "sugar": "27.000",
+      "saturatedfat": "8.000",
+      "sodium": "500",
+      "created_at": "2018-02-18T17:04:54.923Z",
+      "updated_at": "2018-02-18T17:08:57.983Z",
+      "name": "Wholemeal Couscous",
+      "slug": "wholemeal-couscous",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 94,
+   "fields": {
+      "kilojoules": "16192.0",
+      "protein": "224.000",
+      "fibre": "108.000",
+      "carbohydrate": "480.000",
+      "fat": "67.000",
+      "sugar": "109.000",
+      "saturatedfat": "7.000",
+      "sodium": "640",
+      "created_at": "2018-02-27T18:24:40.258Z",
+      "updated_at": "2018-02-27T18:24:40.258Z",
+      "name": "Chickpea Flour (Besan/Gram)",
+      "slug": "chickpea-flour-besangram",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3,
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 95,
+   "fields": {
+      "kilojoules": "14900.0",
+      "protein": "123.000",
+      "fibre": "170.000",
+      "carbohydrate": "558.000",
+      "fat": "53.000",
+      "sugar": "80.000",
+      "saturatedfat": "35.000",
+      "sodium": "4150",
+      "created_at": "2018-02-28T23:40:54.017Z",
+      "updated_at": "2018-03-31T09:37:30.855Z",
+      "name": "Wheat Biscuits (Added Bran)",
+      "slug": "wheat-biscuits-added-bran",
+      "description": "20g per biscuit",
+      "serving": "20.0",
+      "tags": [
+         11,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 96,
+   "fields": {
+      "kilojoules": "6200.0",
+      "protein": "63.000",
+      "fibre": "5.000",
+      "carbohydrate": "155.000",
+      "fat": "65.000",
+      "sugar": "150.000",
+      "saturatedfat": "43.000",
+      "sodium": "900",
+      "created_at": "2018-03-02T08:41:18.746Z",
+      "updated_at": "2018-03-31T09:36:33.694Z",
+      "name": "Cafe Mocha (full milk) (per ml)",
+      "slug": "cafe-mocha-full-milk-100ml-cup",
+      "description": "",
+      "serving": "250.0",
+      "tags": [
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 97,
+   "fields": {
+      "kilojoules": "15800.0",
+      "protein": "119.000",
+      "fibre": "110.000",
+      "carbohydrate": "629.000",
+      "fat": "61.000",
+      "sugar": "8.000",
+      "saturatedfat": "11.000",
+      "sodium": "2500",
+      "created_at": "2018-03-29T02:40:06.337Z",
+      "updated_at": "2018-03-31T09:37:21.079Z",
+      "name": "Oat & Wheat Biscuits",
+      "slug": "oat-wheat-biscuits",
+      "description": "(Oat Brits)",
+      "serving": "20.8",
+      "tags": [
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 98,
+   "fields": {
+      "kilojoules": "12100.0",
+      "protein": "128.000",
+      "fibre": "83.000",
+      "carbohydrate": "320.000",
+      "fat": "103.000",
+      "sugar": "9.000",
+      "saturatedfat": "13.000",
+      "sodium": "3260",
+      "created_at": "2018-03-29T11:19:37.702Z",
+      "updated_at": "2018-04-29T02:11:32.587Z",
+      "name": "7 seed (22%) roll",
+      "slug": "7-seed-22-roll",
+      "description": "(from coles)",
+      "serving": "87.0",
+      "tags": [
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 99,
+   "fields": {
+      "kilojoules": "13900.0",
+      "protein": "230.000",
+      "fibre": "120.000",
+      "carbohydrate": "460.000",
+      "fat": "30.000",
+      "sugar": "30.000",
+      "saturatedfat": "4.000",
+      "sodium": "120",
+      "created_at": "2018-03-30T13:09:27.759Z",
+      "updated_at": "2018-03-31T09:55:27.627Z",
+      "name": "100% Pulse Pasta",
+      "slug": "100-pulse-pasta",
+      "description": "Pea Flour (25%), Chickpea Flour (25%), Borlotti Bean Flour (25%), Lentil flour (25%).",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 100,
+   "fields": {
+      "kilojoules": "3910.0",
+      "protein": "15.000",
+      "fibre": "29.000",
+      "carbohydrate": "64.000",
+      "fat": "63.000",
+      "sugar": "55.000",
+      "saturatedfat": "7.000",
+      "sodium": "7470",
+      "created_at": "2018-03-30T13:38:35.347Z",
+      "updated_at": "2019-08-31T14:38:25.246Z",
+      "name": "25% veg Pasta Stir Sauce",
+      "slug": "25-veg-pasta-stir-sauce",
+      "description": "(serving 1/4 jar)",
+      "serving": "87.0",
+      "tags": [
+         1,
+         18
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 101,
+   "fields": {
+      "kilojoules": "15280.0",
+      "protein": "417.000",
+      "fibre": "104.000",
+      "carbohydrate": "230.000",
+      "fat": "37.000",
+      "sugar": "183.000",
+      "saturatedfat": "6.000",
+      "sodium": "160",
+      "created_at": "2018-03-31T09:44:53.760Z",
+      "updated_at": "2018-10-28T18:27:55.133Z",
+      "name": "70% Soy Pulse Pasta",
+      "slug": "70-soy-pulse-pasta",
+      "description": "30% Chickpea",
+      "serving": "32.0",
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 102,
+   "fields": {
+      "kilojoules": "2930.0",
+      "protein": "66.000",
+      "fibre": "48.000",
+      "carbohydrate": "125.000",
+      "fat": "6.000",
+      "sugar": "43.000",
+      "saturatedfat": "2.000",
+      "sodium": "25",
+      "created_at": "2018-03-31T09:48:41.230Z",
+      "updated_at": "2018-10-06T16:54:58.029Z",
+      "name": "Frozen Peas",
+      "slug": "frozen-peas",
+      "description": "fibre is est",
+      "serving": null,
+      "tags": [
+         1,
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 103,
+   "fields": {
+      "kilojoules": "830.0",
+      "protein": "24.000",
+      "fibre": "22.000",
+      "carbohydrate": "6.000",
+      "fat": "5.000",
+      "sugar": "6.000",
+      "saturatedfat": "2.500",
+      "sodium": "210",
+      "created_at": "2018-04-03T04:17:55.172Z",
+      "updated_at": "2018-10-06T16:55:35.334Z",
+      "name": "Raw Spinach",
+      "slug": "raw-spinach",
+      "description": "",
+      "serving": "50.0",
+      "tags": [
+         1,
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 105,
+   "fields": {
+      "kilojoules": "2670.0",
+      "protein": "3.000",
+      "fibre": null,
+      "carbohydrate": "150.000",
+      "fat": "1.000",
+      "sugar": "150.000",
+      "saturatedfat": "0.500",
+      "sodium": "150",
+      "created_at": "2018-04-07T06:56:04.414Z",
+      "updated_at": "2018-04-07T06:59:11.725Z",
+      "name": "Canned Apricot (in Syrup)",
+      "slug": "canned-apricot-in-syrup",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 106,
+   "fields": {
+      "kilojoules": "2950.0",
+      "protein": "5.000",
+      "fibre": null,
+      "carbohydrate": "168.000",
+      "fat": "1.000",
+      "sugar": "168.000",
+      "saturatedfat": "0.500",
+      "sodium": "60",
+      "created_at": "2018-04-07T06:58:59.252Z",
+      "updated_at": "2018-04-07T06:58:59.252Z",
+      "name": "Canned Pear (in Syrup)",
+      "slug": "canned-pear-in-syrup",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 107,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-04-07T07:03:15.426Z",
+      "updated_at": "2018-04-07T07:03:15.426Z",
+      "name": "Canned Pineapple (in Juice)",
+      "slug": "canned-pineapple-in-juice",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 108,
+   "fields": {
+      "kilojoules": "2680.0",
+      "protein": "2.000",
+      "fibre": null,
+      "carbohydrate": "147.000",
+      "fat": "1.000",
+      "sugar": "119.000",
+      "saturatedfat": "0.500",
+      "sodium": "25",
+      "created_at": "2018-04-07T07:04:48.903Z",
+      "updated_at": "2018-04-07T07:04:48.903Z",
+      "name": "Canned Pear (in Juice)",
+      "slug": "canned-pear-in-juice",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 109,
+   "fields": {
+      "kilojoules": "2360.0",
+      "protein": "3.000",
+      "fibre": "10.000",
+      "carbohydrate": "127.000",
+      "fat": "2.000",
+      "sugar": "102.000",
+      "saturatedfat": "1.000",
+      "sodium": "25",
+      "created_at": "2018-04-07T07:06:53.752Z",
+      "updated_at": "2018-04-09T18:43:46.648Z",
+      "name": "Canned Fruit Salad (in Juice)",
+      "slug": "canned-fruit-salad-in-juice",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 110,
+   "fields": {
+      "kilojoules": "2860.0",
+      "protein": "5.000",
+      "fibre": null,
+      "carbohydrate": "165.000",
+      "fat": "5.000",
+      "sugar": "157.000",
+      "saturatedfat": "2.500",
+      "sodium": "60",
+      "created_at": "2018-04-07T07:08:43.325Z",
+      "updated_at": "2018-04-07T07:08:43.325Z",
+      "name": "Canned Mango (in Syrup)",
+      "slug": "canned-mango-in-syrup",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 111,
+   "fields": {
+      "kilojoules": "2240.0",
+      "protein": "4.000",
+      "fibre": null,
+      "carbohydrate": "120.000",
+      "fat": "2.000",
+      "sugar": "95.000",
+      "saturatedfat": "1.000",
+      "sodium": "25",
+      "created_at": "2018-04-07T07:10:13.570Z",
+      "updated_at": "2018-04-07T07:10:13.570Z",
+      "name": "Canned Peach (in Juice)",
+      "slug": "canned-peach-in-juice",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 112,
+   "fields": {
+      "kilojoules": "1090.0",
+      "protein": "3.000",
+      "fibre": "8.000",
+      "carbohydrate": "57.000",
+      "fat": "1.000",
+      "sugar": "57.000",
+      "saturatedfat": "0.500",
+      "sodium": "190",
+      "created_at": "2018-04-07T07:11:35.880Z",
+      "updated_at": "2018-05-10T18:41:49.867Z",
+      "name": "Canned Apple (for pie, 99% apple)",
+      "slug": "canned-apple-pie-filling",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 113,
+   "fields": {
+      "kilojoules": "2430.0",
+      "protein": "4.000",
+      "fibre": "31.000",
+      "carbohydrate": "155.000",
+      "fat": "1.000",
+      "sugar": "98.000",
+      "saturatedfat": "0.500",
+      "sodium": "30",
+      "created_at": "2018-04-07T07:16:06.949Z",
+      "updated_at": "2018-05-10T18:42:00.320Z",
+      "name": "Pear (fresh)",
+      "slug": "pear-fresh",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 114,
+   "fields": {
+      "kilojoules": "2010.0",
+      "protein": "3.000",
+      "fibre": "13.000",
+      "carbohydrate": "128.000",
+      "fat": "1.000",
+      "sugar": "101.000",
+      "saturatedfat": "0.500",
+      "sodium": "5",
+      "created_at": "2018-04-07T07:16:34.622Z",
+      "updated_at": "2018-05-10T18:41:52.650Z",
+      "name": "Apple (fresh, peeled)",
+      "slug": "apple-fresh",
+      "description": "Assorted Types",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 115,
+   "fields": {
+      "kilojoules": "27363.0",
+      "protein": "150.000",
+      "fibre": "70.000",
+      "carbohydrate": "140.000",
+      "fat": "650.000",
+      "sugar": "26.000",
+      "saturatedfat": "60.000",
+      "sodium": "20",
+      "created_at": "2018-04-12T09:28:38.817Z",
+      "updated_at": "2018-04-12T09:49:52.737Z",
+      "name": "Walnuts (raw)",
+      "slug": "walnuts-raw",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 116,
+   "fields": {
+      "kilojoules": "17100.0",
+      "protein": "122.000",
+      "fibre": "122.000",
+      "carbohydrate": "623.000",
+      "fat": "94.000",
+      "sugar": "18.000",
+      "saturatedfat": "11.000",
+      "sodium": "4520",
+      "created_at": "2018-04-16T00:37:07.292Z",
+      "updated_at": "2018-04-16T00:38:03.678Z",
+      "name": "Wheat & Seed Biscuits",
+      "slug": "wheat-seed-biscuits",
+      "description": "(Vita Wheat 9 seed, serving 1/10 pack)",
+      "serving": "25.0",
+      "tags": [
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 117,
+   "fields": {
+      "kilojoules": "4030.0",
+      "protein": "122.000",
+      "fibre": "0.100",
+      "carbohydrate": "52.000",
+      "fat": "29.000",
+      "sugar": "49.000",
+      "saturatedfat": "21.000",
+      "sodium": "3250",
+      "created_at": "2018-04-24T10:09:15.304Z",
+      "updated_at": "2019-06-01T03:58:52.088Z",
+      "name": "Cottage Cheese (low fat)",
+      "slug": "cottage-cheese-low-fat",
+      "description": "One cup = 226 grams, 18.1g = 1 tblsp",
+      "serving": "18.1",
+      "tags": [
+         6
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 118,
+   "fields": {
+      "kilojoules": "23088.0",
+      "protein": "49.800",
+      "fibre": "71.200",
+      "carbohydrate": "534.000",
+      "fat": "316.800",
+      "sugar": "498.400",
+      "saturatedfat": "188.700",
+      "sodium": "242",
+      "created_at": "2018-04-24T10:12:04.396Z",
+      "updated_at": "2019-06-16T17:49:24.538Z",
+      "name": "Dark Chocolate (50%)",
+      "slug": "dark-chocolate-50",
+      "description": "",
+      "serving": null,
+      "tags": [
+         11,
+         13,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 119,
+   "fields": {
+      "kilojoules": "2110.0",
+      "protein": "14.000",
+      "fibre": null,
+      "carbohydrate": "75.000",
+      "fat": "5.000",
+      "sugar": "75.000",
+      "saturatedfat": "2.500",
+      "sodium": "25",
+      "created_at": "2018-04-24T10:30:28.720Z",
+      "updated_at": "2018-04-24T10:48:46.661Z",
+      "name": "Frozen Blackberries",
+      "slug": "frozen-blackberries",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 120,
+   "fields": {
+      "kilojoules": "1920.0",
+      "protein": "9.000",
+      "fibre": "32.500",
+      "carbohydrate": "74.000",
+      "fat": "5.000",
+      "sugar": "73.000",
+      "saturatedfat": "2.500",
+      "sodium": "25",
+      "created_at": "2018-04-24T10:41:15.700Z",
+      "updated_at": "2018-10-06T19:26:35.987Z",
+      "name": "Frozen Mixed Berries",
+      "slug": "frozen-mixed-berries",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 121,
+   "fields": {
+      "kilojoules": "1630.0",
+      "protein": "7.000",
+      "fibre": null,
+      "carbohydrate": "7.000",
+      "fat": "20.000",
+      "sugar": "7.000",
+      "saturatedfat": "7.000",
+      "sodium": "130",
+      "created_at": "2018-04-24T10:44:04.058Z",
+      "updated_at": "2018-04-24T10:48:18.334Z",
+      "name": "Frozen Mixed Tropical Fruit",
+      "slug": "frozen-mixed-tropical-fruit",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 122,
+   "fields": {
+      "kilojoules": "2320.0",
+      "protein": "9.000",
+      "fibre": null,
+      "carbohydrate": "116.000",
+      "fat": "5.000",
+      "sugar": "112.000",
+      "saturatedfat": "2.500",
+      "sodium": "25",
+      "created_at": "2018-04-24T10:47:56.855Z",
+      "updated_at": "2018-04-24T10:47:56.855Z",
+      "name": "Frozen Mango",
+      "slug": "frozen-mango",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 123,
+   "fields": {
+      "kilojoules": "29300.0",
+      "protein": "130.000",
+      "fibre": "51.000",
+      "carbohydrate": "45.000",
+      "fat": "700.000",
+      "sugar": "34.000",
+      "saturatedfat": "42.000",
+      "sodium": "25",
+      "created_at": "2018-04-26T08:36:20.503Z",
+      "updated_at": "2018-04-26T08:51:13.659Z",
+      "name": "Pine Nuts",
+      "slug": "pine-nuts",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 124,
+   "fields": {
+      "kilojoules": "9900.0",
+      "protein": "22.000",
+      "fibre": null,
+      "carbohydrate": "55.000",
+      "fat": "230.000",
+      "sugar": "18.000",
+      "saturatedfat": "17.000",
+      "sodium": "1300",
+      "created_at": "2018-04-26T08:37:04.797Z",
+      "updated_at": "2018-04-26T08:41:46.912Z",
+      "name": "Basil Pesto (no cheese or nuts)",
+      "slug": "basil-pesto-no-cheese-or-nuts",
+      "description": "",
+      "serving": null,
+      "tags": [
+         11,
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 125,
+   "fields": {
+      "kilojoules": "1260.0",
+      "protein": "6.000",
+      "fibre": "4.000",
+      "carbohydrate": "75.000",
+      "fat": "2.000",
+      "sugar": "62.000",
+      "saturatedfat": "0.000",
+      "sodium": null,
+      "created_at": "2018-05-10T18:38:43.660Z",
+      "updated_at": "2018-05-10T18:38:43.660Z",
+      "name": "Watermelon",
+      "slug": "watermelon",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 126,
+   "fields": {
+      "kilojoules": "1970.0",
+      "protein": "9.000",
+      "fibre": "24.000",
+      "carbohydrate": "117.000",
+      "fat": "1.000",
+      "sugar": "94.000",
+      "saturatedfat": "0.000",
+      "sodium": null,
+      "created_at": "2018-05-10T18:39:48.374Z",
+      "updated_at": "2018-05-10T18:39:48.374Z",
+      "name": "Oranges (average var.)",
+      "slug": "oranges-average-var",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 127,
+   "fields": {
+      "kilojoules": "3730.0",
+      "protein": "11.000",
+      "fibre": "26.000",
+      "carbohydrate": "228.000",
+      "fat": "3.000",
+      "sugar": "122.000",
+      "saturatedfat": "1.000",
+      "sodium": null,
+      "created_at": "2018-05-10T18:41:35.480Z",
+      "updated_at": "2018-05-10T18:41:35.481Z",
+      "name": "Banana (edible portion)",
+      "slug": "banana-edible-portion",
+      "description": "",
+      "serving": null,
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 128,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-05-10T23:56:55.326Z",
+      "updated_at": "2018-05-10T23:56:55.326Z",
+      "name": "Hemp Seeds",
+      "slug": "hemp-seeds",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5,
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 129,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-05-10T23:57:13.176Z",
+      "updated_at": "2018-05-10T23:57:13.176Z",
+      "name": "Hemp Seed Flour",
+      "slug": "hemp-seed-flour",
+      "description": "",
+      "serving": null,
+      "tags": [
+         7,
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 130,
+   "fields": {
+      "kilojoules": "13380.0",
+      "protein": "500.000",
+      "fibre": "205.000",
+      "carbohydrate": "50.000",
+      "fat": "110.000",
+      "sugar": "50.000",
+      "saturatedfat": "15.000",
+      "sodium": "0",
+      "created_at": "2018-05-10T23:57:28.347Z",
+      "updated_at": "2018-05-11T00:07:05.284Z",
+      "name": "Hemp Protein Powder",
+      "slug": "hemp-protein-powder",
+      "description": "claimed \"balanced\" but actually lowish MC like legumes",
+      "serving": null,
+      "tags": [
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 131,
+   "fields": {
+      "kilojoules": "13570.0",
+      "protein": "140.000",
+      "fibre": "149.000",
+      "carbohydrate": "687.000",
+      "fat": "23.000",
+      "sugar": "10.000",
+      "saturatedfat": "3.000",
+      "sodium": "10",
+      "created_at": "2018-05-19T01:12:54.190Z",
+      "updated_at": "2018-05-19T01:19:02.906Z",
+      "name": "Rye Flour (Whole)",
+      "slug": "rye-flour-whole",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 132,
+   "fields": {
+      "kilojoules": "15700.0",
+      "protein": "811.000",
+      "fibre": "5.000",
+      "carbohydrate": "91.000",
+      "fat": "5.000",
+      "sugar": "5.000",
+      "saturatedfat": "2.500",
+      "sodium": "10790",
+      "created_at": "2018-05-22T11:14:43.400Z",
+      "updated_at": "2019-03-01T16:02:18.010Z",
+      "name": "Soy Protein Puffs",
+      "slug": "soy-protein-puffs",
+      "description": "(coles brand \"nuggets\") as used in protein bars",
+      "serving": null,
+      "tags": [
+         8,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 133,
+   "fields": {
+      "kilojoules": "13800.0",
+      "protein": "22.000",
+      "fibre": "0.000",
+      "carbohydrate": "28.000",
+      "fat": "350.000",
+      "sugar": "28.000",
+      "saturatedfat": "347.000",
+      "sodium": "250",
+      "created_at": "2018-06-04T01:06:27.847Z",
+      "updated_at": "2019-06-23T11:57:34.544Z",
+      "name": "Single Cream",
+      "slug": "single-cream",
+      "description": "(single cream, ~35%)",
+      "serving": null,
+      "tags": [
+         6,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 134,
+   "fields": {
+      "kilojoules": "4240.0",
+      "protein": "86.000",
+      "fibre": "0.100",
+      "carbohydrate": "35.000",
+      "fat": "59.000",
+      "sugar": "35.000",
+      "saturatedfat": "41.000",
+      "sodium": "1700",
+      "created_at": "2018-07-05T17:23:35.713Z",
+      "updated_at": "2018-07-05T17:23:35.713Z",
+      "name": "Ricotta Cheese (low fat)",
+      "slug": "ricotta-cheese-low-fat",
+      "description": "",
+      "serving": null,
+      "tags": [
+         6
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 135,
+   "fields": {
+      "kilojoules": "25800.0",
+      "protein": "250.000",
+      "fibre": "100.000",
+      "carbohydrate": "58.000",
+      "fat": "535.000",
+      "sugar": "43.000",
+      "saturatedfat": "45.000",
+      "sodium": "60",
+      "created_at": "2018-07-22T17:36:18.506Z",
+      "updated_at": "2018-07-22T17:55:09.454Z",
+      "name": "Almonds (Dry Roast)",
+      "slug": "almonds-dry-roast",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 136,
+   "fields": {
+      "kilojoules": "5250.0",
+      "protein": "126.000",
+      "fibre": "48.000",
+      "carbohydrate": "141.000",
+      "fat": "20.000",
+      "sugar": "32.000",
+      "saturatedfat": "3.000",
+      "sodium": "30",
+      "created_at": "2018-07-22T17:36:32.602Z",
+      "updated_at": "2018-07-22T17:43:25.279Z",
+      "name": "Edamame (thawed)",
+      "slug": "edamame-thawed",
+      "description": "",
+      "serving": "50.0",
+      "tags": [
+         1,
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 137,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-07-22T18:19:34.081Z",
+      "updated_at": "2018-07-22T18:19:34.081Z",
+      "name": "Mustard (generic)",
+      "slug": "mustard-generic",
+      "description": "",
+      "serving": null,
+      "tags": [
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 138,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-07-22T18:19:43.935Z",
+      "updated_at": "2018-07-22T18:19:43.935Z",
+      "name": "Malt Vinegar",
+      "slug": "malt-vinegar",
+      "description": "",
+      "serving": null,
+      "tags": [
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 139,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-07-22T18:19:58.108Z",
+      "updated_at": "2018-07-22T18:19:58.109Z",
+      "name": "Red Wine Vinegar",
+      "slug": "red-wine-vinegar",
+      "description": "",
+      "serving": null,
+      "tags": [
+         13
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 140,
+   "fields": {
+      "kilojoules": "9230.0",
+      "protein": "86.000",
+      "fibre": "122.000",
+      "carbohydrate": "345.000",
+      "fat": "25.000",
+      "sugar": "14.000",
+      "saturatedfat": "5.000",
+      "sodium": "1700",
+      "created_at": "2018-07-26T00:39:27.548Z",
+      "updated_at": "2018-07-26T00:39:27.548Z",
+      "name": "Oatbran Wraps",
+      "slug": "oatbran-wraps",
+      "description": "",
+      "serving": null,
+      "tags": [
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 141,
+   "fields": {
+      "kilojoules": "1510.0",
+      "protein": "25.000",
+      "fibre": "26.000",
+      "carbohydrate": "71.000",
+      "fat": "5.000",
+      "sugar": "17.000",
+      "saturatedfat": "1.000",
+      "sodium": "590",
+      "created_at": "2018-07-28T22:22:14.585Z",
+      "updated_at": "2018-07-28T22:22:14.585Z",
+      "name": "Brussel Sprouts (boiled)",
+      "slug": "brussel-sprouts-boiled",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 142,
+   "fields": {
+      "kilojoules": "1260.0",
+      "protein": "30.000",
+      "fibre": "18.000",
+      "carbohydrate": "59.000",
+      "fat": "2.000",
+      "sugar": "41.000",
+      "saturatedfat": "0.000",
+      "sodium": "170",
+      "created_at": "2018-08-13T03:53:15.996Z",
+      "updated_at": "2018-08-13T03:54:22.871Z",
+      "name": "Beanshoots (Mung)",
+      "slug": "beanshoots-mung",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 143,
+   "fields": {
+      "kilojoules": "4180.0",
+      "protein": "50.000",
+      "fibre": "70.000",
+      "carbohydrate": "20.000",
+      "fat": "20.000",
+      "sugar": "10.000",
+      "saturatedfat": "5.000",
+      "sodium": "5",
+      "created_at": "2018-08-16T23:31:28.692Z",
+      "updated_at": "2018-08-16T23:35:13.983Z",
+      "name": "Roasted Chickpeas",
+      "slug": "roasted-chickpeas",
+      "description": "(snack food, unflavoured)",
+      "serving": null,
+      "tags": [
+         3,
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 144,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-09-06T09:06:36.358Z",
+      "updated_at": "2018-09-06T09:06:36.358Z",
+      "name": "Beetroot Powder",
+      "slug": "beetroot-powder",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1,
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 145,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-09-06T09:22:48.768Z",
+      "updated_at": "2018-09-06T09:22:48.768Z",
+      "name": "Puffed Quinoa",
+      "slug": "puffed-quinoa",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 146,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-09-06T09:24:22.534Z",
+      "updated_at": "2018-09-06T09:24:22.534Z",
+      "name": "Puffed Brown Rice",
+      "slug": "puffed-brown-rice",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 147,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-09-06T09:24:42.351Z",
+      "updated_at": "2018-09-06T09:24:42.351Z",
+      "name": "Puffed Buckwheat",
+      "slug": "puffed-buckwheat",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 148,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2018-09-06T09:25:33.140Z",
+      "updated_at": "2018-09-06T09:25:33.140Z",
+      "name": "Puffed Millet",
+      "slug": "puffed-millet",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 149,
+   "fields": {
+      "kilojoules": "16880.0",
+      "protein": "445.000",
+      "fibre": "55.000",
+      "carbohydrate": "320.000",
+      "fat": "85.000",
+      "sugar": "0.000",
+      "saturatedfat": "12.000",
+      "sodium": "25",
+      "created_at": "2018-09-07T09:56:15.574Z",
+      "updated_at": "2018-09-07T09:56:15.574Z",
+      "name": "Textured Soy Protein (coarse chunks, no caramel)",
+      "slug": "textured-soy-protein-coarse-chunks-no-caramel",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 150,
+   "fields": {
+      "kilojoules": "16430.0",
+      "protein": "504.000",
+      "fibre": "221.000",
+      "carbohydrate": "86.000",
+      "fat": "168.000",
+      "sugar": "49.000",
+      "saturatedfat": "23.000",
+      "sodium": "5900",
+      "created_at": "2018-10-06T16:31:41.756Z",
+      "updated_at": "2018-10-06T16:31:41.756Z",
+      "name": "Protein Pancake Mix",
+      "slug": "protein-pancake-mix",
+      "description": "",
+      "serving": null,
+      "tags": [
+         8,
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 151,
+   "fields": {
+      "kilojoules": "11900.0",
+      "protein": "237.000",
+      "fibre": "570.000",
+      "carbohydrate": "2.000",
+      "fat": "90.000",
+      "sugar": "1.000",
+      "saturatedfat": "11.000",
+      "sodium": "25",
+      "created_at": "2018-10-06T16:46:10.926Z",
+      "updated_at": "2018-10-06T16:46:10.926Z",
+      "name": "Chia Powder",
+      "slug": "chia-powder",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5,
+         7,
+         9
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 152,
+   "fields": {
+      "kilojoules": "14360.0",
+      "protein": "249.000",
+      "fibre": "100.000",
+      "carbohydrate": "505.000",
+      "fat": "22.000",
+      "sugar": "24.000",
+      "saturatedfat": "3.000",
+      "sodium": "350",
+      "created_at": "2018-10-06T17:29:46.764Z",
+      "updated_at": "2018-10-06T17:30:03.408Z",
+      "name": "High Protein Pasta",
+      "slug": "high-protein-pasta",
+      "description": "",
+      "serving": null,
+      "tags": [
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 153,
+   "fields": {
+      "kilojoules": "1610.0",
+      "protein": "12.000",
+      "fibre": "14.000",
+      "carbohydrate": "72.000",
+      "fat": "5.000",
+      "sugar": "65.000",
+      "saturatedfat": "2.500",
+      "sodium": "25",
+      "created_at": "2018-10-28T18:09:17.460Z",
+      "updated_at": "2018-10-28T18:09:17.460Z",
+      "name": "Butternut Pumpkin (diced)",
+      "slug": "butternut-pumpkin-diced",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 154,
+   "fields": {
+      "kilojoules": "17750.0",
+      "protein": "400.000",
+      "fibre": "125.000",
+      "carbohydrate": "160.000",
+      "fat": "195.000",
+      "sugar": "80.000",
+      "saturatedfat": "30.400",
+      "sodium": "550",
+      "created_at": "2018-10-28T18:37:00.385Z",
+      "updated_at": "2019-04-02T11:48:57.190Z",
+      "name": "Soy Milk Powder",
+      "slug": "soy-milk-powder",
+      "description": "Serving added to 200ml water to make ~ 1 cup",
+      "serving": "30.0",
+      "tags": [
+         3,
+         16
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 155,
+   "fields": {
+      "kilojoules": "7530.0",
+      "protein": "25.000",
+      "fibre": "780.000",
+      "carbohydrate": "40.000",
+      "fat": "5.000",
+      "sugar": "1.000",
+      "saturatedfat": "1.000",
+      "sodium": "1300",
+      "created_at": "2018-11-06T10:26:48.885Z",
+      "updated_at": "2018-11-06T10:30:04.647Z",
+      "name": "Psyllum Husk (flaky)",
+      "slug": "psyllum-husk-powder",
+      "description": "",
+      "serving": null,
+      "tags": [
+         8,
+         9
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 156,
+   "fields": {
+      "kilojoules": "1940.0",
+      "protein": "29.000",
+      "fibre": "35.000",
+      "carbohydrate": "78.000",
+      "fat": "4.000",
+      "sugar": "16.000",
+      "saturatedfat": "0.200",
+      "sodium": "2730",
+      "created_at": "2018-11-07T00:09:40.126Z",
+      "updated_at": "2019-08-31T14:32:19.733Z",
+      "name": "Canned Soup (Split Pea and Veg)",
+      "slug": "canned-soup-split-pea-and-veg",
+      "description": "Fibre guessed assuming almost half GSPs; Counting entire can as a large serving",
+      "serving": "400.0",
+      "tags": [
+         18
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 157,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2019-01-06T13:31:26.905Z",
+      "updated_at": "2019-01-06T13:31:26.905Z",
+      "name": "Bok Choy",
+      "slug": "bok-choy",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 158,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2019-01-06T13:31:52.211Z",
+      "updated_at": "2019-01-06T13:31:52.211Z",
+      "name": "Pak Choy",
+      "slug": "pak-choy",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 159,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2019-01-06T13:32:00.933Z",
+      "updated_at": "2019-01-06T13:32:00.933Z",
+      "name": "Choy Sum",
+      "slug": "choy-sum",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 160,
+   "fields": {
+      "kilojoules": "100.0",
+      "protein": "0.500",
+      "fibre": "0.500",
+      "carbohydrate": "6.000",
+      "fat": "1.000",
+      "sugar": "5.000",
+      "saturatedfat": "0.100",
+      "sodium": "40",
+      "created_at": "2019-02-05T07:15:03.882Z",
+      "updated_at": "2019-02-14T18:18:55.262Z",
+      "name": "Diet Cordial",
+      "slug": "diet-cordial",
+      "description": "",
+      "serving": "250.0",
+      "tags": [
+         16
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 161,
+   "fields": {
+      "kilojoules": "14530.0",
+      "protein": "230.000",
+      "fibre": "120.000",
+      "carbohydrate": "630.000",
+      "fat": "11.000",
+      "sugar": "60.000",
+      "saturatedfat": "5.000",
+      "sodium": "150",
+      "created_at": "2019-02-05T07:18:58.103Z",
+      "updated_at": "2019-02-05T07:18:58.103Z",
+      "name": "Split Mung Bean",
+      "slug": "split-mung-bean",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 162,
+   "fields": {
+      "kilojoules": "7360.0",
+      "protein": "75.000",
+      "fibre": "35.000",
+      "carbohydrate": "182.000",
+      "fat": "74.000",
+      "sugar": "24.000",
+      "saturatedfat": "28.000",
+      "sodium": "2500",
+      "created_at": "2019-02-05T11:56:16.842Z",
+      "updated_at": "2019-02-05T11:56:16.842Z",
+      "name": "Salad sandwitch w/ cheese",
+      "slug": "salad-sandwitch-w-cheese",
+      "description": "fibre est",
+      "serving": "196.0",
+      "tags": [
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 163,
+   "fields": {
+      "kilojoules": "0.0",
+      "protein": "0.000",
+      "fibre": "0.000",
+      "carbohydrate": "0.000",
+      "fat": "0.000",
+      "sugar": "0.000",
+      "saturatedfat": "0.000",
+      "sodium": "50",
+      "created_at": "2019-02-05T23:43:19.180Z",
+      "updated_at": "2019-02-14T18:07:59.280Z",
+      "name": "Water",
+      "slug": "water",
+      "description": "",
+      "serving": "250.0",
+      "tags": [
+         16
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 164,
+   "fields": {
+      "kilojoules": "1050.0",
+      "protein": "4.000",
+      "fibre": "4.000",
+      "carbohydrate": "86.000",
+      "fat": "0.100",
+      "sugar": "24.000",
+      "saturatedfat": "0.050",
+      "sodium": "10",
+      "created_at": "2019-02-14T18:01:48.497Z",
+      "updated_at": "2019-02-14T18:11:42.370Z",
+      "name": "Lemon Juice",
+      "slug": "lemon-juice",
+      "description": "",
+      "serving": null,
+      "tags": [
+         16
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 165,
+   "fields": {
+      "kilojoules": "1880.0",
+      "protein": "7.000",
+      "fibre": "2.000",
+      "carbohydrate": "104.000",
+      "fat": "2.000",
+      "sugar": "84.000",
+      "saturatedfat": "0.100",
+      "sodium": "10",
+      "created_at": "2019-02-14T18:01:54.273Z",
+      "updated_at": "2019-02-14T18:10:42.714Z",
+      "name": "Orange Juice",
+      "slug": "orange-juice",
+      "description": "",
+      "serving": null,
+      "tags": [
+         16
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 166,
+   "fields": {
+      "kilojoules": "13940.0",
+      "protein": "309.000",
+      "fibre": "537.000",
+      "carbohydrate": "4.000",
+      "fat": "173.000",
+      "sugar": "1.000",
+      "saturatedfat": "16.000",
+      "sodium": "770",
+      "created_at": "2019-02-18T01:58:47.050Z",
+      "updated_at": "2019-07-20T01:44:32.920Z",
+      "name": "Flax Flour (part. defat/decarb)",
+      "slug": "flax-flour-part-defatdecarb",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5,
+         7,
+         9
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 167,
+   "fields": {
+      "kilojoules": "3222.0",
+      "protein": "20.000",
+      "fibre": "8.000",
+      "carbohydrate": "170.000",
+      "fat": "1.000",
+      "sugar": "22.000",
+      "saturatedfat": "0.100",
+      "sodium": "60",
+      "created_at": "2019-02-19T05:50:15.075Z",
+      "updated_at": "2019-02-19T05:50:15.075Z",
+      "name": "Potato (generic)",
+      "slug": "potato-generic",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 168,
+   "fields": {
+      "kilojoules": "16602.0",
+      "protein": "800.000",
+      "fibre": "30.000",
+      "carbohydrate": "80.000",
+      "fat": "50.000",
+      "sugar": "5.000",
+      "saturatedfat": "30.000",
+      "sodium": "800",
+      "created_at": "2019-03-01T16:03:55.687Z",
+      "updated_at": "2019-04-02T11:49:08.150Z",
+      "name": "Soy Granules",
+      "slug": "soy-granules",
+      "description": "(defatted) (as used in indian cooking)",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 169,
+   "fields": {
+      "kilojoules": "15060.0",
+      "protein": "230.000",
+      "fibre": "130.000",
+      "carbohydrate": "520.000",
+      "fat": "97.000",
+      "sugar": null,
+      "saturatedfat": "17.000",
+      "sodium": "120",
+      "created_at": "2019-03-02T20:35:03.954Z",
+      "updated_at": "2019-03-16T17:06:08.443Z",
+      "name": "Wheat Germ",
+      "slug": "wheat-germ",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 170,
+   "fields": {
+      "kilojoules": "1840.0",
+      "protein": "11.000",
+      "fibre": "17.000",
+      "carbohydrate": "106.000",
+      "fat": "3.000",
+      "sugar": "79.000",
+      "saturatedfat": "0.500",
+      "sodium": "5",
+      "created_at": "2019-03-16T17:24:25.931Z",
+      "updated_at": "2019-03-16T17:31:54.988Z",
+      "name": "Nectarine",
+      "slug": "nectarine",
+      "description": "I medium-large ~= 150g",
+      "serving": "150.0",
+      "tags": [
+         14
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 171,
+   "fields": {
+      "kilojoules": "16500.0",
+      "protein": "70.000",
+      "fibre": "54.000",
+      "carbohydrate": "559.000",
+      "fat": "147.000",
+      "sugar": "301.000",
+      "saturatedfat": "82.000",
+      "sodium": "2610",
+      "created_at": "2019-03-17T04:29:05.107Z",
+      "updated_at": "2019-03-17T04:29:05.107Z",
+      "name": "Choc Oat Bar (prepackaged)",
+      "slug": "choc-oat-bar-prepackaged",
+      "description": "Mother Earth brand Black Forest Oaty Slice",
+      "serving": "40.0",
+      "tags": [
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 172,
+   "fields": {
+      "kilojoules": "628.0",
+      "protein": "7.000",
+      "fibre": "5.000",
+      "carbohydrate": "36.000",
+      "fat": "1.000",
+      "sugar": "17.000",
+      "saturatedfat": "0.200",
+      "sodium": "20",
+      "created_at": "2019-03-21T13:38:43.490Z",
+      "updated_at": "2019-03-21T13:38:43.490Z",
+      "name": "Cucumber (english, with peel)",
+      "slug": "cucumber-english-with-peel",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 173,
+   "fields": {
+      "kilojoules": "2090.0",
+      "protein": "33.000",
+      "fibre": "20.000",
+      "carbohydrate": "100.000",
+      "fat": "7.000",
+      "sugar": null,
+      "saturatedfat": "1.000",
+      "sodium": "430",
+      "created_at": "2019-03-26T10:59:39.205Z",
+      "updated_at": "2019-03-26T11:00:46.172Z",
+      "name": "Kale (fresh)",
+      "slug": "kale-fresh",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 174,
+   "fields": {
+      "kilojoules": "10300.0",
+      "protein": "178.000",
+      "fibre": "448.000",
+      "carbohydrate": "144.000",
+      "fat": "33.000",
+      "sugar": "136.000",
+      "saturatedfat": "5.000",
+      "sodium": "3640",
+      "created_at": "2019-04-02T11:32:22.255Z",
+      "updated_at": "2019-04-02T11:32:22.255Z",
+      "name": "Broccoli Powder (Macro)",
+      "slug": "broccoli-powder-macro",
+      "description": "",
+      "serving": null,
+      "tags": [
+         1,
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 175,
+   "fields": {
+      "kilojoules": "12900.0",
+      "protein": "224.000",
+      "fibre": "193.000",
+      "carbohydrate": "385.000",
+      "fat": "28.000",
+      "sugar": "27.000",
+      "saturatedfat": "5.000",
+      "sodium": "25",
+      "created_at": "2019-04-02T11:37:30.759Z",
+      "updated_at": "2019-04-02T11:37:30.759Z",
+      "name": "Black Beans",
+      "slug": "black-beans",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 176,
+   "fields": {
+      "kilojoules": "13300.0",
+      "protein": "217.000",
+      "fibre": "187.000",
+      "carbohydrate": "414.000",
+      "fat": "29.000",
+      "sugar": "29.000",
+      "saturatedfat": "5.000",
+      "sodium": "25",
+      "created_at": "2019-04-02T11:39:56.693Z",
+      "updated_at": "2019-04-02T11:45:21.200Z",
+      "name": "Borlotti Beans",
+      "slug": "borlotti-beans",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 177,
+   "fields": {
+      "kilojoules": "13200.0",
+      "protein": "217.000",
+      "fibre": "231.999",
+      "carbohydrate": "382.000",
+      "fat": "31.000",
+      "sugar": "30.000",
+      "saturatedfat": "5.000",
+      "sodium": "25",
+      "created_at": "2019-04-04T04:05:54.781Z",
+      "updated_at": "2019-04-04T04:05:54.781Z",
+      "name": "Kidney Beans (Red)",
+      "slug": "kidney-beans-red",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 178,
+   "fields": {
+      "kilojoules": "12700.0",
+      "protein": "213.000",
+      "fibre": "275.000",
+      "carbohydrate": "329.000",
+      "fat": "36.000",
+      "sugar": "27.000",
+      "saturatedfat": "5.000",
+      "sodium": "25",
+      "created_at": "2019-04-04T04:10:37.978Z",
+      "updated_at": "2019-04-04T04:42:06.181Z",
+      "name": "White Beans (navy/haricot)",
+      "slug": "white-beans",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 179,
+   "fields": {
+      "kilojoules": "1520.0",
+      "protein": "33.000",
+      "fibre": "0.100",
+      "carbohydrate": "55.000",
+      "fat": "0.500",
+      "sugar": "55.000",
+      "saturatedfat": "0.250",
+      "sodium": "1140",
+      "created_at": "2019-04-04T04:27:39.079Z",
+      "updated_at": "2019-04-04T04:27:39.079Z",
+      "name": "Skim Milk (from Powder)",
+      "slug": "skim-milk-from-powder",
+      "description": "",
+      "serving": null,
+      "tags": [
+         6,
+         16
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 180,
+   "fields": {
+      "kilojoules": "2950.0",
+      "protein": "55.000",
+      "fibre": "0.000",
+      "carbohydrate": "77.000",
+      "fat": "19.000",
+      "sugar": "77.000",
+      "saturatedfat": "12.000",
+      "sodium": "640",
+      "created_at": "2019-06-01T10:13:35.185Z",
+      "updated_at": "2019-06-01T10:13:35.185Z",
+      "name": "Natural Yogurt (no added sugar)",
+      "slug": "natural-yogurt-no-added-sugar",
+      "description": "",
+      "serving": "100.0",
+      "tags": [
+         6
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 181,
+   "fields": {
+      "kilojoules": "4540.0",
+      "protein": "60.000",
+      "fibre": "0.000",
+      "carbohydrate": "48.000",
+      "fat": "73.000",
+      "sugar": "47.000",
+      "saturatedfat": "50.000",
+      "sodium": "670",
+      "created_at": "2019-06-01T10:30:59.434Z",
+      "updated_at": "2019-06-01T10:30:59.434Z",
+      "name": "Greek Yogurt (Full Fat)",
+      "slug": "greek-yogurt-full-fat",
+      "description": "",
+      "serving": "100.0",
+      "tags": [
+         6
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 182,
+   "fields": {
+      "kilojoules": "14270.0",
+      "protein": "252.000",
+      "fibre": "183.000",
+      "carbohydrate": null,
+      "fat": "16.400",
+      "sugar": null,
+      "saturatedfat": "590.000",
+      "sodium": "380",
+      "created_at": "2019-06-04T16:29:15.309Z",
+      "updated_at": "2019-06-04T16:29:23.762Z",
+      "name": "Urad bean (black gram)",
+      "slug": "urad-bean-black-gram",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 183,
+   "fields": {
+      "kilojoules": "2220.0",
+      "protein": "53.000",
+      "fibre": "0.000",
+      "carbohydrate": "74.000",
+      "fat": "1.000",
+      "sugar": "55.000",
+      "saturatedfat": "1.000",
+      "sodium": "900",
+      "created_at": "2019-06-15T05:23:07.446Z",
+      "updated_at": "2019-06-15T05:23:07.446Z",
+      "name": "Fat-Free Greek Yogurt",
+      "slug": "fat-free-greek-yogurt",
+      "description": "",
+      "serving": null,
+      "tags": [
+         6
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 184,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2019-06-17T07:06:47.943Z",
+      "updated_at": "2019-06-17T07:06:47.943Z",
+      "name": "Cornflour (maize)",
+      "slug": "cornflour-maize",
+      "description": "",
+      "serving": null,
+      "tags": [
+         7,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 185,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2019-06-17T07:07:21.978Z",
+      "updated_at": "2019-06-17T07:07:21.978Z",
+      "name": "Icing (Confectioners) Sugar",
+      "slug": "icing-confectioners-sugar",
+      "description": "",
+      "serving": null,
+      "tags": [
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 186,
+   "fields": {
+      "kilojoules": "14000.0",
+      "protein": "88.000",
+      "fibre": "0.000",
+      "carbohydrate": "29.000",
+      "fat": "320.000",
+      "sugar": "26.000",
+      "saturatedfat": "232.000",
+      "sodium": "3200",
+      "created_at": "2019-06-23T08:26:36.024Z",
+      "updated_at": "2019-06-23T08:27:40.829Z",
+      "name": "Cream Cheese",
+      "slug": "cream-cheese",
+      "description": "spreadable",
+      "serving": "25.0",
+      "tags": [
+         6,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 187,
+   "fields": {
+      "kilojoules": "19200.0",
+      "protein": "5.000",
+      "fibre": "0.000",
+      "carbohydrate": "5.000",
+      "fat": "518.000",
+      "sugar": "3.000",
+      "saturatedfat": "118.000",
+      "sodium": "6890",
+      "created_at": "2019-07-06T20:10:11.623Z",
+      "updated_at": "2019-07-06T20:10:11.623Z",
+      "name": "Margarine/Table Spread",
+      "slug": "margarinetable-spread",
+      "description": "",
+      "serving": null,
+      "tags": [
+         6,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 188,
+   "fields": {
+      "kilojoules": "12200.0",
+      "protein": "99.000",
+      "fibre": "0.000",
+      "carbohydrate": "609.000",
+      "fat": "3.000",
+      "sugar": "609.000",
+      "saturatedfat": "2.000",
+      "sodium": "1000",
+      "created_at": "2019-07-06T20:38:48.294Z",
+      "updated_at": "2019-07-06T20:38:48.294Z",
+      "name": "Condensed Milk (Skim, Sweetened)",
+      "slug": "condensed-milk-skim-sweetened",
+      "description": "",
+      "serving": null,
+      "tags": [
+         6,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 189,
+   "fields": {
+      "kilojoules": "22900.0",
+      "protein": "39.000",
+      "fibre": "0.000",
+      "carbohydrate": "618.000",
+      "fat": "316.000",
+      "sugar": "618.000",
+      "saturatedfat": "198.000",
+      "sodium": "1010",
+      "created_at": "2019-07-06T20:40:06.351Z",
+      "updated_at": "2019-07-06T20:40:06.352Z",
+      "name": "White Chocolate (23% CB)",
+      "slug": "white-chocolate-23-cb",
+      "description": "",
+      "serving": null,
+      "tags": [
+         6,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 190,
+   "fields": {
+      "kilojoules": "26140.0",
+      "protein": "151.000",
+      "fibre": "110.000",
+      "carbohydrate": "118.000",
+      "fat": "591.000",
+      "sugar": "42.000",
+      "saturatedfat": "39.000",
+      "sodium": "20",
+      "created_at": "2019-07-06T20:43:10.588Z",
+      "updated_at": "2019-07-06T20:43:10.588Z",
+      "name": "Hazelnut Meal",
+      "slug": "hazelnut-meal",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5,
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 191,
+   "fields": {
+      "kilojoules": "14350.0",
+      "protein": "217.000",
+      "fibre": "150.000",
+      "carbohydrate": null,
+      "fat": "15.000",
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2019-07-16T07:46:21.391Z",
+      "updated_at": "2019-07-16T07:46:21.391Z",
+      "name": "Pigeon Pea (toor) (mature)",
+      "slug": "pigeon-pea-toor-mature",
+      "description": "1 serve = 1/10 cup",
+      "serving": "20.5",
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 192,
+   "fields": {
+      "kilojoules": "5690.0",
+      "protein": "72.000",
+      "fibre": "51.000",
+      "carbohydrate": null,
+      "fat": "16.000",
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2019-07-16T07:47:08.747Z",
+      "updated_at": "2019-07-16T07:47:08.747Z",
+      "name": "Pigeon Pea (immature, green)",
+      "slug": "pigeon-pea-immature-green",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 193,
+   "fields": {
+      "kilojoules": "14650.0",
+      "protein": "220.000",
+      "fibre": "220.000",
+      "carbohydrate": "600.000",
+      "fat": "20.000",
+      "sugar": "80.000",
+      "saturatedfat": null,
+      "sodium": "100",
+      "created_at": "2019-07-17T04:21:29.774Z",
+      "updated_at": "2019-07-17T04:22:07.936Z",
+      "name": "Chana Dal (chickpeas)",
+      "slug": "chana-dal-chickpeas",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 194,
+   "fields": {
+      "kilojoules": "6862.0",
+      "protein": "80.000",
+      "fibre": "70.000",
+      "carbohydrate": "270.000",
+      "fat": "20.000",
+      "sugar": "40.000",
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2019-07-17T04:24:34.430Z",
+      "updated_at": "2019-07-17T04:24:34.430Z",
+      "name": "Roast Gram (chickpea)",
+      "slug": "roast-gram-chickpea",
+      "description": "",
+      "serving": null,
+      "tags": [
+         3,
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 195,
+   "fields": {
+      "kilojoules": "16736.0",
+      "protein": "160.000",
+      "fibre": "160.000",
+      "carbohydrate": "680.000",
+      "fat": "20.000",
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2019-08-13T14:19:11.090Z",
+      "updated_at": "2019-08-13T14:19:11.090Z",
+      "name": "Rolled Rye Flakes [check]",
+      "slug": "rolled-rye-flakes-check",
+      "description": "",
+      "serving": "50.0",
+      "tags": [
+         2,
+         12
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 196,
+   "fields": {
+      "kilojoules": "3500.0",
+      "protein": "30.800",
+      "fibre": "45.000",
+      "carbohydrate": "185.800",
+      "fat": "2.400",
+      "sugar": "1.000",
+      "saturatedfat": null,
+      "sodium": "50",
+      "created_at": "2019-08-29T05:20:37.026Z",
+      "updated_at": "2019-08-29T05:20:37.026Z",
+      "name": "Bulgur (pre-cooked)",
+      "slug": "bulgur-pre-cooked",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 197,
+   "fields": {
+      "kilojoules": "2630.0",
+      "protein": "15.000",
+      "fibre": "23.000",
+      "carbohydrate": "68.000",
+      "fat": "28.000",
+      "sugar": "54.000",
+      "saturatedfat": "2.000",
+      "sodium": "3600",
+      "created_at": "2019-08-30T02:04:08.204Z",
+      "updated_at": "2019-08-31T14:38:08.642Z",
+      "name": "Garden Veg Pasta Sauce (jar)",
+      "slug": "garden-veg-pasta-sauce-jar",
+      "description": "1 serve = quarter 500g jar",
+      "serving": "120.0",
+      "tags": [
+         1,
+         18
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 198,
+   "fields": {
+      "kilojoules": "16700.0",
+      "protein": "126.000",
+      "fibre": "165.000",
+      "carbohydrate": "720.000",
+      "fat": "27.000",
+      "sugar": "50.000",
+      "saturatedfat": "5.000",
+      "sodium": "60",
+      "created_at": "2019-08-31T14:15:45.254Z",
+      "updated_at": "2019-08-31T14:15:45.254Z",
+      "name": "Freekeh (wholegrain)",
+      "slug": "freekeh-wholegrain",
+      "description": "",
+      "serving": "30.0",
+      "tags": [
+         2
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 199,
+   "fields": {
+      "kilojoules": "2090.0",
+      "protein": "31.000",
+      "fibre": "20.000",
+      "carbohydrate": "93.000",
+      "fat": "3.000",
+      "sugar": "18.000",
+      "saturatedfat": "1.000",
+      "sodium": "2410",
+      "created_at": "2019-08-31T14:30:02.880Z",
+      "updated_at": "2019-08-31T14:30:02.880Z",
+      "name": "Canned Soup (Lentil and veg)",
+      "slug": "canned-soup-lentil-and-veg",
+      "description": "",
+      "serving": "460.0",
+      "tags": [
+         18
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 200,
+   "fields": {
+      "kilojoules": "1650.0",
+      "protein": "20.000",
+      "fibre": "17.000",
+      "carbohydrate": "65.000",
+      "fat": "2.000",
+      "sugar": "24.000",
+      "saturatedfat": "1.000",
+      "sodium": "2550",
+      "created_at": "2019-08-31T14:31:21.689Z",
+      "updated_at": "2019-08-31T14:31:21.689Z",
+      "name": "Canned Soup (Minestrone)",
+      "slug": "canned-soup-minestrone",
+      "description": "Heinz brand (tall can)",
+      "serving": "535.0",
+      "tags": [
+         18
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 201,
+   "fields": {
+      "kilojoules": "2840.0",
+      "protein": "13.000",
+      "fibre": "15.000",
+      "carbohydrate": "60.000",
+      "fat": "40.000",
+      "sugar": "50.000",
+      "saturatedfat": "4.000",
+      "sodium": "4000",
+      "created_at": "2019-08-31T14:40:23.655Z",
+      "updated_at": "2019-08-31T14:40:51.559Z",
+      "name": "Bolognese Pasta Sauce (jar)",
+      "slug": "bolognese-pasta-sauce-jar",
+      "description": "Barilla Brand, high in non-tomato veg",
+      "serving": "100.0",
+      "tags": [
+         1,
+         18
+      ]
+   }
+}
+]
