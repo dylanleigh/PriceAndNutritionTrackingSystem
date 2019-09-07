@@ -242,7 +242,6 @@ class Component(models.Model):
       must have that setting.
       """
 
-
       if self.of_ingredient:
          if self.of_recipe:
             raise ValidationError('Must specify either recipe or ingredient, but not both')
@@ -257,7 +256,7 @@ class Component(models.Model):
       elif not (self.servings or self.weight):
          raise ValidationError('Must specify the amount of either weight or servings')
 
-      super(DiaryFood, self).clean()
+      super(Component, self).clean()
 
    @cached_property
    def name(self):

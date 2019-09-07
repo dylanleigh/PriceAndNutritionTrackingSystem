@@ -239,8 +239,19 @@ To run the server locally and access it via a browser::
 
    ./manage.py runserver
 
-Initial data entry
-------------------
+Sample Ingredient Data
+----------------------
+
+The author's ingredient data (about 200 ingredients as of 2019) can be
+imported from a fixture with this command::
+
+   ./manage.py loaddata fixtures/pants-ingredient-fixture.json
+
+This command should only be run on an empty/new database, to avoid
+overwriting any entries you have already created 
+
+Starting data entry
+-------------------
 
 You will need to log in as an admin user (at
 http://127.0.0.1:8000/adminbackend/ ) to start creating initial
