@@ -73,7 +73,7 @@
    "model": "ingredients.ingredienttag",
    "pk": 11,
    "fields": {
-      "name": "snack-sort-meal"
+      "name": "snacks"
    }
 },
 {
@@ -2950,14 +2950,14 @@
       "saturatedfat": "17.000",
       "sodium": "1300",
       "created_at": "2018-04-26T08:37:04.797Z",
-      "updated_at": "2018-04-26T08:41:46.912Z",
+      "updated_at": "2019-09-07T18:34:37.626Z",
       "name": "Basil Pesto (no cheese or nuts)",
       "slug": "basil-pesto-no-cheese-or-nuts",
       "description": "",
       "serving": null,
       "tags": [
-         11,
-         13
+         13,
+         18
       ]
    }
 },
@@ -3561,14 +3561,14 @@
       "saturatedfat": "23.000",
       "sodium": "5900",
       "created_at": "2018-10-06T16:31:41.756Z",
-      "updated_at": "2018-10-06T16:31:41.756Z",
+      "updated_at": "2019-09-07T18:33:15.111Z",
       "name": "Protein Pancake Mix",
       "slug": "protein-pancake-mix",
       "description": "",
       "serving": null,
       "tags": [
          8,
-         11
+         18
       ]
    }
 },
@@ -3610,13 +3610,13 @@
       "saturatedfat": "3.000",
       "sodium": "350",
       "created_at": "2018-10-06T17:29:46.764Z",
-      "updated_at": "2018-10-06T17:30:03.408Z",
+      "updated_at": "2019-09-07T18:33:00.542Z",
       "name": "High Protein Pasta",
       "slug": "high-protein-pasta",
       "description": "",
       "serving": null,
       "tags": [
-         11
+         18
       ]
    }
 },
@@ -3842,13 +3842,13 @@
       "saturatedfat": "28.000",
       "sodium": "2500",
       "created_at": "2019-02-05T11:56:16.842Z",
-      "updated_at": "2019-02-05T11:56:16.842Z",
-      "name": "Salad sandwitch w/ cheese",
-      "slug": "salad-sandwitch-w-cheese",
+      "updated_at": "2019-09-07T18:34:08.445Z",
+      "name": "Salad sandwich w/ cheese",
+      "slug": "salad-sandwich-w-cheese",
       "description": "fibre est",
       "serving": "196.0",
       "tags": [
-         11
+         18
       ]
    }
 },
@@ -4761,6 +4761,100 @@
       "tags": [
          1,
          18
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 202,
+   "fields": {
+      "kilojoules": "10900.0",
+      "protein": "118.000",
+      "fibre": "72.000",
+      "carbohydrate": "383.000",
+      "fat": "48.000",
+      "sugar": "15.000",
+      "saturatedfat": "10.000",
+      "sodium": null,
+      "created_at": "2019-08-31T14:53:15.951Z",
+      "updated_at": "2019-08-31T14:53:15.951Z",
+      "name": "Multigrain Bread Rolls",
+      "slug": "multigrain-bread-rolls",
+      "description": "",
+      "serving": "102.0",
+      "tags": [
+         2,
+         18
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 203,
+   "fields": {
+      "kilojoules": "28500.0",
+      "protein": "237.000",
+      "fibre": "84.000",
+      "carbohydrate": "37.000",
+      "fat": "606.000",
+      "sugar": "6.000",
+      "saturatedfat": "94.000",
+      "sodium": "210",
+      "created_at": "2019-08-31T14:55:49.072Z",
+      "updated_at": "2019-08-31T14:55:49.072Z",
+      "name": "Tahini",
+      "slug": "tahini",
+      "description": "Hulled Tahini",
+      "serving": null,
+      "tags": [
+         5,
+         10
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 204,
+   "fields": {
+      "kilojoules": "1420.0",
+      "protein": "5.000",
+      "fibre": "5.000",
+      "carbohydrate": "831.000",
+      "fat": "5.000",
+      "sugar": "825.000",
+      "saturatedfat": "2.000",
+      "sodium": "150",
+      "created_at": "2019-08-31T15:04:54.070Z",
+      "updated_at": "2019-08-31T15:04:54.070Z",
+      "name": "Honey",
+      "slug": "honey",
+      "description": "fibre guess (would be minimal)",
+      "serving": null,
+      "tags": [
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 205,
+   "fields": {
+      "kilojoules": "11790.0",
+      "protein": "0.000",
+      "fibre": "5.000",
+      "carbohydrate": "667.000",
+      "fat": "0.000",
+      "sugar": "556.000",
+      "saturatedfat": "0.000",
+      "sodium": "3240",
+      "created_at": "2019-08-31T15:09:28.191Z",
+      "updated_at": "2019-08-31T15:09:28.192Z",
+      "name": "Molasses",
+      "slug": "molasses",
+      "description": "fibre guess (would be minimal)",
+      "serving": null,
+      "tags": [
+         17
       ]
    }
 }
