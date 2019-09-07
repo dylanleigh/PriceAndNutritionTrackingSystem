@@ -69,9 +69,23 @@ class Recipe(models.Model):
    created_at = models.DateTimeField(auto_now_add=True)
    updated_at = models.DateTimeField(auto_now=True)
 
-   # TODO tested_at = models.DateTimeField(blank=True,null=True)
-   # TODO Option to turn off flagging for testing
+   last_tested = models.DateTimeField(
+      blank=True,
+      null=True,
+      help_text="When this recipe was last made to check it works, and it did",
+   )
+   # TODO Options to handle flagging for testing
+   #  Statuses: 
+   #     NULL (not specified),
+   #     testing not required,
+   #     required but not yet done, # "alpha"
+   #     required but needs significant work, # "beta"
+   #     tested working 100%
+   #     tested not working and abandoned for now # "dep"
    # TODO Auto when added to diary? "Last used"?
+   # TODO How to handle testing when a recipe is working well then
+   #      alterations are made to it? Can't flag if (last_tested <
+   #      updated_at) as updated_at will be updated when test date is
 
    serves = models.DecimalField(
       decimal_places=2,
