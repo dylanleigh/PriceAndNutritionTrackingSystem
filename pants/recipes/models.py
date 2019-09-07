@@ -272,8 +272,6 @@ class Component(models.Model):
       else:
          return "%f g %s"%(self.servings, self.name)
 
-   # FIXME MUST have custom clean and save() for validation!
-
    @cached_property
    def nutrition_data(self):
       """
@@ -291,21 +289,19 @@ class Component(models.Model):
       # Get ingredient->nutrients data if ingredient
       # NOTE: Requires conversion kg to grams
       if self.of_ingredient:
-         if self.weight:
-            # Special cases
-            data['grams']=self.weight
-            if self.of_ingredient.best_price:      # 0 should not be valid
-               data['cost'] = self.weight * settings.G_PER_KG * self.of_ingredient.best_price
+         weight = self.weight or of_ingredient.serving * self.servings
+         # Special cases
+         data['grams']=weight
+         if self.of_ingredient.best_price:      # 0 should not be valid
+            data['cost'] = weight * settings.G_PER_KG * self.of_ingredient.best_price
 
-            # get main macronutrient data directly from ingredient
-            for k in settings.NUTRITION_DATA_ITEMS_BASIC:
-               val = getattr(self.of_ingredient,k)
-               if val is not None:  # Allow 0 to be valid
-                  data[k] = self.weight * settings.G_PER_KG * val
-               else:
-                  data[k] = None
-         else: # using self.servings
-            raise Exception('FIXME TODO not implemented yet')
+         # get main macronutrient data directly from ingredient
+         for k in settings.NUTRITION_DATA_ITEMS_BASIC:
+            val = getattr(self.of_ingredient,k)
+            if val is not None:  # Allow 0 to be valid
+               data[k] = weight * settings.G_PER_KG * val
+            else:
+               data[k] = None
 
       # Get data from similar property in recipe
       elif self.of_recipe:
@@ -316,7 +312,7 @@ class Component(models.Model):
                   data[k] = self.servings* r_data["%s_serve"%k]
                except KeyError:
                   pass  # Already = None
-         else: # using self.weight
+         else: # using self.weight     # TODO simplify weight calc and merge if possible
             grams_serve = r_data["grams_serve"]
             for k in settings.NUTRITION_DATA_ITEMS:
                try:
