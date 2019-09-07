@@ -50,14 +50,14 @@
       <tr>
          {% if q.of_ingredient %}
             <td><a href="{% url 'ingredient-detail' q.of_ingredient.slug %}">{{q.name}}</a></td>
-            <td>{{q.weight|floatformat}}</td>
+            <td>{{q.quantity|floatformat}}</td>
          {% else %}
             {% if q.of_recipe %}
                <td><a href="{% url 'recipe-detail' q.of_recipe.slug %}">{{q.name}}</a></td>
-               <td>{{q.weight|floatformat:2}}</td>
+               <td>{{q.quantity|floatformat:2}}</td>
             {% else %}
                <td>{{q.name}}</td>
-               <td>{{q.weight|floatformat}}</td>
+               <td>{{q.quantity|floatformat}}</td>
             {% endif %}
          {% endif %}
 

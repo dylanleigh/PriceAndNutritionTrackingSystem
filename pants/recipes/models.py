@@ -227,7 +227,7 @@ class Component(models.Model):
       null=True,
       blank=True,
    )
-   # TODO: quantity in in g but nutrients measured per kg or L!
+   # TODO: weight in in g but nutrients measured per kg!
 
    note = models.CharField(max_length=settings.DESCR_LENGTH,blank=True)
 
@@ -259,6 +259,13 @@ class Component(models.Model):
       super(Component, self).clean()
 
    @cached_property
+   def quantity(self):
+      """
+      Returns the weight or number of servings of this component, whichever is applicable.
+      """
+      return self.weight if self.weight else self.servings
+
+   @cached_property
    def name(self):
       if self.of_ingredient:
          return self.of_ingredient.name
@@ -267,10 +274,7 @@ class Component(models.Model):
       return "Invalid Component!"
 
    def __str__(self):
-      if self.weight:
-         return "%f g %s"%(self.weight, self.name)
-      else:
-         return "%f g %s"%(self.servings, self.name)
+      return "%f g %s"%(self.quantity, self.name)
 
    @cached_property
    def nutrition_data(self):
