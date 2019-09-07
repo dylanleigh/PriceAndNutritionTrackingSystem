@@ -267,7 +267,10 @@ class Component(models.Model):
       return "Invalid Component!"
 
    def __str__(self):
-      return "%f g %s"%(self.weight, self.name)
+      if self.weight:
+         return "%f g %s"%(self.weight, self.name)
+      else:
+         return "%f g %s"%(self.servings, self.name)
 
    # FIXME MUST have custom clean and save() for validation!
 
@@ -288,28 +291,38 @@ class Component(models.Model):
       # Get ingredient->nutrients data if ingredient
       # NOTE: Requires conversion kg to grams
       if self.of_ingredient:
-         # Special cases
-         data['grams']=self.weight
-         if self.of_ingredient.best_price:      # 0 should not be valid
-            data['cost'] = self.weight * settings.G_PER_KG * self.of_ingredient.best_price
+         if self.weight:
+            # Special cases
+            data['grams']=self.weight
+            if self.of_ingredient.best_price:      # 0 should not be valid
+               data['cost'] = self.weight * settings.G_PER_KG * self.of_ingredient.best_price
 
-         # get main macronutrient data directly from ingredient
-         for k in settings.NUTRITION_DATA_ITEMS_BASIC:
-            val = getattr(self.of_ingredient,k)
-            if val is not None:  # Allow 0 to be valid
-               data[k] = self.weight * settings.G_PER_KG * val
-            else:
-               data[k] = None
+            # get main macronutrient data directly from ingredient
+            for k in settings.NUTRITION_DATA_ITEMS_BASIC:
+               val = getattr(self.of_ingredient,k)
+               if val is not None:  # Allow 0 to be valid
+                  data[k] = self.weight * settings.G_PER_KG * val
+               else:
+                  data[k] = None
+         else: # using self.servings
+            raise Exception('FIXME TODO not implemented yet')
 
       # Get data from similar property in recipe
       elif self.of_recipe:
          r_data = self.of_recipe.nutrition_data
-         for k in settings.NUTRITION_DATA_ITEMS:
-            try:
-               # NOTE: Amount is per-serve for recipes; consider making per-g?
-               data[k] = self.weight * r_data["%s_serve"%k]
-            except KeyError:
-               pass  # Already = None
+         if self.servings:
+            for k in settings.NUTRITION_DATA_ITEMS:
+               try:
+                  data[k] = self.servings* r_data["%s_serve"%k]
+               except KeyError:
+                  pass  # Already = None
+         else: # using self.weight
+            grams_serve = r_data["grams_serve"]
+            for k in settings.NUTRITION_DATA_ITEMS:
+               try:
+                  data[k] = self.weight * r_data["%s_serve"%k]/grams_serve
+               except KeyError:
+                  pass  # Already = None
 
       # Finally determine desired weights per other weights
       return add_nutrition_ratios(data)
