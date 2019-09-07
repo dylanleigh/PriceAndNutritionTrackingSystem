@@ -3,6 +3,16 @@
 Price And Nutrition Tracking System
 ===================================
 
+Note for Current Users
+======================
+
+Significant DB changes have been made recently (2019-09-08) and you
+will need to migrate your recipe data by running './manage.py migrate'
+- see the "Schema Changes" subsection below for more details.
+
+Introduction
+============
+
 PANTS is a self-hosted, open-source nutrition tracker and a tool for
 nutritional data analysis of ingredients and recipes. It can be run on
 your own computer or as a multiuser web service (e.g. for use by a
@@ -295,6 +305,32 @@ started the project in Django, importing the initial set of
 ingredients from the spreadsheet. Soon I also realised since I was
 entering in all my recipes here it would also be easier if I used it
 as my daily calorie counter and added that as well.
+
+Schema Changes
+--------------
+
+For all changes mentioned here, your database must be migrated by
+running the following commands::
+
+   git pull
+   ./manage.py migrate
+
+(No user input or manual conversion should be required)
+
+
+2019-09-07
+   Recipe Components now have separate "servings" and weight" to bring
+   them in line with the way all other models work (previously,
+   "weight" was interpreted as number of serves if connected to a
+   recipe).
+
+   This fixes various issues, including data entry errors from
+   overloading one field to have two meanings and allows a lot of the
+   code between ingredient/recipe/diary to be simplified.
+
+   Existing recipes will be converted to this new system by
+   recipes/migrations/0018_auto_20190908_0152.py when the migrate
+   command is run.
 
 Removed Features
 ----------------
