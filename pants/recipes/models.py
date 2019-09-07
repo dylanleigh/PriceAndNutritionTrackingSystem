@@ -210,14 +210,22 @@ class Component(models.Model):
       related_name='used_in',
    )
 
-   # TODO: quantity in in g but nutrients measured per kg or L!
-   # TODO: unify g/number of serves
+   servings = models.DecimalField(
+      decimal_places=2,
+      max_digits=5,
+      validators=[not_negative],
+      help_text="WARNING: Overrides weight if used!",
+      null=True,
+      blank=True,
+   )
    weight = models.DecimalField(
       decimal_places=3,
       max_digits=7,
       validators=[not_negative],
-      help_text="grams for ingredients; number of serves for recipes"
+      help_text="In grams; WARNING will be overridden by servings if that is used",
    )
+   # TODO: quantity in in g but nutrients measured per kg or L!
+
    note = models.CharField(max_length=settings.DESCR_LENGTH,blank=True)
 
    created_at = models.DateTimeField(auto_now_add=True)

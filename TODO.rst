@@ -45,6 +45,7 @@ Deploy and Login, Production-Readiness
 ======================================
 
 - Provide a fixture with some initial basic ingredients and a few recipes so new users can get started ASAP.
+   - Partially done, ingredient export fixture has been added to repo but needs instructions in readme.
 - All urgent/important stuff at top done
 - Deploy target assuming Heroku - include sub-parts below
 - Proper non-admin login/logout pages
@@ -74,7 +75,7 @@ Exercise and Physiological Diary
 User Profiles
 =============
 
-- User-prof-object to hold age, height etc (age required for some physio calcs)
+- User-prof-object to hold age, height etc (age required for some physiological calcs)
 - User preferences for FE (e.g. KJ or calories display, don't show some columns)
 - User-custom ing/rec data (Nullable user field; exclude if user!= request.user)
 - Fix setting of daily target on target list page

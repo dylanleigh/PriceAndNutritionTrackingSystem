@@ -15,9 +15,7 @@ class ComponentInlineAdmin(admin.TabularInline):
    model = Component
    fk_name = "in_recipe"
    fields = (
-      ('weight', 'note',),
-      ('of_ingredient', 'of_recipe',),
-      # TODO: Deprecate product? ('of_ingredient', 'of_recipe', 'of_product'),
+      ('weight', 'of_ingredient', 'servings', 'of_recipe', 'note',),
    )
 
 class RecipeAdmin(admin.ModelAdmin):
