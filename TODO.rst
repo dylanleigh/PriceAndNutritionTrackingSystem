@@ -21,8 +21,8 @@ Target comparison added to home/summary, diary breakdown, recipe detail and
 ingredient detail pages; uses new 3-colour bar cells to show how close
 it is to the min/max of the target.
 
-NData and calculation DRYing (urgent, blocking)
-===============================================
+NData and calculation DRYing (In Progress, blocking other work)
+===============================================================
 
 All the nutrition_data properties should be its own class that
 generates/caches individual values as required and enforces
@@ -30,11 +30,11 @@ access/validation/etc, and does operations like summing and averaging.
 This will remove LOTS of almost-identical code across
 ingredient/recipe/diary.
 
-- ndata class
-- ndata class for ing
-- ndata class for rec
-- ndata class for diary
-- Fix per-serve/per-weight dichotomy in recipe components
+- ndata class/mixin
+- ndata mixin for ing
+- ndata mixin for rec
+- ndata mixin for diary
+- Fix per-serve/per-weight dichotomy in recipe components [done; needs further testing]
 - Merge recipe and ingredient handling in diary save() and elsewhere
 - Use F()/aggregate/annotate expressions in recipe calcs
 - Allow filtering on calculated ndata
@@ -44,8 +44,8 @@ ingredient/recipe/diary.
 Deploy and Login, Production-Readiness
 ======================================
 
-- Provide a fixture with some initial basic ingredients and a few recipes so new users can get started ASAP.
-   - Partially done, ingredient export fixture has been added to repo but needs instructions in readme.
+- Provide a fixture with some initial basic ingredients [done]
+- Provide a fixture with few initial basic recipes, including at least one meta
 - All urgent/important stuff at top done
 - Deploy target assuming Heroku - include sub-parts below
 - Proper non-admin login/logout pages
