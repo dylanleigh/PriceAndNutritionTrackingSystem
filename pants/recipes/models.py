@@ -194,7 +194,7 @@ class Component(models.Model):
       related_name='components',
    )
 
-   # FIXME only allow one of these to be active
+   # NOTE one and only one of these must be active (validated)
    of_ingredient = models.ForeignKey(
       Ingredient,
       on_delete=models.PROTECT,
@@ -210,6 +210,7 @@ class Component(models.Model):
       related_name='used_in',
    )
 
+   # NOTE one and only one of these must be active (validated)
    servings = models.DecimalField(
       decimal_places=2,
       max_digits=5,
@@ -223,6 +224,8 @@ class Component(models.Model):
       max_digits=7,
       validators=[not_negative],
       help_text="In grams; WARNING will be overridden by servings if that is used",
+      null=True,
+      blank=True,
    )
    # TODO: quantity in in g but nutrients measured per kg or L!
 
@@ -231,14 +234,37 @@ class Component(models.Model):
    created_at = models.DateTimeField(auto_now_add=True)
    updated_at = models.DateTimeField(auto_now=True)
 
+   def clean(self):
+      """
+      Validate component - we must have either a recipe or an
+      ingredient (but not both), specified in servings or in grams
+      (but not both), and if servings are used on an ingredient it
+      must have that setting.
+      """
+
+
+      if self.of_ingredient:
+         if self.of_recipe:
+            raise ValidationError('Must specify either recipe or ingredient, but not both')
+         elif self.servings and (not self.of_ingredient.serving):
+            raise ValidationError('That ingredient does not have servings listed - use raw weight instead')
+      else:
+         if not self.of_recipe:
+            raise ValidationError('Must specify either a recipe or ingredient for this component')
+
+      if (self.servings and self.weight):
+         raise ValidationError('Must specify either servings or weight, not both')
+      elif not (self.servings or self.weight):
+         raise ValidationError('Must specify the amount of either weight or servings')
+
+      super(DiaryFood, self).clean()
+
    @cached_property
    def name(self):
       if self.of_ingredient:
          return self.of_ingredient.name
       elif self.of_recipe:
          return self.of_recipe.name
-      elif self.of_product:
-         return self.of_product.name
       return "Invalid Component!"
 
    def __str__(self):
@@ -281,8 +307,7 @@ class Component(models.Model):
          r_data = self.of_recipe.nutrition_data
          for k in settings.NUTRITION_DATA_ITEMS:
             try:
-               # TODO: Amount is per-serve for recipes; consider making per-g?
-               # FIXME easier with grams in data
+               # NOTE: Amount is per-serve for recipes; consider making per-g?
                data[k] = self.weight * r_data["%s_serve"%k]
             except KeyError:
                pass  # Already = None

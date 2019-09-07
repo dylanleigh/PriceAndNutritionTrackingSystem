@@ -151,7 +151,7 @@ class DiaryFood(AbstractBaseNutrients):
             raise ValidationError('When using a recipe, must specify weight or servings')
       elif self.of_ingredient:
          if not (self.servings or self.weight):
-            raise ValidationError('Must specify weight of Ingredient (or servings if applicable to Ingredient)')
+            raise ValidationError('Must specify weight of Ingredient (or servings if set on Ingredient)')
          elif self.servings and (not self.of_ingredient.serving):
             raise ValidationError('Ingredient does not have servings listed - use raw weight instead')
 
