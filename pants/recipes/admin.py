@@ -35,6 +35,12 @@ class RecipeAdmin(admin.ModelAdmin):
             ('method'),
          ),
       }),
+      ('Last Tested', {
+            'classes': ('collapse',),
+            'fields': (
+               ('last_tested',),
+            )
+      }),
       ('Tags', {
             'classes': ('collapse',),
             'fields': (

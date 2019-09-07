@@ -77,11 +77,12 @@ class Recipe(models.Model):
    # TODO Options to handle flagging for testing
    #  Statuses: 
    #     NULL (not specified),
-   #     testing not required,
-   #     required but not yet done, # "alpha"
-   #     required but needs significant work, # "beta"
-   #     tested working 100%
-   #     tested not working and abandoned for now # "dep"
+   #     testing not required,      # "needless"
+   #     required but not yet done, # "required"
+   #     tried but not working ,    # "alpha"
+   #     works but has issues,      # "beta"
+   #     tested working 100%        # "verified"
+   #     not working and abandoned for now # "deprecated"
    # TODO Auto when added to diary? "Last used"?
    # TODO How to handle testing when a recipe is working well then
    #      alterations are made to it? Can't flag if (last_tested <
