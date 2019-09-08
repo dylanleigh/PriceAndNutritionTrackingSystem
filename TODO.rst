@@ -10,7 +10,6 @@ Urgent / Important
 
 - ** Unit tests are severely incomplete! **
 - Fix all the FIXMEs in the code (see "make fixme" output) (most of these now relate to the NData work)
-- Fix per-serve/per-weight dichotomy in recipe components (will be part of Ndata work)
 - Proper non-admin login/logout pages - can't login without admin interface
 - Recipe method doesn't keep newlines or allow any kind of markup
 
