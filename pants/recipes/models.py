@@ -293,7 +293,7 @@ class Component(models.Model):
       # Get ingredient->nutrients data if ingredient
       # NOTE: Requires conversion kg to grams
       if self.of_ingredient:
-         weight = self.weight or of_ingredient.serving * self.servings
+         weight = self.weight or self.of_ingredient.serving * self.servings
          # Special cases
          data['grams']=weight
          if self.of_ingredient.best_price:      # 0 should not be valid
