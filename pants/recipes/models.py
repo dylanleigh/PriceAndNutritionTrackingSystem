@@ -75,6 +75,7 @@ class Recipe(models.Model):
       null=True,
       help_text="When this recipe was last made to check it works, and it did",
    )
+   # FIXME Add arbitrary "flags" like tags for this?
    # TODO Options to handle flagging for testing
    #  Statuses: 
    #     NULL (not specified),

@@ -82,7 +82,7 @@ class Target(models.Model):
       # TODO: 
       try:
          return Target.objects.get(user=user,daily_target=True)
-      except Target.ObjectDoesNotExist:
+      except Target.DoesNotExist:
          return None
       except Target.MultipleObjectsReturned:
          # TODO warning message
