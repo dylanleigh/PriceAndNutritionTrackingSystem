@@ -89,6 +89,7 @@ that API.
 
 As such most of these range from nice-to-have to wont-fix in priority.
 
+- Automatic conversion of kilocalories to kilojoules when entering ingredients
 - Ratio bar charts on ingredient detail aren't very useful without the ability to scale by grams or servings
 - Ratio bar charts on recipe detail use only max limit; should use midpoint of min/max
 - Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc, links to /all/ etc
