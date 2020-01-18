@@ -1,4 +1,4 @@
-Django>=1.11.2
+Django>=2.2
 django-extensions>=1.8.1
 djangorestframework
 django-filter
