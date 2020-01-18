@@ -94,6 +94,7 @@ As such most of these range from nice-to-have to wont-fix in priority.
 - Ratio bar charts on recipe detail use only max limit; should use midpoint of min/max
 - Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc, links to /all/ etc
 - Diary entry should default to logged in user, etc
+- Allow entering incredients by serving or 100g rather than by kg
 - Clean up templates by using more templatetags
 - Handle particular target values set as None gracefully where they are displayed in lists
 - 3-part bar chart templatetag for max-min-current target comparison
