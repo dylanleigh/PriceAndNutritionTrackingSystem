@@ -190,9 +190,10 @@ Requirements
 
 These will be installed automatically via pip:
 
-- Django 1.11+
+- Django 2+
 - Django-extensions 1.8+
-- Future versions may require djangorestframework and django-filter.
+- Future versions may require djangorestframework and django-filter
+  for the API.
 
 Setup 1: Secret Key
 -------------------
