@@ -362,13 +362,14 @@
       "saturatedfat": "0.000",
       "sodium": "16",
       "created_at": "2017-07-10T14:23:10.546Z",
-      "updated_at": "2018-10-06T16:50:14.916Z",
+      "updated_at": "2020-01-12T00:27:09.452Z",
       "name": "Gluten Concentrated Flour",
       "slug": "gluten-concentrated-flour",
       "description": "May be sold as gluten flour or gluten powder",
       "serving": null,
       "tags": [
-         7
+         7,
+         8
       ]
    }
 },
@@ -530,11 +531,11 @@
       "saturatedfat": "0.900",
       "sodium": "650",
       "created_at": "2017-07-12T22:41:03.809Z",
-      "updated_at": "2018-01-30T15:14:09.703Z",
+      "updated_at": "2020-01-18T21:50:45.753Z",
       "name": "Frozen Spinach",
       "slug": "frozen-spinach",
-      "description": "",
-      "serving": null,
+      "description": "1 whole cube ~= 24g; 1 serve = 2 cubes",
+      "serving": "48.0",
       "tags": [
          1
       ]
@@ -1720,14 +1721,15 @@
       "saturatedfat": "1.000",
       "sodium": "1010",
       "created_at": "2017-09-26T11:02:31.952Z",
-      "updated_at": "2018-10-06T16:47:16.490Z",
+      "updated_at": "2020-01-12T00:26:44.325Z",
       "name": "Lupin Flour",
       "slug": "lupin-flour",
       "description": "",
       "serving": null,
       "tags": [
          3,
-         7
+         7,
+         8
       ]
    }
 },
@@ -4606,17 +4608,17 @@
    "model": "ingredients.ingredient",
    "pk": 195,
    "fields": {
-      "kilojoules": "16736.0",
-      "protein": "160.000",
-      "fibre": "160.000",
-      "carbohydrate": "680.000",
-      "fat": "20.000",
-      "sugar": null,
-      "saturatedfat": null,
-      "sodium": null,
+      "kilojoules": "14093.0",
+      "protein": "112.000",
+      "fibre": "173.000",
+      "carbohydrate": "590.000",
+      "fat": "21.000",
+      "sugar": "12.000",
+      "saturatedfat": "4.000",
+      "sodium": "17",
       "created_at": "2019-08-13T14:19:11.090Z",
-      "updated_at": "2019-08-13T14:19:11.090Z",
-      "name": "Rolled Rye Flakes [check]",
+      "updated_at": "2019-12-29T17:40:40.744Z",
+      "name": "Rolled Rye Flakes",
       "slug": "rolled-rye-flakes-check",
       "description": "",
       "serving": "50.0",
@@ -5057,8 +5059,8 @@
       "saturatedfat": "11.000",
       "sodium": "3090",
       "created_at": "2019-12-26T20:52:49.047Z",
-      "updated_at": "2019-12-26T20:52:49.047Z",
-      "name": "Nutmeat",
+      "updated_at": "2019-12-27T05:15:09.720Z",
+      "name": "Nutmeat (canned)",
       "slug": "nutmeat",
       "description": "(Sanitarium/Vegie Delights)",
       "serving": null,
@@ -5089,6 +5091,77 @@
       "tags": [
          11,
          18
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 216,
+   "fields": {
+      "kilojoules": "2580.0",
+      "protein": "35.000",
+      "fibre": "52.000",
+      "carbohydrate": "70.000",
+      "fat": "10.000",
+      "sugar": "49.000",
+      "saturatedfat": "2.000",
+      "sodium": "20",
+      "created_at": "2020-01-02T13:18:40.006Z",
+      "updated_at": "2020-01-02T13:18:40.006Z",
+      "name": "Peas/Corn/Capsicum Mix",
+      "slug": "peascorncapsicum-mix",
+      "description": "",
+      "serving": "150.0",
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 217,
+   "fields": {
+      "kilojoules": "14020.0",
+      "protein": "455.000",
+      "fibre": "289.000",
+      "carbohydrate": "421.000",
+      "fat": "47.000",
+      "sugar": "33.000",
+      "saturatedfat": "8.000",
+      "sodium": "2960",
+      "created_at": "2020-01-09T02:24:23.924Z",
+      "updated_at": "2020-01-09T02:24:56.911Z",
+      "name": "Edamame (Dry Roasted)",
+      "slug": "dry-roasted-edamame",
+      "description": "Some Added Salt",
+      "serving": "20.0",
+      "tags": [
+         3,
+         5,
+         11
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 218,
+   "fields": {
+      "kilojoules": "1230.0",
+      "protein": "19.000",
+      "fibre": "28.000",
+      "carbohydrate": "34.000",
+      "fat": "5.000",
+      "sugar": "27.000",
+      "saturatedfat": "2.500",
+      "sodium": "250",
+      "created_at": "2020-01-09T03:23:52.262Z",
+      "updated_at": "2020-01-09T03:23:52.262Z",
+      "name": "Frozen Carr/Broc/Cauli/Peas Mix",
+      "slug": "frozen-carrbroccaulipeas-mix",
+      "description": "",
+      "serving": "100.0",
+      "tags": [
+         1
       ]
    }
 }
