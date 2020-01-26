@@ -130,9 +130,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-# Constants used for calculations - DO NOT EDIT THESE they are physical constants.
+# Constants used for nutritional calculations
+# DO NOT EDIT THESE
+# They are chemical constants, not preferences
 KJ_PER_KCAL = Decimal(4.184)
 G_PER_KG = Decimal(0.001)
+KJ_PER_G_CARB = Decimal(16.7) # 16.7kj energy per gram of carbs/protein
+KJ_PER_G_PROT = Decimal(16.7)
+KJ_PER_G_FAT = Decimal(37.7)
+#KJ_PER_G_ALC = Decimal(29.3)   # Alcohol. not used yet
+# Source for above is the National Health and Medical Research Council, Australia.
 
 # Added settings below here....
 
