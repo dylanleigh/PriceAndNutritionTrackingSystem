@@ -130,6 +130,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+# Added settings below here....
+
+LOGIN_URL = '/wearpants/'
+
 # Constants used for nutritional calculations
 # DO NOT EDIT THESE
 # They are chemical constants, not preferences
@@ -141,11 +145,14 @@ KJ_PER_G_FAT = Decimal(37.7)
 #KJ_PER_G_ALC = Decimal(29.3)   # Alcohol. not used yet
 # Source for above is the National Health and Medical Research Council, Australia.
 
-# Added settings below here....
-
-LOGIN_URL = '/wearpants/'
-
 # User settings below here.....
+
+# Ratio of protein used for synthesis vs used for energy.
+# This varies with the amount of excess protein in the diet and
+# exercise but we are assuming 75% for the moment (FIXME: add refs here)
+# This MUST be between 0 and 1.
+# Affects "Rank" calculation
+PROT_SYNTH_FACTOR = Decimal(0.75)
 
 # Assorted Constants used in various models
 NAME_LENGTH = 100

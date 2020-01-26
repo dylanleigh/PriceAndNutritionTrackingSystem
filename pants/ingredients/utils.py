@@ -42,14 +42,17 @@ def add_nutrition_ratios(data):
          data['kilocalories']=data['kilojoules'] / settings.KJ_PER_KCAL
 
          if data['protein'] is not None and data['fibre'] is not None:
-            # Combined protein_per_j and fibre_per_j TODO better here or template/FE?
+            # Combined protein_per_j and fibre_per_j
             data['pf_per_j']=data['protein_per_j']+data['fibre_per_j']
 
-            # Arbitrary "rank" - (x*protein + y*fibre) / (x+y)*joules
-            # (Given we want at least twice as much protein as fibre -
-            #  also, protein is "penalized" in the PF/J calculation as
-            #  more protein increases Joules but Fibre doesn't)
-            data['rank']=THOUSAND * (data['protein'] * 2 + 1 * data['fibre']) / ( 3 * data['kilojoules'] )
+            # "Rank" = (protein + fibre) / (energy excluding protein used for synthesis)
+            prot_synth_kj = data['protein'] * settings.KJ_PER_G_PROT * settings.PROT_SYNTH_FACTOR
+            kj_excl_prot = data['kilojoules'] - prot_synth_kj
+            data['rank']=THOUSAND * (data['protein'] + data['fibre']) / ( kj_excl_prot )
+            data['kj_excl_prot']=kj_excl_prot # TODO show this in detail etc
+
+            # TODO DEPRECATED old rank
+            # data['rank']=THOUSAND * (data['protein'] * 2 + 1 * data['fibre']) / ( 3 * data['kilojoules'] )
    except KeyError:
       pass  # no nutrition data to calc
 
