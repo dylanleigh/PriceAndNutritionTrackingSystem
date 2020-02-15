@@ -48,11 +48,13 @@ def add_nutrition_ratios(data):
             # "Rank" = (protein + fibre) / (energy excluding protein used for synthesis)
             prot_synth_kj = data['protein'] * settings.KJ_PER_G_PROT * settings.PROT_SYNTH_FACTOR
             kj_excl_prot = data['kilojoules'] - prot_synth_kj
-            data['rank']=THOUSAND * (data['protein'] + data['fibre']) / ( kj_excl_prot )
+            rank = THOUSAND * (data['protein'] + data['fibre']) / ( kj_excl_prot )
+            data['rank']=rank
             data['kj_excl_prot']=kj_excl_prot # TODO show this in detail etc
 
-            # TODO DEPRECATED old rank
-            # data['rank']=THOUSAND * (data['protein'] * 2 + 1 * data['fibre']) / ( 3 * data['kilojoules'] )
+            if data['cost']:
+               data['rank_per_cost']= rank / data['cost']
+
    except KeyError:
       pass  # no nutrition data to calc
 
