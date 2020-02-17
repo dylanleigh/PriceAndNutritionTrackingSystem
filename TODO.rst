@@ -20,8 +20,16 @@ Target comparison added to home/summary, diary breakdown, recipe detail and
 ingredient detail pages; uses new 3-colour bar cells to show how close
 it is to the min/max of the target.
 
-NData and calculation DRYing (In Progress, blocking other work)
-===============================================================
+Product model removal (In Progress, blocking most other work)
+=============================================================
+- Simplify Ndata and other tasks tasks by removing underused "product" model - if ingredients are close enough to be fungible, only price aspect of product is important
+- Keep prices and suppliers models under the product app, just remove the intermediate model - instead of ingredient-*product-*prices just ingredient-*prices
+- Move product admin to an inline on ingredient
+- Move brand on price or just get rid of it?
+- Update about/ when done to show "ingredients with no prices" instead of product stuff
+
+NData and calculation DRYing (In Progress, blocking further recipe/diary work)
+==============================================================================
 
 All the nutrition_data properties should be its own class that
 generates/caches individual values as required and enforces
