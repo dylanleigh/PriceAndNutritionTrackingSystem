@@ -58,7 +58,14 @@
          <td>{{ndata.rank|css_progressbar:5}}</td>
       </tr>
       {% if daily_target %}
-         <tr><th><small>vs <a href="/targets"/>{{ daily_target.name }}</a></small></th></tr><tr>
+         <tr>
+            <th><small>vs <a href="/targets"/>{{ daily_target.name }}</a></small></th>
+            <td>kj from macros:</td>
+            <td>{{ndata.kj_from_prot|css_progressbar:ndata.kilojoules}}</td>
+            <td></td>
+            <td>{{ndata.kj_from_fat|css_progressbar:ndata.kilojoules}}</td>
+            <td>{{ndata.kj_from_carb|css_progressbar:ndata.kilojoules}}</td>
+         </tr><tr>
          <tr>
          {% with daily_target.minimum.nutrition_data as min_ndata %}
             {% with daily_target.maximum.nutrition_data as max_ndata %}

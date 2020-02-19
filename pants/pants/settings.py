@@ -152,7 +152,7 @@ KJ_PER_G_FAT = Decimal(37.7)
 # exercise but we are assuming 75% for the moment (FIXME: add refs here)
 # This MUST be between 0 and 1.
 # Affects "Rank" calculation
-PROT_SYNTH_FACTOR = Decimal(0.75)
+PROT_SYNTH_FACTOR = Decimal(0.6)
 
 # Assorted Constants used in various models
 NAME_LENGTH = 100

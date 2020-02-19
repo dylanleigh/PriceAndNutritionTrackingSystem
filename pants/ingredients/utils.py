@@ -35,7 +35,9 @@ def add_nutrition_ratios(data):
    try:
       if data['kilojoules']: # actually per-megajoule (note the *1000)
          if data['protein'] is not None:
-            data['protein_per_j']=THOUSAND*data['protein']/data['kilojoules']
+            protein = data['protein']
+            data['protein_per_j']=THOUSAND * protein / data['kilojoules']
+            data['kj_from_prot']=protein * settings.KJ_PER_G_PROT
          if data['fibre'] is not None:
             data['fibre_per_j']=THOUSAND*data['fibre']/data['kilojoules']
          # While we are here, also determine the kcal amounts
@@ -53,8 +55,12 @@ def add_nutrition_ratios(data):
             data['kj_excl_prot']=kj_excl_prot # TODO show this in detail etc
 
             if data['cost']:
-               data['rank_per_cost']= rank / data['cost']
+               data['rank_per_cost']= rank / data['cost']   # Used in CSV export but not on site
 
+         if data['carbohydrate'] is not None:
+            data['kj_from_carb']=data['carbohydrate'] * settings.KJ_PER_G_CARB
+         if data['fat'] is not None:
+            data['kj_from_fat']=data['fat'] * settings.KJ_PER_G_FAT
    except KeyError:
       pass  # no nutrition data to calc
 
