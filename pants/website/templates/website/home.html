@@ -13,7 +13,6 @@
    <tr>
       <tr>
       <th> </th>
-      <th> </th>
       <th>KJ</th>
       <th>KCal.</th>
       <th>Prot.</th>
@@ -26,7 +25,6 @@
    </tr>
       <tr>
       <th>Today</th>
-      <td> </td>
       {% if daily_target %}
          {% with daily_target.minimum.nutrition_data as min_ndata %}
             {% with daily_target.maximum.nutrition_data as max_ndata %}
@@ -53,8 +51,15 @@
             <td>{{diary_today.cost}}</td>
       {% endif %}
    </tr><tr>
+      <th></th>
+      <td>{{diary_today.kilojoules|css_progressbar:diary_today.kilojoules}}</td>
+      <td></td>
+      <td>{{diary_today.kj_from_prot|css_progressbar:diary_today.kilojoules}}</td>
+      <td></td>
+      <td>{{diary_today.kj_from_fat|css_progressbar:diary_today.kilojoules}}</td>
+      <td>{{diary_today.kj_from_carb|css_progressbar:diary_today.kilojoules}}</td>
+   </tr><tr>
       <th>Last 24 hours</th>
-      <td> </td>
       {% if daily_target %}
          {% with daily_target.minimum.nutrition_data as min_ndata %}
             {% with daily_target.maximum.nutrition_data as max_ndata %}
@@ -79,13 +84,19 @@
          <td>{{diary_last24.protein_per_j|css_progressbar:30}}</td>
          <td>{{diary_last24.fibre_per_j|css_progressbar:10}}</td>
       {% endif %}
-   </tr>
-   <tr>
+   </tr><tr>
+      <td></td>
+      <td>{{diary_last24.kilojoules|css_progressbar:diary_last24.kilojoules}}</td>
+      <td></td>
+      <td>{{diary_last24.kj_from_prot|css_progressbar:diary_last24.kilojoules}}</td>
+      <td></td>
+      <td>{{diary_last24.kj_from_fat|css_progressbar:diary_last24.kilojoules}}</td>
+      <td>{{diary_last24.kj_from_carb|css_progressbar:diary_last24.kilojoules}}</td>
+   </tr><tr>
       {% if daily_target %}
          <th><small><a href="/targets"/>{{ daily_target.name }}</a></small></th>
          {% with daily_target.minimum.nutrition_data as min_ndata %}
             {% with daily_target.maximum.nutrition_data as max_ndata %}
-               <td> </td>
                <td><small>{{min_ndata.kilojoules}}-{{max_ndata.kilojoules}}</small></td>
                <td><small>{{min_ndata.kilocalories}}-{{max_ndata.kilocalories}}</small></td>
                <td><small>{{min_ndata.protein}}-{{max_ndata.protein}}</small></td>
