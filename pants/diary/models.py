@@ -31,14 +31,14 @@ not_negative = MinValueValidator(0)
 #            - viewing by 
 
 # TODO: Base off other apps? "Exercise" "Biometrics"?
-# DiaryExercise - record exercise TODO
-# DiaryStat - record weight or other data TODO
+# DiaryExercise - record exercise session TODO
+# DiaryStat - record weight or other biomentric data - resting heart rate, blood pressure etc TODO
 
 # VIEWS OVERVIEW
 
 # NOTE XXX must filter all views to just the user's stuff!
 
-# More TODOs:
+# More TODO:
 # Main List View - Combined Meal and Food and Exercise - just Food for now
 #                - Meal should be explodable to individual foods
 #                - Time scale should fan out to show values over 24hr etc - in progress
