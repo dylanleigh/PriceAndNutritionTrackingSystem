@@ -45,6 +45,11 @@
    {% empty %}
       (none)
    {% endfor %}
+   {% if tag.description %}
+      <br/>
+      {{ tag }}:
+      {{ tag.description }}
+   {% endif %}
 </p>
 
 <table class="w3-table-all w3-hoverable">
