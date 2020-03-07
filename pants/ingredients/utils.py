@@ -20,8 +20,6 @@ def add_nutrition_ratios(data):
    Returns the dict with all the ratios added
    (note some may be missing if the data to calculate them wasn't supplied)
    All values in the dict (including original data) are also quantized per SETTINGS.
-
-   Keys used only: 'cost', 'protein', 'fibre', 'kilojoules'
    """
    try:
       if data['cost']:  # per-dollar TODO make currency symbol in settings
@@ -61,8 +59,10 @@ def add_nutrition_ratios(data):
             data['kj_from_carb']=data['carbohydrate'] * settings.KJ_PER_G_CARB
          if data['fat'] is not None:
             data['kj_from_fat']=data['fat'] * settings.KJ_PER_G_FAT
+      else: # KJ is None
+         data['kilocalories']=None
    except KeyError:
-      pass  # no nutrition data to calc
+      data['kilocalories']=None
 
    # Finally normalize values except those with custom quantize FIXME list -> SETTINGS
    for key in data:
