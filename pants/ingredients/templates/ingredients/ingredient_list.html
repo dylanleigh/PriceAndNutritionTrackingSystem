@@ -3,7 +3,11 @@
 {% load css_visuals %}
 
 {% block title %}
-<title>Ingredients - P.A.N.T.S.</title>
+{% if tag %}
+   <title>Ingredients - {{ tag }} - P.A.N.T.S.</title>
+{% else %}
+   <title>Ingredients - P.A.N.T.S.</title>
+{% endif %}
 {% endblock %}
 
 {% block headline %}
