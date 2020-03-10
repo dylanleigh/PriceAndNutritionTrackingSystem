@@ -59,6 +59,8 @@ class Supplier(models.Model):
 
 class Product(models.Model):
    """
+   PRODUCT IS DEPRECATED AND WILL BE REMOVED IN A FUTURE RELEASE
+
    A branded product; a specific instance of a generic ingredient.
 
    May have its own nutrients or pass through to the nutrients of its
@@ -116,13 +118,18 @@ class Product(models.Model):
 
 class Price(models.Model):
    """
-   Price of a Product at a Supplier on a Date.
+   WARNING: As product will be removed in a future release, all Prices
+   should be shifted over to Ingredient. This will be done by a data
+   migration soon.
+
+   Price of an Ingredient/Product at a Supplier on a Date.
 
    Includes the weight of the product (we don't want to create a bunch
    of extra products when packaging or volume fluctuates!)
    """
    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+   # FIXME ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
    price = models.DecimalField(
       decimal_places=2,
@@ -139,7 +146,7 @@ class Price(models.Model):
    updated_at = models.DateTimeField(auto_now=True)
 
    def __str__(self):
-      return "%s@%s $%f/kg"%(self.product,self.supplier,self.per_kg)
+      return "%s@%s $%f/kg"%(self.product,self.supplier,self.per_kg) # FIXME -> ingredient
 
    @cached_property
    def per_kg(self):
