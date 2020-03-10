@@ -101,6 +101,12 @@ class Recipe(models.Model):
    description = models.CharField(max_length=settings.DESCR_LENGTH,blank=True)
 
    tags = models.ManyToManyField(RecipeTag, blank=True)
+   flag = models.ForeignKey(
+      RecipeFlag,
+      on_delete=models.SET_NULL,
+      null=True,
+      blank=True,
+   )
 
    created_at = models.DateTimeField(auto_now_add=True)
    updated_at = models.DateTimeField(auto_now=True)

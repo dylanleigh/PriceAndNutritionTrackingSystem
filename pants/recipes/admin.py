@@ -30,7 +30,7 @@ class RecipeAdmin(admin.ModelAdmin):
       (None, {
          'fields': (
             ('name', 'serves',),
-            ('description',),
+            ('flag', 'description',),
             ('method'),
          ),
       }),
