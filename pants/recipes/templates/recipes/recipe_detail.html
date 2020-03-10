@@ -7,7 +7,11 @@
 {% endblock %}
 
 {% block headline %}
-<h1>{{ object.name }} Recipe - P.A.N.T.S.</h1>
+   {% if object.flag %}
+      <h1>{{ object.name }} [{{ object.flag }}] Recipe - P.A.N.T.S.</h1>
+   {% else %}
+      <h1>{{ object.name }} Recipe - P.A.N.T.S.</h1>
+   {% endif %}
 {% endblock %}
 
 {% block content %}

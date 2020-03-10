@@ -55,8 +55,6 @@ class RecipeFlag(models.Model):
    verbose_name_plural = "Recipe Tags"
 
    # e.g. flag usage for showing the testing/other status of recipes
-   #     pure meta-recipe, no testing  M   "meta"
-   #     no testing needed             n   "n-a"
    #     awaiting initial testing      A   "alpha"
    #     tested but working on issues  B   "beta"
    #     confirmed working             o   "ok"

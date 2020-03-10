@@ -24,7 +24,7 @@ class RecipeAdmin(admin.ModelAdmin):
    save_as = True    # Allow cloning items by replacing "save and add another"
 
    search_fields = ['name', 'description']
-   list_display = ('name', 'updated_at', 'description')
+   list_display = ('name', 'flag', 'updated_at', 'description')
    readonly_fields = ('created_at','updated_at','nutrition_data')
    fieldsets = (
       (None, {

@@ -59,6 +59,7 @@
 <table class="w3-table-all w3-hoverable">
       <tr>
          <th>Recipe</th>
+         <th> </th>
          <th>Cost/s</th>
          <th>KJ/serve</th>
          <th>KCal/s.</th>
@@ -76,6 +77,8 @@
    {% for rec in object_list|dictsortreversed:"sort_rank" %}
       <tr>
          <th><a href="{% url 'recipe-detail' rec.slug %}">{{rec.name}}</a></th>
+         <td> {% if rec.flag %} {{rec.flag.char}} {% endif %}
+         </td>
          {% with rec.nutrition_data as ndata %}
             <td>{{ndata.cost_serve|css_progressbar:2}}</td>
             <td>{{ndata.kilojoules_serve|css_progressbar:2500}}</td>
