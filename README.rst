@@ -74,11 +74,6 @@ Ingredients
    You can compare relative data such as Protein per Joule or Fibre per
    Dollar on the ingredients pages.
 
-Products
-   Specific versions of an ingredient like "Supermarket X's Own
-   Brand Skim Milk". *Products* are available from *Suppliers* at
-   specified *Prices*.
-
 Recipes
    A collection of ingredients and/or other recipes, showing the combined
    nutritional value and cost of each serve of the recipe, as well as the relative
@@ -92,7 +87,18 @@ Diary
 Targets
    Minimum and Maximum nutritional and cost values you are aiming to
    reach each day. As well as daily targets you can also set targets
-   for particular meals (e.g. a pre/post workout meal).
+   for particular meals (e.g. a pre/post workout meal), or special
+   days.
+
+Products
+   DEPRECATED: This feature is underused, redundant and is being
+   phased out, with Prices to directly apply to Ingredients soon, and
+   the ability to mark an Ingredient as a brand-specific version of
+   another, more generic ingredient.
+
+   Specific versions of an ingredient like "Supermarket X's Own
+   Brand Skim Milk". *Products* are available from *Suppliers* at
+   specified *Prices*.
 
 Some example screenshots can be seen at https://github.com/dylanleigh/PriceAndNutritionTrackingSystem/tree/master/screenshots
 
@@ -104,6 +110,9 @@ Tagging
    analysis; this makes it much easier to (for example) compare the fibre
    per calorie in different vegetables or the calories per serve of
    different dessert.
+
+   Recipes can also be "flagged" to mark them as untested, tested and
+   working, requiring further improvement, outdated, etc.
 
 Repurposing Recursive Recipes
    As recipes can include other recipes, this can be used for other
