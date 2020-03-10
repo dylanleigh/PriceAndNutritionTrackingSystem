@@ -336,8 +336,21 @@ running the following commands::
    git pull
    ./manage.py migrate
 
-(No user input or manual conversion should be required)
+(No further user input or manual conversion should be required)
 
+2020-03-11
+   Recipe Flags added. These differ from Tags in two ways - each
+   recipe can have only one flag, but flags are much more visible
+   (being shown in lists etc).
+
+   The intended use case is to mark recipes which are OK for general
+   use to differentiate them from recipes which aren't working and
+   need further changes and testing, or outdated recipes no longer
+   recommended. However, they can be used for whatever the admin
+   wants.
+
+   Also, tags for Recipe and Ingredient can now have a brief text
+   description which is shown in list view when that tag is selected.
 
 2019-09-07
    Recipe Components now have separate "servings" and weight" to bring
