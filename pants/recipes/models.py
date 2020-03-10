@@ -45,6 +45,39 @@ class RecipeTag(models.Model):
    def __str__(self):
       return self.name
 
+class RecipeFlag(models.Model):
+   """
+   Flags for recipes - these differ from tags in two ways:
+   - Only one flag applies at a time (but multiple tags can)
+   - Each flag has a one-character label, which is shown next to the
+     item in lists (etc) if it is flagged.
+   """
+   verbose_name_plural = "Recipe Tags"
+
+   # e.g. flag usage for showing the testing/other status of recipes
+   #     pure meta-recipe, no testing  M   "meta"
+   #     no testing needed             n   "n-a"
+   #     awaiting initial testing      A   "alpha"
+   #     tested but working on issues  B   "beta"
+   #     confirmed working             o   "ok"
+   #     deprecated; no longer used    D   "depr"
+
+   char = models.SlugField(
+      max_length=1,
+      blank=False,
+      unique=True,
+   )
+
+   name = models.SlugField(
+      max_length=settings.TAG_LENGTH,
+      blank=False,
+      unique=True,
+   )
+
+   description = models.CharField(max_length=settings.DESCR_LENGTH,blank=True)
+
+   def __str__(self):
+      return self.name
 
 class Recipe(models.Model):
    """
@@ -77,19 +110,6 @@ class Recipe(models.Model):
       null=True,
       help_text="When this recipe was last made to check it works, and it did",
    )  # TODO: Auto-update when added to diary?
-
-   # FIXME Add arbitrary "flags" like tags for this?
-   # flags = models.ManyToManyField(RecipeFlag, blank=True)
-   # TODO Options to handle flagging for testing
-   #  Statuses:
-   #     NULL (not specified/unknown)      [unkn]
-   #     pure meta-recipe, no testing  M   [meta]
-   #     no testing needed             N   -
-   #     awaiting first tests          A   [alph]
-   #     tested but working on issues  B   [beta]
-   #     confirmed working             C   [ok]
-   #     no longer used                D   [depr]
-
    # TODO How to handle testing when a recipe is working well then
    #      alterations are made to it? Flag if last_tested < updated_at ?
 

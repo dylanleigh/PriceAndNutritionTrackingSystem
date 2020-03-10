@@ -3,9 +3,10 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from .models import Recipe, Component, RecipeTag
+from .models import Recipe, Component, RecipeTag, RecipeFlag
 
 admin.site.register(RecipeTag)
+admin.site.register(RecipeFlag)
 
 #admin.site.register(Component) # rm in favour of inline only?
 # TODO: might be worth having a custom non-inline one for internal + properties
