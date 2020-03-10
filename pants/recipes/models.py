@@ -76,21 +76,22 @@ class Recipe(models.Model):
       blank=True,
       null=True,
       help_text="When this recipe was last made to check it works, and it did",
-   )
+   )  # TODO: Auto-update when added to diary?
+
    # FIXME Add arbitrary "flags" like tags for this?
+   # flags = models.ManyToManyField(RecipeFlag, blank=True)
    # TODO Options to handle flagging for testing
-   #  Statuses: 
-   #     NULL (not specified),
-   #     testing not required,      # "needless"
-   #     required but not yet done, # "required"
-   #     tried but not working ,    # "alpha"
-   #     works but has issues,      # "beta"
-   #     tested working 100%        # "verified"
-   #     not working and abandoned for now # "deprecated"
-   # TODO Auto when added to diary? "Last used"?
+   #  Statuses:
+   #     NULL (not specified/unknown)      [unkn]
+   #     pure meta-recipe, no testing  M   [meta]
+   #     no testing needed             N   -
+   #     awaiting first tests          A   [alph]
+   #     tested but working on issues  B   [beta]
+   #     confirmed working             C   [ok]
+   #     no longer used                D   [depr]
+
    # TODO How to handle testing when a recipe is working well then
-   #      alterations are made to it? Can't flag if (last_tested <
-   #      updated_at) as updated_at will be updated when test date is
+   #      alterations are made to it? Flag if last_tested < updated_at ?
 
    serves = models.DecimalField(
       decimal_places=2,
