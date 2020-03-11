@@ -61,12 +61,12 @@ class RecipeTestCase(TestCase):
       Component.objects.create(
          in_recipe=flatbread,
          of_recipe=dough,
-         weight=2,
+         servings=2,         # serves of a recipe
       )
       Component.objects.create(
          in_recipe=flatbread,
          of_ingredient=butter,
-         weight=50,
+         weight=50,        # weight of an ingredient
       )
 
    def test_nutrition_data_serve(self):
