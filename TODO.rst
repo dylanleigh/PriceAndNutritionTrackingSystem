@@ -11,22 +11,14 @@ Urgent / Important
 - ** Unit tests are severely incomplete! **
 - Fix all the FIXMEs in the code (see "make fixme" output) (most of these now relate to the NData work)
 - Proper non-admin login/logout pages - can't login without admin interface
-- Recipe method doesn't keep newlines or allow any kind of markup
-
-Target comparison (Completed 10-02-2019)
-========================================
-
-Target comparison added to home/summary, diary breakdown, recipe detail and
-ingredient detail pages; uses new 3-colour bar cells to show how close
-it is to the min/max of the target.
 
 Product model removal (In Progress, blocking most other work)
 =============================================================
 - Simplify Ndata and other tasks tasks by removing underused "product" model - if ingredients are close enough to be fungible, only price aspect of product is important
-- Keep prices and suppliers models under the product app, just remove the intermediate model - instead of ingredient-*product-*prices just ingredient-*prices
-- Move product admin to an inline on ingredient
-- Move brand on price or just get rid of it?
-- Update about/ when done to show "ingredients with no prices" instead of product stuff
+- Keep prices and suppliers models under the product app, just remove the need for the intermediate model - instead of ingredient-*product-*prices just ingredient-*prices
+- Move price admin from inline on product to an inline on ingredient
+- Keep brand on unused product
+- Update about page to show "ingredients with no prices" instead of products
 
 NData and calculation DRYing (In Progress, blocking further recipe/diary work)
 ==============================================================================
