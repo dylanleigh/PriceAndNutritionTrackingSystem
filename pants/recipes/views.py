@@ -93,6 +93,8 @@ def RecipeCSVExportView(request):
       'carbohydrate_serve',
       'fat_serve',
       'grams_serve',
+      'cost_serve',
+      'cost_per_kg',
       'pf_per_j',
       'rank',
       'rank_per_cost',
