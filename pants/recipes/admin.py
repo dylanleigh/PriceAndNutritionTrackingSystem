@@ -18,6 +18,7 @@ class ComponentInlineAdmin(admin.TabularInline):
    fields = (
       ('weight', 'of_ingredient', 'servings', 'of_recipe', 'note',),
    )
+   raw_id_fields = ('of_recipe','of_ingredient')      # TODO: Can this be made optional?
 
 class RecipeAdmin(admin.ModelAdmin):
    view_on_site = True
