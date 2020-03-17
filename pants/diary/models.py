@@ -362,9 +362,9 @@ class DiaryFood(AbstractBaseNutrients):
 
       # XXX: MUST create the xx_sum dicts first before doing ratios,
       # as we want the ratio of the sum and NOT to sum the ratios
-      context['last24_sum']=add_nutrition_ratios(
+      context['last24_sum']=add_nutrition_ratios(defaultdict(Decimal,
          { k: today_total.get(k, 0) + last24_total.get(k, 0) for k in set(today_total) | set(last24_total) }
-      )
+      ))
       context['lastday_sum']=add_nutrition_ratios(
          { k: lastday_total.get(k, 0) + last24_total.get(k, 0) for k in set(lastday_total) | set(last24_total) }
       )
