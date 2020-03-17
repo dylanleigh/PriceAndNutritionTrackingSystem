@@ -36,7 +36,7 @@ not_negative = MinValueValidator(0)
 
 # VIEWS OVERVIEW
 
-# NOTE XXX must filter all views to just the user's stuff!
+# NOTE XXX must always filter all Diary views to just the logged in user's stuff!
 
 # More TODO:
 # Main List View - Combined Meal and Food and Exercise - just Food for now
@@ -360,7 +360,8 @@ class DiaryFood(AbstractBaseNutrients):
       context['last24_objects']=last24_df
       context['lastday_objects']=lastday_df
 
-      # XXX: MUST do the sums first as we don't want to add ratios or similar
+      # XXX: MUST create the xx_sum dicts first before doing ratios,
+      # as we want the ratio of the sum and NOT to sum the ratios
       context['last24_sum']=add_nutrition_ratios(
          { k: today_total.get(k, 0) + last24_total.get(k, 0) for k in set(today_total) | set(last24_total) }
       )
