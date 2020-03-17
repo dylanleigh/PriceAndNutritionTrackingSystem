@@ -90,12 +90,12 @@ that API.
 
 As such most of these range from nice-to-have to wont-fix in priority.
 
+- Add Store/Price data to Ingredient Detail - going to be particularly important when Price moved to Ingredient
 - Automatic conversion of kilocalories to kilojoules when entering ingredients
 - Ratio bar charts on ingredient detail aren't very useful without the ability to scale by grams or servings
 - Ratio bar charts on recipe detail use only max limit; should use midpoint of min/max
 - Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc, links to /all/ etc
 - Diary entry should default to logged in user, etc
-- Allow entering incredients by serving or 100g rather than by kg
 - Clean up templates by using more templatetags
 - Handle particular target values set as None gracefully where they are displayed in lists
 - 3-part bar chart templatetag for max-min-current target comparison
@@ -105,10 +105,8 @@ As such most of these range from nice-to-have to wont-fix in priority.
 - "tags:" text should be a button that toggles tag-bar visibility on/off
 - Diary edit/create/delete forms using generic views too
 - Ing list column with recipe count (recursive/nonrecursive), click for recipe list filtered to ing?
-- Add Store/Price data to views (Ingredient/Product detail?)
 - Bottom nav buttons for convenience
 - View-on-site in all admin
-- Product has no detail view
 
 Miscellaneous
 =============
@@ -118,17 +116,14 @@ Miscellaneous
 - Add preparation_loss_factor to Product for e.g. peeling and trimming losses (can be half quantity for some vegetables, making them less cost-effective; also required for shopping list quantities etc). Add on product to allow e.g. pre-chopped vs whole veg price comparison
 - Bug: Does not detect recursion loops in recipes
 - Bug: User must handle out of date slugs on a name change
-- Add links back to my blog posts in README, and copy some of the cleaner explanations of the ratios and meta-recipes (clean up README in general)
-- Diary doesn't rewrite cost if there is no cost on ingredient/recipe - should be allowed as a manual overrite but at least give a warning.
+- Copy some of the cleaner explanations of the ratios and meta-recipes from various blog posts to README (also, clean up README in general)
+- Diary doesn't rewrite cost if there is no cost on ingredient/recipe - should be allowed as a manual override but at least give a warning.
 - Improved bulk import facilities in general, especially open data
-- Consider: Deprecate Product by merging price functionality into ProductPrice and making Ingredients recurse to more generic/specific versions? Product concept is underused
 - Consider: Move to per-100g instead of per-kg?
-- Import from standard sources (i.e. open source nutrition data)
 - "Favourite" ings/recs - show first in add-diary-item etc
 - Diary nav for historic data - ArchiveView / TodayArchiveView/ DayArchiveView ?
 - Recipe is_vegan/is_vegetarian/gluten_free/has_gluten properties - check via ingredient tags
 - Invalidate cache of ingredient/recipe/quantity on nutrients change
 - Invalidate cache of product/ingredient/etc on price change
-- Flatten and/or Crystallize ingredients option on recipe detail view?
-- Collections app for free-form showcases of recipes, products and ingredients
+- Option to Flatten and/or Crystallize ingredients on recipe detail view?
 
