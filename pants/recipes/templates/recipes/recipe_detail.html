@@ -36,6 +36,7 @@
          <th>Component</th>
          <th>Quantity</th>
          <th>Cost</th>
+         <th>$/kg</th>
          <th>KJ</th>
          <th>KCal</th>
          <th>Prot.</th>
@@ -67,6 +68,7 @@
 
          {% with q.nutrition_data as ndata %}
             <td>{{ndata.cost|floatformat:2}}</td>
+            <td>{{ndata.cost_per_kg|floatformat:2}}</td>
             <td>{{ndata.kilojoules|floatformat}}</td>
             <td>{{ndata.kilocalories|css_progressbar:object.nutrition_data.kilocalories}}</td>
             <td>{{ndata.protein|css_progressbar:object.nutrition_data.protein}}</td>
@@ -90,6 +92,7 @@
          <th>Total:</th>
          <td>{{ndata.grams|floatformat:1}}</td>
          <td>{{ndata.cost|floatformat:2}}</td>
+         <td>{{ndata.cost_per_kg|floatformat:2}}</td>
          <td>{{ndata.kilojoules|floatformat}}</td>
          <td>{{ndata.kilocalories|css_progressbar:ndata.kilocalories}}</td>
          <td>{{ndata.protein|css_progressbar:ndata.protein}}</td>
@@ -110,6 +113,7 @@
                {% with daily_target.maximum.nutrition_data as max_ndata %}
                   <td>{{ndata.grams_serve|floatformat:1}}</td>
                   <td>{% valminmaxdiv ndata.cost_serve min_ndata.cost max_ndata.cost %} </td>
+                  <td></td>
                   <td>{% valminmaxdiv ndata.kilojoules_serve min_ndata.kilojoules max_ndata.kilojoules %} </td>
                   <td>{% valminmaxdiv ndata.kilocalories_serve min_ndata.kilocalories max_ndata.kilocalories %} </td>
                   <td>{% valminmaxdiv ndata.protein_serve min_ndata.protein max_ndata.protein %} </td>

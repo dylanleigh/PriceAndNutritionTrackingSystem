@@ -163,6 +163,8 @@ class Recipe(models.Model):
       keys = dict.fromkeys(data)
       for k in keys:
          if data[k] is not None:
+            # XXX: Note per-serve additions done before ratios - we
+            # don't want to redundantly calculate ratios per serve
             data["%s_serve"%k]=data[k]/serves
 
       # Convert KJ to Kcal/serve
