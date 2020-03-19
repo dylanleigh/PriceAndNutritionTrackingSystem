@@ -7,6 +7,7 @@ from django.db import models
 from django.db.models import F
 from django.template.defaultfilters import slugify
 from django.utils.functional import cached_property
+from django.core.exceptions import ValidationError
 
 from ingredients.models import Ingredient
 
@@ -14,15 +15,9 @@ not_negative = MinValueValidator(0)
 
 # Schema overview:
 # Supplier - just a name, maybe tags like online/bulk/etc
-# Product - one ingredient, brand string in descr
-#         - NOT unique per supplier, per brand, per product etc
-#         - optional link to its own macronutrientset, else property
-#           to go through to generic
-#         - If products changing data - new product? mark older as
-#           old-pre-yyyy-mm
 # Price   - Unique product,supplier,date - and tracks weight
 #         - track historic prices or not?
-# ProductNutrient - (Not yet implemented) - override ingredient nutrients
+# Product - Deprecated - prices are on to ingredients directly now
 
 class Supplier(models.Model):
    """
@@ -122,17 +117,29 @@ class Product(models.Model):
 class Price(models.Model):
    """
    WARNING: As product will be removed in a future release, all Prices
-   should be shifted over to Ingredient. This will be done by a data
-   migration soon.
+   should be shifted over to Ingredient. This will be done when saved,
+   and in bulk by a data migration soon.
 
    Price of an Ingredient/Product at a Supplier on a Date.
 
    Includes the weight of the product (we don't want to create a bunch
    of extra products when packaging or volume fluctuates!)
    """
+
+   def ingredient_default_product(self):
+      """
+      Returns PK of the Ingredient of this Price's Product
+      """
+      return self.product.ingredient.pk
+
    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
-   product = models.ForeignKey(Product, on_delete=models.CASCADE)
-   # FIXME ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+   product = models.ForeignKey(Product, on_delete=models.CASCADE) # FIXME DEPRECATED
+   ingredient = models.ForeignKey(
+      Ingredient,
+      on_delete=models.CASCADE,
+      null=True,                    # FIXME for adding a new field
+      blank=True,                   # Will be set from product when saved/cleaned
+   )
 
    price = models.DecimalField(
       decimal_places=2,
@@ -149,7 +156,17 @@ class Price(models.Model):
    updated_at = models.DateTimeField(auto_now=True)
 
    def __str__(self):
-      return "%s@%s $%f/kg"%(self.product,self.supplier,self.per_kg) # FIXME -> ingredient
+      return "%s@%s $%f/kg"%(self.ingredient,self.supplier,self.per_kg) # FIXME -> ingredient
+
+   def clean(self):
+      '''
+      Validation to ensure that we set ingredient from product for old prices
+      Or existing ingredient is product->ingredient
+      '''
+      if not self.ingredient:
+         self.ingredient = self.product.ingredient
+      elif self.ingredient.pk != self.product.ingredient.pk:
+         raise ValidationError('Product and Ingredient must match!')
 
    @cached_property
    def per_kg(self):
