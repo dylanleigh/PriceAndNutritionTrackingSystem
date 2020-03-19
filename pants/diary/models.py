@@ -12,7 +12,6 @@ from django.core.exceptions import ValidationError
 
 from ingredients.models import AbstractBaseNutrients,Ingredient
 from recipes.models import Recipe
-from products.models import Product
 from ingredients.utils import add_nutrition_ratios
 
 
@@ -97,7 +96,7 @@ class DiaryFood(AbstractBaseNutrients):
       null=True,     # Can be empty if self-entered nutritional info
       blank=True,
       validators=[not_negative],
-      help_text="g or ml for ingredients or products; WARNING: using servings will OVERWRITE this value!"
+      help_text="grams of a recipe/ingredient; WARNING: using servings will OVERWRITE this value!"
    )
 
    servings = models.DecimalField(
@@ -106,7 +105,7 @@ class DiaryFood(AbstractBaseNutrients):
       null=True,
       blank=True,
       validators=[not_negative],
-      help_text="number of servings for recipes or ingredients - WARNING: entering this will overwrite weight & cost automatically"
+      help_text="number of servings of a recipe/ingredient- WARNING: entering this will overwrite weight & cost automatically"
    )
 
    # FIXME only allow one of these to be active
@@ -119,13 +118,6 @@ class DiaryFood(AbstractBaseNutrients):
    )
    of_recipe = models.ForeignKey(
       Recipe,
-      on_delete=models.CASCADE,
-      null=True,
-      blank=True,
-      related_name='consumed',
-   )
-   of_product = models.ForeignKey(
-      Product,
       on_delete=models.CASCADE,
       null=True,
       blank=True,
@@ -164,7 +156,7 @@ class DiaryFood(AbstractBaseNutrients):
       # fat, sodium) from ingredients
 
       # FIXME: recipe/ingredient can be treated the same soon!
-      # source = self.of_recipe or self.of_ingredient or self.of_product:
+      # source = self.of_recipe or self.of_ingredient
       #  if source:
       #     source.nutrition_data ...
       # TODO: merge component logic the same way as recipe/ingredient here

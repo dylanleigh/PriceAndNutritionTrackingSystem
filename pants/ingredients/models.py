@@ -170,11 +170,11 @@ class Ingredient(AbstractBaseNutrients):
    @cached_property
    def sorted_prices(self):
       '''
-      Return the Price object which has the lowest price-per-kg of
-      this ingredient.
+      Return all the prices of this ingredient, annotated by
+      price_per_kg, and sorted by it.
       '''
       Price = apps.get_model('products','Price')
-      prices = Price.objects.filter(product__ingredient=self).annotate(
+      prices = Price.objects.filter(ingredient=self).annotate(
          price_per_kg = F('price') / F('weight')
       )
       return prices.order_by('price_per_kg')
@@ -237,7 +237,7 @@ class Ingredient(AbstractBaseNutrients):
       """
       Number of products this ingredient has
       """
-      # FIXME: This should be replaced by price_count
+      # FIXME XXX: This should be replaced by price_count in most use cases now
       return self.product_set.count()
 
    # FIXME use the inverse of this approach to optimize the

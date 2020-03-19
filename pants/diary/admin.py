@@ -17,7 +17,7 @@ class DiaryFoodAdmin(admin.ModelAdmin):
       ('Source', {
          'fields': (
             ('weight','servings','cost'),
-            ('of_ingredient', 'of_recipe', 'of_product'),
+            ('of_ingredient', 'of_recipe'),
          ),
       }),
       ('Nutrients', {

@@ -14,7 +14,6 @@ from django.utils.functional import cached_property
 
 from ingredients.models import Ingredient
 from ingredients.utils import add_nutrition_ratios
-from products.models import Product
 
 # TODO utils?
 not_negative = MinValueValidator(0)
@@ -208,12 +207,7 @@ class Recipe(models.Model):
 
 class Component(models.Model):
    """
-   Component of a recipe; could be a (generic) ingredient, a
-   (specific) product or another recipe.
-
-   Includes the weight in grams. As ingredient/product measure in kg
-   or L, Component is responsible for the converstion of units.
-   TODO: Unify units - should all be g or kg.
+   Component of a recipe; could be a (generic) ingredient or another recipe.
 
    Caches nutrition data so it can be queried generically regardless
    of the type of component.
