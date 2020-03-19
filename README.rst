@@ -6,7 +6,7 @@ Price And Nutrition Tracking System
 Note for Current Users
 ======================
 
-Significant DB changes have been made recently (2020-03-11) and you
+Significant DB changes have been made recently (2020-03-19) and you
 will need to migrate your recipe data by running './manage.py migrate'
 - see the "Schema Changes" subsection below for more details.
 
@@ -325,7 +325,21 @@ running the following commands::
    git pull
    ./manage.py migrate
 
-(No further user input or manual conversion should be required)
+No further user input or manual conversion should be required. The
+details below are mostly for background.
+
+2020-03-19 (v0.92)
+
+   Prices are changing from being attached to a Product to directly
+   being attached to Ingredient, to simplify both the user interface
+   and the code.
+
+   As of this version, Price is attached to both Product and
+   Ingredient. Ingredient will be set automatically from the Product.
+
+   Future versions will make Price settable via the Ingredient section
+   of the admin interface rather than Product, and a release after that
+   will likely remove Products completely.
 
 2020-03-11
    Recipe Flags added. These differ from Tags in two ways - each
@@ -341,7 +355,7 @@ running the following commands::
    Also, tags for Recipe and Ingredient can now have a brief text
    description which is shown in list view when that tag is selected.
 
-2019-09-07
+2019-09-07 (v0.91)
    Recipe Components now have separate "servings" and weight" to bring
    them in line with the way all other models work (previously,
    "weight" was interpreted as number of serves if connected to a

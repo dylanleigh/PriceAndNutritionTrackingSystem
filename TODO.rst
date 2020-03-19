@@ -15,11 +15,23 @@ Urgent / Important
 
 Product model removal (In Progress, blocking most other work)
 =============================================================
-- Simplify Ndata and other tasks tasks by removing underused "product" model - if ingredients are close enough to be fungible, only price aspect of product is important
-- Keep prices and suppliers models under the product app, just remove the need for the intermediate model - instead of ingredient-*product-*prices just ingredient-*prices
+Simplify Ndata and other tasks tasks by removing underused "product"
+model - if ingredients are close enough to be fungible, only price
+aspect of product is important. Keep prices and suppliers models
+under the product app, just remove the need for the intermediate model -
+instead of ingredient-*product-*prices just ingredient-prices 
+
+- Add a nullable FK from Price->Ingredient [done]
+- Data migration to populate new FK [done]
+- Update about page to show stats of new/old FK [done]
+
+- New "pre-release" after data migration
 - Move price admin from inline on product to an inline on ingredient
-- Keep brand on unused product [done]
-- Update about page to show "ingredients with no prices" instead of products [done]
+- Update properties and filters etc to use Ingredient FK not Product FK
+
+- In a future "pre-release", make Price->Ingredient FK non-nullable and delete the Price->Product FK
+- Update about page to remove product references
+- Remove product (and "brand") at this point?
 
 NData and calculation DRYing (In Progress, blocking further recipe/diary work)
 ==============================================================================
