@@ -7,11 +7,6 @@ from .models import Supplier,Product,Price
 
 # admin.site.register(Price)    # rm in favour of inline only
 
-
-class PriceInlineAdmin(admin.TabularInline):
-   model = Price
-   readonly_fields = ('per_kg', 'created_at','updated_at')
-
 class ProductAdmin(admin.ModelAdmin):
    save_as = True    # Allow cloning items by replacing "save and add another"
 
@@ -33,7 +28,6 @@ class ProductAdmin(admin.ModelAdmin):
             )
       }),
    )
-   inlines = [PriceInlineAdmin]
 admin.site.register(Product,ProductAdmin)
 
 class SupplierAdmin(admin.ModelAdmin):
