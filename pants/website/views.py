@@ -58,7 +58,7 @@ def about(request):
    context = {
       'ing_count': all_ings.count(),
       'ing_count_no_kj': all_ings.filter(kilojoules=None).count(),
-      'ing_count_no_price': all_ings.filter(product__price__isnull=True).count(),
+      'ing_count_no_price': all_ings.filter(price__isnull=True).count(),
       # TODO: Do single-product and multiple-product with aggregate count
 
       'price_count': all_price.count(),
