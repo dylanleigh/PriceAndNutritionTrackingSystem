@@ -87,10 +87,8 @@ class Product(models.Model):
    brand = models.CharField(max_length=settings.NAME_LENGTH,blank=False)
 
    description = models.CharField(max_length=settings.DESCR_LENGTH,blank=True)
-   # TODO tags ("online", "bulk", "supermarket" etc)
 
    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-   # TODO ProductNutrients for specific products later
 
    created_at = models.DateTimeField(auto_now_add=True)
    updated_at = models.DateTimeField(auto_now=True)
@@ -103,17 +101,24 @@ class Product(models.Model):
          self.slug = slugify("%s_%s"%(self.brand, self.name)) # NOTE will Exception on clash
       super(Product, self).save(*args, **kwargs)
 
-   # TODO use manager methods instead of properties with annotations?
+   @cached_property
+   def sorted_prices(self):
+      """
+      Returns all prices from all suppliers,
+      annotated with price_per_kg and sorted by it
+      """
+      prices = self.price_set.annotate(
+         price_per_kg = F('price') / F('weight')
+      )
+      return prices.order_by('price_per_kg')
+
    @cached_property
    def lowest_price(self):
       """
       Determines the lowest price per kg of all the most recent prices
       from all suppliers
       """
-      prices = self.price_set.annotate(
-         price_per_kg = F('price') / F('weight')
-      )
-      return prices.order_by('price_per_kg').first()
+      return self.sorted_prices.first()
 
 
 class Price(models.Model):

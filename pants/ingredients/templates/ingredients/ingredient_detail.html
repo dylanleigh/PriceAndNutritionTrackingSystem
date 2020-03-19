@@ -104,10 +104,18 @@
 </table>
 
 <h3>Used in Recipes:</h3>
-
 <ul>
    {% for slug,name in object.used_in_recipes.items %}
       <li><a href="{% url 'recipe-detail' slug %}">{{ name }}</a></li>
+   {% empty %}
+      (none)
+   {% endfor %}
+</ul>
+
+<h3>Prices:</h3>
+<ul>
+   {% for price in object.sorted_prices %}
+      <li>${{ price.price_per_kg }}/kg - {{ price.supplier.name }}</li>
    {% empty %}
       (none)
    {% endfor %}

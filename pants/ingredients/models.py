@@ -177,7 +177,7 @@ class Ingredient(AbstractBaseNutrients):
       return Supplier.objects.filter(price__product__ingredient=self)
 
    @cached_property
-   def lowest_price(self):
+   def sorted_prices(self):
       '''
       Return the Price object which has the lowest price-per-kg of
       this ingredient.
@@ -186,7 +186,15 @@ class Ingredient(AbstractBaseNutrients):
       prices = Price.objects.filter(product__ingredient=self).annotate(
          price_per_kg = F('price') / F('weight')
       )
-      return prices.order_by('price_per_kg').first()
+      return prices.order_by('price_per_kg')
+
+   @cached_property
+   def lowest_price(self):
+      '''
+      Return the Price object which has the lowest price-per-kg of
+      this ingredient.
+      '''
+      return self.sorted_prices.first()
 
    @cached_property
    def best_price(self):
