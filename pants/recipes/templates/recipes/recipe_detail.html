@@ -135,6 +135,7 @@
                {% with daily_target.maximum.nutrition_data as max_ndata %}
                   <td> </td>
                   <td><small>${{min_ndata.cost}}-${{max_ndata.cost}}</small></td>
+                  <td></td>
                   <td><small>{{min_ndata.kilojoules}}-{{max_ndata.kilojoules}}</small></td>
                   <td><small>{{min_ndata.kilocalories}}-{{max_ndata.kilocalories}}</small></td>
                   <td><small>{{min_ndata.protein}}-{{max_ndata.protein}}</small></td>
@@ -155,6 +156,7 @@
                <th>Per Serve:</th>
                <td>{{ndata.grams_serve|floatformat:1}}</td>
                <td>{{ndata.cost_serve|floatformat:2}}</td>
+               <td></td>
                <td>{{ndata.kilojoules_serve}}</td>
                <td>{{ndata.kilocalories_serve|css_progressbar:200}}</td>
                <td>{{ndata.protein_serve|css_progressbar:100}}</td>
