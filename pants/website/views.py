@@ -58,19 +58,19 @@ def about(request):
 
    context = {
       'ing_count': all_ings.count(),
-      'ing_count_no_prod': all_ings.filter(product__isnull=True).count(),
-      # TODO: Do single-product and multiple-product with aggregate count
       'ing_count_no_kj': all_ings.filter(kilojoules=None).count(),
+      'ing_count_no_price': all_ings.filter(product__price__isnull=True).count(),
+      # TODO: Do single-product and multiple-product with aggregate count
+
+      'price_count': Price.objects.count(),
+      'supplier_count': Supplier.objects.count(),
 
       'recipe_count': all_rec.count(),
       'recipe_count_sub_rec': all_rec.filter(components__of_recipe__isnull=False).distinct().count(),
 
-      'prod_count': all_prod.count(),
-      'prod_count_no_price': all_prod.filter(price__isnull=True).count(),
-      'price_count': Price.objects.count(),
-      'supplier_count': Supplier.objects.count(),
-
       'diary_count': all_diary.count(),
       'target_count': all_targ.count(),      # TODO show more stats on these
+
+      'prod_count': all_prod.count(),
    }
    return render(request, 'website/about.html', context)
