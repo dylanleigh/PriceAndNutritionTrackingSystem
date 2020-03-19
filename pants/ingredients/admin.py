@@ -2,7 +2,13 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+
 from .models import Ingredient, IngredientTag
+from products.models import Price
+
+class PriceInlineAdmin(admin.TabularInline):
+   model = Price
+   readonly_fields = ('per_kg', 'created_at','updated_at')
 
 class IngredientAdmin(admin.ModelAdmin):
    view_on_site = True
@@ -12,6 +18,8 @@ class IngredientAdmin(admin.ModelAdmin):
    list_display = ('name', 'updated_at', 'product_count')
    readonly_fields = ('created_at','updated_at','lowest_price','product_count')
    search_fields = ['name', 'description']
+
+   inlines = [PriceInlineAdmin]
 
    fieldsets = (
       (None, {
@@ -24,6 +32,7 @@ class IngredientAdmin(admin.ModelAdmin):
             )
       }),
       ('Nutrients (per KG)', {
+         'classes': ('collapse',),
          'fields': (
             'kilojoules',
             'protein',
