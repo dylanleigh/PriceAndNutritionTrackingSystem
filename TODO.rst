@@ -15,11 +15,10 @@ Urgent / Important
 
 Product model removal (In Progress, blocking most other work)
 =============================================================
-Simplify Ndata and other tasks tasks by removing underused "product"
+Simplify Ndata and other tasks by removing redundant "product"
 model - if ingredients are close enough to be fungible, only price
-aspect of product is important. Keep prices and suppliers models
-under the product app, just remove the need for the intermediate model -
-instead of ingredient-*product-*prices just ingredient-prices 
+aspect of product is important. Making Prices directly applicable to
+Ingredients simplifies the UI and Code.
 
 - Add a nullable FK from Price->Ingredient [done]
 - Data migration to populate new FK [done]
@@ -30,9 +29,10 @@ instead of ingredient-*product-*prices just ingredient-prices
 - Update properties and filters etc to use Ingredient FK not Product FK [done]
 
 - In a future "pre-release", delete the Price->Product FK [done]
-- Make Price->Ingredient FK non-nullable
 - Update about page to remove product references [done]
-- Remove product (and "brand") at this point?
+- Make Price->Ingredient FK non-nullable
+
+- Remove actual product model (and "brand") at this point, or just leave alone?
 
 NData and calculation DRYing (In Progress, blocking further recipe/diary work)
 ==============================================================================
@@ -47,7 +47,7 @@ ingredient/recipe/diary.
 - ndata mixin for ing
 - ndata mixin for rec
 - ndata mixin for diary
-- Fix per-serve/per-weight dichotomy in recipe components [done; needs further testing]
+- Fix per-serve/per-weight dichotomy in recipe components [done]
 - Merge recipe and ingredient handling in diary save() and elsewhere
 - Use F()/aggregate/annotate expressions in recipe calcs
 - Allow filtering on calculated ndata
