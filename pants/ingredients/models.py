@@ -167,6 +167,7 @@ class Ingredient(AbstractBaseNutrients):
          self.slug = slugify(self.name)      # NOTE will Exception on clashes
       super(Ingredient, self).save(*args, **kwargs)
 
+   # FIXME DEPRECATED: Is this actually used anywhere?
    @cached_property
    def suppliers(self):
       """
@@ -178,7 +179,7 @@ class Ingredient(AbstractBaseNutrients):
    @cached_property
    def lowest_price(self):
       '''
-      Return the price object which has the lowest price-per-kg of
+      Return the Price object which has the lowest price-per-kg of
       this ingredient.
       '''
       Price = apps.get_model('products','Price')
@@ -191,7 +192,7 @@ class Ingredient(AbstractBaseNutrients):
    def best_price(self):
       """
       Return lowest price per kg from all products of this ingredient,
-      as a decimal quantized for display.
+      as a decimal quantized for display (a value, not a Price object)
       """
       # TODO rename this to "display_lowest_price" or something...
       price = self.lowest_price
@@ -237,6 +238,7 @@ class Ingredient(AbstractBaseNutrients):
       """
       Number of products this ingredient has
       """
+      # FIXME: This should be replaced by price_count
       return self.product_set.count()
 
    # FIXME use the inverse of this approach to optimize the
