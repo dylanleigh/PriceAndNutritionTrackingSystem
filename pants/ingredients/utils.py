@@ -27,7 +27,8 @@ def add_nutrition_ratios(data):
             data['protein_per_cost']=data['protein']/data['cost']
          if data['fibre'] is not None:
             data['fibre_per_cost']=data['fibre']/data['cost']
-         data['cost_per_kg']=data['cost']/data['grams']*1000     # FIXME: Redundant for Ingredients
+         if data['grams']:
+            data['cost_per_kg']=data['cost']/data['grams']*1000     # FIXME: Redundant for Ingredients
    except KeyError:
       pass  # no cost data
 
