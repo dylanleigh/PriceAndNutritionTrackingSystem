@@ -117,12 +117,7 @@ class Price(models.Model):
    """
 
    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
-   ingredient = models.ForeignKey(
-      Ingredient,
-      on_delete=models.CASCADE,
-      null=True,                    # FIXME for adding a new field
-      blank=True,                   # Will be set from product when saved/cleaned
-   )
+   ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
    price = models.DecimalField(
       decimal_places=2,
