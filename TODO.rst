@@ -25,12 +25,13 @@ instead of ingredient-*product-*prices just ingredient-prices
 - Data migration to populate new FK [done]
 - Update about page to show stats of new/old FK [done]
 
-- New "pre-release" after data migration
-- Move price admin from inline on product to an inline on ingredient
-- Update properties and filters etc to use Ingredient FK not Product FK
+- New "pre-release" after data migration  [done]
+- Move price admin from inline on product to an inline on ingredient [done]
+- Update properties and filters etc to use Ingredient FK not Product FK [done]
 
-- In a future "pre-release", make Price->Ingredient FK non-nullable and delete the Price->Product FK
-- Update about page to remove product references
+- In a future "pre-release", delete the Price->Product FK [done]
+- Make Price->Ingredient FK non-nullable
+- Update about page to remove product references [done]
 - Remove product (and "brand") at this point?
 
 NData and calculation DRYing (In Progress, blocking further recipe/diary work)
