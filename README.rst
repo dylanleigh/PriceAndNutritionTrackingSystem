@@ -329,7 +329,6 @@ No further user input or manual conversion should be required. The
 details below are mostly for background.
 
 2020-03-19 (v0.92)
-
    Prices are changing from being attached to a Product to directly
    being attached to Ingredient, to simplify both the user interface
    and the code.
