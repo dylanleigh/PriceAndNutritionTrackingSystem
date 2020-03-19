@@ -25,9 +25,9 @@ urlpatterns = [
    # Django-filter list
    # /ingredients/list/<args>/
    url(
-      r'^list/$',
+      r'^filter/$',
       FilterView.as_view(filterset_class=IngredientFilter),
-      name='ingredient-list',
+      name='ingredient-filter',
    ),
 
    # TODO deprecated by above filter /ingredients/tag/<tag>/
