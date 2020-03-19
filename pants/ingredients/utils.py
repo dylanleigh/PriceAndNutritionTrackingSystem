@@ -60,8 +60,9 @@ def add_nutrition_ratios(data):
             data['kj_from_carb']=data['carbohydrate'] * settings.KJ_PER_G_CARB
          if data['fat'] is not None:
             data['kj_from_fat']=data['fat'] * settings.KJ_PER_G_FAT
-      else: # KJ is None
-         data['kilocalories']=None
+      else: # KJ is 0 or None
+         if data['kilojoules'] is not None:     # Both None or
+            data['kilocalories']=0              # Both Zero
    except KeyError:
       data['kilocalories']=None
 
