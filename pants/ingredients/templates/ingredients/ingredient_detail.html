@@ -115,7 +115,8 @@
 <h3>Prices:</h3>
 <ul>
    {% for price in object.sorted_prices %}
-      <li>${{ price.price_per_kg }}/kg - {{ price.supplier.name }}</li>
+      <li>${{ price.price_per_kg }}/kg - {{ price.supplier.name }}
+         (last updated {{ price.updated_at }})</li>
    {% empty %}
       (none)
    {% endfor %}
