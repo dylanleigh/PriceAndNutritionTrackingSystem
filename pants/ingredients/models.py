@@ -167,15 +167,6 @@ class Ingredient(AbstractBaseNutrients):
          self.slug = slugify(self.name)      # NOTE will Exception on clashes
       super(Ingredient, self).save(*args, **kwargs)
 
-   # FIXME DEPRECATED: Is this actually used anywhere?
-   @cached_property
-   def suppliers(self):
-      """
-      Return (qset) stores which stock this ingredient (i.e. a product)
-      """
-      Supplier = apps.get_model('products','Supplier')
-      return Supplier.objects.filter(price__product__ingredient=self)
-
    @cached_property
    def sorted_prices(self):
       '''

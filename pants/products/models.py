@@ -104,8 +104,7 @@ class Product(models.Model):
    @cached_property
    def sorted_prices(self):
       """
-      Returns all prices from all suppliers,
-      annotated with price_per_kg and sorted by it
+      Returns all prices, annotated with price_per_kg and sorted by it
       """
       prices = self.price_set.annotate(
          price_per_kg = F('price') / F('weight')
@@ -115,8 +114,7 @@ class Product(models.Model):
    @cached_property
    def lowest_price(self):
       """
-      Determines the lowest price per kg of all the most recent prices
-      from all suppliers
+      Returns the lowest price object of all the most recent prices
       """
       return self.sorted_prices.first()
 

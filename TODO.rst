@@ -18,8 +18,8 @@ Product model removal (In Progress, blocking most other work)
 - Simplify Ndata and other tasks tasks by removing underused "product" model - if ingredients are close enough to be fungible, only price aspect of product is important
 - Keep prices and suppliers models under the product app, just remove the need for the intermediate model - instead of ingredient-*product-*prices just ingredient-*prices
 - Move price admin from inline on product to an inline on ingredient
-- Keep brand on unused product
-- Update about page to show "ingredients with no prices" instead of products
+- Keep brand on unused product [done]
+- Update about page to show "ingredients with no prices" instead of products [done]
 
 NData and calculation DRYing (In Progress, blocking further recipe/diary work)
 ==============================================================================
