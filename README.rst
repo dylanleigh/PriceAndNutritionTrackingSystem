@@ -55,13 +55,13 @@ In particular PANTS is designed for:
 - Tracking the calories and other nutrients in your food, especially things cooked frequently.
 - Storing a list of recipes, and determining the cost and nutritional values of a recipe. This includes recipes which are used in other recipes (recursively) e.g. a dough recipe and a filling recipe can both be components in a pie recipe.
 - Comparing the cost and nutritional values of different ingredients or recipes (e.g. "What food has the most protein-per-dollar?", "Which of these recipes has the least calories but is still high in fibre?").
-- Long term dietary planning - working out which products or recipes you want to include regularly in your diet, based on cost and other factors.
+- Long term dietary planning - working out which ingredients or recipes you want to include regularly in your diet, based on cost and other factors.
 
 PANTS is *not* ideal for:
 
 - Tracking takeaway/restaraunt meals or prepackaged snack foods (rather than stuff you prepare yourself from basic ingredients)
 - Determing the best place to buy a shopping list of items (cost is not designed to be updated regularly or automatically, it is there for long-term planning).
-- Comparing the cost of products across different regions.
+- Comparing the cost of ingredients across different regions.
 
 Overview and Features
 =====================
@@ -89,16 +89,6 @@ Targets
    reach each day. As well as daily targets you can also set targets
    for particular meals (e.g. a pre/post workout meal), or special
    days.
-
-Products
-   DEPRECATED: This feature is underused, redundant and is being
-   phased out, with Prices to directly apply to Ingredients soon, and
-   the ability to mark an Ingredient as a brand-specific version of
-   another, more generic ingredient.
-
-   Specific versions of an ingredient like "Supermarket X's Own
-   Brand Skim Milk". *Products* are available from *Suppliers* at
-   specified *Prices*.
 
 Some example screenshots can be seen at https://github.com/dylanleigh/PriceAndNutritionTrackingSystem/tree/master/screenshots
 
@@ -136,7 +126,7 @@ Repurposing Recursive Recipes
 
 PANTS doesn't make assumptions or guesses
    It is preferable to show no data instead of wrong data. If an ingredient has
-   something missing (e.g. no fibre listed, no product so no prices), any
+   something missing (e.g. no fibre listed, no prices), any
    derived statistics will also be missing (e.g. no fibre-per-kj, or no
    protein-per-$ if there is no price). This also means that recipes
    which use that ingredient will not show a value for the sum of fibre
@@ -166,7 +156,7 @@ Micronutrients
    be readded in a more stable way (see roadmap for details).
 
 Per-user and global data
-   Diary is per-user, but ingredient/product/recipe are global. There
+   Diary is per-user, but ingredient/recipe are global. There
    are plans to add per-user recipes but this is very far down the
    roadmap as the focus is on adding features for personal use (it
    wouldn't be complex however).
@@ -266,8 +256,7 @@ Starting data entry
 You will need to log in as an admin user (at
 http://127.0.0.1:8000/adminbackend/ ) to start creating initial
 ingredients, and then recipes which use those ingredients (and recipes
-which use those recipes...) To show cost data products need to be
-added for each ingredient.
+which use those recipes...)
 
 The about page will show some basic DB stats, including the count of
 ingredients which are missing nutritional data and other potential
