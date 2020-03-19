@@ -11,8 +11,9 @@
    <dt> {{ ing_count }} Ingredients</dt>
    <dd> <i><b>{{ ing_count_no_kj }} ingredients</b> with missing KJ (probably missing all nutrients)</i></dd>
    <dd> <i><b>{{ ing_count_no_price }} ingredients</b> with no prices recorded</i></dd>
-   <dd> {{ price_count }} Prices from {{ supplier_count }} Suppliers</dd>
-   <dd> {{ prod_count }} Products</dd>
+   <dt> {{ price_count }} Prices from {{ supplier_count }} Suppliers</dt>
+   <dd> <i><b>{{ price_count_no_ing }} prices</b> with no ingredient (not migrated to new schema)</i></dd>
+   <dd> {{ prod_count }} Products (deprecated)</dd>
    <dt> {{ recipe_count }} Recipes</dt>
    <dd> {{ recipe_count_sub_rec }} recipes which use another recipe as a component</dd>
    <dt> {{ diary_count }} Total Diary-Food entries<dt>

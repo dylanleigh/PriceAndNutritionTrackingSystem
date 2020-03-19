@@ -52,9 +52,8 @@ def about(request):
    # Define QS we will use multiple times
    all_ings = Ingredient.objects.all()
    all_rec = Recipe.objects.all()
+   all_price = Price.objects.all()
    all_prod = Product.objects.all()
-   all_diary = DiaryFood.objects.all()
-   all_targ = Target.objects.all()
 
    context = {
       'ing_count': all_ings.count(),
@@ -62,14 +61,16 @@ def about(request):
       'ing_count_no_price': all_ings.filter(product__price__isnull=True).count(),
       # TODO: Do single-product and multiple-product with aggregate count
 
-      'price_count': Price.objects.count(),
+      'price_count': all_price.count(),
+      'price_count_no_ing': all_price.filter(ingredient__isnull=True).count(),
       'supplier_count': Supplier.objects.count(),
 
       'recipe_count': all_rec.count(),
       'recipe_count_sub_rec': all_rec.filter(components__of_recipe__isnull=False).distinct().count(),
 
-      'diary_count': all_diary.count(),
-      'target_count': all_targ.count(),      # TODO show more stats on these
+      # TODO show more stats on these
+      'diary_count': DiaryFood.objects.count(),
+      'target_count': Target.objects.count(),
 
       'prod_count': all_prod.count(),
    }
