@@ -13,26 +13,14 @@ Urgent / Important
 - Fix all the FIXMEs in the code (see "make fixme" output) (most of these now relate to the NData work)
 - Proper non-admin login/logout pages - can't login without admin interface
 
-Product model removal (In Progress, blocking most other work)
-=============================================================
-Simplify Ndata and other tasks by removing redundant "product"
-model - if ingredients are close enough to be fungible, only price
-aspect of product is important. Making Prices directly applicable to
-Ingredients simplifies the UI and Code.
+Product model removal (Completed 2020-03-20)
+============================================
 
-- Add a nullable FK from Price->Ingredient [done]
-- Data migration to populate new FK [done]
-- Update about page to show stats of new/old FK [done]
+Simplify Ndata, Diary and Ingredient by removing redundant "product"
+model - if ingredients are close enough to be interchangable, only
+price aspect of product is important anyway. Making Prices directly
+applicable to Ingredients simplifies the UI and Code.
 
-- New "pre-release" after data migration  [done]
-- Move price admin from inline on product to an inline on ingredient [done]
-- Update properties and filters etc to use Ingredient FK not Product FK [done]
-
-- In a future "pre-release", delete the Price->Product FK [done]
-- Update about page to remove product references [done]
-- Make Price->Ingredient FK non-nullable
-
-- Remove actual product model (and "brand") at this point, or just leave alone?
 
 NData and calculation DRYing (In Progress, blocking further recipe/diary work)
 ==============================================================================
