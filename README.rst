@@ -327,6 +327,29 @@ running the following commands::
 No further user input or manual conversion should be required. The
 details below are mostly for background.
 
+2020-03-20 (v0.93)
+   Following on from yesterday's changes, Price has now been fully
+   detached from Product. This update also changes Prices to require an
+   Ingredient set (during the migration, this was optional to allow
+   data to be migrated automatically).
+
+   If there are errors applying this migration it is probably because
+   there are Price objects which don't have an Ingredient. The last
+   version should have converted all the old ones automatically, and
+   converted any new ones created in the admin when they were saved.
+   However, if by some chance you have any corrupt prices not linked to
+   an ingredient, these will have to be deleted for the migration to
+   work.
+
+   The product model still exists, but is now deprecated; it has no 
+   current purpose except to associate brand names with ingredients.
+   If you don't care about that (it's not visible outside the
+   admin anyway), products can be all safely deleted via the admin
+   interface (use the checkbox to "select all" and then drop-down action
+   box to "delete selected"). They should not have any performance
+   effects from leaving them there, as no calculations use products
+   anymore.
+
 2020-03-19 (v0.92)
    Prices are changing from being attached to a Product to directly
    being attached to Ingredient, to simplify both the user interface
