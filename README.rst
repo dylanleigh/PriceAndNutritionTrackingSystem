@@ -6,7 +6,7 @@ Price And Nutrition Tracking System
 Note for Current Users
 ======================
 
-Significant DB changes have been made recently (2020-03-19) and you
+Significant DB changes have been made recently (2020-03-20) and you
 will need to migrate your recipe data by running './manage.py migrate'
 - see the "Schema Changes" subsection below for more details.
 
@@ -66,7 +66,7 @@ PANTS is *not* ideal for:
 Overview and Features
 =====================
 
-There are 5 basic sections of the system:
+There are 4 basic sections of the system:
 
 Ingredients
    Generic ingredients, like "Rolled Oats", "Green Split Peas",
@@ -87,8 +87,7 @@ Diary
 Targets
    Minimum and Maximum nutritional and cost values you are aiming to
    reach each day. As well as daily targets you can also set targets
-   for particular meals (e.g. a pre/post workout meal), or special
-   days.
+   for particular meals (e.g. a pre/post workout meal), or special days.
 
 Some example screenshots can be seen at https://github.com/dylanleigh/PriceAndNutritionTrackingSystem/tree/master/screenshots
 
@@ -232,8 +231,8 @@ user who can log in and create the initial ingredients, recipes etc::
    ./manage.py migrate
    ./manage.py createsuperuser
 
-Starting
---------
+Starting the Server
+-------------------
 
 To run the server locally and access it via a browser::
 
@@ -370,6 +369,17 @@ details below are mostly for background.
 
 Removed Features
 ----------------
+
+Products (partially)
+   After the nutrient model was merged into Ingredient, Product lost
+   it's ability to have separate nutrient data, and it was just a
+   redundant way of linking prices to ingredients, which is now done
+   directly.
+
+   The product model still exists in the admin, but currently has no
+   purpose except to associate brand names with an ingredient.
+   It may be used again in the future for storing further data about a
+   specific branded product.
 
 Collections
    Never properly implemented; need for this is reduced by heavier
