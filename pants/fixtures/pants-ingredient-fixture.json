@@ -3,119 +3,136 @@
    "model": "ingredients.ingredienttag",
    "pk": 1,
    "fields": {
-      "name": "vegetable"
+      "name": "vegetable",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 2,
    "fields": {
-      "name": "grain"
+      "name": "grain",
+      "description": "Includes wholegrains and ground grain products (flours etc)"
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 3,
    "fields": {
-      "name": "pulse-legume"
+      "name": "pulse-legume",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 4,
    "fields": {
-      "name": "meat"
+      "name": "meat",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 5,
    "fields": {
-      "name": "nuts-seeds"
+      "name": "nuts-seeds",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 6,
    "fields": {
-      "name": "dairy"
+      "name": "dairy",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 7,
    "fields": {
-      "name": "flour-meal"
+      "name": "flour-meal",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 8,
    "fields": {
-      "name": "supplement"
+      "name": "supplement",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 9,
    "fields": {
-      "name": "bran"
+      "name": "bran",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 10,
    "fields": {
-      "name": "fats-oils"
+      "name": "fats-oils",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 11,
    "fields": {
-      "name": "snacks"
+      "name": "snacks",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 12,
    "fields": {
-      "name": "cereal"
+      "name": "cereal",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 13,
    "fields": {
-      "name": "herb-spice-flavour"
+      "name": "herb-spice-flavour",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 14,
    "fields": {
-      "name": "fruit"
+      "name": "fruit",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 16,
    "fields": {
-      "name": "drinks"
+      "name": "drinks",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 17,
    "fields": {
-      "name": "pastry-making"
+      "name": "pastry-making",
+      "description": ""
    }
 },
 {
    "model": "ingredients.ingredienttag",
    "pk": 18,
    "fields": {
-      "name": "ready-meal"
+      "name": "ready-meal",
+      "description": ""
    }
 },
 {
@@ -223,7 +240,7 @@
       "saturatedfat": "0.000",
       "sodium": "40",
       "created_at": "2017-07-09T09:26:24.116Z",
-      "updated_at": "2018-01-30T15:14:09.655Z",
+      "updated_at": "2020-03-19T15:35:46.860Z",
       "name": "Rye Groats",
       "slug": "rye-groats",
       "description": "",
@@ -716,11 +733,11 @@
       "saturatedfat": "86.000",
       "sodium": "2600",
       "created_at": "2017-07-14T05:15:14.396Z",
-      "updated_at": "2019-06-16T17:49:18.148Z",
+      "updated_at": "2020-02-05T12:25:43.435Z",
       "name": "Cocoa Powder",
       "slug": "cocoa-powder",
-      "description": "",
-      "serving": null,
+      "description": "~120g per cup?",
+      "serving": "120.0",
       "tags": [
          3,
          13,
@@ -1003,11 +1020,11 @@
       "saturatedfat": "27.000",
       "sodium": "1340",
       "created_at": "2017-07-15T18:16:21.799Z",
-      "updated_at": "2019-06-15T10:39:20.354Z",
+      "updated_at": "2020-01-26T15:11:16.664Z",
       "name": "Whole Egg (raw)",
       "slug": "whole-egg-raw",
       "description": "1 egg ~ 52g without shell",
-      "serving": null,
+      "serving": "51.0",
       "tags": [
          17
       ]
@@ -1049,11 +1066,11 @@
       "saturatedfat": "133.000",
       "sodium": "0",
       "created_at": "2017-07-17T17:06:06.843Z",
-      "updated_at": "2018-01-30T15:14:09.784Z",
+      "updated_at": "2020-01-26T15:11:31.479Z",
       "name": "Extra Virgin Olive Oil",
       "slug": "extra-virgin-olive-oil",
-      "description": "",
-      "serving": null,
+      "description": "18g per tablespoon?",
+      "serving": "18.0",
       "tags": [
          10
       ]
@@ -1166,11 +1183,11 @@
       "saturatedfat": "0.000",
       "sodium": "20",
       "created_at": "2017-07-18T20:59:26.572Z",
-      "updated_at": "2019-06-15T10:38:34.345Z",
+      "updated_at": "2020-02-05T12:40:03.675Z",
       "name": "Sugar",
       "slug": "sugar",
-      "description": "",
-      "serving": null,
+      "description": "approx 200g per cup of caster or brown sugar",
+      "serving": "200.0",
       "tags": [
          17
       ]
@@ -1652,7 +1669,7 @@
       "saturatedfat": "40.000",
       "sodium": "10",
       "created_at": "2017-07-26T23:51:25.106Z",
-      "updated_at": "2018-01-30T15:14:09.879Z",
+      "updated_at": "2020-03-19T14:59:59.635Z",
       "name": "Chia Seeds",
       "slug": "chia-seeds",
       "description": "",
@@ -3413,19 +3430,19 @@
    "model": "ingredients.ingredient",
    "pk": 144,
    "fields": {
-      "kilojoules": null,
-      "protein": null,
-      "fibre": null,
-      "carbohydrate": null,
-      "fat": null,
-      "sugar": null,
-      "saturatedfat": null,
-      "sodium": null,
+      "kilojoules": "16070.0",
+      "protein": "113.000",
+      "fibre": "116.000",
+      "carbohydrate": "741.000",
+      "fat": "1.000",
+      "sugar": "46.000",
+      "saturatedfat": "0.000",
+      "sodium": "11",
       "created_at": "2018-09-06T09:06:36.358Z",
-      "updated_at": "2018-09-06T09:06:36.358Z",
+      "updated_at": "2020-02-12T05:22:49.815Z",
       "name": "Beetroot Powder",
       "slug": "beetroot-powder",
-      "description": "",
+      "description": "fibre calc from whole beetroot",
       "serving": null,
       "tags": [
          1,
@@ -3978,7 +3995,7 @@
    "pk": 168,
    "fields": {
       "kilojoules": "16602.0",
-      "protein": "800.000",
+      "protein": "720.000",
       "fibre": "30.000",
       "carbohydrate": "80.000",
       "fat": "50.000",
@@ -3986,10 +4003,10 @@
       "saturatedfat": "30.000",
       "sodium": "800",
       "created_at": "2019-03-01T16:03:55.687Z",
-      "updated_at": "2019-04-02T11:49:08.150Z",
+      "updated_at": "2020-01-26T11:13:33.166Z",
       "name": "Soy Granules",
       "slug": "soy-granules",
-      "description": "(defatted) (as used in indian cooking)",
+      "description": "(defatted) (as used in indian cooking) (protein avg of listed 80 vs DB 55)",
       "serving": null,
       "tags": [
          3
@@ -4372,18 +4389,18 @@
    "model": "ingredients.ingredient",
    "pk": 185,
    "fields": {
-      "kilojoules": null,
-      "protein": null,
-      "fibre": null,
-      "carbohydrate": null,
-      "fat": null,
-      "sugar": null,
-      "saturatedfat": null,
-      "sodium": null,
+      "kilojoules": "16900.0",
+      "protein": "0.000",
+      "fibre": "0.000",
+      "carbohydrate": "99.600",
+      "fat": "0.000",
+      "sugar": "95.600",
+      "saturatedfat": "0.000",
+      "sodium": "0",
       "created_at": "2019-06-17T07:07:21.978Z",
-      "updated_at": "2019-06-17T07:07:21.978Z",
-      "name": "Icing (Confectioners) Sugar",
-      "slug": "icing-confectioners-sugar",
+      "updated_at": "2020-03-07T12:28:49.103Z",
+      "name": "Icing Sugar (Mixture)",
+      "slug": "icing-sugar-mixture",
       "description": "",
       "serving": null,
       "tags": [
@@ -4805,9 +4822,9 @@
       "saturatedfat": "94.000",
       "sodium": "210",
       "created_at": "2019-08-31T14:55:49.072Z",
-      "updated_at": "2019-08-31T14:55:49.072Z",
-      "name": "Tahini",
-      "slug": "tahini",
+      "updated_at": "2020-03-19T13:27:45.253Z",
+      "name": "Tahini (hulled)",
+      "slug": "tahini-hulled",
       "description": "Hulled Tahini",
       "serving": null,
       "tags": [
@@ -4922,8 +4939,8 @@
       "saturatedfat": "4.000",
       "sodium": "280",
       "created_at": "2019-09-13T10:08:18.716Z",
-      "updated_at": "2019-09-13T10:08:18.716Z",
-      "name": "Burgul (brown)",
+      "updated_at": "2020-03-19T15:38:36.013Z",
+      "name": "Bulgur (brown)",
       "slug": "burgul-brown",
       "description": "",
       "serving": "45.0",
@@ -4946,10 +4963,10 @@
       "saturatedfat": "9.000",
       "sodium": "600",
       "created_at": "2019-09-25T11:51:23.573Z",
-      "updated_at": "2019-09-25T11:51:23.573Z",
-      "name": "Yeast (sachet)",
+      "updated_at": "2020-03-19T14:35:16.659Z",
+      "name": "Yeast (active-dry/granulated)",
       "slug": "yeast-sachet",
-      "description": "",
+      "description": "7g = 1 sachet = 2 tsp",
       "serving": "7.0",
       "tags": []
    }
@@ -5162,6 +5179,148 @@
       "serving": "100.0",
       "tags": [
          1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 219,
+   "fields": {
+      "kilojoules": "11400.0",
+      "protein": "344.000",
+      "fibre": "0.000",
+      "carbohydrate": "5.000",
+      "fat": "150.000",
+      "sugar": "2.500",
+      "saturatedfat": "90.000",
+      "sodium": "6000",
+      "created_at": "2020-01-22T01:55:42.190Z",
+      "updated_at": "2020-01-27T04:02:14.292Z",
+      "name": "Extra Light (50%R) Tasty Cheese",
+      "slug": "extra-light-50r-tasty-cheese",
+      "description": "50% Reduced Bega Brand \"Country Light\" - 1 pinch = 7g",
+      "serving": "7.0",
+      "tags": [
+         6
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 220,
+   "fields": {
+      "kilojoules": "9590.0",
+      "protein": "56.000",
+      "fibre": "59.000",
+      "carbohydrate": "315.000",
+      "fat": "76.000",
+      "sugar": "55.000",
+      "saturatedfat": "5.000",
+      "sodium": "3200",
+      "created_at": "2020-01-24T11:49:08.578Z",
+      "updated_at": "2020-01-24T11:49:08.578Z",
+      "name": "Veggie Burger Pattie (chickpea)",
+      "slug": "veggie-burger-pattie-chickpea",
+      "description": "(Macro, Pre-made)",
+      "serving": "125.0",
+      "tags": [
+         1,
+         3,
+         11,
+         18
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 221,
+   "fields": {
+      "kilojoules": "0.0",
+      "protein": "0.000",
+      "fibre": "0.000",
+      "carbohydrate": "0.000",
+      "fat": "0.000",
+      "sugar": "0.000",
+      "saturatedfat": "0.000",
+      "sodium": "387580",
+      "created_at": "2020-02-05T12:42:38.530Z",
+      "updated_at": "2020-02-05T12:42:38.531Z",
+      "name": "Salt",
+      "slug": "salt",
+      "description": "",
+      "serving": null,
+      "tags": []
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 222,
+   "fields": {
+      "kilojoules": "22400.0",
+      "protein": "75.000",
+      "fibre": "35.000",
+      "carbohydrate": "584.000",
+      "fat": "298.000",
+      "sugar": "571.000",
+      "saturatedfat": "187.000",
+      "sodium": "750",
+      "created_at": "2020-02-07T09:09:32.063Z",
+      "updated_at": "2020-02-07T09:11:57.649Z",
+      "name": "Milk Chocolate",
+      "slug": "milk-chocolate",
+      "description": "(cadbury; fibre est)",
+      "serving": "50.0",
+      "tags": [
+         11,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 223,
+   "fields": {
+      "kilojoules": "11900.0",
+      "protein": "126.000",
+      "fibre": "336.000",
+      "carbohydrate": "320.000",
+      "fat": "45.000",
+      "sugar": "23.000",
+      "saturatedfat": "5.000",
+      "sodium": "50",
+      "created_at": "2020-02-19T17:32:42.604Z",
+      "updated_at": "2020-02-19T17:33:24.902Z",
+      "name": "Natural Wheat Bran",
+      "slug": "natural-wheat-bran",
+      "description": "",
+      "serving": null,
+      "tags": [
+         2,
+         9
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 224,
+   "fields": {
+      "kilojoules": "25300.0",
+      "protein": "254.000",
+      "fibre": "160.000",
+      "carbohydrate": "20.000",
+      "fat": "516.000",
+      "sugar": "19.000",
+      "saturatedfat": "80.000",
+      "sodium": "110",
+      "created_at": "2020-03-19T13:24:09.677Z",
+      "updated_at": "2020-03-19T14:10:57.526Z",
+      "name": "Tahini (unhulled)",
+      "slug": "tahini-unhulled",
+      "description": "",
+      "serving": null,
+      "tags": [
+         5,
+         10
       ]
    }
 }
