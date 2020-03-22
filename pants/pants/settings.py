@@ -133,6 +133,7 @@ STATIC_URL = '/static/'
 # Added settings below here....
 
 LOGIN_URL = '/wearpants/'
+LOGIN_REDIRECT_URL = 'website-index'
 
 # Constants used for nutritional calculations
 # DO NOT EDIT THESE

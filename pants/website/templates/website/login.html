@@ -1,16 +1,18 @@
 {% extends 'pants/base.html' %}
 
 {% block title %}
-<title>Login - Price And Nutrition Tabulation System</title>
+<title>Login - Price And Nutrition Tracking System</title>
 {% endblock %}
 
 {% block headline %}
-<h1>Login - Price And Nutrition Tabulation System</h1>
+<h1>Login - Price And Nutrition Tracking System</h1>
 {% endblock %}
 
 {% block content %}
-
-<p>You must login via the admin interface before continuing.</p>
-
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
 {% endblock %}
 
