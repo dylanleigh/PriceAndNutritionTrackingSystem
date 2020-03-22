@@ -149,7 +149,7 @@ KJ_PER_G_FAT = Decimal(37.7)
 
 # Ratio of protein used for synthesis vs used for energy.
 # This varies with the amount of excess protein in the diet and
-# exercise but we are assuming 75% for the moment (FIXME: add refs here)
+# exercise but we are assuming 50-75% for the moment (FIXME: add refs here)
 # This MUST be between 0 and 1.
 # Affects "Rank" calculation
 PROT_SYNTH_FACTOR = Decimal(0.6)
