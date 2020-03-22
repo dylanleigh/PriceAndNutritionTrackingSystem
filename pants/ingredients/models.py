@@ -233,12 +233,11 @@ class Ingredient(AbstractBaseNutrients):
          return 0
 
    @cached_property
-   def product_count(self):
+   def price_count(self):
       """
       Number of products this ingredient has
       """
-      # FIXME XXX: This should be replaced by price_count in most use cases now
-      return self.product_set.count()
+      return self.price_set.count()
 
    # FIXME use the inverse of this approach to optimize the
    # recipe/quantity nutrition_data!
