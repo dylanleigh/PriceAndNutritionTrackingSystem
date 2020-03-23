@@ -171,13 +171,19 @@ class Ingredient(AbstractBaseNutrients):
    def sorted_prices(self):
       '''
       Return all the prices of this ingredient, annotated by
-      price_per_kg, and sorted by it.
+      cents_per_kg, and sorted by it.
       '''
+      # XXX: If both values are whole numbers, SQLite will silently assume
+      # integer division in an F(), possibly discarding a remainder of
+      # cents and producing erroneous results. Hence we need to
+      # multiply by 100 to ensure the cents are preserved if that
+      # happens.
+
       Price = apps.get_model('products','Price')
       prices = Price.objects.filter(ingredient=self).annotate(
-         price_per_kg = F('price') / F('weight')
+         cents_per_kg = F('price') * 100 / F('weight')
       )
-      return prices.order_by('price_per_kg')
+      return prices.order_by('cents_per_kg')
 
    @cached_property
    def lowest_price(self):
