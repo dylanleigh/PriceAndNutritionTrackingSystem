@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.models import F
 from django.template.defaultfilters import slugify
 from django.utils.functional import cached_property
 from django.core.exceptions import ValidationError
@@ -89,23 +88,6 @@ class Product(models.Model):
       if not self.slug:
          self.slug = slugify("%s_%s"%(self.brand, self.name)) # NOTE will Exception on clash
       super(Product, self).save(*args, **kwargs)
-
-   @cached_property
-   def sorted_prices(self):
-      """
-      Returns all prices, annotated with price_per_kg and sorted by it
-      """
-      prices = self.ingredient.price_set.annotate(
-         price_per_kg = F('price') / F('weight')
-      )
-      return prices.order_by('price_per_kg')
-
-   @cached_property
-   def lowest_price(self):
-      """
-      Returns the lowest price object of all the most recent prices
-      """
-      return self.sorted_prices.first()
 
 
 class Price(models.Model):
