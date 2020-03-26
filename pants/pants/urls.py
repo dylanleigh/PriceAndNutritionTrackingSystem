@@ -16,11 +16,12 @@ Including another URLconf
 from django.conf.urls import include,url
 from django.contrib import admin
 from website import views as website
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^$', website.index, name='website-index'),
-    url(r'^wearpants/', website.login, name='website-login'),
-    #url(r'^logout/', website.login, name='website-logout'),  # FIXME
+    url(r'^wearpants/', auth_views.LoginView.as_view(template_name='website/login.html'), name='website-login'),
+    url(r'^logout/', auth_views.LogoutView.as_view(template_name="website/logout.html"), name='website-logout'),
     url(r'^about/', website.about, name='website-about'),
 
     url(r'^diary/', include('diary.urls')),
