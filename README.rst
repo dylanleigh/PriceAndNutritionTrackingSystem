@@ -3,12 +3,12 @@
 Price And Nutrition Tracking System
 ===================================
 
-Note for Current Users
-======================
+Note for Current Users - DB Changes when Upgrading
+==================================================
 
-Significant DB changes have been made recently (2020-03-20) and you
-will need to migrate your recipe data by running './manage.py migrate'
-- see the "Schema Changes" subsection below for more details.
+Significant DB changes have been made recently (2020-04-02) and you
+will need to migrate your database by running './manage.py migrate' -
+see the "Schema Changes" subsection below for more details.
 
 Introduction
 ============
