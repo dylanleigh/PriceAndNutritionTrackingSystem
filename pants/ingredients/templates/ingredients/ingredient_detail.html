@@ -25,6 +25,16 @@
 
 <p>Typical serving size (g): {{object.serving}}</p>
 
+{% if object.introduction %}
+   <div class="w3-card-4 w3-container">
+      <h3>Introduction:</h3>
+      <p>
+         {{object.introduction|linebreaks}}
+      </p>
+   </div>
+{% endif %}
+
+<div class="w3-card-4 w3-container">
 <h3>Nutrition Data:</h3>
 <table class="w3-table-all w3-hoverable">
    {% with object.nutrition_data as ndata %}
@@ -102,27 +112,39 @@
       {% endif %}
    {% endwith %}
 </table>
+</div>
 
-<h3>Used in Recipes:</h3>
-<ul>
-   {% for slug,name in object.used_in_recipes.items %}
-      <li><a href="{% url 'recipe-detail' slug %}">{{ name }}</a></li>
-   {% empty %}
-      (none)
-   {% endfor %}
-</ul>
+{% if object.notes %}
+   <div class="w3-card-4 w3-container">
+      <h3>Notes:</h3>
+      <p>
+         {{object.notes|linebreaks}}
+      </p>
+   </div>
+{% endif %}
 
+<div class="w3-card-4 w3-container">
 <h3>Prices:</h3>
 <ul>
    {% for price in object.sorted_prices %}
       <li>${{ price.per_kg|floatformat:2 }}/kg - {{ price.supplier.name }}
          (last updated {{ price.updated_at }})</li>
    {% empty %}
-      (none)
+      No prices listed.
    {% endfor %}
 </ul>
+</div>
 
-<hr>
+<div class="w3-card-4 w3-container">
+<h3>Used in Recipes:</h3>
+<ul>
+   {% for slug,name in object.used_in_recipes.items %}
+      <li><a href="{% url 'recipe-detail' slug %}">{{ name }}</a></li>
+   {% empty %}
+      Not used in any recipes.
+   {% endfor %}
+</ul>
+</div>
 
 {% endblock %}
 
