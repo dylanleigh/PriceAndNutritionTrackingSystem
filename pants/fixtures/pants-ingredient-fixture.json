@@ -67,7 +67,7 @@
    "model": "ingredients.ingredienttag",
    "pk": 9,
    "fields": {
-      "name": "bran",
+      "name": "bran-germ",
       "description": ""
    }
 },
@@ -153,6 +153,8 @@
       "slug": "green-split-peas",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -176,6 +178,8 @@
       "slug": "red-split-lentils",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -199,6 +203,8 @@
       "slug": "soy-grits",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -222,6 +228,8 @@
       "slug": "wheat-groats",
       "description": "aka Wheatberries, Wheat Grain, Cleaned Wheat etc",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -245,6 +253,8 @@
       "slug": "rye-groats",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -268,6 +278,8 @@
       "slug": "buckwheat-groats",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -291,6 +303,8 @@
       "slug": "yellow-split-peas",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -314,6 +328,8 @@
       "slug": "leaf-salad",
       "description": "Spinach, Red/Green Oak Lettuce, Red/Green Coral Lettuce etc",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -337,6 +353,8 @@
       "slug": "pearl-barley",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -360,6 +378,8 @@
       "slug": "puffed-corn",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          11,
          12
@@ -379,11 +399,13 @@
       "saturatedfat": "0.000",
       "sodium": "16",
       "created_at": "2017-07-10T14:23:10.546Z",
-      "updated_at": "2020-01-12T00:27:09.452Z",
-      "name": "Gluten Concentrated Flour",
+      "updated_at": "2020-04-02T12:25:28.755Z",
+      "name": "Gluten Flour (~<75% G)",
       "slug": "gluten-concentrated-flour",
       "description": "May be sold as gluten flour or gluten powder",
       "serving": null,
+      "introduction": "As used for Seitan, often available from Vegan shops.",
+      "notes": "75% Protein is not necessarily all gluten proteins, but seems to be an adequate assumption for converting plain flour to strong bread flour.",
       "tags": [
          7,
          8
@@ -408,6 +430,8 @@
       "slug": "flaxmeal",
       "description": "NOT flax flour!",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          7,
@@ -433,6 +457,8 @@
       "slug": "soy-flour",
       "description": "variation may be high",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3,
          7
@@ -457,6 +483,8 @@
       "slug": "unflavoured-pea-protein-powder",
       "description": "Unflavoured / Pure",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          8
       ]
@@ -480,6 +508,8 @@
       "slug": "rolled-oats",
       "description": "40g per half cup",
       "serving": "40.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          12,
@@ -500,11 +530,13 @@
       "saturatedfat": "5.000",
       "sodium": "2",
       "created_at": "2017-07-12T19:30:20.364Z",
-      "updated_at": "2019-06-15T10:38:22.432Z",
-      "name": "Plain Wheat Flour",
-      "slug": "plain-wheat-flour",
-      "description": "Not raising, not wholemeal",
+      "updated_at": "2020-03-22T07:43:48.816Z",
+      "name": "Plain Wheat Flour (all-purpose)",
+      "slug": "plain-wheat-flour-all-purpose",
+      "description": "Not raising, not wholemeal, all-purpose flour",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          7,
@@ -530,6 +562,8 @@
       "slug": "raw-carrot",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -553,6 +587,8 @@
       "slug": "frozen-spinach",
       "description": "1 whole cube ~= 24g; 1 serve = 2 cubes",
       "serving": "48.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -576,6 +612,8 @@
       "slug": "unflavoured-pea-protein-isolate",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          8
       ]
@@ -599,6 +637,8 @@
       "slug": "unflavoured-rice-protein-isolate",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          8
       ]
@@ -622,6 +662,8 @@
       "slug": "unflavoured-soy-protein-isolate",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          8
       ]
@@ -645,6 +687,8 @@
       "slug": "raw-broccoli",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -668,6 +712,8 @@
       "slug": "onions-choppedsliced",
       "description": "1 large 207g after peeling and chopping",
       "serving": "207.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -691,6 +737,8 @@
       "slug": "tomato-paste",
       "description": "Variation may be high due to concentration",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -714,6 +762,8 @@
       "slug": "unflavoured-whey-protein-isolate",
       "description": "1 scoop per serving here (packet says 1+1/3 = 30g)",
       "serving": "22.5",
+      "introduction": "",
+      "notes": "",
       "tags": [
          6,
          8
@@ -738,6 +788,8 @@
       "slug": "cocoa-powder",
       "description": "~120g per cup?",
       "serving": "120.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          3,
          13,
@@ -763,6 +815,8 @@
       "slug": "skim-milk",
       "description": "(",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6,
          16,
@@ -783,11 +837,13 @@
       "saturatedfat": "18.000",
       "sodium": "280",
       "created_at": "2017-07-14T21:19:21.975Z",
-      "updated_at": "2019-08-12T13:36:23.356Z",
+      "updated_at": "2020-03-23T00:24:44.099Z",
       "name": "Unprocessed Wheat Bran",
       "slug": "unprocessed-wheat-bran",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          9
@@ -807,11 +863,13 @@
       "saturatedfat": "20.000",
       "sodium": "25",
       "created_at": "2017-07-14T21:23:48.041Z",
-      "updated_at": "2019-08-12T13:36:17.898Z",
+      "updated_at": "2020-03-27T08:47:21.676Z",
       "name": "Oat Bran",
       "slug": "oat-bran",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          9
@@ -831,11 +889,13 @@
       "saturatedfat": "12.000",
       "sodium": "2750",
       "created_at": "2017-07-14T21:37:25.239Z",
-      "updated_at": "2019-08-12T13:36:12.411Z",
-      "name": "Processed Wheat Bran",
+      "updated_at": "2020-03-30T16:15:13.436Z",
+      "name": "Wheat Bran Sticks (Processed Bran)",
       "slug": "processed-wheat-bran",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          9,
@@ -861,6 +921,8 @@
       "slug": "toasted-museli",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          11,
          12
@@ -885,6 +947,8 @@
       "slug": "pepitas-pumpkin-kernels",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -908,6 +972,8 @@
       "slug": "butter",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6,
          10,
@@ -933,6 +999,8 @@
       "slug": "beef-mince-regular",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          4
       ]
@@ -956,6 +1024,8 @@
       "slug": "beef-mince-premium",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          4
       ]
@@ -979,6 +1049,8 @@
       "slug": "chicken-breast-grilled",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          4
       ]
@@ -1002,6 +1074,8 @@
       "slug": "chicken-legs-no-skin-or-bone",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          4
       ]
@@ -1025,6 +1099,8 @@
       "slug": "whole-egg-raw",
       "description": "1 egg ~ 52g without shell",
       "serving": "51.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          17
       ]
@@ -1048,6 +1124,8 @@
       "slug": "whole-green-lentils",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -1071,6 +1149,8 @@
       "slug": "extra-virgin-olive-oil",
       "description": "18g per tablespoon?",
       "serving": "18.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          10
       ]
@@ -1094,6 +1174,8 @@
       "slug": "sunflower-seeds",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -1117,6 +1199,8 @@
       "slug": "sesame-seeds",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -1140,6 +1224,8 @@
       "slug": "poppy-seeds",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -1163,6 +1249,8 @@
       "slug": "almond-meal",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          7,
@@ -1188,6 +1276,8 @@
       "slug": "sugar",
       "description": "approx 200g per cup of caster or brown sugar",
       "serving": "200.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          17
       ]
@@ -1211,6 +1301,8 @@
       "slug": "egg-white",
       "description": "1 large egg, white only ~= 33g",
       "serving": "33.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          17
       ]
@@ -1234,6 +1326,8 @@
       "slug": "soy-sauce",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          13
       ]
@@ -1252,11 +1346,13 @@
       "saturatedfat": "2.000",
       "sodium": "3550",
       "created_at": "2017-07-18T21:30:20.149Z",
-      "updated_at": "2018-01-30T15:14:09.813Z",
+      "updated_at": "2020-03-30T01:41:00.689Z",
       "name": "Minced Garlic",
       "slug": "minced-garlic",
       "description": "Fibre - listed as 0 but likely wrong",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          13
       ]
@@ -1280,6 +1376,8 @@
       "slug": "butternut-pumpkin",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -1303,6 +1401,8 @@
       "slug": "sweet-potato",
       "description": "Orange flesh varieties",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -1326,6 +1426,8 @@
       "slug": "zucchini",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -1349,6 +1451,8 @@
       "slug": "soy-beans-yellowmature-dried",
       "description": "Yellow/Mature, dried beans",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -1372,6 +1476,8 @@
       "slug": "brown-rice",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -1395,6 +1501,8 @@
       "slug": "black-quinoa",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -1418,6 +1526,8 @@
       "slug": "bourghal-brown-fine-pb",
       "description": "Note: Confirmed 18% Fibre accurate",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -1441,6 +1551,8 @@
       "slug": "oat-groats",
       "description": "updated from USDA",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -1464,6 +1576,8 @@
       "slug": "yaki-nori-seaweed-sheets",
       "description": "Unflavoured / Pure with no additives",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -1487,6 +1601,8 @@
       "slug": "steel-cut-oats",
       "description": "1 serving 1/4 cup 44 grams",
       "serving": "44.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          12
@@ -1511,6 +1627,8 @@
       "slug": "polenta",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          7
@@ -1535,6 +1653,8 @@
       "slug": "millet",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -1558,6 +1678,8 @@
       "slug": "teff",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -1581,6 +1703,8 @@
       "slug": "corn-grain-chips",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          11
       ]
@@ -1604,6 +1728,8 @@
       "slug": "lsa-mix",
       "description": "brands vary, traditionally 3:2:1 ratio",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          7
@@ -1628,6 +1754,8 @@
       "slug": "flaxseed-linseed",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -1651,6 +1779,8 @@
       "slug": "white-quinoa",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -1674,6 +1804,8 @@
       "slug": "chia-seeds",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -1697,6 +1829,8 @@
       "slug": "mung-bean",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -1720,6 +1854,8 @@
       "slug": "lupin-flakes",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -1743,6 +1879,8 @@
       "slug": "lupin-flour",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3,
          7,
@@ -1768,6 +1906,8 @@
       "slug": "spelt-puffs",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          11,
          12
@@ -1792,6 +1932,8 @@
       "slug": "low-fat-low-sugar-yogurt",
       "description": "(Forme Yogurt (Strawberry)) - fibre unknown",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6
       ]
@@ -1815,6 +1957,8 @@
       "slug": "rye-multigrain-crispbread",
       "description": "",
       "serving": "11.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          11
       ]
@@ -1838,6 +1982,8 @@
       "slug": "greek-yogurt-low-fat",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6
       ]
@@ -1861,6 +2007,8 @@
       "slug": "frozen-kale",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -1884,6 +2032,8 @@
       "slug": "almond-milk-unsweetened",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -1907,6 +2057,8 @@
       "slug": "baking-powder",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          17
       ]
@@ -1930,6 +2082,8 @@
       "slug": "low-fat-standard-sugar-yogurt",
       "description": "fibre is est",
       "serving": "150.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          6
       ]
@@ -1953,6 +2107,8 @@
       "slug": "diced-tomatoes-canned",
       "description": "Based on Woolworths - 60% tomato, tomato juice, citric acid. Fibre is estimated",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -1976,6 +2132,8 @@
       "slug": "ginger-ground",
       "description": "WARNING Almost certainly wrong data",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          13
       ]
@@ -1999,6 +2157,8 @@
       "slug": "mixed-spice-ground",
       "description": "carb/fibre may be inaccurate",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          13
       ]
@@ -2022,6 +2182,8 @@
       "slug": "almonds-raw",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -2045,6 +2207,8 @@
       "slug": "malt-extract-syrup",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          13
       ]
@@ -2068,6 +2232,8 @@
       "slug": "cacao-nibs",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3,
          13
@@ -2092,6 +2258,8 @@
       "slug": "mixed-herbs",
       "description": "",
       "serving": "5.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          13
       ]
@@ -2115,6 +2283,8 @@
       "slug": "egg-albumen-powder",
       "description": "100% Powder as sold as supplement; 1 scoop = 24g ~= 6.4 egg whites ~= 4.3 whole eggs",
       "serving": "24.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          8
       ]
@@ -2138,6 +2308,8 @@
       "slug": "crushed-tomatoes",
       "description": "Based on Woolworths - 60% tomato, 39% tomato puree, Fibre is listed",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -2161,6 +2333,8 @@
       "slug": "celery-sticks",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -2184,6 +2358,8 @@
       "slug": "chickpeas",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -2207,6 +2383,8 @@
       "slug": "beetroot-whole",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -2225,11 +2403,13 @@
       "saturatedfat": "5.000",
       "sodium": "25",
       "created_at": "2018-02-15T13:05:41.207Z",
-      "updated_at": "2019-04-04T04:16:36.970Z",
-      "name": "French Lentils",
+      "updated_at": "2020-03-23T21:05:31.238Z",
+      "name": "French Lentils (Puy)",
       "slug": "french-lentils",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -2253,6 +2433,8 @@
       "slug": "peas-dried",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1,
          3
@@ -2277,6 +2459,8 @@
       "slug": "wholemeal-couscous",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -2300,6 +2484,8 @@
       "slug": "chickpea-flour-besangram",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3,
          7
@@ -2324,6 +2510,8 @@
       "slug": "wheat-biscuits-added-bran",
       "description": "20g per biscuit",
       "serving": "20.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          11,
          12
@@ -2348,6 +2536,8 @@
       "slug": "cafe-mocha-full-milk-100ml-cup",
       "description": "",
       "serving": "250.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          16
       ]
@@ -2371,6 +2561,8 @@
       "slug": "oat-wheat-biscuits",
       "description": "(Oat Brits)",
       "serving": "20.8",
+      "introduction": "",
+      "notes": "",
       "tags": [
          11
       ]
@@ -2394,6 +2586,8 @@
       "slug": "7-seed-22-roll",
       "description": "(from coles)",
       "serving": "87.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          11,
@@ -2419,6 +2613,8 @@
       "slug": "100-pulse-pasta",
       "description": "Pea Flour (25%), Chickpea Flour (25%), Borlotti Bean Flour (25%), Lentil flour (25%).",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -2442,6 +2638,8 @@
       "slug": "25-veg-pasta-stir-sauce",
       "description": "(serving 1/4 jar)",
       "serving": "87.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1,
          18
@@ -2466,6 +2664,8 @@
       "slug": "70-soy-pulse-pasta",
       "description": "30% Chickpea",
       "serving": "32.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -2489,6 +2689,8 @@
       "slug": "frozen-peas",
       "description": "fibre is est",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1,
          3
@@ -2513,6 +2715,8 @@
       "slug": "raw-spinach",
       "description": "",
       "serving": "50.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -2536,6 +2740,8 @@
       "slug": "canned-apricot-in-syrup",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2559,6 +2765,8 @@
       "slug": "canned-pear-in-syrup",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2582,6 +2790,8 @@
       "slug": "canned-pineapple-in-juice",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2605,6 +2815,8 @@
       "slug": "canned-pear-in-juice",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2628,6 +2840,8 @@
       "slug": "canned-fruit-salad-in-juice",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2651,6 +2865,8 @@
       "slug": "canned-mango-in-syrup",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2674,6 +2890,8 @@
       "slug": "canned-peach-in-juice",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2697,6 +2915,8 @@
       "slug": "canned-apple-pie-filling",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2720,6 +2940,8 @@
       "slug": "pear-fresh",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2743,6 +2965,8 @@
       "slug": "apple-fresh",
       "description": "Assorted Types",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2766,6 +2990,8 @@
       "slug": "walnuts-raw",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -2789,6 +3015,8 @@
       "slug": "wheat-seed-biscuits",
       "description": "(Vita Wheat 9 seed, serving 1/10 pack)",
       "serving": "25.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          11
       ]
@@ -2812,6 +3040,8 @@
       "slug": "cottage-cheese-low-fat",
       "description": "One cup = 226 grams, 18.1g = 1 tblsp",
       "serving": "18.1",
+      "introduction": "",
+      "notes": "",
       "tags": [
          6
       ]
@@ -2835,6 +3065,8 @@
       "slug": "dark-chocolate-50",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          11,
          13,
@@ -2860,6 +3092,8 @@
       "slug": "frozen-blackberries",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2883,6 +3117,8 @@
       "slug": "frozen-mixed-berries",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2906,6 +3142,8 @@
       "slug": "frozen-mixed-tropical-fruit",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2929,6 +3167,8 @@
       "slug": "frozen-mango",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -2952,6 +3192,8 @@
       "slug": "pine-nuts",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -2975,6 +3217,8 @@
       "slug": "basil-pesto-no-cheese-or-nuts",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          13,
          18
@@ -2999,6 +3243,8 @@
       "slug": "watermelon",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -3022,6 +3268,8 @@
       "slug": "oranges-average-var",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -3045,6 +3293,8 @@
       "slug": "banana-edible-portion",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -3068,6 +3318,8 @@
       "slug": "hemp-seeds",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          8
@@ -3092,6 +3344,8 @@
       "slug": "hemp-seed-flour",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          7,
@@ -3103,20 +3357,22 @@
    "model": "ingredients.ingredient",
    "pk": 130,
    "fields": {
-      "kilojoules": "13380.0",
-      "protein": "500.000",
-      "fibre": "205.000",
-      "carbohydrate": "50.000",
-      "fat": "110.000",
-      "sugar": "50.000",
-      "saturatedfat": "15.000",
-      "sodium": "0",
+      "kilojoules": "15000.0",
+      "protein": "512.000",
+      "fibre": "251.000",
+      "carbohydrate": "35.000",
+      "fat": "99.000",
+      "sugar": "34.000",
+      "saturatedfat": "11.000",
+      "sodium": "60",
       "created_at": "2018-05-10T23:57:28.347Z",
-      "updated_at": "2018-05-11T00:07:05.284Z",
+      "updated_at": "2020-03-22T08:01:11.061Z",
       "name": "Hemp Protein Powder",
       "slug": "hemp-protein-powder",
       "description": "claimed \"balanced\" but actually lowish MC like legumes",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          8
       ]
@@ -3140,6 +3396,8 @@
       "slug": "rye-flour-whole",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          7
@@ -3164,6 +3422,8 @@
       "slug": "soy-protein-puffs",
       "description": "(coles brand \"nuggets\") as used in protein bars",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          8,
          12
@@ -3188,6 +3448,8 @@
       "slug": "single-cream",
       "description": "(single cream, ~35%)",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6,
          17
@@ -3212,6 +3474,8 @@
       "slug": "ricotta-cheese-low-fat",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6
       ]
@@ -3235,6 +3499,8 @@
       "slug": "almonds-dry-roast",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5
       ]
@@ -3258,6 +3524,8 @@
       "slug": "edamame-thawed",
       "description": "",
       "serving": "50.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1,
          3
@@ -3282,6 +3550,8 @@
       "slug": "mustard-generic",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          13
       ]
@@ -3305,6 +3575,8 @@
       "slug": "malt-vinegar",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          13
       ]
@@ -3328,6 +3600,8 @@
       "slug": "red-wine-vinegar",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          13
       ]
@@ -3351,6 +3625,8 @@
       "slug": "oatbran-wraps",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          11
       ]
@@ -3374,6 +3650,8 @@
       "slug": "brussel-sprouts-boiled",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -3397,6 +3675,8 @@
       "slug": "beanshoots-mung",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -3420,6 +3700,8 @@
       "slug": "roasted-chickpeas",
       "description": "(snack food, unflavoured)",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3,
          11
@@ -3444,6 +3726,8 @@
       "slug": "beetroot-powder",
       "description": "fibre calc from whole beetroot",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1,
          8
@@ -3468,6 +3752,8 @@
       "slug": "puffed-quinoa",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          12
@@ -3492,6 +3778,8 @@
       "slug": "puffed-brown-rice",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          12
@@ -3516,6 +3804,8 @@
       "slug": "puffed-buckwheat",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          12
@@ -3540,6 +3830,8 @@
       "slug": "puffed-millet",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          12
@@ -3564,6 +3856,8 @@
       "slug": "textured-soy-protein-coarse-chunks-no-caramel",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -3587,6 +3881,8 @@
       "slug": "protein-pancake-mix",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          8,
          18
@@ -3611,6 +3907,8 @@
       "slug": "chia-powder",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          7,
@@ -3636,6 +3934,8 @@
       "slug": "high-protein-pasta",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          18
       ]
@@ -3659,6 +3959,8 @@
       "slug": "butternut-pumpkin-diced",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -3682,6 +3984,8 @@
       "slug": "soy-milk-powder",
       "description": "Serving added to 200ml water to make ~ 1 cup",
       "serving": "30.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          3,
          16
@@ -3706,6 +4010,8 @@
       "slug": "psyllum-husk-powder",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          8,
          9
@@ -3730,6 +4036,8 @@
       "slug": "canned-soup-split-pea-and-veg",
       "description": "Fibre guessed assuming almost half GSPs; Counting entire can as a large serving",
       "serving": "400.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          18
       ]
@@ -3753,6 +4061,8 @@
       "slug": "bok-choy",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -3776,6 +4086,8 @@
       "slug": "pak-choy",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -3799,6 +4111,8 @@
       "slug": "choy-sum",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -3822,6 +4136,8 @@
       "slug": "diet-cordial",
       "description": "",
       "serving": "250.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          16
       ]
@@ -3845,6 +4161,8 @@
       "slug": "split-mung-bean",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -3868,6 +4186,8 @@
       "slug": "salad-sandwich-w-cheese",
       "description": "fibre est",
       "serving": "196.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          18
       ]
@@ -3891,6 +4211,8 @@
       "slug": "water",
       "description": "",
       "serving": "250.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          16
       ]
@@ -3914,6 +4236,8 @@
       "slug": "lemon-juice",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          16
       ]
@@ -3937,6 +4261,8 @@
       "slug": "orange-juice",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          16
       ]
@@ -3960,6 +4286,8 @@
       "slug": "flax-flour-part-defatdecarb",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          7,
@@ -3985,6 +4313,8 @@
       "slug": "potato-generic",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -4008,6 +4338,8 @@
       "slug": "soy-granules",
       "description": "(defatted) (as used in indian cooking) (protein avg of listed 80 vs DB 55)",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -4026,14 +4358,17 @@
       "saturatedfat": "17.000",
       "sodium": "120",
       "created_at": "2019-03-02T20:35:03.954Z",
-      "updated_at": "2019-03-16T17:06:08.443Z",
+      "updated_at": "2020-03-30T16:13:21.182Z",
       "name": "Wheat Germ",
       "slug": "wheat-germ",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
-         7
+         7,
+         9
       ]
    }
 },
@@ -4055,6 +4390,8 @@
       "slug": "nectarine",
       "description": "I medium-large ~= 150g",
       "serving": "150.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          14
       ]
@@ -4078,6 +4415,8 @@
       "slug": "choc-oat-bar-prepackaged",
       "description": "Mother Earth brand Black Forest Oaty Slice",
       "serving": "40.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          11
       ]
@@ -4101,6 +4440,8 @@
       "slug": "cucumber-english-with-peel",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -4124,6 +4465,8 @@
       "slug": "kale-fresh",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -4147,6 +4490,8 @@
       "slug": "broccoli-powder-macro",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1,
          8
@@ -4171,6 +4516,8 @@
       "slug": "black-beans",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -4194,6 +4541,8 @@
       "slug": "borlotti-beans",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -4217,6 +4566,8 @@
       "slug": "kidney-beans-red",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -4240,6 +4591,8 @@
       "slug": "white-beans",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -4263,6 +4616,8 @@
       "slug": "skim-milk-from-powder",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6,
          16
@@ -4287,6 +4642,8 @@
       "slug": "natural-yogurt-no-added-sugar",
       "description": "",
       "serving": "100.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          6
       ]
@@ -4310,6 +4667,8 @@
       "slug": "greek-yogurt-full-fat",
       "description": "",
       "serving": "100.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          6
       ]
@@ -4333,6 +4692,8 @@
       "slug": "urad-bean-black-gram",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -4356,6 +4717,8 @@
       "slug": "fat-free-greek-yogurt",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6
       ]
@@ -4379,6 +4742,8 @@
       "slug": "cornflour-maize",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          7,
          17
@@ -4403,6 +4768,8 @@
       "slug": "icing-sugar-mixture",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          17
       ]
@@ -4426,6 +4793,8 @@
       "slug": "cream-cheese",
       "description": "spreadable",
       "serving": "25.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          6,
          17
@@ -4450,6 +4819,8 @@
       "slug": "margarinetable-spread",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6,
          17
@@ -4474,6 +4845,8 @@
       "slug": "condensed-milk-skim-sweetened",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6,
          17
@@ -4498,6 +4871,8 @@
       "slug": "white-chocolate-23-cb",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          6,
          17
@@ -4522,6 +4897,8 @@
       "slug": "hazelnut-meal",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          7
@@ -4546,6 +4923,8 @@
       "slug": "pigeon-pea-toor-mature",
       "description": "1 serve = 1/10 cup",
       "serving": "20.5",
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -4569,6 +4948,8 @@
       "slug": "pigeon-pea-immature-green",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -4587,11 +4968,13 @@
       "saturatedfat": null,
       "sodium": "100",
       "created_at": "2019-07-17T04:21:29.774Z",
-      "updated_at": "2019-07-17T04:22:07.936Z",
+      "updated_at": "2020-03-28T22:36:42.031Z",
       "name": "Chana Dal (chickpeas)",
       "slug": "chana-dal-chickpeas",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3
       ]
@@ -4615,6 +4998,8 @@
       "slug": "roast-gram-chickpea",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          3,
          11
@@ -4639,6 +5024,8 @@
       "slug": "rolled-rye-flakes-check",
       "description": "",
       "serving": "50.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          12
@@ -4663,6 +5050,8 @@
       "slug": "bulgur-pre-cooked",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -4686,6 +5075,8 @@
       "slug": "garden-veg-pasta-sauce-jar",
       "description": "1 serve = quarter 500g jar",
       "serving": "120.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1,
          18
@@ -4710,6 +5101,8 @@
       "slug": "freekeh-wholegrain",
       "description": "",
       "serving": "30.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          2
       ]
@@ -4733,6 +5126,8 @@
       "slug": "canned-soup-lentil-and-veg",
       "description": "Largeish cans = 1 serve",
       "serving": "460.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          18
       ]
@@ -4756,6 +5151,8 @@
       "slug": "canned-soup-minestrone",
       "description": "Heinz brand (tall can)",
       "serving": "535.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          18
       ]
@@ -4779,6 +5176,8 @@
       "slug": "bolognese-pasta-sauce-jar",
       "description": "Barilla Brand, high in non-tomato veg",
       "serving": "100.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1,
          18
@@ -4803,6 +5202,8 @@
       "slug": "multigrain-bread-rolls",
       "description": "",
       "serving": "102.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          18
@@ -4827,6 +5228,8 @@
       "slug": "tahini-hulled",
       "description": "Hulled Tahini",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          10
@@ -4851,6 +5254,8 @@
       "slug": "honey",
       "description": "fibre guess (would be minimal)",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          17
       ]
@@ -4874,6 +5279,8 @@
       "slug": "molasses",
       "description": "fibre guess (would be minimal)",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          17
       ]
@@ -4892,11 +5299,13 @@
       "saturatedfat": "5.000",
       "sodium": "20",
       "created_at": "2019-09-09T17:23:50.557Z",
-      "updated_at": "2019-09-09T17:23:50.557Z",
+      "updated_at": "2020-03-28T22:36:29.117Z",
       "name": "Bulgur (Whole White)",
       "slug": "bulgur-whole-white",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          18
@@ -4921,6 +5330,8 @@
       "slug": "cereal-plus-fibre",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          12
       ]
@@ -4944,6 +5355,8 @@
       "slug": "burgul-brown",
       "description": "",
       "serving": "45.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          18
@@ -4968,6 +5381,8 @@
       "slug": "yeast-sachet",
       "description": "7g = 1 sachet = 2 tsp",
       "serving": "7.0",
+      "introduction": "",
+      "notes": "",
       "tags": []
    }
 },
@@ -4989,6 +5404,8 @@
       "slug": "snack-crackers-quinoa-salt-vinegar",
       "description": "",
       "serving": "110.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          11
       ]
@@ -5012,6 +5429,8 @@
       "slug": "skinny-latte-cafe",
       "description": "assuming 1ml=1g, serving 220ml",
       "serving": "220.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          16
       ]
@@ -5035,6 +5454,8 @@
       "slug": "cabbage-white",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -5058,6 +5479,8 @@
       "slug": "cornpeascarrot-mix",
       "description": "",
       "serving": "100.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -5081,6 +5504,8 @@
       "slug": "nutmeat",
       "description": "(Sanitarium/Vegie Delights)",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          18
@@ -5105,6 +5530,8 @@
       "slug": "2-min-noodles-w-chick-flav",
       "description": "(Made according to directions)",
       "serving": "380.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          11,
          18
@@ -5129,6 +5556,8 @@
       "slug": "peascorncapsicum-mix",
       "description": "",
       "serving": "150.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -5152,6 +5581,8 @@
       "slug": "dry-roasted-edamame",
       "description": "Some Added Salt",
       "serving": "20.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          3,
          5,
@@ -5177,6 +5608,8 @@
       "slug": "frozen-carrbroccaulipeas-mix",
       "description": "",
       "serving": "100.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1
       ]
@@ -5200,6 +5633,8 @@
       "slug": "extra-light-50r-tasty-cheese",
       "description": "50% Reduced Bega Brand \"Country Light\" - 1 pinch = 7g",
       "serving": "7.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          6
       ]
@@ -5223,6 +5658,8 @@
       "slug": "veggie-burger-pattie-chickpea",
       "description": "(Macro, Pre-made)",
       "serving": "125.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          1,
          3,
@@ -5249,6 +5686,8 @@
       "slug": "salt",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": []
    }
 },
@@ -5270,6 +5709,8 @@
       "slug": "milk-chocolate",
       "description": "(cadbury; fibre est)",
       "serving": "50.0",
+      "introduction": "",
+      "notes": "",
       "tags": [
          11,
          17
@@ -5294,6 +5735,8 @@
       "slug": "natural-wheat-bran",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          2,
          9
@@ -5318,9 +5761,241 @@
       "slug": "tahini-unhulled",
       "description": "",
       "serving": null,
+      "introduction": "",
+      "notes": "",
       "tags": [
          5,
          10
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 225,
+   "fields": {
+      "kilojoules": "920.0",
+      "protein": "11.400",
+      "fibre": "25.000",
+      "carbohydrate": "38.100",
+      "fat": "7.200",
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2020-03-21T19:41:21.796Z",
+      "updated_at": "2020-03-21T19:41:21.796Z",
+      "name": "Gai Lan (Chinese Broccoli) (cooked)",
+      "slug": "gai-lan-chinese-broccoli-cooked",
+      "description": "",
+      "serving": null,
+      "introduction": "",
+      "notes": "",
+      "tags": [
+         1
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 226,
+   "fields": {
+      "kilojoules": "14800.0",
+      "protein": "130.000",
+      "fibre": "40.000",
+      "carbohydrate": "656.000",
+      "fat": "24.000",
+      "sugar": "27.000",
+      "saturatedfat": "5.000",
+      "sodium": "10",
+      "created_at": "2020-03-22T05:43:30.233Z",
+      "updated_at": "2020-03-23T21:36:18.686Z",
+      "name": "Bakers (\"Strong\") Flour",
+      "slug": "bakers-strong-flour",
+      "description": "\"Strong\" (high gluten) flour for breadmaking",
+      "serving": null,
+      "introduction": "",
+      "notes": "",
+      "tags": [
+         7,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 227,
+   "fields": {
+      "kilojoules": "15060.0",
+      "protein": "126.800",
+      "fibre": "39.000",
+      "carbohydrate": "728.300",
+      "fat": "10.500",
+      "sugar": null,
+      "saturatedfat": "1.500",
+      "sodium": "10",
+      "created_at": "2020-03-22T07:47:03.941Z",
+      "updated_at": "2020-03-22T07:47:03.941Z",
+      "name": "Semolina (coarse)",
+      "slug": "semolina-coarse",
+      "description": "",
+      "serving": null,
+      "introduction": "",
+      "notes": "",
+      "tags": [
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 228,
+   "fields": {
+      "kilojoules": "14000.0",
+      "protein": "120.000",
+      "fibre": "100.000",
+      "carbohydrate": "574.000",
+      "fat": "29.000",
+      "sugar": "8.000",
+      "saturatedfat": "2.000",
+      "sodium": "50",
+      "created_at": "2020-03-22T07:53:51.199Z",
+      "updated_at": "2020-03-23T00:15:55.047Z",
+      "name": "Wholemeal Bakers (\"Strong\") Flour",
+      "slug": "wholegrain-bakers-strong-flour",
+      "description": "\"Strong\" (high gluten) flour for breadmaking",
+      "serving": null,
+      "introduction": "",
+      "notes": "",
+      "tags": [
+         7,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 229,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2020-03-23T21:21:21.553Z",
+      "updated_at": "2020-03-23T21:21:21.553Z",
+      "name": "Bread Mix (white)",
+      "slug": "bread-mix-white",
+      "description": "Includes bread improver etc - just needs yeast and water",
+      "serving": null,
+      "introduction": "",
+      "notes": "",
+      "tags": [
+         7,
+         17
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 230,
+   "fields": {
+      "kilojoules": "11250.0",
+      "protein": "118.000",
+      "fibre": "54.000",
+      "carbohydrate": "492.000",
+      "fat": "13.000",
+      "sugar": "15.000",
+      "saturatedfat": "3.000",
+      "sodium": "2500",
+      "created_at": "2020-03-23T21:33:04.366Z",
+      "updated_at": "2020-03-23T21:33:46.690Z",
+      "name": "Wholemeal Pita",
+      "slug": "wholemeal-pita",
+      "description": "",
+      "serving": null,
+      "introduction": "",
+      "notes": "",
+      "tags": [
+         11,
+         18
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 231,
+   "fields": {
+      "kilojoules": "16700.0",
+      "protein": "710.000",
+      "fibre": "5.000",
+      "carbohydrate": "150.000",
+      "fat": "50.000",
+      "sugar": "5.000",
+      "saturatedfat": "11.000",
+      "sodium": "800",
+      "created_at": "2020-03-27T08:38:55.374Z",
+      "updated_at": "2020-03-27T08:45:26.689Z",
+      "name": "Gluten Powder (83% G)",
+      "slug": "gluten-powder-83-g",
+      "description": "May be sold as gluten flour or gluten powder",
+      "serving": null,
+      "introduction": "",
+      "notes": "",
+      "tags": [
+         7,
+         8
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 232,
+   "fields": {
+      "kilojoules": null,
+      "protein": null,
+      "fibre": null,
+      "carbohydrate": null,
+      "fat": null,
+      "sugar": null,
+      "saturatedfat": null,
+      "sodium": null,
+      "created_at": "2020-03-30T01:40:40.579Z",
+      "updated_at": "2020-03-30T01:40:40.579Z",
+      "name": "Atta Flour",
+      "slug": "atta-flour",
+      "description": "",
+      "serving": null,
+      "introduction": "",
+      "notes": "",
+      "tags": [
+         7
+      ]
+   }
+},
+{
+   "model": "ingredients.ingredient",
+   "pk": 233,
+   "fields": {
+      "kilojoules": "2440.0",
+      "protein": "31.000",
+      "fibre": "0.000",
+      "carbohydrate": "47.000",
+      "fat": "30.000",
+      "sugar": "16.000",
+      "saturatedfat": "5.000",
+      "sodium": "600",
+      "created_at": "2020-03-30T16:29:08.124Z",
+      "updated_at": "2020-03-30T16:29:08.124Z",
+      "name": "Soy Milk (regular)",
+      "slug": "soy-milk-regular",
+      "description": "",
+      "serving": "200.0",
+      "introduction": "",
+      "notes": "",
+      "tags": [
+         16
       ]
    }
 }
