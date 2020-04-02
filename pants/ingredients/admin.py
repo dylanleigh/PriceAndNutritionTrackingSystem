@@ -44,6 +44,13 @@ class IngredientAdmin(admin.ModelAdmin):
             'sodium',
          )
       }),
+      ('Text Fields (intro, notes)', {
+         'classes': ('collapse',),
+         'fields': (
+            ('introduction'),
+            ('notes'),
+         ),
+      }),
       ('Internal Properties', {
             'classes': ('collapse',),
             'fields': (

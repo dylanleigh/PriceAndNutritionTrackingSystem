@@ -159,6 +159,11 @@ class Ingredient(AbstractBaseNutrients):
       help_text="Optional grams per serving. WARNING Nutrients are still entered per-KG."
    )
 
+   # These are arbitrary large plain text fields shown on detail page.
+   # Page order: Introduction, Nutrition, Notes, Price List
+   introduction = models.TextField(blank=True)
+   notes = models.TextField(blank=True)
+
    def __str__(self):
       return self.name
 
