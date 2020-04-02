@@ -29,7 +29,16 @@
    {% endfor %}
  </p>
 
+{% if object.introduction %}
+   <div class="w3-card-4 w3-container">
+      <h3>Introduction:</h3>
+      <p>
+         {{object.introduction|linebreaks}}
+      </p>
+   </div>
+{% endif %}
 
+<div class="w3-card-4 w3-container">
 <h3>Components:</h3>
 <table class="w3-table-all w3-hoverable">
       <tr>
@@ -173,24 +182,35 @@
          {% endif %}
    {% endwith %}
 </table>
+</div>
 
-<h3>Used in Recipes:</h3>
+{% if object.method %}
+   <div class="w3-card-4 w3-container">
+      <h3>Method:</h3>
+      <p>
+         {{object.method|linebreaks}}
+      </p>
+   </div>
+{% endif %}
 
-<ul>
-   {% for slug,name in object.used_in_recipes.items %}
-      <li><a href="{% url 'recipe-detail' slug %}">{{ name }}</a></li>
-   {% empty %}
-      (none)
-   {% endfor %}
-</ul>
-
-<hr>
+{% if object.notes %}
+   <div class="w3-card-4 w3-container">
+      <h3>Notes:</h3>
+      <p>
+         {{object.notes|linebreaks}}
+      </p>
+   </div>
+{% endif %}
 
 <div class="w3-card-4 w3-container">
-   <h3>Method:</h3>
-   <p>
-      {{object.method|linebreaks}}
-   </p>
+   <h3>Used in Recipes:</h3>
+   <ul>
+      {% for slug,name in object.used_in_recipes.items %}
+         <li><a href="{% url 'recipe-detail' slug %}">{{ name }}</a></li>
+      {% empty %}
+         (none)
+      {% endfor %}
+   </ul>
 </div>
 
 {% endblock %}
