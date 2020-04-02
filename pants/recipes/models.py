@@ -122,7 +122,11 @@ class Recipe(models.Model):
       validators=[not_negative],
    )
 
+   # These are all large plain text fields shown on detail page.
+   # Page order: Introduction, Ingredients List, Method, Notes
+   introduction = models.TextField(blank=True)
    method = models.TextField(blank=True)
+   notes = models.TextField(blank=True)
 
    def __str__(self):
       return self.name

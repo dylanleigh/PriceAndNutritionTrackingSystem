@@ -32,10 +32,17 @@ class RecipeAdmin(admin.ModelAdmin):
          'fields': (
             ('name', 'serves',),
             ('flag', 'description',),
-            ('method'),
          ),
       }),
-      ('Last Tested', {
+      ('Text Fields (intro, method, notes)', {
+         'classes': ('collapse',),
+         'fields': (
+            ('introduction'),
+            ('method'),
+            ('notes'),
+         ),
+      }),
+      ('Last Tested Date', {
             'classes': ('collapse',),
             'fields': (
                ('last_tested',),
