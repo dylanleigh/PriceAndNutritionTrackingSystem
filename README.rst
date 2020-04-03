@@ -6,9 +6,10 @@ Price And Nutrition Tracking System
 Note for Current Users - DB Changes when Upgrading
 ==================================================
 
-Significant DB changes have been made recently (2020-04-02) and you
-will need to migrate your database by running './manage.py migrate' -
-see the "Schema Changes" subsection below for more details.
+Changes to the database schema have been made recently (2020-04-02)
+and when upgrading from older versions you will need to migrate your
+database by running './manage.py migrate' - see the "Schema Changes"
+subsection below for more details.
 
 Introduction
 ============
@@ -327,6 +328,11 @@ running the following commands::
 No further user input or manual conversion should be required. The
 details below are mostly for background.
 
+2020-04-02
+   Each Recipe and Ingredient may now have an "Introduction" and
+   "Notes" - these are freeform text fields that are simply displayed
+   at the start/end of the detail page for the recipe or ingredient.
+
 2020-03-20 (v0.93)
    Following on from yesterday's changes, Price has now been fully
    detached from Product. This update also changes Prices to require an
@@ -341,14 +347,13 @@ details below are mostly for background.
    an ingredient, these will have to be deleted for the migration to
    work.
 
-   The product model still exists, but is now deprecated; it has no 
+   The product model still exists, but is now deprecated; it has no
    current purpose except to associate brand names with ingredients.
-   If you don't care about that (it's not visible outside the
-   admin anyway), products can be all safely deleted via the admin
-   interface (use the checkbox to "select all" and then drop-down action
-   box to "delete selected"). They should not have any performance
-   effects from leaving them there, as no calculations use products
-   anymore.
+   If you don't care about that, products can be all safely deleted
+   via the admin interface (use the checkbox to "select all" and then
+   drop-down action box to "delete selected"). They should not be
+   any performance effects from leaving them there, as no calculations
+   use products anymore.
 
 2020-03-19 (v0.92)
    Prices are changing from being attached to a Product to directly
@@ -359,8 +364,7 @@ details below are mostly for background.
    Ingredient. Ingredient will be set automatically from the Product.
 
    Future versions will make Price settable via the Ingredient section
-   of the admin interface rather than Product, and a release after that
-   will likely remove Products completely.
+   of the admin interface rather than Product.
 
 2020-03-11
    Recipe Flags added. These differ from Tags in two ways - each
