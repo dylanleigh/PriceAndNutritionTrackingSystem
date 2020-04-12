@@ -17,17 +17,50 @@
 
 <body>
 <h1>Recipe Maker</h1>
-<p>Choose the ingredients you want in the recipe</p>
-<div class="ingredients_controls">
-    <div class="table_container">
-        <h2>All Ingredients</h2>
-        <div id="ingredients" class="ag-theme-balham"></div>
+<form class="form-grid-2">
+    <label for="name">Name</label>
+    <input id="name" name="name" placeholder="Grilled Cheese">
+
+    <label for="slug">Slug</label>
+    <input id="slug" name="slug" placeholder="grilled-cheese">
+
+    <label for="description">Description</label>
+    <textarea id="description" name="description" placeholder="A sandwich made with melted cheese"></textarea>
+
+    <label for="tags">Tags</label>
+    <input disabled id="tags" value="Not Implemented">
+
+    <label for="flag">Flag</label>
+    <select disabled id="flag">
+        <option>Not Implemented</option>
+    </select>
+
+    <label for="serves">Serves</label>
+    <input id="serves" name="serves" placeholder="1">
+
+    <label for="introduction">Introduction</label>
+    <textarea id="introduction" name="introduction"
+              placeholder="A story about how the grilled cheese came to be"></textarea>
+
+    <label for="method">Method</label>
+    <textarea id="method" name="method" placeholder="Add cheese to bread, toast."></textarea>
+
+    <label for="notes">Notes</label>
+    <textarea id="notes" name="notes"
+              placeholder="Can use different cheeses than what is listed. Recipe is flexible."></textarea>
+
+    <label>Ingredients</label>
+    <div class="ingredients_controls">
+        <div class="table_container">
+            <label>All Ingredients</label>
+            <div id="ingredients" class="contained_table ag-theme-balham"></div>
+        </div>
+        <div class="table_container">
+            <label>Recipe Ingredients</label>
+            <div id="selected_ingredients" class="contained_table ag-theme-balham"></div>
+        </div>
     </div>
-    <div class="selected_ingredients">
-        <h2>Recipe Ingredients</h2>
-        <ul class="list"></ul>
-    </div>
-</div>
+</form>
 <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -43,6 +76,7 @@
             rowModelType: 'infinite',
             pagination: true,
             paginationAutoPageSize: true,
+            // Set up the grid to paginate using the server side API
             datasource: {
                 getRows: async function (params) {
                     // Get the number of requested results
@@ -66,8 +100,44 @@
                 }
             }
         };
-        // Set up the grid to paginate using the server side API
-        new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
+        let all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
+
+
+        // Now set up another grid to display the chosen ingredients
+        let recipe_ingredients = new agGrid.Grid(document.querySelector('#selected_ingredients'), {
+            columnDefs: columns,
+            rowData: [],
+            pagination: true,
+            paginationAutoPageSize: true,
+        });
+
+        // Register the event to add ingredients to the recipe
+        all_ingredients.gridOptions.api.addEventListener('rowClicked', args => {
+            let ingredient = args.data;
+            if (ingredient.is_added === true) {
+                // Reject adding the ingredient, flash the ingredient's corresponding row in the other table so the
+                // user knows that it's not just an error
+                let added_ingredient_row = args.data.recipe_node;
+                recipe_ingredients.gridOptions.api.flashCells({rowNodes: [added_ingredient_row]});
+                return
+            }
+            ingredient.original_id = args.node.id;
+            ingredient.is_added = true; // prevent adding the same ingredient twice
+
+            let rows = recipe_ingredients.gridOptions.api.updateRowData({
+                add: [args.data]
+            });
+            args.data.recipe_node = rows.add[0] // Keep a reference to the added grid row
+        });
+        // Register the event to remove ingredients from the recipe
+        recipe_ingredients.gridOptions.api.addEventListener('rowClicked', args => {
+            // We need to inform the ingredients list this ingredient can be added again, and delete references to it
+            args.data.is_added = false;
+            delete args.data.recipe_node;
+            recipe_ingredients.gridOptions.api.updateRowData({
+                remove: [args.data]
+            });
+        })
     })
 </script>
 <script src="js/scripts.js"></script>

@@ -8,6 +8,19 @@
 .table_container{
     height: 50vh;
 }
-#ingredients{
+.table_container>.contained_table{
     height: 100%;
+}
+
+form.form-grid-2 label{
+    font-weight: bold;
+    margin-right: 1em;
+}
+form.form-grid-2 label+*{
+    margin-bottom: 1em;
+}
+
+.form-grid-2{
+    display: grid;
+    grid-template-columns: max-content auto;
 }
