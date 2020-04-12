@@ -2,3 +2,4 @@ Django>=2.2
 django-extensions>=1.8.1
 djangorestframework
 django-filter
+django-cors-headers>=3.2.1

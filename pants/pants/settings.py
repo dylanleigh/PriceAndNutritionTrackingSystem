@@ -47,11 +47,13 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -111,9 +113,18 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20
 }
+
+# Only sites that are on this white list can access our CORS endpoints
+CORS_ORIGIN_REGEX_WHITELIST = [
+    # Right now we don't have any foreign servers, the only use case is testing locally
+    # This regex should allow any requests coming from a local host
+    r"^http(s)?://(localhost|127\.0\.0\.1)(:\d+)?$",
+]
+# We only allow CORS requests to the API
+CORS_URLS_REGEX = r'^/api/.*$'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

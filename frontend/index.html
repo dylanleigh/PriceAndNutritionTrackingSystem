@@ -1,0 +1,75 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>PANTS</title>
+    <meta name="description" content="A Frontend for PANTS">
+    <meta name="author" content="AustinGrey">
+
+    <link rel="stylesheet" href="css/styles.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+
+</head>
+
+<body>
+<h1>Recipe Maker</h1>
+<p>Choose the ingredients you want in the recipe</p>
+<div class="ingredients_controls">
+    <div class="table_container">
+        <h2>All Ingredients</h2>
+        <div id="ingredients" class="ag-theme-balham"></div>
+    </div>
+    <div class="selected_ingredients">
+        <h2>Recipe Ingredients</h2>
+        <ul class="list"></ul>
+    </div>
+</div>
+<script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Create a grid to view the data
+        let columns = [
+            {headerName: "Name", field: "name"},
+            {headerName: "Description", field: "description"},
+            {headerName: "Serving", field: "serving"},
+            {headerName: "Notes", field: "notes"},
+        ];
+        let grid_options = {
+            columnDefs: columns,
+            rowModelType: 'infinite',
+            pagination: true,
+            paginationAutoPageSize: true,
+            datasource: {
+                getRows: async function (params) {
+                    // Get the number of requested results
+                    let num_requested = params.endRow - params.startRow;
+
+                    let api_location = new URL('http://127.0.0.1:8000/api/1/ingredient/');
+                    api_location.searchParams.set('offset', params.startRow);
+                    api_location.searchParams.set('limit', num_requested);
+
+                    let response = await fetch(api_location.toString(), {
+                        headers: new Headers({
+                            'Authorization': 'Basic ' + btoa('austin:solidocean')
+                        })
+                    });
+                    if (response.ok) {
+                        let data = await response.json();
+                        params.successCallback(data['results'], data['count'])
+                    } else {
+                        params.failCallback();
+                    }
+                }
+            }
+        };
+        // Set up the grid to paginate using the server side API
+        new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
+    })
+</script>
+<script src="js/scripts.js"></script>
+</body>
+</html>

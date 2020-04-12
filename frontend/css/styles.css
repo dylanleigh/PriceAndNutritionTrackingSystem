@@ -1,0 +1,13 @@
+.ingredients_controls{
+    display: flex;
+    justify-content: space-between;
+}
+.ingredients_controls>*{
+    flex:1 1;
+}
+.table_container{
+    height: 50vh;
+}
+#ingredients{
+    height: 100%;
+}
