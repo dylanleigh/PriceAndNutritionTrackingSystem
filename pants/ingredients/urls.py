@@ -23,14 +23,13 @@ urlpatterns = [
    ),
 
    # Django-filter list
-   # /ingredients/list/<args>/
+   # /ingredients/filter/<args>/
    url(
       r'^filter/$',
       FilterView.as_view(filterset_class=IngredientFilter),
       name='ingredient-filter',
    ),
 
-   # TODO deprecated by above filter /ingredients/tag/<tag>/
    url(
       r'^tag/([0-9A-Za-z_-]+)/$',
       views.IngredientListByTagView.as_view(),
