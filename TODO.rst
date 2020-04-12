@@ -16,12 +16,13 @@ Urgent / Important
 API (In Progress)
 =================
 - GET/POST/PUT/DELETE for DiaryFood [done]
+- Model-level permissions for API views [done]
 - Per-user ing/rec data (Nullable user field; exclude if user!= request.user)
 - GET/POST/PUT/DELETE for Ingredient [done, needs further work]
 - GET/POST/PUT/DELETE for Recipe
 - Add nested tags/flag/etc to Ingredient/Recipe serialisations
-- Fix permissions for API views - to use Django's built in permissions (needs dummy querysets to be set?)
 - Add price/supplier (own endpoint or nested via sorted_prices?)
+- Object-level permission to ensure users can only change their own objects
 
 NData and calculation DRYing (should be done before further recipe/diary work)
 ==============================================================================
