@@ -49,7 +49,8 @@ class DiaryFoodViewSet(viewsets.ModelViewSet):
     API endpoint that allows Diary Food entries to be viewed and altered.
     """
     serializer_class = DiaryFoodSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.DjangoModelPermissions]
+    queryset = DiaryFood.objects.none()  # Required for DjangoModelPermissions to get Model
 
     def get_queryset(self):
        user = self.request.user

@@ -119,7 +119,8 @@ class IngredientViewSet(viewsets.ModelViewSet):
    API endpoint that allows Ingredients to be viewed and user's ingredients to be altered.
    """
    serializer_class = IngredientSerializer
-   permission_classes = [permissions.IsAuthenticated] # FIXME Needs object edit permissions
+   permission_classes = [permissions.DjangoModelPermissions]
+   queryset = Ingredient.objects.none()  # Required for DjangoModelPermissions to get Model
 
    def get_queryset(self):
       user = self.request.user
