@@ -3,9 +3,8 @@ from __future__ import unicode_literals
 
 from decimal import Decimal
 
-from django.db import models
-
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -103,6 +102,16 @@ class Recipe(models.Model):
       on_delete=models.SET_NULL,
       null=True,
       blank=True,
+   )
+
+   # Owner is null for "global" Recipes.
+   # Only owner can see/edit their own ones, only admin can edit global ones
+   owner = models.ForeignKey(
+      User,
+      blank=True,
+      null=True,
+      on_delete=models.CASCADE,
+      related_name='+',       # Prevents User-> related name being created
    )
 
    created_at = models.DateTimeField(auto_now_add=True)
