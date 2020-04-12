@@ -12,7 +12,9 @@ class DiaryFoodSerializer(serializers.HyperlinkedModelSerializer):
       # logged in user).
       # Note DiaryFood entries of an Ingredient/Recipe are
       # crystallized to the DiaryFood, so returned nutrition data is
-      # of this object, not it's relations.
+      # of this object, not it's relations. The fields on the object
+      # itself are editable; nutrition_data is calculated and is
+      # read-only.
 
       # FIXME re-include Ingredient/Recipe when they have API endpoints too
 

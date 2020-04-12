@@ -10,8 +10,10 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from rest_framework import viewsets, permissions
 
 from .models import Ingredient, IngredientTag
+from .serializers import IngredientSerializer
 from .utils import get_nutrition_limits
 from targets.models import Target
 
@@ -110,3 +112,15 @@ def IngredientCSVExportView(request):
       writer.writerow(data)
 
    return response
+
+
+class IngredientViewSet(viewsets.ModelViewSet):
+   """
+   API endpoint that allows Ingredients to be viewed and user's ingredients to be altered.
+   """
+   serializer_class = IngredientSerializer
+   permission_classes = [permissions.IsAuthenticated] # FIXME Needs object edit permissions
+
+   def get_queryset(self):
+      user = self.request.user
+      return Ingredient.objects.all()     # FIXME filter to global (user null) and user objects

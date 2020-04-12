@@ -20,11 +20,13 @@ from django.contrib.auth import views as auth_views
 from rest_framework import routers
 
 from website import views as website
+
+# Viewsets for API added here, not in included 'app.urls' links
+# as they are all under the /api/ space
 from diary.views import DiaryFoodViewSet
-
-
-# Router for REST Framework API - manages API endpoint URLS
+from ingredients.views import IngredientViewSet
 router = routers.DefaultRouter()
+router.register(r'ingredient', IngredientViewSet, 'ingredient')
 router.register(r'diaryfood', DiaryFoodViewSet, 'diaryfood')
 
 urlpatterns = [
