@@ -16,6 +16,7 @@ Urgent / Important
 API (In Progress)
 =================
 - GET/POST/PUT/DELETE for DiaryFood [done]
+- Per-user ing/rec data (Nullable user field; exclude if user!= request.user)
 - GET/POST/PUT/DELETE for Ingredient [done, needs further work]
 - GET/POST/PUT/DELETE for Recipe
 - Add nested tags/flag/etc to Ingredient/Recipe serialisations
@@ -77,7 +78,6 @@ User Profiles
 - User-prof-object to hold age, height etc (age required for some physiological calcs)
 - User preferences for FE (e.g. KJ or calories display, don't show some columns)
 - Custom user "rank" formula replacing the built in hardcoded sorting rank
-- User-custom ing/rec data (Nullable user field; exclude if user!= request.user)
 - Fix setting of daily target on target list page
 
 Django Frontend
