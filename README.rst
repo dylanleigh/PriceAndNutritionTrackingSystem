@@ -6,7 +6,7 @@ Price And Nutrition Tracking System
 Note for Current Users - DB Changes when Upgrading
 ==================================================
 
-Changes to the database schema have been made recently (2020-04-02)
+Changes to the database schema have been made recently (2020-04-13)
 and when upgrading from older versions you will need to migrate your
 database by running './manage.py migrate' - see the "Schema Changes"
 subsection below for more details.
@@ -19,28 +19,22 @@ nutritional data analysis of ingredients and recipes. It can be run on
 your own computer or as a multiuser web service (e.g. for use by a
 dietician/trainer/researcher and their clients).
 
-As well as tracking daily calories etc, PANTS is designed to make
-it easy to compare and optimize recipes which form a regular part of your
+As well as tracking daily calories etc, PANTS is designed to make it
+easy to compare and optimize recipes which form a regular part of your
 diet; a key feature is the ability for recipes to be components of
-other recipes. For example a dough recipe and a filling recipe can
-both be components in a pie recipe; you can clone the pie recipe
-with alternate fillings to compare the nutritional values of the
-alternatives. Any changes to the dough recipe will be reflected in
-the data for all of the pies.
+other recipes.
 
-These "meta-recipes" can also be used to easily compare between
-different similar meals and provide an "average" breakfast/snack/etc
-for meal and diet planning.
+For example a dough recipe and a filling recipe can both be components
+in a pie recipe; you can clone the pie recipe with alternate fillings
+to compare the nutritional values of the alternatives. Any changes to
+the dough recipe will be reflected in the data for all of the pies.
+These "meta-recipes" can also be used to provide an "average"
+breakfast/lunch/snack/etc for meal and diet planning.
 
-Other features include support for multiple daily targets with a
-minimum and maximum desired values and visualisation of data across
-the last 24 hours (not just since mindnight like most other trackers)
-to allow for a more realistic view of daily consumption.
-
-PANTS is currently (as of 2019) under active, daily use by the author
-so updates should be fairly frequent. On the other hand, the code
-tends to be quick and dirty as new things get added because
-the author wanted to use them ASAP while cooking his dinner.
+PANTS is under active, daily use by the author so updates should be
+fairly frequent. On the other hand, the code tends to be quick and
+dirty as new things get added because the author wanted to use them
+ASAP while cooking his dinner.
 
 It is currently not recommended for non-technical users; basic
 familiarity with Django is useful.
@@ -266,41 +260,12 @@ No ingredients/recipes need to be created to start using the diary
 (although every entry will have to have all its data added manually if
 there are no recipes or ingredients to use).
 
-Developer Notes
-===============
+API
+===
 
-As mentioned earlier the code contains many crufty bits because many
-features were added quickly when immediately required.
-
-In particular, sets of "nutrition data" are often passed around as a
-dict with a few specific sets of keys (specified in settings) and
-there is an ongoing project to convert this to a class that manages it
-in a sane way, handling all comparisons, additions and per-weight
-calculations sensibly. A lot of future work is on hold pending this
-tech debt cleanup to be completed.
-
-Also, the django template frontend is quite basic. It is not really
-intended for end-user use, only for personal or debugging purposes. It
-does not have any forms so all data entry including diary is done via
-the admin interface. Ideally "customer" users should access the
-service through an app or a single page frontend. Future frontend work
-will mostly therefore be via other projects using an API (I do plan to
-add an Android app for my personal use).
-
-See the todo list below for more details.
-
-
-Bits Useful for Other Projects
-------------------------------
-
-- Recipe/Ingredient have a very simple but effective CSV export view.
-- There are convenient templatetags to do division, combined min/max percentage display and generate a little CSS bar chart (most tabular data uses them, see the screenshots for examples).
-
-
-Roadmap, Todos and Issues
--------------------------
-
-See https://github.com/dylanleigh/PriceAndNutritionTrackingSystem/blob/master/TODO.rst
+This is a work in progress as of 2020-04-13. Documentation will go
+here when it's implemented for all major models. It is located at
+/api/1/ (i.e. http://127.0.0.1:8000/api/1/ on a local server).
 
 History
 =======
@@ -327,6 +292,14 @@ running the following commands::
 
 No further user input or manual conversion should be required. The
 details below are mostly for background.
+
+2020-04-13
+   Recipe and Ingredient can now be linked to an "owner" (user) - user
+   created recipes and ingredients through the API will be owned by
+   that user. Only the logged in user can see/edit things they own.
+
+   "Global" recipes/ingredients with no owner are visible to everyone,
+   and only editable by admin (i.e. no change from previous versions)
 
 2020-04-02
    Each Recipe and Ingredient may now have an "Introduction" and
@@ -424,6 +397,34 @@ Amino Acids
    but when the nutrients object was merged into ingredient this was
    dropped. It was rarely used, but may be readded when the
    nutrient_data class/cache system is reworked to be less kludgy - see TODOs
+
+Developer Notes
+===============
+
+As mentioned earlier the code contains many crufty bits because many
+features were added quickly when immediately required.
+
+In particular, sets of "nutrition data" are often passed around as a
+dict with a few specific sets of keys (specified in settings) and
+there is an ongoing project to convert this to a class that manages it
+in a sane way, handling all comparisons, additions and per-weight
+calculations sensibly. A lot of future work is on hold pending this
+tech debt cleanup to be completed.
+
+See the todo list below for more details.
+
+Bits Useful for Other Projects
+------------------------------
+
+- Recipe/Ingredient have a very simple but effective CSV export view.
+- There are convenient templatetags to do division, combined min/max percentage display and generate a little CSS bar chart (most tabular data uses them, see the screenshots for examples).
+
+
+Roadmap, Todos and Issues
+-------------------------
+
+See https://github.com/dylanleigh/PriceAndNutritionTrackingSystem/blob/master/TODO.rst
+
 
 Authors
 =======
