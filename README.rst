@@ -191,8 +191,8 @@ These will be installed automatically via pip:
 
 - Django 2+
 - Django-extensions 1.8+
-- Future versions may require djangorestframework and django-filter
-  for the API.
+- Django REST Framework
+- Django-filter
 
 Setup 1: Secret Key
 -------------------

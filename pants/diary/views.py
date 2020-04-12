@@ -3,8 +3,10 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
+from rest_framework import viewsets, permissions
 
 from .models import DiaryFood
+from .serializers import DiaryFoodSerializer
 from targets.models import Target
 from ingredients.utils import add_nutrition_ratios
 
@@ -42,3 +44,13 @@ class DiaryBreakdownView(LoginRequiredMixin, TemplateView):
 
       return context
 
+class DiaryFoodViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Diary Food entries to be viewed and altered.
+    """
+    serializer_class = DiaryFoodSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+       user = self.request.user
+       return DiaryFood.objects.filter(user=user)

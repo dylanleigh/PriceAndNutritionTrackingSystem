@@ -13,10 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include,url
+from django.urls import path, include
+from django.conf.urls import url
 from django.contrib import admin
-from website import views as website
 from django.contrib.auth import views as auth_views
+from rest_framework import routers
+
+from website import views as website
+from diary.views import DiaryFoodViewSet
+
+
+# Router for REST Framework API - manages API endpoint URLS
+router = routers.DefaultRouter()
+router.register(r'diaryfood', DiaryFoodViewSet, 'diaryfood')
 
 urlpatterns = [
     url(r'^$', website.index, name='website-index'),
@@ -24,6 +33,11 @@ urlpatterns = [
     url(r'^logout/', auth_views.LogoutView.as_view(template_name="website/logout.html"), name='website-logout'),
     url(r'^about/', website.about, name='website-about'),
 
+    # REST Framework API
+    path('api/1/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    # Django template Frontend
     url(r'^diary/', include('diary.urls')),
     url(r'^recipes/', include('recipes.urls')),
     url(r'^ingredients/', include('ingredients.urls')),

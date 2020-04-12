@@ -27,7 +27,6 @@ not_negative = MinValueValidator(0)
 #            - inherits nutritionABC
 #            - source of data can be LOADED from ing/rec or just entered in by user
 #              - effectively nutrition data crystallized when saving from ing/rec
-#            - viewing by 
 
 # TODO: Base off other apps? "Exercise" "Biometrics"?
 # DiaryExercise - record exercise session TODO
