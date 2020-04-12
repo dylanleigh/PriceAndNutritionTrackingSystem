@@ -18,5 +18,5 @@ class DiaryFoodSerializer(serializers.HyperlinkedModelSerializer):
 
       # FIXME re-include Ingredient/Recipe when they have API endpoints too
 
-      exclude = ['user', 'of_recipe', 'of_ingredient']
+      exclude = ['user', 'of_recipe',]
 
