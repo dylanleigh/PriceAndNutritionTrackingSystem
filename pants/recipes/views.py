@@ -6,12 +6,15 @@ import csv
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from rest_framework import viewsets, permissions
 
 from .models import Recipe, RecipeTag
+from .serializers import RecipeSerializer
 from targets.models import Target
 from ingredients.utils import get_nutrition_limits
 
@@ -20,7 +23,6 @@ class RecipeListView(LoginRequiredMixin, ListView):
    # - Table view - generic macros and cost for each ingredient
    model = Recipe
    queryset = Recipe.objects.filter(tags__isnull=True)
-   #queryset = Recipe.objects.all()     # TODO consider limits/paging
 
    def get_context_data(self, **kwargs):
       context = super(RecipeListView, self).get_context_data(**kwargs)
@@ -47,7 +49,11 @@ class RecipeListByTagView(LoginRequiredMixin, ListView):
 
    def get_queryset(self):
         self.tag = get_object_or_404(RecipeTag, name=self.args[0])
-        return Recipe.objects.filter(tags=self.tag)
+        user=self.request.user
+        return Recipe.objects.filter(
+            Q(owner__isnull=True)|Q(owner=user),
+            tags=self.tag
+         )
 
    def get_context_data(self, **kwargs):
       context = super(RecipeListByTagView, self).get_context_data(**kwargs)
@@ -116,3 +122,16 @@ def RecipeCSVExportView(request):
       writer.writerow(data)
 
    return response
+
+class RecipeViewSet(viewsets.ModelViewSet):
+   """
+   API endpoint that allows Recipes to be viewed and user's ones to be altered.
+   """
+   serializer_class = RecipeSerializer
+   permission_classes = [permissions.DjangoModelPermissions]
+   queryset = Recipe.objects.none()  # Required for DjangoModelPermissions to get Model
+
+   def get_queryset(self):
+      user = self.request.user
+      return Recipe.objects.all()     # FIXME filter to global (user null) and user objects
+
