@@ -4,6 +4,7 @@ from .models import Ingredient
 
 class IngredientSerializer(serializers.HyperlinkedModelSerializer):
    nutrition_data = serializers.ReadOnlyField()
+   owner = serializers.ReadOnlyField()
 
 
    class Meta:
