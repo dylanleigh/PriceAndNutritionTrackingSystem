@@ -18,11 +18,12 @@ API (In Progress)
 - GET/POST/PUT/DELETE for DiaryFood [done]
 - Model-level permissions for API views [done]
 - Per-user ing/rec data (Nullable user field; exclude if user!= request.user) [done]
-- GET/POST/PUT/DELETE for Ingredient [done]
+- GET/POST/PUT/DELETE for Ingredient [done except access checks]
 - GET/POST/PUT/DELETE for Recipe [done]
 - Add nested tags/flag/etc to Ingredient/Recipe serialisations
 - Add price GET/POST/PUT/DELETE - access to user objects only, supplier read only
-- Object-level permission to ensure users can only change their own objects [done]
+- Object-level permission to ensure users can only change their own
+  objects [done for Rec/Diary]
 
 NData and calculation DRYing (should be done before further recipe/diary work)
 ==============================================================================
