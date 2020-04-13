@@ -3,15 +3,23 @@ from decimal import Decimal
 from collections import defaultdict
 
 from django.conf import settings
+from django.db.models import Q
 
 # Utility functions for ingredients/nutrient data
+
+THOUSAND=Decimal(1000)
+
+def owner_or_global(model, user):
+   """
+   Returns the objects of the model which are either owned by the
+   given user or global (null)
+   """
+   return model.objects.filter(Q(owner__isnull=True)|Q(owner=user))
+
 
 # TODO This could be its own class that generates/caches individual
 # ratios as required and enforces access/validation/etc, and does
 # operations like summing.
-
-THOUSAND=Decimal(1000)
-
 def add_nutrition_ratios(data):
    """
    Given a dict of nutrition data, calculate the ratios

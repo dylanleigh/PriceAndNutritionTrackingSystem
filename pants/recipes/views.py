@@ -6,7 +6,6 @@ import csv
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
@@ -16,7 +15,7 @@ from rest_framework import viewsets, permissions
 from .models import Recipe, RecipeTag
 from .serializers import RecipeSerializer
 from targets.models import Target
-from ingredients.utils import get_nutrition_limits
+from ingredients.utils import get_nutrition_limits, owner_or_global
 
 
 class RecipeListView(LoginRequiredMixin, ListView):
@@ -50,10 +49,7 @@ class RecipeListByTagView(LoginRequiredMixin, ListView):
    def get_queryset(self):
         self.tag = get_object_or_404(RecipeTag, name=self.args[0])
         user=self.request.user
-        return Recipe.objects.filter(
-            Q(owner__isnull=True)|Q(owner=user),
-            tags=self.tag
-         )
+        return owner_or_global(Recipe, user).filter(tags=self.tag)
 
    def get_context_data(self, **kwargs):
       context = super(RecipeListByTagView, self).get_context_data(**kwargs)
