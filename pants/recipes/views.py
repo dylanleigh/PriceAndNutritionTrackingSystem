@@ -123,7 +123,8 @@ def RecipeCSVExportView(request):
    )
 
    writer.writeheader()
-   for rec in Recipe.objects.all().iterator():
+   user=request.user
+   for rec in owner_or_global(Recipe, user).iterator():
       data = rec.nutrition_data
       data['name'] = rec.name
       data['tags'] = rec.tags.values_list('name', flat=True)
