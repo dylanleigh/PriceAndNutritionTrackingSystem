@@ -13,15 +13,16 @@ Urgent / Important
 - Fix all the FIXMEs in the code (see "make fixme" output) (most of these now relate to the NData work)
 - Proper non-admin login/logout pages - can't login without admin interface
 
-API (In Progress)
-=================
+API v1 (In Progress)
+====================
 - GET/POST/PUT/DELETE for DiaryFood [done]
 - Model-level permissions for API views [done]
 - Per-user ing/rec data (Nullable user field; exclude if user!= request.user) [done]
 - GET/POST/PUT/DELETE for Ingredient [done]
 - GET/POST/PUT/DELETE for Recipe [done]
-- Add nested tags/flag/etc to Ingredient/Recipe serialisations
-- Add price GET/POST/PUT/DELETE - access to user objects only, supplier read only
+- Add nested tags/flag/etc to Ingredient/Recipe serialisations [done]
+- Add recipe component GET, POST/PUT/DELETE for user-owned Recipe
+- Add price GET, POST/PUT/DELETE - user Ingredients only, supplier stringfield
 - Check object-level permission to ensure users can only change their own objects (not global ones)
 
 NData and calculation DRYing (should be done before further recipe/diary work)
