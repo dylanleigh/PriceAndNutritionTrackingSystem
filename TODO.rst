@@ -22,8 +22,7 @@ API (In Progress)
 - GET/POST/PUT/DELETE for Recipe [done]
 - Add nested tags/flag/etc to Ingredient/Recipe serialisations
 - Add price GET/POST/PUT/DELETE - access to user objects only, supplier read only
-- Object-level permission to ensure users can only change their own
-  objects [done for Rec/Diary]
+- Object-level permission to ensure users can only change their own objects (not global ones)
 
 NData and calculation DRYing (should be done before further recipe/diary work)
 ==============================================================================

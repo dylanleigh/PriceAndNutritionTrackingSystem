@@ -36,6 +36,7 @@ class RecipeListView(LoginRequiredMixin, ListView):
 
 class RecipeListAllView(LoginRequiredMixin, ListView):
    # - Table view - generic macros and cost for each ingredient
+   # TODO Consider rate limiting due to server time cost
    model = Recipe
 
    def get_queryset(self):

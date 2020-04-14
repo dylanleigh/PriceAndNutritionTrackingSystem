@@ -6,6 +6,7 @@ import csv
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
@@ -14,33 +15,39 @@ from rest_framework import viewsets, permissions
 
 from .models import Ingredient, IngredientTag
 from .serializers import IngredientSerializer
-from .utils import get_nutrition_limits
+from .utils import get_nutrition_limits, owner_or_global
 from targets.models import Target
 
 
 class IngredientListView(LoginRequiredMixin, ListView):
-   # - Table view - generic macros and cost for each ingredient
+   # - Default Table view - generic macros and cost for untagged ingredients
    model = Ingredient
-   queryset = Ingredient.objects.filter(tags__isnull=True)
-   #queryset = Ingredient.objects.all()    # XXX NOTE: This now only shows untagged Ings
+
+   def get_queryset(self):
+      user=self.request.user
+      return owner_or_global(Ingredient, user).filter(Q(tags__isnull=True))
 
    def get_context_data(self, **kwargs):
       context = super(IngredientListView, self).get_context_data(**kwargs)
       context['alltags'] = IngredientTag.objects.values_list('name', flat=True)
-      context['limits'] = get_nutrition_limits(self.queryset)
+      context['limits'] = get_nutrition_limits(self.get_queryset())
       context['listtype'] = 'untagged'
       return context
 
 
 class IngredientListAllView(LoginRequiredMixin, ListView):
-   # - Table view - generic macros and cost for each ingredient
+   # - List of all ingredients (all tags)
+   # TODO Consider rate limiting due to server time cost
    model = Ingredient
-   queryset = Ingredient.objects.all()
+
+   def get_queryset(self):
+      user=self.request.user
+      return owner_or_global(Ingredient, user)
 
    def get_context_data(self, **kwargs):
       context = super(IngredientListAllView, self).get_context_data(**kwargs)
       context['alltags'] = IngredientTag.objects.values_list('name', flat=True)
-      context['limits'] = get_nutrition_limits(self.queryset) #TODO: Too intensive?
+      context['limits'] = get_nutrition_limits(self.get_queryset()) #TODO: Too intensive?
       context['listtype'] = 'all'
       return context
 
@@ -50,8 +57,9 @@ class IngredientListByTagView(LoginRequiredMixin, ListView):
    model = Ingredient
 
    def get_queryset(self):
-        self.tag = get_object_or_404(IngredientTag, name=self.args[0])
-        return Ingredient.objects.filter(tags=self.tag)
+      user=self.request.user
+      self.tag = get_object_or_404(IngredientTag, name=self.args[0])
+      return owner_or_global(Ingredient,user).filter(tags=self.tag)
 
    def get_context_data(self, **kwargs):
       context = super(IngredientListByTagView, self).get_context_data(**kwargs)
@@ -64,6 +72,10 @@ class IngredientListByTagView(LoginRequiredMixin, ListView):
 
 class IngredientDetailView(LoginRequiredMixin, DetailView):
    model = Ingredient
+
+   def get_queryset(self):
+      user=self.request.user     # Required for detail to limit to user's own objects
+      return owner_or_global(Ingredient, user)
 
    def get_context_data(self, **kwargs):
        context = super(IngredientDetailView, self).get_context_data(**kwargs)
@@ -105,7 +117,8 @@ def IngredientCSVExportView(request):
    )
 
    writer.writeheader()
-   for ing in Ingredient.objects.all().iterator():
+   user = request.user
+   for ing in owner_or_global(Ingredient,user).iterator():
       data = ing.nutrition_data
       data['name'] = ing.name
       data['tags'] = ing.tags.values_list('name', flat=True)
@@ -124,4 +137,4 @@ class IngredientViewSet(viewsets.ModelViewSet):
 
    def get_queryset(self):
       user = self.request.user
-      return Ingredient.objects.all()     # FIXME filter to global (user null) and user objects
+      return owner_or_global(Ingredient,user)     # FIXME filter to global (user null) and user objects
