@@ -3,12 +3,13 @@ from rest_framework import serializers
 from .models import Ingredient
 
 class IngredientSerializer(serializers.HyperlinkedModelSerializer):
-   nutrition_data = serializers.ReadOnlyField()
-   owner = serializers.ReadOnlyField()
-
+   nutrition_data = serializers.ReadOnlyField()       # Calculated values
+   owner = serializers.ReadOnlyField()                # Current user or null, but immutable
+   tags = serializers.StringRelatedField(many=True)
 
    class Meta:
       model = Ingredient
+      fields = '__all__'
 
       # FIXME these comments should go in readme/api docs
       # Note that the nutrition fields on Ingredient itself are
@@ -20,4 +21,3 @@ class IngredientSerializer(serializers.HyperlinkedModelSerializer):
       # ingredient by default - they must be fetched separately to
       # show exact price/supplier breakdown.
 
-      exclude = ['tags']   # FIXME TODO need nested serialization
