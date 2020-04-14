@@ -108,15 +108,11 @@ Repurposing Recursive Recipes
    This can be combined with other "typical meal" meta-recipes to make
    an "average day" overview which can be used as a meal plan.
 
-   Changes to a recipe (or ingredient) will be reflected in any
-   ingredient that uses them, so if you alter a recipe this will be
-   reflected in the "typical meal/day" recipes.
-
-   They can also be used as "variables" in other recipes, e.g. if you
-   sometimes use normal flour or gluten free flour, a "flour" recipe
-   can be created which can be used to toggle between them with one
-   change which effectively toggles the ingredient in multiple recipes
-   at once.
+   This can also be used as a sort of "variables" in other recipes,
+   e.g. if you sometimes use normal flour or gluten free flour, a "flour"
+   recipe can be created which can be used to toggle between them with
+   one change which effectively toggles the ingredient in multiple
+   recipes at once.
 
 PANTS doesn't make assumptions or guesses
    It is preferable to show no data instead of wrong data. If an ingredient has
@@ -142,18 +138,11 @@ Once-off Diary entries
    nutritional data e.g. when going out for the night and you can only
    guess how many calories are in dinner.
 
-Micronutrients
-   All Australian standard nutritional data is stored (e.g. sodium and
-   saturated fat) but not everything is shown in all views by default.
-   There was support for micronutrients such as individual amino acids
-   which was removed as part of a DB schema change but this is planned to
-   be readded in a more stable way (see roadmap for details).
-
 Per-user and global data
-   Diary is per-user, but ingredient/recipe are global. There
-   are plans to add per-user recipes but this is very far down the
-   roadmap as the focus is on adding features for personal use (it
-   wouldn't be complex however).
+   Ingredients and Recipes added by the admin are visible to all users
+   (but not editable by them); Normal users can also enter in their
+   own Recipes and Ingredients, which only they have access to
+   (sharing may be added in a later version).
 
 Progress/Percentage bars
    Once your default target is set, it will be used to compare against
@@ -163,6 +152,13 @@ Progress/Percentage bars
    minimum/maximum are accounted for; Purple progress bars are used
    to show percentage out of the current total, or amount compared to the
    highest value in a list of recipes/ingredients.
+
+Micronutrients
+   All Australian standard nutritional data is stored (e.g. sodium and
+   saturated fat) but not everything is shown in all views by default.
+   There was support for micronutrients such as individual amino acids
+   which was removed as part of a DB schema change but this is planned to
+   be readded in a more stable way (see roadmap for details).
 
 
 Installation
@@ -259,6 +255,11 @@ issues.
 No ingredients/recipes need to be created to start using the diary
 (although every entry will have to have all its data added manually if
 there are no recipes or ingredients to use).
+
+Adding Non-Super Users
+----------------------
+
+TODO this needs to be documented for API consumers.
 
 API
 ===
