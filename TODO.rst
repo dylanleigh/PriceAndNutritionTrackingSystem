@@ -22,7 +22,8 @@ API v1 (In Progress)
 - GET/POST/PUT/DELETE for Recipe [done]
 - Add nested tags/flag/etc to Ingredient/Recipe serialisations [done]
 - Add recipe component GET, POST/PUT/DELETE for user-owned Recipe
-- Add price GET, POST/PUT/DELETE - user Ingredients only, supplier stringfield
+- Add custom API response to get diary aggregate data (get_diary_aggs() calls)
+- Add price GET, POST/PUT/DELETE - user Ingredients only, or own prices on global ingredients?, supplier stringfield
 - Check object-level permission to ensure users can only change their own objects (not global ones)
 
 NData and calculation DRYing (should be done before further recipe/diary work)
