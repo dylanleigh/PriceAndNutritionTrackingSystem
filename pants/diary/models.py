@@ -70,6 +70,7 @@ class DiaryFood(AbstractBaseNutrients):
       help_text="Time meal started",
    )
    # User this diary entry is for - this is required
+   # FIXME - this should be "owner" to fit in with django object permissions extensions
    user = models.ForeignKey(
       User,
       blank=False,

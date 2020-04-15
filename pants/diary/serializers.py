@@ -8,6 +8,7 @@ class DiaryFoodSerializer(serializers.HyperlinkedModelSerializer):
    class Meta:
       model = DiaryFood
 
+      # FIXME these comments should be in readme/api docs
       # Includes all fields except user (already filtered to the
       # logged in user).
       # Note DiaryFood entries of an Ingredient/Recipe are
@@ -16,7 +17,5 @@ class DiaryFoodSerializer(serializers.HyperlinkedModelSerializer):
       # itself are editable; nutrition_data is calculated and is
       # read-only.
 
-      # FIXME re-include Ingredient/Recipe when they have API endpoints too
-
-      exclude = ['user', 'of_recipe',]
+      exclude = ['user',]
 

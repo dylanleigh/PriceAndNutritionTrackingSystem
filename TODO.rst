@@ -11,17 +11,23 @@ Urgent / Important
 - ** Unit tests are severely incomplete! **
 - In particular need coverage to catch keyerrors on new installs, and other things that are going to affect new users.
 - Fix all the FIXMEs in the code (see "make fixme" output) (most of these now relate to the NData work)
-- Proper non-admin login/logout pages - can't login without admin interface
 
-API (In Progress)
-=================
+API v1 (In Progress)
+====================
 - GET/POST/PUT/DELETE for DiaryFood [done]
-- Per-user ing/rec data (Nullable user field; exclude if user!= request.user)
-- GET/POST/PUT/DELETE for Ingredient [done, needs further work]
-- GET/POST/PUT/DELETE for Recipe
-- Add nested tags/flag/etc to Ingredient/Recipe serialisations
-- Fix permissions for API views - to use Django's built in permissions (needs dummy querysets to be set?)
-- Add price/supplier (own endpoint or nested via sorted_prices?)
+- Model-level permissions for API views [done]
+- Per-user ing/rec data (Nullable user field; exclude if user!= request.user) [done]
+- GET/POST/PUT/DELETE for Ingredient [done]
+- GET/POST/PUT/DELETE for Recipe [done]
+- Add nested tags/flag/etc to Ingredient/Recipe serialisations [done]
+- Add recipe component GET, POST/PUT/DELETE for user-owned Recipe [done but writing won't work without below]
+- Add create() so component can be saved with Recipe in the one call [in progress]
+- GET all IngredientTag/RecipeTag for display
+- Document API action to get recent (last 2 days) diary data via django-filter instead of custom view
+- Add custom API response to get diary aggregate data (get_diary_aggs() calls) - note home page uses this but not above call for full details
+- Add price GET, POST/PUT/DELETE - user Ingredients only, or own prices on global ingredients?, supplier stringfield
+- Check object-level permission to ensure users can only change their own objects (not global ones)
+- Document Django user permissions required to allow users to add/edit/delete DB objects
 
 NData and calculation DRYing (should be done before further recipe/diary work)
 ==============================================================================

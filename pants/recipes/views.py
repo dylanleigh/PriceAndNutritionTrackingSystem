@@ -6,38 +6,47 @@ import csv
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from rest_framework import viewsets, permissions
 
 from .models import Recipe, RecipeTag
+from .serializers import RecipeListSerializer, RecipeNestedSerializer
 from targets.models import Target
-from ingredients.utils import get_nutrition_limits
+from ingredients.utils import get_nutrition_limits, owner_or_global
 
 
 class RecipeListView(LoginRequiredMixin, ListView):
-   # - Table view - generic macros and cost for each ingredient
+   # - Table view - default is to show untagged recipes
    model = Recipe
-   queryset = Recipe.objects.filter(tags__isnull=True)
-   #queryset = Recipe.objects.all()     # TODO consider limits/paging
+
+   def get_queryset(self):
+      user=self.request.user
+      return owner_or_global(Recipe, user).filter(Q(tags__isnull=True))
 
    def get_context_data(self, **kwargs):
       context = super(RecipeListView, self).get_context_data(**kwargs)
-      context['limits'] = get_nutrition_limits(self.queryset)
+      context['limits'] = get_nutrition_limits(self.get_queryset())
       context['alltags'] = RecipeTag.objects.values_list('name', flat=True)
       return context
 
 
 class RecipeListAllView(LoginRequiredMixin, ListView):
    # - Table view - generic macros and cost for each ingredient
+   # TODO Consider rate limiting due to server time cost
    model = Recipe
-   queryset = Recipe.objects.all()
+
+   def get_queryset(self):
+      user=self.request.user
+      return owner_or_global(Recipe, user)
 
    def get_context_data(self, **kwargs):
       context = super(RecipeListAllView, self).get_context_data(**kwargs)
       context['alltags'] = RecipeTag.objects.values_list('name', flat=True)
-      context['limits'] = get_nutrition_limits(self.queryset) #TODO: Too intensive?
+      context['limits'] = get_nutrition_limits(self.get_queryset()) #FIXME: Too CPU intensive?
       context['listtype'] = 'all'
       return context
 
@@ -47,7 +56,8 @@ class RecipeListByTagView(LoginRequiredMixin, ListView):
 
    def get_queryset(self):
         self.tag = get_object_or_404(RecipeTag, name=self.args[0])
-        return Recipe.objects.filter(tags=self.tag)
+        user=self.request.user
+        return owner_or_global(Recipe, user).filter(tags=self.tag)
 
    def get_context_data(self, **kwargs):
       context = super(RecipeListByTagView, self).get_context_data(**kwargs)
@@ -60,9 +70,13 @@ class RecipeListByTagView(LoginRequiredMixin, ListView):
 class RecipeDetailView(LoginRequiredMixin, DetailView):
    model = Recipe
 
+   def get_queryset(self):
+      # required for access control (can't view other users objects)
+      user=self.request.user
+      return owner_or_global(Recipe, user)
+
    def get_context_data(self, **kwargs):
       context = super(RecipeDetailView, self).get_context_data(**kwargs)
-
       # User's current daily target for comparison
       # TODO: Should let user compare to different targets, and scale
       # to maximise something (etc)
@@ -109,10 +123,30 @@ def RecipeCSVExportView(request):
    )
 
    writer.writeheader()
-   for rec in Recipe.objects.all().iterator():
+   user=request.user
+   for rec in owner_or_global(Recipe, user).iterator():
       data = rec.nutrition_data
       data['name'] = rec.name
       data['tags'] = rec.tags.values_list('name', flat=True)
       writer.writerow(data)
 
    return response
+
+class RecipeViewSet(viewsets.ModelViewSet):
+   """
+   API endpoint that allows Recipes to be viewed and user's ones to be altered.
+   """
+   permission_classes = [permissions.DjangoModelPermissions]
+   queryset = Recipe.objects.none()  # Required for DjangoModelPermissions to get Model
+
+   # Don't show components in list, use serializer with nested
+   # components for other actions (get/put/etc)
+   def get_serializer_class(self):
+      if self.action:
+         if self.action == 'list':
+            return RecipeListSerializer
+      return RecipeNestedSerializer
+
+   def get_queryset(self):
+      return owner_or_global(Recipe, self.request.user)
+

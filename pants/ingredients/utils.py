@@ -3,15 +3,44 @@ from decimal import Decimal
 from collections import defaultdict
 
 from django.conf import settings
+from django.db.models import Q
+
+from rest_framework import permissions
 
 # Utility functions for ingredients/nutrient data
+
+THOUSAND=Decimal(1000)
+
+
+def owner_or_global(model, user):
+   """
+   Returns the objects of the model which are either owned by the
+   given user or global (null).
+   """
+   # Use in place of e.g. Recipe.objects.filter( -> owner_or_global(Recipe,user).filter(
+   return model.objects.filter(Q(owner__isnull=True)|Q(owner=user))
+
+# FIXME use this for finer grained api access control
+class IsOwnerOrGlobal(permissions.BasePermission):
+   """
+   Object-level permission to only allow owners of an object full
+   access to it, and read-only access to global (no owner) objects.
+   Assumes the model instance has an `owner` attribute.
+   """
+
+   def has_object_permission(self, request, view, obj):
+      # Read permissions are allowed to unowned objects,
+      # GET, HEAD or OPTIONS requests.
+      if request.method in permissions.SAFE_METHODS:
+         if obj.owner == None:
+            return True
+
+      return obj.owner == request.user
+
 
 # TODO This could be its own class that generates/caches individual
 # ratios as required and enforces access/validation/etc, and does
 # operations like summing.
-
-THOUSAND=Decimal(1000)
-
 def add_nutrition_ratios(data):
    """
    Given a dict of nutrition data, calculate the ratios

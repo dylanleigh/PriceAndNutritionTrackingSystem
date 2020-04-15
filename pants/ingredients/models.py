@@ -4,6 +4,7 @@ from decimal import Decimal
 
 from django.apps import apps
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import F
@@ -147,6 +148,16 @@ class Ingredient(AbstractBaseNutrients):
       unique=True,
    )
    description = models.CharField(max_length=settings.DESCR_LENGTH,blank=True)
+
+   # Owner is null for "global" Ingredients
+   # Only owner can see/edit their own ones, only admin can edit global ones
+   owner = models.ForeignKey(
+      User,
+      blank=True,
+      null=True,
+      on_delete=models.CASCADE,
+      related_name='+',       # Prevents User-> related name being created
+   )
 
    tags = models.ManyToManyField(IngredientTag, blank=True)
 
