@@ -11,7 +11,6 @@ Urgent / Important
 - ** Unit tests are severely incomplete! **
 - In particular need coverage to catch keyerrors on new installs, and other things that are going to affect new users.
 - Fix all the FIXMEs in the code (see "make fixme" output) (most of these now relate to the NData work)
-- Proper non-admin login/logout pages - can't login without admin interface
 
 API v1 (In Progress)
 ====================
