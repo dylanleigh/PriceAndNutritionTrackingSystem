@@ -21,11 +21,14 @@ API v1 (In Progress)
 - GET/POST/PUT/DELETE for Ingredient [done]
 - GET/POST/PUT/DELETE for Recipe [done]
 - Add nested tags/flag/etc to Ingredient/Recipe serialisations [done]
-- Add recipe component GET, POST/PUT/DELETE for user-owned Recipe
-- Add custom API action to get recent (last 2 days) diary data
-- Add custom API response to get diary aggregate data (get_diary_aggs() calls) - note home page uses this but not above call
+- Add recipe component GET, POST/PUT/DELETE for user-owned Recipe [done but writing won't work without below]
+- Add create() so component can be saved with Recipe in the one call [in progress]
+- GET all IngredientTag/RecipeTag for display
+- Document API action to get recent (last 2 days) diary data via django-filter instead of custom view
+- Add custom API response to get diary aggregate data (get_diary_aggs() calls) - note home page uses this but not above call for full details
 - Add price GET, POST/PUT/DELETE - user Ingredients only, or own prices on global ingredients?, supplier stringfield
 - Check object-level permission to ensure users can only change their own objects (not global ones)
+- Document Django user permissions required to allow users to add/edit/delete DB objects
 
 NData and calculation DRYing (should be done before further recipe/diary work)
 ==============================================================================

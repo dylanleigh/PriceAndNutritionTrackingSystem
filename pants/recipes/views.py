@@ -14,7 +14,7 @@ from django.views.generic.list import ListView
 from rest_framework import viewsets, permissions
 
 from .models import Recipe, RecipeTag
-from .serializers import RecipeSerializer
+from .serializers import RecipeListSerializer, RecipeNestedSerializer
 from targets.models import Target
 from ingredients.utils import get_nutrition_limits, owner_or_global
 
@@ -136,9 +136,16 @@ class RecipeViewSet(viewsets.ModelViewSet):
    """
    API endpoint that allows Recipes to be viewed and user's ones to be altered.
    """
-   serializer_class = RecipeSerializer
    permission_classes = [permissions.DjangoModelPermissions]
    queryset = Recipe.objects.none()  # Required for DjangoModelPermissions to get Model
+
+   # Don't show components in list, use serializer with nested
+   # components for other actions (get/put/etc)
+   def get_serializer_class(self):
+      if self.action:
+         if self.action == 'list':
+            return RecipeListSerializer
+      return RecipeNestedSerializer
 
    def get_queryset(self):
       return owner_or_global(Recipe, self.request.user)
