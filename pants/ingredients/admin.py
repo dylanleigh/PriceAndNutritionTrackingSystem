@@ -23,7 +23,10 @@ class IngredientAdmin(admin.ModelAdmin):
 
    fieldsets = (
       (None, {
-         'fields': (('name', 'description'), ('serving',)),
+         'fields': (
+            ('name', 'description'),
+            ('serving','owner')
+         ),
       }),
       ('Tags', {
             'classes': ('collapse',),
