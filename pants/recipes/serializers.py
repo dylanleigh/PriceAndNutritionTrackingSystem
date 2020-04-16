@@ -10,7 +10,7 @@ class ComponentSerializer(serializers.ModelSerializer):
    name = serializers.ReadOnlyField()
    class Meta:
       model = Component
-      fields = '__all__'
+      exclude = ['in_recipe'] # Redundant - only accessible nested within its recipe
 
 class RecipeNestedSerializer(serializers.HyperlinkedModelSerializer):
    """
