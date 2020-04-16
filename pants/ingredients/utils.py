@@ -83,9 +83,6 @@ def add_nutrition_ratios(data):
             data['rank']=rank
             data['kj_excl_prot']=kj_excl_prot # TODO show this in detail etc
 
-            if data['cost']:
-               data['rank_per_cost']= rank / data['cost']   # Used in CSV export but not on site
-
          if data['carbohydrate'] is not None:
             data['kj_from_carb']=data['carbohydrate'] * settings.KJ_PER_G_CARB
          if data['fat'] is not None:
