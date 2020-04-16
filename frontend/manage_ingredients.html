@@ -30,7 +30,8 @@
     <div style="flex: 1">
         <h2>Modify Selected</h2>
         <form id="ingredient_edit_form" class="form-grid-2">
-            <input type="hidden" name="ingredient_uri">
+            <input type="hidden" id="selected_row_node">
+            <input type="hidden" id="ingredient_uri" name="ingredient_uri">
 
             <label for="name">Name</label>
             <input id="name" name="name" placeholder="Grilled Cheese">
@@ -46,23 +47,32 @@
             <input id="owner" disabled value="">
 
             <label for="tags">Tags</label>
-            <input disabled id="tags" value="Not Implemented">
+            <input disabled id="tags" name="tags">
 
             <label for="serving">Serving Size</label>
-            <input id="serving" name="serves" placeholder="in grams">
+            <input id="serving" name="serving" placeholder="in grams">
 
             <label for="introduction">Introduction</label>
-            <textarea id="introduction" name="introduction" placeholder="Introductory paragraph explains ingredient"></textarea>
+            <textarea id="introduction" name="introduction"
+                      placeholder="Introductory paragraph explains ingredient"></textarea>
 
             <label for="notes">Notes</label>
             <textarea id="notes" name="notes" placeholder="Additional information about usage, types, etc."></textarea>
-
-            <button onclick="">Submit</button>
         </form>
+        <button onclick="edit_ingredient()">Edit</button>
     </div>
 </div>
 <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
 <script>
+    /**
+     * Returns credentials in basic authentication suitable string
+     */
+    let all_ingredients = {};
+
+    function get_basic_auth_credentials() {
+        return 'Basic ' + btoa('admin:admin')
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         // Create a grid to view the data
         let columns = [
@@ -89,7 +99,7 @@
 
                     let response = await fetch(api_location.toString(), {
                         headers: new Headers({
-                            'Authorization': 'Basic ' + btoa('austin:solidocean')
+                            'Authorization': get_basic_auth_credentials()
                         })
                     });
                     if (response.ok) {
@@ -101,12 +111,12 @@
                 }
             }
         };
-        let all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
+        all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
 
         // Register the event to add ingredients to the recipe
         all_ingredients.gridOptions.api.addEventListener('rowSelected', args => {
             // This event fires if a row is selected OR deselected, we only care if something gets selected
-            if(!args.node.selected) return;
+            if (!args.node.selected) return;
             let ingredient = args.data;
             document.querySelector('#ingredient_uri').value = ingredient.url;
             document.querySelector('#name').value = ingredient.name;
@@ -117,15 +127,62 @@
             document.querySelector('#serving').value = ingredient.serving;
             document.querySelector('#introduction').value = ingredient.introduction;
             document.querySelector('#notes').value = ingredient.notes;
+
+            // Also store a reference to this node so that we can refresh it
+            document.querySelector('#selected_row_node').extra_data = {
+                'ag_data': args.node
+            };
         });
+
     });
+
+    /**
+     * Reusable function for handling errors from the api
+     */
+    async function handle_api_errors(response) {
+        if (!response.ok) {
+            throw Error(await response.text())
+        }
+        return response
+    }
 
     /**
      * Updates the ingredient based on the values in the ingredients form
      */
-    function edit_ingredient(){
+    function edit_ingredient() {
         let form = document.querySelector('#ingredient_edit_form');
-        fetch(new Request())
+        let api = form.querySelector('#ingredient_uri').value;
+        let tags = form.querySelector('[name=tags]').value.split(',');
+        // Remove empty tags
+        tags = tags.filter(tag => tag !== '');
+
+        fetch(api, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': get_basic_auth_credentials()
+            },
+            body: JSON.stringify({
+                'name': form.querySelector('[name=name]').value,
+                'slug': form.querySelector('[name=slug]').value,
+                'description': form.querySelector('[name=description]').value,
+                // 'owner': form.querySelector('[name=owner]').value,
+                'tags': tags,
+                'serving': form.querySelector('[name=serving]').value,
+                'introduction': form.querySelector('[name=introduction]').value,
+                'notes': form.querySelector('[name=notes]').value,
+            })
+        })
+            .then(handle_api_errors)
+            .then(resp => resp.json())
+            .then(resp => {
+                let row_node = document.querySelector('#selected_row_node').extra_data.ag_data;
+                row_node.setData(resp);
+                all_ingredients.gridOptions.api.flashCells({
+                    rowNodes: [row_node]
+                })
+            })
+            .catch(reason => alert(reason))
     }
 </script>
 <script src="js/scripts.js"></script>
