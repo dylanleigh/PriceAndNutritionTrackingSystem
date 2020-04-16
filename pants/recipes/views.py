@@ -111,9 +111,8 @@ def RecipeCSVExportView(request):
       'cost_per_kg',
       'pf_per_j',
       'rank',
-      'rank_per_cost',
    ] + list(settings.NUTRITION_DATA_ITEMS) + [
-      'tags',        # TODO: Add ingredient/component names somehow here!
+      'tags',        # TODO: Add a column with ingredient/component names to export?
    ]
 
    writer = csv.DictWriter(
@@ -139,7 +138,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
    permission_classes = [permissions.DjangoModelPermissions]
    queryset = Recipe.objects.none()  # Required for DjangoModelPermissions to get Model
 
-   # Don't show components in list, use serializer with nested
+   # Don't show components in list, but use serializer with nested
    # components for other actions (get/put/etc)
    def get_serializer_class(self):
       if self.action:

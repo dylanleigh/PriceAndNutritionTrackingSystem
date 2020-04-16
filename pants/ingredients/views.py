@@ -105,7 +105,6 @@ def IngredientCSVExportView(request):
       'protein_per_cost',
       'fibre_per_cost',
       'rank',
-      'rank_per_cost',
       'pf_per_j',
    ] + list(settings.NUTRITION_DATA_ITEMS) + [
       'tags',

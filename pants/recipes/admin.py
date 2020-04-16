@@ -30,8 +30,8 @@ class RecipeAdmin(admin.ModelAdmin):
    fieldsets = (
       (None, {
          'fields': (
-            ('name', 'serves',),
-            ('flag', 'description',),
+            ('name', 'description'),
+            ('flag', 'serves', 'owner'),
          ),
       }),
       ('Text Fields (intro, method, notes)', {
