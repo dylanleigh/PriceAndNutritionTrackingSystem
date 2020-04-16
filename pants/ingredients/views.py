@@ -135,6 +135,8 @@ class IngredientViewSet(viewsets.ModelViewSet):
    permission_classes = [permissions.DjangoModelPermissions]
    queryset = Ingredient.objects.none()  # Required for DjangoModelPermissions to get Model
 
+   search_fields = ['name']
+
    def get_queryset(self):
       user = self.request.user
       return owner_or_global(Ingredient,user)     # FIXME filter to global (user null) and user objects
