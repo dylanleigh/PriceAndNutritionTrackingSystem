@@ -22,7 +22,7 @@ API v1 (In Progress)
 - Add nested tags/flag/etc to Ingredient/Recipe serialisations [done]
 - Add recipe component GET, POST/PUT/DELETE for user-owned Recipe [done but writing won't work without below]
 - Add create() so component can be saved with Recipe in the one call [in progress]
-- GET all IngredientTag/RecipeTag for display
+- GET all IngredientTag/RecipeTag/Flag for display
 - Document API action to get recent (last 2 days) diary data via django-filter instead of custom view
 - Add custom API response to get diary aggregate data (get_diary_aggs() calls) - note home page uses this but not above call for full details
 - Add price GET, POST/PUT/DELETE - user Ingredients only, or own prices on global ingredients?, supplier stringfield
@@ -90,6 +90,7 @@ Django Frontend
 ===============
 
 - Automatic conversion of kilocalories to kilojoules when entering ingredients
+- Allow entering ingredients per-100g or per-arbitary-grams
 - Ratio bar charts on ingredient detail aren't very useful without the ability to scale by grams or servings
 - Ratio bar charts on recipe detail use only max limit; should use midpoint of min/max
 - Replace recipe/ and ingredient/ with "landing" page with a list of tags and count of ings for each etc, links to /all/ etc
@@ -117,7 +118,6 @@ Miscellaneous
 - Copy some of the cleaner explanations of the ratios and meta-recipes from various blog posts to README (also, clean up README in general)
 - Diary doesn't rewrite cost if there is no cost on ingredient/recipe - should be allowed as a manual override but at least give a warning.
 - Improved bulk import facilities in general, especially open data
-- Consider: Move to per-100g instead of per-kg?
 - "Favourite" ings/recs - show first in add-diary-item etc
 - Diary nav for historic data - ArchiveView / TodayArchiveView/ DayArchiveView ?
 - Recipe is_vegan/is_vegetarian/gluten_free/has_gluten properties - check via ingredient tags
