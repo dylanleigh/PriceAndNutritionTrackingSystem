@@ -1,12 +1,14 @@
 from rest_framework import serializers
 
-from .models import Recipe, Component
+from .models import Recipe, Component, RecipeTag, RecipeFlag
+
 
 class ComponentSerializer(serializers.ModelSerializer):
    """
    Detail/Push (etc) serialiser for Recipe - includes nested Components
    """
    # FIXME should show string of the linked recipe/ingredient as well as PK
+   name = serializers.ReadOnlyField()
    class Meta:
       model = Component
       fields = '__all__'

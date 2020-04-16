@@ -26,9 +26,9 @@ not_negative = MinValueValidator(0)
 
 class RecipeTag(models.Model):
    """
-   Tags for recipes - just a name.
+   Tags for recipes - just a name and optional description.
    Name follows slug rules (only lowercase, hyphens and underscores)
-   e.g. stew, baked, gluten-free, no_cook etc
+   e.g. 'stew', 'baked', 'gluten-free', 'no_cook'
    """
    verbose_name_plural = "Recipe Tags"
 
@@ -50,7 +50,7 @@ class RecipeFlag(models.Model):
    - Each flag has a one-character label, which is shown next to the
      item in lists (etc) if it is flagged.
    """
-   verbose_name_plural = "Recipe Tags"
+   verbose_name_plural = "Recipe Flags"
 
    # e.g. flag usage for showing the testing/other status of recipes
    #     awaiting initial testing      A   "alpha"
