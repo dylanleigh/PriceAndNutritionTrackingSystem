@@ -57,7 +57,7 @@
             <input id="owner" disabled value="">
 
             <label for="tags">Tags</label>
-            <input disabled id="tags" name="tags" placeholder="tag1,tag2,tag3">
+            <input id="tags" name="tags" placeholder="tag1,tag2,tag3">
 
             <label for="serving">Serving Size</label>
             <input id="serving" name="serving" placeholder="in grams">
@@ -98,7 +98,11 @@
     </div>
 </div>
 <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+<script src="js/pants_api.js"></script>
 <script>
+    // Create an API connection
+    pants = new Pants('localhost:8000', '1', 'admin', 'admin');
+
     /**
      * Returns credentials in basic authentication suitable string
      */
@@ -129,40 +133,7 @@
             paginationAutoPageSize: true,
             // Set up the grid to paginate using the server side API
             datasource: {
-                getRows: async function (params) {
-                    // Get the number of requested results
-                    let num_requested = params.endRow - params.startRow;
-
-                    let api_location = new URL('http://127.0.0.1:8000/api/1/ingredient/');
-                    api_location.searchParams.set('offset', params.startRow);
-                    api_location.searchParams.set('limit', num_requested);
-
-                    // Handle sorting options
-                    let ordering = [];
-                    for(let id of params.sortModel){
-                        let param = '';
-                        param += id.sort === 'desc' ? '-' : '';
-                        param += id.colId;
-                        ordering.push(param)
-                    }
-                    api_location.searchParams.set('ordering', ordering.join(','));
-
-                    // Handle searching options
-                    api_location.searchParams.set('search', document.querySelector('#ingredient_filter').value);
-
-                    // Fetch the data
-                    let response = await fetch(api_location.toString(), {
-                        headers: new Headers({
-                            'Authorization': get_basic_auth_credentials()
-                        })
-                    });
-                    if (response.ok) {
-                        let data = await response.json();
-                        params.successCallback(data['results'], data['count'])
-                    } else {
-                        params.failCallback();
-                    }
-                }
+                getRows: params=>pants.get_ingredients(params)
             }
         };
         all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
@@ -216,39 +187,22 @@
     });
 
     /**
-     * Reusable function for handling errors from the api
-     */
-    async function handle_api_errors(response) {
-        if (!response.ok) {
-            throw Error(await response.text())
-        }
-        return response
-    }
-
-    /**
      * Updates the ingredient based on the values in the ingredients form
      */
     function edit_ingredient() {
         let form = document.querySelector('#ingredient_edit_form');
-        let api = form.querySelector('#ingredient_uri').value;
+        let ingredient_uri = form.querySelector('#ingredient_uri').value;
         let tags = form.querySelector('[name=tags]').value.split(',');
         // Remove empty tags
         tags = tags.filter(tag => tag !== '');
 
-        fetch(api, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': get_basic_auth_credentials()
-            },
-            body: JSON.stringify({
+        pants.edit_ingredient(ingredient_uri, {
                 'name': form.querySelector('[name=name]').value,
                 'slug': form.querySelector('[name=slug]').value,
                 'description': form.querySelector('[name=description]').value,
                 // @todo Cannot edit owner? Remove this if there is no case where this is possible
                 // 'owner': form.querySelector('[name=owner]').value,
-                // @todo Cannot edit tags, API not implemented
-                // 'tags': tags,
+                'tags': tags,
                 'serving': form.querySelector('[name=serving]').value,
                 'introduction': form.querySelector('[name=introduction]').value,
                 'notes': form.querySelector('[name=notes]').value,
@@ -263,37 +217,23 @@
                 'saturatedfat': form.querySelector('[name=saturatedfat]').value,
                 'sodium': form.querySelector('[name=sodium]').value,
             })
-        })
-            .then(handle_api_errors)
-            .then(resp => resp.json())
             .then(resp => {
                 let row_node = document.querySelector('#selected_row_node').extra_data.ag_data;
                 row_node.setData(resp);
                 all_ingredients.gridOptions.api.flashCells({
                     rowNodes: [row_node]
                 })
-            })
-            .catch(reason => alert(reason))
+            });
     }
 
     /**
      * Deletes the currently selected ingredient
      */
     function delete_ingredient(){
-        // Get the ingredient to delete
-        let ingredient_uri = document.querySelector('#ingredient_uri').value;
-        // Send the command to delete the ingredient using the api
-        fetch(ingredient_uri, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': get_basic_auth_credentials()
-            }
-        })
-        .then(handle_api_errors)
+        pants.delete_ingredient(document.querySelector('#ingredient_uri').value)
         .then(response=>{
             all_ingredients.gridOptions.api.refreshInfiniteCache();
-        })
-        .catch(reason => alert(reason))
+        });
     }
 
     /**
@@ -305,20 +245,13 @@
         // Remove empty tags
         tags = tags.filter(tag => tag !== '');
 
-        fetch('http://127.0.0.1:8000/api/1/ingredient/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': get_basic_auth_credentials()
-            },
-            body: JSON.stringify({
+        pants.create_ingredient({
                 'name': form.querySelector('[name=name]').value,
                 'slug': form.querySelector('[name=slug]').value,
                 'description': form.querySelector('[name=description]').value,
                 // @todo Cannot edit owner? Remove this if there is no case where this is possible
                 // 'owner': form.querySelector('[name=owner]').value,
-                // @todo Cannot edit tags, API not implemented
-                // 'tags': tags,
+                'tags': tags,
                 'serving': form.querySelector('[name=serving]').value,
                 'introduction': form.querySelector('[name=introduction]').value,
                 'notes': form.querySelector('[name=notes]').value,
@@ -333,14 +266,10 @@
                 'saturatedfat': form.querySelector('[name=saturatedfat]').value,
                 'sodium': form.querySelector('[name=sodium]').value,
             })
-        })
-            .then(handle_api_errors)
-            .then(resp => resp.json())
             .then(resp => {
                 console.log(resp);
                 all_ingredients.gridOptions.api.refreshInfiniteCache();
             })
-            .catch(reason => alert(reason))
     }
 </script>
 <script src="js/scripts.js"></script>
