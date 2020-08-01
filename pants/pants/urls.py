@@ -50,4 +50,7 @@ urlpatterns = [
     url(r'^products/', include('products.urls')),
 
     url(r'^adminbackend/', admin.site.urls),
+
+    # Experimental Frontend
+    url(r'^frontend/', include('frontend.urls'))
 ]

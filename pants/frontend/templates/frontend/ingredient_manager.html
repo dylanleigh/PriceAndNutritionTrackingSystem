@@ -1,5 +1,5 @@
 <!doctype html>
-
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -8,7 +8,7 @@
     <meta name="description" content="An Ingredient Manager For PANTS">
     <meta name="author" content="AustinGrey">
 
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="{% static "/css/styles.css" %}">
 
     <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
     <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
@@ -98,19 +98,14 @@
     </div>
 </div>
 <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
-<script src="js/pants_api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script src="{% static "js/pants_api.js" %}"></script>
 <script>
-    // Create an API connection
-    pants = new Pants('localhost:8000', '1', 'admin', 'admin');
-
-    /**
-     * Returns credentials in basic authentication suitable string
-     */
+    pants = new Pants('1', {
+        method: "Token",
+        token: Cookies.get("csrftoken")
+    });
     let all_ingredients = {};
-
-    function get_basic_auth_credentials() {
-        return 'Basic ' + btoa('admin:admin')
-    }
 
     document.addEventListener('DOMContentLoaded', () => {
         // Create a grid to view the data
@@ -133,7 +128,16 @@
             paginationAutoPageSize: true,
             // Set up the grid to paginate using the server side API
             datasource: {
-                getRows: params=>pants.get_ingredients(params)
+                getRows: async params=>{
+                    var response = await pants.get_ingredients(params);
+
+                    if (response.ok) {
+                        let data = await response.json();
+                        params.successCallback(data['results'], data['count'])
+                    } else {
+                        params.failCallback();
+                    }
+                }
             }
         };
         all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
@@ -185,7 +189,6 @@
         });
 
     });
-
     /**
      * Updates the ingredient based on the values in the ingredients form
      */
@@ -272,6 +275,6 @@
             })
     }
 </script>
-<script src="js/scripts.js"></script>
+<script src="../../static/js/scripts.js"></script>
 </body>
 </html>

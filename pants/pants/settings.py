@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'diary.apps.DiaryConfig',
     'targets.apps.TargetsConfig',
     'website.apps.WebsiteConfig',
+    'frontend.apps.FrontendConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

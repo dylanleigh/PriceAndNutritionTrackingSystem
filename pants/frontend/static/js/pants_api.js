@@ -8,15 +8,24 @@
 class Pants {
     /**
      *
-     * @param api_hostname The hostname of the server
-     * @param api_version The version of the api to use
-     * @param api_uname The username to access the api with
-     * @param api_pword The password to access the api with
+     * @param {string} api_version The version of the api to use
+     * @param {Object} authentication Describes what authentication method you are using
+     * @param {string} authentication.method either "Basic", or "Token"
+     * @param {string} authentication.token CSRF token to use for requests
+     * @param {string} authentication.username  username to use for basic auth requests
+     * @param {string} authentication.password  password to use for basic auth requests
+     * @param {string} api_hostname The hostname of the server, if not passed in it will use window.location.host (which includes the port)
      */
-    constructor(api_hostname, api_version, api_uname, api_pword) {
-        this.api_location = `http://${api_hostname}/api/${api_version}/`;
-        this.api_uname = api_uname;
-        this.api_pword = api_pword;
+    constructor(api_version, authentication, api_hostname) {
+        this.api_location = `http://${api_hostname || window.location.host}/api/${api_version}/`;
+        this.authentication_method = authentication.method;
+        if(authentication.method === "Basic"){
+            this.api_uname = authentication.username;
+            this.api_pword = authentication.password;
+        }
+        else{
+            this.token = authentication.token;
+        }
     }
 
     /**
@@ -29,6 +38,39 @@ class Pants {
 
     get_basic_auth_credentials() {
         return 'Basic ' + btoa(`${this.api_uname}:${this.api_pword}`)
+    }
+
+    /**
+     * Fetch, but with authentication automatically handled according to what authentication this API was instantiated with
+     * @param url
+     * @param init
+     * @returns {Promise<Response>}
+     */
+    async authenticated_fetch(url, init) {
+        // Ensure the Headers object is present
+        init = init || {};
+
+        if (init.headers === undefined) {
+            init.headers = new Headers()
+        }
+        if(!(init.headers instanceof Headers)){
+            // It is valid to just pass in an object, but we only deal with Headers. Convert
+            var headers = new Headers();
+            Object.entries(init.headers).forEach(entry=>{
+                headers.set(entry[0], entry[1]);
+            })
+            init.headers = headers;
+        }
+
+        if (this.authentication_method === "Basic") {
+            init.headers.set("Authorization", this.get_basic_auth_credentials());
+        } else {
+            init.headers.set("X-CSRFToken", this.token);
+        }
+
+        return fetch(url, init)
+            .then(this.handle_api_errors)
+            .catch(reason => alert(reason))
     }
 
     /**
@@ -64,17 +106,7 @@ class Pants {
         api_location.searchParams.set('search', document.querySelector('#ingredient_filter').value);
 
         // Fetch the data
-        let response = await fetch(api_location.toString(), {
-            headers: new Headers({
-                'Authorization': this.get_basic_auth_credentials()
-            })
-        });
-        if (response.ok) {
-            let data = await response.json();
-            options.successCallback(data['results'], data['count'])
-        } else {
-            options.failCallback();
-        }
+        return this.authenticated_fetch(api_location.toString());
     }
 
     /**
@@ -93,17 +125,14 @@ class Pants {
      * @param json_details {Object} The details that will be overwritten onto the ingredient (details not included are unaffected)
      */
     async edit_ingredient(uri, json_details) {
-        return fetch(uri, {
+        return this.authenticated_fetch(uri, {
             method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': this.get_basic_auth_credentials()
-            },
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
             body: JSON.stringify(json_details)
         })
-            .then(this.handle_api_errors)
             .then(resp => resp.json())
-            .catch(reason => alert(reason))
     }
 
     /**
@@ -112,14 +141,9 @@ class Pants {
      */
     async delete_ingredient(ingredient_uri){
         // Send the command to delete the ingredient using the api
-        return fetch(ingredient_uri, {
+        return this.authenticated_fetch(ingredient_uri, {
             method: 'DELETE',
-            headers: {
-                'Authorization': get_basic_auth_credentials()
-            }
         })
-        .then(this.handle_api_errors)
-        .catch(reason => alert(reason))
     }
 
     /**
@@ -132,17 +156,14 @@ class Pants {
         // Remove empty tags
         tags = tags.filter(tag => tag !== '');
 
-        return fetch(this.get_api_path('ingredient/'), {
+        return this.authenticated_fetch(this.get_api_path('ingredient/'), {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': this.get_basic_auth_credentials()
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(json_details)
         })
-            .then(this.handle_api_errors)
             .then(resp => resp.json())
-            .catch(reason => alert(reason))
     }
 
 
