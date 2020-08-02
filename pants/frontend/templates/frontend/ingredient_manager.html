@@ -1,206 +1,176 @@
-{% extends "frontend/common/main_template.html"%}
+{% extends "frontend/common/main_template.html" %}
 {% load inputs %}
 {% block page_title %}
-Ingredient Manager
+    Ingredient Manager
 {% endblock %}
 {% block content %}
-<div style="display: flex;gap: 1em">
-    <!-- A data grid to browse available ingredients -->
-    <div style="flex:1">
-        <div style="display: flex;justify-content: start;align-items: baseline;gap: 1em">
-            <h2>All Ingredients</h2>
-            <input id="ingredient_filter" placeholder="search" onkeyup="all_ingredients.gridOptions.api.refreshInfiniteCache()">
-        </div>
-        <div class="table_container">
-            <div id="ingredients" class="contained_table ag-theme-balham"></div>
-        </div>
-    </div>
-
-    <!-- A form to edit the given ingredient -->
-    <div style="flex: 1">
-        <div style="display:flex;justify-content: space-between">
-            <h2>Information</h2>
-            <div>
-                <button onclick="create_ingredient()">Create New</button>
-                <button disabled onclick="edit_ingredient()" id="edit_desc">Edit <span></span></button>
-                <button disabled onclick="delete_ingredient()" id="delete_desc">Delete <span></span></button>
+    <div style="display: flex;gap: 1em">
+        <!-- A data grid to browse available ingredients -->
+        <div style="flex:1">
+            <div style="display: flex;justify-content: start;align-items: baseline;gap: 1em">
+                <h2>All Ingredients</h2>
+                {% float_input label='Search' name='ingredient_filter' extra='onkeyup="all_ingredients.gridOptions.api.refreshInfiniteCache()"' %}
+            </div>
+            <div class="table_container">
+                <div id="ingredients" class="contained_table ag-theme-balham"></div>
             </div>
         </div>
-        <form id="ingredient_edit_form" autocomplete="off">
 
-            <input type="hidden" id="selected_row_node">
-            <input type="hidden" id="ingredient_uri" name="ingredient_uri">
+        <!-- A form to edit the given ingredient -->
+        <div style="flex: 1">
+            <div style="display:flex;justify-content: space-between">
+                <h2>Information</h2>
+                <div>
+                    <button onclick="create_ingredient()">Create New</button>
+                    <button disabled onclick="edit_ingredient()" id="edit_desc">Edit <span></span></button>
+                    <button disabled onclick="delete_ingredient()" id="delete_desc">Delete <span></span></button>
+                </div>
+            </div>
+            <form id="ingredient_edit_form" autocomplete="off">
+                <input type="hidden" id="selected_row_node">
+                <input type="hidden" id="ingredient_uri" name="ingredient_uri">
+                {% float_input label='Name' name='name' hint="Grilled Cheese" %}
+                {% float_input label='Slug' name='slug' hint="grilled-cheese" %}
+                {% float_input label='Description' name='description' hint="A sandwich made with melted cheese" multiline=True %}
+                <!-- You can't modify the owner, but I'm showing it here for this proof of concept -->
+                {% float_input label='Owner' name='owner' hint="A sandwich made with melted cheese" extra='disabled value=""' %}
+                {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3" %}
+                {% float_input label='Serving Size' name='serving' hint="in grams" %}
+                {% float_input label='Introduction' name='introduction' hint="Introductory paragraph explains ingredient" multiline=True %}
+                {% float_input label='Notes' name='notes' hint="Additional information about usage, types, etc." multiline=True %}
 
-            {% float_input label='Name' name='name' hint="Grilled Cheese"%}
-            {% float_input label='Slug' name='slug' hint="grilled-cheese"%}
-            {% float_input label='Description' name='description' hint="A sandwich made with melted cheese" multiline=True%}
-            <!-- You can't modify the owner, but I'm showing it here for this proof of concept -->
-            {% float_input label='Owner' name='owner' hint="A sandwich made with melted cheese" extra='disabled value=""'%}
-            {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3"%}
-            {% float_input label='Serving Size' name='serving' hint="in grams"%}
-            {% float_input label='Introduction' name='introduction' hint="Introductory paragraph explains ingredient" multiline=True%}
-            {% float_input label='Notes' name='notes' hint="Additional information about usage, types, etc." multiline=True%}
 
-
-            <h3>Nutritional Data</h3>
-            {% float_input label='kilojoules' name='kilojoules'%}
-            {% float_input label='protein' name='protein' hint="in grams"%}
-            {% float_input label='fibre' name='fibre' hint="in grams"%}
-            {% float_input label='carbohydrate' name='carbohydrate' hint="in grams"%}
-            {% float_input label='fat' name='fat' hint="in grams"%}
-            {% float_input label='sugar' name='sugar' hint="in grams"%}
-            {% float_input label='saturatedfat' name='saturatedfat' hint="in grams"%}
-            {% float_input label='sodium' name='sodium' hint="in milligrams"%}
-        </form>
+                <h3>Nutritional Data</h3>
+                {% float_input label='kilojoules' name='kilojoules' %}
+                {% float_input label='protein' name='protein' hint="in grams" %}
+                {% float_input label='fibre' name='fibre' hint="in grams" %}
+                {% float_input label='carbohydrate' name='carbohydrate' hint="in grams" %}
+                {% float_input label='fat' name='fat' hint="in grams" %}
+                {% float_input label='sugar' name='sugar' hint="in grams" %}
+                {% float_input label='saturatedfat' name='saturatedfat' hint="in grams" %}
+                {% float_input label='sodium' name='sodium' hint="in milligrams" %}
+            </form>
+        </div>
     </div>
-</div>
+{% endblock %}
+{% block css %}
+    <style>
+        .ingredients_controls {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .ingredients_controls > * {
+            flex: 1 1;
+        }
+
+        .table_container {
+            height: 50vh;
+        }
+
+        .table_container > .contained_table {
+            height: 100%;
+        }
+    </style>
 {% endblock %}
 {% block js %}
-<script>
-    let all_ingredients = {};
+    <script>
+        let all_ingredients = {};
 
-    document.addEventListener('DOMContentLoaded', () => {
-        // Create a grid to view the data
-        let columns = [
-            {headerName: "Name", field: "name", sort:'asc'},
-            {headerName: "Description", field: "description"},
-            {headerName: "Serving", field: "serving"},
-            {headerName: "Notes", field: "notes"},
-        ];
-        let grid_options = {
-            columnDefs: columns,
-            defaultColDef: {
-                flex: 1,
-                sortable: true,
-                resizable: true,
-            },
-            rowModelType: 'infinite',
-            rowSelection: 'single',
-            pagination: true,
-            paginationAutoPageSize: true,
-            // Set up the grid to paginate using the server side API
-            datasource: {
-                getRows: async params=>{
-                    var response = await pants.get_ingredients(params);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create a grid to view the data
+            let columns = [
+                {headerName: "Name", field: "name", sort: 'asc'},
+                {headerName: "Description", field: "description"},
+                {headerName: "Serving", field: "serving"},
+                {headerName: "Notes", field: "notes"},
+            ];
+            let grid_options = {
+                columnDefs: columns,
+                defaultColDef: {
+                    flex: 1,
+                    sortable: true,
+                    resizable: true,
+                },
+                rowModelType: 'infinite',
+                rowSelection: 'single',
+                pagination: true,
+                paginationAutoPageSize: true,
+                // Set up the grid to paginate using the server side API
+                datasource: {
+                    getRows: async params => {
+                        var response = await pants.get_ingredients(params);
 
-                    if (response.ok) {
-                        let data = await response.json();
-                        params.successCallback(data['results'], data['count'])
-                    } else {
-                        params.failCallback();
+                        if (response.ok) {
+                            let data = await response.json();
+                            params.successCallback(data['results'], data['count'])
+                        } else {
+                            params.failCallback();
+                        }
                     }
                 }
-            }
-        };
-        all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
-
-        // Register the event to add ingredients to the recipe
-        all_ingredients.gridOptions.api.addEventListener('rowSelected', args => {
-            // This event fires if a row is selected OR deselected, we only care if something gets selected
-            if (!args.node.selected) return;
-            let ingredient = args.data;
-            document.querySelector('#ingredient_uri').value = ingredient.url;
-            document.querySelector('#name').value = ingredient.name;
-            document.querySelector('#slug').value = ingredient.slug;
-            document.querySelector('#description').value = ingredient.description;
-            document.querySelector('#owner').value = ingredient.owner;
-            document.querySelector('#tags').value = ingredient.tags.join(',');
-            document.querySelector('#serving').value = ingredient.serving;
-            document.querySelector('#introduction').value = ingredient.introduction;
-            document.querySelector('#notes').value = ingredient.notes;
-
-            // Nutritional Data
-            document.querySelector('#kilojoules').value = ingredient.kilojoules;
-            document.querySelector('#protein').value = ingredient.protein;
-            document.querySelector('#fibre').value = ingredient.fibre;
-            document.querySelector('#carbohydrate').value = ingredient.carbohydrate;
-            document.querySelector('#fat').value = ingredient.fat;
-            document.querySelector('#sugar').value = ingredient.sugar;
-            document.querySelector('#saturatedfat').value = ingredient.saturatedfat;
-            document.querySelector('#sodium').value = ingredient.sodium;
-
-            // Also store a reference to this node so that we can refresh it
-            document.querySelector('#selected_row_node').extra_data = {
-                'ag_data': args.node
             };
+            all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
 
-            // Label the buttons to indicate the node that will be affected
-            let short_name = '';
-            if(ingredient.name.length > 13) {
-                short_name = ingredient.name.slice(0, 10) + '...';
-            } else {
-                short_name = ingredient.name.slice(0, 13);
-            }
-            let edit_btn = document.querySelector('#edit_desc');
-            let delete_btn = document.querySelector('#delete_desc');
-            edit_btn.querySelector('span').innerText = short_name;
-            delete_btn.querySelector('span').innerText = short_name;
-            // Since they start off disabled, enable them
-            edit_btn.disabled = false;
-            delete_btn.disabled = false;
-        });
-
-    });
-    /**
-     * Updates the ingredient based on the values in the ingredients form
-     */
-    function edit_ingredient() {
-        let form = document.querySelector('#ingredient_edit_form');
-        let ingredient_uri = form.querySelector('#ingredient_uri').value;
-        let tags = form.querySelector('[name=tags]').value.split(',');
-        // Remove empty tags
-        tags = tags.filter(tag => tag !== '');
-
-        pants.edit_ingredient(ingredient_uri, {
-                'name': form.querySelector('[name=name]').value,
-                'slug': form.querySelector('[name=slug]').value,
-                'description': form.querySelector('[name=description]').value,
-                // @todo Cannot edit owner? Remove this if there is no case where this is possible
-                // 'owner': form.querySelector('[name=owner]').value,
-                'tags': tags,
-                'serving': form.querySelector('[name=serving]').value,
-                'introduction': form.querySelector('[name=introduction]').value,
-                'notes': form.querySelector('[name=notes]').value,
+            // Register the event to add ingredients to the recipe
+            all_ingredients.gridOptions.api.addEventListener('rowSelected', args => {
+                // This event fires if a row is selected OR deselected, we only care if something gets selected
+                if (!args.node.selected) return;
+                let ingredient = args.data;
+                document.querySelector('#ingredient_uri').value = ingredient.url;
+                document.querySelector('#name').value = ingredient.name;
+                document.querySelector('#slug').value = ingredient.slug;
+                document.querySelector('#description').value = ingredient.description;
+                document.querySelector('#owner').value = ingredient.owner;
+                document.querySelector('#tags').value = ingredient.tags.join(',');
+                document.querySelector('#serving').value = ingredient.serving;
+                document.querySelector('#introduction').value = ingredient.introduction;
+                document.querySelector('#notes').value = ingredient.notes;
 
                 // Nutritional Data
-                'kilojoules': form.querySelector('[name=kilojoules]').value,
-                'protein': form.querySelector('[name=protein]').value,
-                'fibre': form.querySelector('[name=fibre]').value,
-                'carbohydrate': form.querySelector('[name=carbohydrate]').value,
-                'fat': form.querySelector('[name=fat]').value,
-                'sugar': form.querySelector('[name=sugar]').value,
-                'saturatedfat': form.querySelector('[name=saturatedfat]').value,
-                'sodium': form.querySelector('[name=sodium]').value,
-            })
-            .then(resp => {
-                let row_node = document.querySelector('#selected_row_node').extra_data.ag_data;
-                row_node.setData(resp);
-                all_ingredients.gridOptions.api.flashCells({
-                    rowNodes: [row_node]
-                })
+                document.querySelector('#kilojoules').value = ingredient.kilojoules;
+                document.querySelector('#protein').value = ingredient.protein;
+                document.querySelector('#fibre').value = ingredient.fibre;
+                document.querySelector('#carbohydrate').value = ingredient.carbohydrate;
+                document.querySelector('#fat').value = ingredient.fat;
+                document.querySelector('#sugar').value = ingredient.sugar;
+                document.querySelector('#saturatedfat').value = ingredient.saturatedfat;
+                document.querySelector('#sodium').value = ingredient.sodium;
+
+                // Also store a reference to this node so that we can refresh it
+                document.querySelector('#selected_row_node').extra_data = {
+                    'ag_data': args.node
+                };
+
+                // Label the buttons to indicate the node that will be affected
+                let short_name = '';
+                if (ingredient.name.length > 13) {
+                    short_name = ingredient.name.slice(0, 10) + '...';
+                } else {
+                    short_name = ingredient.name.slice(0, 13);
+                }
+                let edit_btn = document.querySelector('#edit_desc');
+                let delete_btn = document.querySelector('#delete_desc');
+                edit_btn.querySelector('span').innerText = short_name;
+                delete_btn.querySelector('span').innerText = short_name;
+                // Since they start off disabled, enable them
+                edit_btn.disabled = false;
+                delete_btn.disabled = false;
             });
-    }
 
-    /**
-     * Deletes the currently selected ingredient
-     */
-    function delete_ingredient(){
-        pants.delete_ingredient(document.querySelector('#ingredient_uri').value)
-        .then(response=>{
-            all_ingredients.gridOptions.api.refreshInfiniteCache();
         });
-    }
 
-    /**
-     * Creates a new ingredient using the information in the input fields
-     */
-    function create_ingredient(){
-        let form = document.querySelector('#ingredient_edit_form');
-        let tags = form.querySelector('[name=tags]').value.split(',');
-        // Remove empty tags
-        tags = tags.filter(tag => tag !== '');
+        /**
+         * Updates the ingredient based on the values in the ingredients form
+         */
+        function edit_ingredient() {
+            let form = document.querySelector('#ingredient_edit_form');
+            let ingredient_uri = form.querySelector('#ingredient_uri').value;
+            let tags = form.querySelector('[name=tags]').value.split(',');
+            // Remove empty tags
+            tags = tags.filter(tag => tag !== '');
 
-        pants.create_ingredient({
+            pants.edit_ingredient(ingredient_uri, {
                 'name': form.querySelector('[name=name]').value,
                 'slug': form.querySelector('[name=slug]').value,
                 'description': form.querySelector('[name=description]').value,
@@ -221,10 +191,59 @@ Ingredient Manager
                 'saturatedfat': form.querySelector('[name=saturatedfat]').value,
                 'sodium': form.querySelector('[name=sodium]').value,
             })
-            .then(resp => {
-                console.log(resp);
-                all_ingredients.gridOptions.api.refreshInfiniteCache();
+                .then(resp => {
+                    let row_node = document.querySelector('#selected_row_node').extra_data.ag_data;
+                    row_node.setData(resp);
+                    all_ingredients.gridOptions.api.flashCells({
+                        rowNodes: [row_node]
+                    })
+                });
+        }
+
+        /**
+         * Deletes the currently selected ingredient
+         */
+        function delete_ingredient() {
+            pants.delete_ingredient(document.querySelector('#ingredient_uri').value)
+                .then(response => {
+                    all_ingredients.gridOptions.api.refreshInfiniteCache();
+                });
+        }
+
+        /**
+         * Creates a new ingredient using the information in the input fields
+         */
+        function create_ingredient() {
+            let form = document.querySelector('#ingredient_edit_form');
+            let tags = form.querySelector('[name=tags]').value.split(',');
+            // Remove empty tags
+            tags = tags.filter(tag => tag !== '');
+
+            pants.create_ingredient({
+                'name': form.querySelector('[name=name]').value,
+                'slug': form.querySelector('[name=slug]').value,
+                'description': form.querySelector('[name=description]').value,
+                // @todo Cannot edit owner? Remove this if there is no case where this is possible
+                // 'owner': form.querySelector('[name=owner]').value,
+                'tags': tags,
+                'serving': form.querySelector('[name=serving]').value,
+                'introduction': form.querySelector('[name=introduction]').value,
+                'notes': form.querySelector('[name=notes]').value,
+
+                // Nutritional Data
+                'kilojoules': form.querySelector('[name=kilojoules]').value,
+                'protein': form.querySelector('[name=protein]').value,
+                'fibre': form.querySelector('[name=fibre]').value,
+                'carbohydrate': form.querySelector('[name=carbohydrate]').value,
+                'fat': form.querySelector('[name=fat]').value,
+                'sugar': form.querySelector('[name=sugar]').value,
+                'saturatedfat': form.querySelector('[name=saturatedfat]').value,
+                'sodium': form.querySelector('[name=sodium]').value,
             })
-    }
-</script>
+                .then(resp => {
+                    console.log(resp);
+                    all_ingredients.gridOptions.api.refreshInfiniteCache();
+                })
+        }
+    </script>
 {% endblock %}
