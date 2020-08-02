@@ -2,14 +2,10 @@
 <div class="field">
     {% if multiline %}
         <textarea class="field__input" id="{{ name }}" name="{{ name }}" type="{{ type }}"
-                  placeholder="{{ label }}"></textarea>
+                  placeholder="{{ label }}" {{ extra }}></textarea>
     {% else %}
         <input class="field__input" id="{{ name }}" name="{{ name }}" type="{{ type }}"
-               placeholder="{{ label }}">
+               placeholder="{{ label }}" {{ extra }}>
     {% endif %}
     <label class="field__label" for="{{ name }}">{{ label }}</label>
 </div>
-
-<style>
-    @import '{% static '/css/templatetags/float_input.css' %}';
-</style>

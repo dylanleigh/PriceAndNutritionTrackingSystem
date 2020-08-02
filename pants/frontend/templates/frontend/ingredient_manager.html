@@ -31,58 +31,26 @@ Ingredient Manager
             <input type="hidden" id="selected_row_node">
             <input type="hidden" id="ingredient_uri" name="ingredient_uri">
 
-{#            {% float_input 'text' label='Name' name='name' hint="Grilled Cheese"%}#}
-            <label for="name">Name</label>
-            <input id="name" name="name" placeholder="Grilled Cheese">
-
-            <label for="slug">Slug</label>
-            <input id="slug" name="slug" placeholder="grilled-cheese">
-
-            <label for="description">Description</label>
-            <textarea id="description" name="description" placeholder="A sandwich made with melted cheese"></textarea>
-
-            <label for="owner">Owner</label>
+            {% float_input label='Name' name='name' hint="Grilled Cheese"%}
+            {% float_input label='Slug' name='slug' hint="grilled-cheese"%}
+            {% float_input label='Description' name='description' hint="A sandwich made with melted cheese" multiline=True%}
             <!-- You can't modify the owner, but I'm showing it here for this proof of concept -->
-            <input id="owner" disabled value="">
+            {% float_input label='Owner' name='owner' hint="A sandwich made with melted cheese" extra='disabled value=""'%}
+            {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3"%}
+            {% float_input label='Serving Size' name='serving' hint="in grams"%}
+            {% float_input label='Introduction' name='introduction' hint="Introductory paragraph explains ingredient" multiline=True%}
+            {% float_input label='Notes' name='notes' hint="Additional information about usage, types, etc." multiline=True%}
 
-            <label for="tags">Tags</label>
-            <input id="tags" name="tags" placeholder="tag1,tag2,tag3">
 
-            <label for="serving">Serving Size</label>
-            <input id="serving" name="serving" placeholder="in grams">
-
-            <label for="introduction">Introduction</label>
-            <textarea id="introduction" name="introduction"
-                      placeholder="Introductory paragraph explains ingredient"></textarea>
-
-            <label for="notes">Notes</label>
-            <textarea id="notes" name="notes" placeholder="Additional information about usage, types, etc."></textarea>
-
-            <h3 style="grid-column: span 2">Nutritional Data</h3>
-
-            <label for="kilojoules">kilojoules</label>
-            <input id="kilojoules" name="kilojoules" placeholder="">
-
-            <label for="protein">protein</label>
-            <input id="protein" name="protein" placeholder="in grams">
-
-            <label for="fibre">fibre</label>
-            <input id="fibre" name="fibre" placeholder="in grams">
-
-            <label for="carbohydrate">carbohydrate</label>
-            <input id="carbohydrate" name="carbohydrate" placeholder="in grams">
-
-            <label for="fat">fat</label>
-            <input id="fat" name="fat" placeholder="in grams">
-
-            <label for="sugar">sugar</label>
-            <input id="sugar" name="sugar" placeholder="in grams">
-
-            <label for="saturatedfat">saturatedfat</label>
-            <input id="saturatedfat" name="saturatedfat" placeholder="in grams">
-
-            <label for="sodium">sodium</label>
-            <input id="sodium" name="sodium" placeholder="in milligrams">
+            <h3>Nutritional Data</h3>
+            {% float_input label='kilojoules' name='kilojoules'%}
+            {% float_input label='protein' name='protein' hint="in grams"%}
+            {% float_input label='fibre' name='fibre' hint="in grams"%}
+            {% float_input label='carbohydrate' name='carbohydrate' hint="in grams"%}
+            {% float_input label='fat' name='fat' hint="in grams"%}
+            {% float_input label='sugar' name='sugar' hint="in grams"%}
+            {% float_input label='saturatedfat' name='saturatedfat' hint="in grams"%}
+            {% float_input label='sodium' name='sodium' hint="in milligrams"%}
         </form>
     </div>
 </div>
