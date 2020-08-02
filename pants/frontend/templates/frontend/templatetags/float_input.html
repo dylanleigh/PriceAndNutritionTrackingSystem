@@ -1,0 +1,15 @@
+{% load static %}
+<div class="field">
+    {% if multiline %}
+        <textarea class="field__input" id="{{ name }}" name="{{ name }}" type="{{ type }}"
+                  placeholder="{{ label }}"></textarea>
+    {% else %}
+        <input class="field__input" id="{{ name }}" name="{{ name }}" type="{{ type }}"
+               placeholder="{{ label }}">
+    {% endif %}
+    <label class="field__label" for="{{ name }}">{{ label }}</label>
+</div>
+
+<style>
+    @import '{% static '/css/templatetags/float_input.css' %}';
+</style>

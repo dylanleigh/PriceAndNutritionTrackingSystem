@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&family=Raleway&display=swap');
+
+
+/* Reset */
+body{
+  margin: 0;
+}
+
+/* Layout/Typography */
+:root{
+  --menu-collapsed-width: 5em;
+
+  --font-family-headings: 'Quicksand', sans-serif;
+  --font-family-content: 'Raleway', sans-serif;
+
+  --padding: 0.5em;
+
+  font-family: var(--font-family-content);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: var(--menu-collapsed-width) 1fr;
+  grid-template-rows: 5em 1fr;
+  gap: 1px 1px;
+  grid-template-areas: "menu quick-info" "menu content";
+}
+
+.menu {  grid-area: menu; }
+
+.quick-info {
+  grid-area: quick-info;
+  padding: var(--padding);
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  grid-area: content;
+  padding: var(--padding);
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-family: var(--font-family-headings);
+}
+
+/* Colors */
+:root{
+  --gunmetal: hsla(227, 15%, 24%, 1);
+  --baby-powder: hsla(100, 100%, 99%, 1);
+  --pine-green: hsla(173, 71%, 28%, 1);
+  --shamrock-green: hsla(142, 37%, 45%, 1);
+  --brown-sugar: hsla(15, 42%, 50%, 1);
+}
+
+/* Quick Info */
+.quick-info .page-title{
+  margin: 0;
+}
+
+/* Menu */
+.menu{
+  background: var(--gunmetal);
+  color: var(--pine-green);
+}
+.menu > .nav {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+}
+.menu > .nav > .nav-item{
+  width: var(--menu-collapsed-width);
+  height: var(--menu-collapsed-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--pine-green);
+}
+.menu > .nav > .nav-item:visited {
+  color: var(--pine-green);
+}
+.menu > .nav > .nav-item > svg{
+  font-size: 2.5em;
+}
+.menu .spacer{
+  flex: 1;
+}

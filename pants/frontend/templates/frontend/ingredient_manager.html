@@ -1,22 +1,9 @@
-<!doctype html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-
-    <title>Ingredient Manager</title>
-    <meta name="description" content="An Ingredient Manager For PANTS">
-    <meta name="author" content="AustinGrey">
-
-    <link rel="stylesheet" href="{% static "/css/styles.css" %}">
-
-    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
-    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
-
-</head>
-
-<body>
-<h1>Ingredient Manager</h1>
+{% extends "frontend/common/main_template.html"%}
+{% load inputs %}
+{% block page_title %}
+Ingredient Manager
+{% endblock %}
+{% block content %}
 <div style="display: flex;gap: 1em">
     <!-- A data grid to browse available ingredients -->
     <div style="flex:1">
@@ -39,10 +26,12 @@
                 <button disabled onclick="delete_ingredient()" id="delete_desc">Delete <span></span></button>
             </div>
         </div>
-        <form id="ingredient_edit_form" class="form-grid-2" autocomplete="off">
+        <form id="ingredient_edit_form" autocomplete="off">
+
             <input type="hidden" id="selected_row_node">
             <input type="hidden" id="ingredient_uri" name="ingredient_uri">
 
+{#            {% float_input 'text' label='Name' name='name' hint="Grilled Cheese"%}#}
             <label for="name">Name</label>
             <input id="name" name="name" placeholder="Grilled Cheese">
 
@@ -97,14 +86,9 @@
         </form>
     </div>
 </div>
-<script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-<script src="{% static "js/pants_api.js" %}"></script>
+{% endblock %}
+{% block js %}
 <script>
-    pants = new Pants('1', {
-        method: "Token",
-        token: Cookies.get("csrftoken")
-    });
     let all_ingredients = {};
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -275,6 +259,4 @@
             })
     }
 </script>
-<script src="../../static/js/scripts.js"></script>
-</body>
-</html>
+{% endblock %}
