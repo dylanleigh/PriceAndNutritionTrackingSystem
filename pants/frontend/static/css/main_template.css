@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&family=Raleway&display=swap');
 
 
-body{
-  margin: 0;
-}
-
 /* Layout/Typography */
 :root{
   --menu-collapsed-width: 5em;
@@ -12,10 +8,16 @@ body{
   --font-family-headings: 'Quicksand', sans-serif;
   --font-family-content: 'Raleway', sans-serif;
 
-  --padding: 0.5em;
+  --padding: 1em;
+  --padding-thin: 0.5em;
   --border-radius: 4px;
 
   font-family: var(--font-family-content);
+}
+
+body{
+  margin: 0;
+  background: var(--baby-powder);
 }
 
 .grid-container {
@@ -56,10 +58,26 @@ h3{
 }
 
 /* Flex Utilties */
+.flex-row-start{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+}
 .flex-row-between{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: baseline;
+}
+.flex-row_r-between{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.flex-gap-regular{
+  gap: var(--padding);
 }
 .flex-row-equalfill{
   display: flex;
@@ -68,6 +86,7 @@ h3{
 .flex-row-equalfill>*{
   flex:1;
 }
+
 
 
 /* Colors */
@@ -135,7 +154,7 @@ button.dark {
     color: var(--pine-green);
     font-weight: bold;
     border-color: var(--pine-green);
-    padding: var(--padding);
+    padding: var(--padding-thin);
 }
 button.dark:hover{
     color: var(--shamrock-green);

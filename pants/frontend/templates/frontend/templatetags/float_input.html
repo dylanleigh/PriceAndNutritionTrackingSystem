@@ -10,14 +10,13 @@
     <label class="field__label" for="{{ name }}">{{ label }}</label>
 </div>
 <script>
-{#    {% if cleave_options %}#}
-{#    window.addEventListener('load', ()=>{#}
-{#        IMask(document.getElementById("{{ name }}"), {#}
-{#            mask: /^\d{0,6}(\.\d{0,3})?$/,#}
-{#            lazy: false,#}
-{#            placeholderChar: "_",#}
-{#            overwrite: true#}
-{#        })#}
-{#    })#}
-{#    {% endif %}#}
+    {% if input_mask %}
+    window.addEventListener('load', ()=>{
+        let elem = document.getElementById("{{ name }}");
+        if(typeof elem.pants_data === "undefined"){
+            elem.pants_data = {};
+        }
+        elem.pants_data.input_mask = IMask(elem, {{ input_mask }});
+    })
+    {% endif %}
 </script>

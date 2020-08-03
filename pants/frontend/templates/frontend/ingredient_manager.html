@@ -4,54 +4,54 @@
     Ingredient Manager
 {% endblock %}
 {% block content %}
-    <div style="display: flex;gap: 1em;flex-direction: row-reverse">
-        <!-- A data grid to browse available ingredients -->
-        <div style="flex:1">
-            <div style="display: flex;justify-content: start;align-items: baseline;gap: 1em">
-                <h2>All Ingredients</h2>
+    <div id="ingredient-manager">
+      <div class="header-all flex-row-start flex-gap-regular">
+          <h2>All Ingredients</h2>
                 {% float_input label='Search' name='ingredient_filter' extra='onkeyup="all_ingredients.gridOptions.api.refreshInfiniteCache()"' %}
-            </div>
-            <div class="table_container">
-                <div id="ingredients" class="contained_table ag-theme-balham"></div>
-            </div>
-        </div>
+      </div>
+      <div class="ingredients-all">
 
-        <!-- A form to edit the given ingredient -->
-        <div id="ingredient_edit">
-            <h2>Information</h2>
-            <form id="ingredient_edit_form" autocomplete="off">
+        <!-- A data grid to browse available ingredients -->
+          <div id="ingredients" class="contained_table ag-theme-balham"></div>
+      </div>
+      <div class="header">
+          <h2>Information</h2>
+      </div>
+      <div class="ingredient">
+                  <!-- A form to edit the given ingredient -->
+          <form id="ingredient_edit_form" autocomplete="off">
                 <input type="hidden" id="selected_row_node">
                 <input type="hidden" id="ingredient_uri" name="ingredient_uri">
 
                 {% float_input label='Introduction' name='introduction' hint="Introductory paragraph explains ingredient" multiline=True %}
                 <div class="flex-row-equalfill">
                     {% float_input label='Name' name='name' hint="Grilled Cheese" %}
-                    {% float_input label='Slug' name='slug' hint="grilled-cheese" %}
+                    {% float_input label='Slug' name='slug' hint="grilled-cheese" input_mask=slug_mask %}
                 </div>
 
                 {% float_input label='Description' name='description' hint="A sandwich made with melted cheese" multiline=True %}
 
                 {% float_input label='Notes' name='notes' hint="Additional information about usage, types, etc." multiline=True %}
                 <div class="flex-row-equalfill">
-                    {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3" %}
+                    {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3" input_mask=tag_mask %}
                     <!-- You can't modify the owner, but I'm showing it here for this proof of concept -->
                     {% float_input label='Owner' name='owner' hint="A sandwich made with melted cheese" extra='disabled value=""' %}
                 </div>
                 <h3>Nutrition</h3>
                 <div class="flex-row-equalfill">
-                        {% float_input label='Serving Size' name='serving' hint="in grams" %}
-                        {% float_input label='kilojoules' name='kilojoules' %}
+                        {% float_input label='Serving Size (g)' name='serving' hint="in grams" input_mask=nutrition_mask %}
+                        {% float_input label='kilojoules' name='kilojoules' input_mask=nutrition_mask %}
                     </div>
                     <div class="flex-row-equalfill">
-                        {% float_input label='protein' name='protein' hint="in grams" %}
-                        {% float_input label='carbohydrate' name='carbohydrate' hint="in grams" %}
-                        {% float_input label='fat' name='fat' hint="in grams" %}
-                        {% float_input label='saturatedfat' name='saturatedfat' hint="in grams" %}
+                        {% float_input label='protein (g)' name='protein' hint="in grams" input_mask=nutrition_mask %}
+                        {% float_input label='carbohydrate (g)' name='carbohydrate' hint="in grams" input_mask=nutrition_mask %}
+                        {% float_input label='fat (g)' name='fat' hint="in grams" input_mask=nutrition_mask %}
+                        {% float_input label='saturatedfat (g)' name='saturatedfat' hint="in grams" input_mask=nutrition_mask %}
                     </div>
                     <div class="flex-row-equalfill">
-                        {% float_input label='sugar' name='sugar' hint="in grams" %}
-                        {% float_input label='sodium' name='sodium' hint="in milligrams" %}
-                        {% float_input label='fibre' name='fibre' hint="in grams" %}
+                        {% float_input label='sugar (g)' name='sugar' hint="in grams" input_mask=nutrition_mask %}
+                        {% float_input label='sodium (mg)' name='sodium' hint="in milligrams" input_mask=nutrition_mask %}
+                        {% float_input label='fibre (g)' name='fibre' hint="in grams" input_mask=nutrition_mask %}
                     </div>
             </form>
             <div class="flex-row-equalfill">
@@ -59,25 +59,37 @@
                 <button class="oneline dark" disabled onclick="edit_ingredient()" id="edit_desc">Edit <span></span></button>
                 <button class="oneline dark" disabled onclick="delete_ingredient()" id="delete_desc">Delete <span></span></button>
             </div>
-        </div>
+      </div>
     </div>
 {% endblock %}
 {% block css %}
     <style>
-        .table_container {
-            height: 50vh;
-        }
+    #ingredient-manager {
+      display: grid;
+      grid-template-columns: 1fr 30em;
+      grid-template-rows: 4em 1fr;
+      gap: 0 var(--padding);
+      grid-template-areas: "header-all header" "ingredients-all ingredient";
+    }
+    #ingredient-manager>.header-all { grid-area: header-all; }
+    #ingredient-manager>.ingredients-all {
+        grid-area: ingredients-all;
+        resize: vertical;
+            overflow: auto;
+    }
+    #ingredient-manager>.ingredient { grid-area: ingredient; }
+    #ingredient-manager>.header { grid-area: header; }
 
-        .table_container > .contained_table {
+        #ingredient-manager>.ingredients-all > .contained_table {
             height: 100%;
         }
-        #ingredient_edit{
+        #ingredient-manager>.ingredient{
             max-width: 30em;
         }
-        #ingredient_edit button{
+        #ingredient-manager>.ingredient button{
             margin: 1px;
         }
-        #ingredient_edit_form .field{
+        #ingredient-manager>.ingredient .field{
             margin: 1px;
         }
     </style>
@@ -121,22 +133,27 @@
             };
             all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
 
-            // Register the event to add ingredients to the recipe
+            // Register event to fill form with selected ingredient
             all_ingredients.gridOptions.api.addEventListener('rowSelected', args => {
                 // This event fires if a row is selected OR deselected, we only care if something gets selected
                 if (!args.node.selected) return;
                 let ingredient = args.data;
                 document.querySelector('#ingredient_uri').value = ingredient.url;
                 document.querySelector('#name').value = ingredient.name;
-                document.querySelector('#slug').value = ingredient.slug;
                 document.querySelector('#description').value = ingredient.description;
                 document.querySelector('#owner').value = ingredient.owner;
-                document.querySelector('#tags').value = ingredient.tags.join(',');
                 document.querySelector('#serving').value = ingredient.serving;
                 document.querySelector('#introduction').value = ingredient.introduction;
                 document.querySelector('#notes').value = ingredient.notes;
 
-                // Nutritional Data
+                // These have masks that need synchronization as well
+                document.querySelector('#tags').value = ingredient.tags.join(',');
+                document.querySelector('#slug').value = ingredient.slug;
+
+                document.querySelector('#tags').pants_data.input_mask.updateValue();
+                document.querySelector('#slug').pants_data.input_mask.updateValue();
+
+                // Nutritional Data, these are all masked so the masks must be synchronized as well
                 document.querySelector('#kilojoules').value = ingredient.kilojoules;
                 document.querySelector('#protein').value = ingredient.protein;
                 document.querySelector('#fibre').value = ingredient.fibre;
@@ -146,7 +163,17 @@
                 document.querySelector('#saturatedfat').value = ingredient.saturatedfat;
                 document.querySelector('#sodium').value = ingredient.sodium;
 
+                document.querySelector('#kilojoules').pants_data.input_mask.updateValue();
+                document.querySelector('#protein').pants_data.input_mask.updateValue();
+                document.querySelector('#fibre').pants_data.input_mask.updateValue();
+                document.querySelector('#carbohydrate').pants_data.input_mask.updateValue();
+                document.querySelector('#fat').pants_data.input_mask.updateValue();
+                document.querySelector('#sugar').pants_data.input_mask.updateValue();
+                document.querySelector('#saturatedfat').pants_data.input_mask.updateValue();
+                document.querySelector('#sodium').pants_data.input_mask.updateValue();
+
                 // Also store a reference to this node so that we can refresh it
+                // @todo change this to pants_data and provide a safe access function
                 document.querySelector('#selected_row_node').extra_data = {
                     'ag_data': args.node
                 };
