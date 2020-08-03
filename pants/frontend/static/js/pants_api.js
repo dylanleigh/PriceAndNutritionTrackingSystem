@@ -74,12 +74,38 @@ class Pants {
     }
 
     /**
+     * Reusable function for handling errors from the api
+     */
+    async handle_api_errors(response) {
+        if (!response.ok) {
+            throw Error(await response.text())
+        }
+        return response
+    }
+
+    /**
+     * Creates a new ingredient using the information in the input fields
+     * @param json_details {Object} The information for the ingredient
+     */
+    async create_ingredient(json_details){
+        return this.authenticated_fetch(this.get_api_path('ingredient/'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json_details)
+        })
+            .then(resp => resp.json())
+    }
+
+    /**
      * Gets a list of ingredients, supports searching, limit, offset, ordering
      *
      * @param {Object} options Options to pass to the api
      * @param {number} options.limit Maximum number of results to return
      * @param {number} options.offset Which ingredient to start returning results from
-     * @param {string} options.ordering 
+     * @param {string} options.ordering
+     * @param {string} options.searchKey A string by which results will be filtered
      *
      * @returns {Promise<void>}
      */
@@ -102,21 +128,13 @@ class Pants {
         }
         api_location.searchParams.set('ordering', ordering.join(','));
 
-        // Handle searching options
-        api_location.searchParams.set('search', document.querySelector('#ingredient_filter').value);
+        if(typeof options.searchKey !== "undefined"){
+            // Handle searching options
+            api_location.searchParams.set('search', options.searchKey);
+        }
 
         // Fetch the data
         return this.authenticated_fetch(api_location.toString());
-    }
-
-    /**
-     * Reusable function for handling errors from the api
-     */
-    async handle_api_errors(response) {
-        if (!response.ok) {
-            throw Error(await response.text())
-        }
-        return response
     }
 
     /**
@@ -147,18 +165,42 @@ class Pants {
     }
 
     /**
-     * Creates a new ingredient using the information in the input fields
-     * @param json_details {Object} The information for the ingredient
+     * Gets a list of recipes, supports searching, limit, offset, ordering
+     *
+     * @param {Object} options Options to pass to the api
+     * @param {number} options.limit Maximum number of results to return
+     * @param {number} options.offset Which ingredient to start returning results from
+     * @param {string} options.ordering
+     * @param {string} options.searchKey A string by which results will be filtered
+     *
+     * @returns {Promise<void>}
      */
-    async create_ingredient(json_details){
-        return this.authenticated_fetch(this.get_api_path('ingredient/'), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(json_details)
-        })
-            .then(resp => resp.json())
+    async get_recipes(options){
+
+        // Get the number of requested results
+        let num_requested = options.endRow - options.startRow;
+
+        let api_location = new URL(this.get_api_path('recipe/'));
+        api_location.searchParams.set('offset', options.startRow);
+        api_location.searchParams.set('limit', num_requested);
+
+        // Handle sorting options
+        let ordering = [];
+        for (let id of options.sortModel) {
+            let param = '';
+            param += id.sort === 'desc' ? '-' : '';
+            param += id.colId;
+            ordering.push(param)
+        }
+        api_location.searchParams.set('ordering', ordering.join(','));
+
+        if(typeof options.searchKey !== "undefined"){
+            // Handle searching options
+            api_location.searchParams.set('search', options.searchKey);
+        }
+
+        // Fetch the data
+        return this.authenticated_fetch(api_location.toString());
     }
 
 

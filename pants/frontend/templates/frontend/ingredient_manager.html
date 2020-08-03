@@ -1,8 +1,6 @@
 {% extends "frontend/common/main_template.html" %}
 {% load inputs %}
-{% block page_title %}
-    Ingredient Manager
-{% endblock %}
+{% block page_title %}Ingredient Manager{% endblock %}
 {% block content %}
     <div id="ingredient-manager">
       <div class="header-all flex-row-start flex-gap-regular">
@@ -120,7 +118,8 @@
                 // Set up the grid to paginate using the server side API
                 datasource: {
                     getRows: async params => {
-                        var response = await pants.get_ingredients(params);
+                        params.searchKey = document.querySelector('#ingredient_filter').value;
+                        let response = await pants.get_ingredients(params);
 
                         if (response.ok) {
                             let data = await response.json();

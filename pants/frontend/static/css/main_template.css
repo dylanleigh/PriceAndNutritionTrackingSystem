@@ -82,6 +82,7 @@ h3{
 .flex-row-equalfill{
   display: flex;
   flex-direction: row;
+  align-items: stretch;
 }
 .flex-row-equalfill>*{
   flex:1;

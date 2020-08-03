@@ -1,9 +1,14 @@
 {% load static %}
 <div class="field">
-    {% if multiline %}
+    {% if type == "text" and multiline %}
         <textarea class="field__input" id="{{ name }}" name="{{ name }}" type="{{ type }}"
                   placeholder="{{ label }}" {{ extra }}></textarea>
+    {% elif type == "select" %}
+        <select class="field__input" id="{{ name }}" name="{{ name }}" {{ extra }}>
+            <option value="">Not Implemented</option>
+        </select>
     {% else %}
+        {# A regular input, the type should be an html 5 type#}
         <input class="field__input" id="{{ name }}" name="{{ name }}" type="{{ type }}"
                placeholder="{{ label }}" {{ extra }}>
     {% endif %}

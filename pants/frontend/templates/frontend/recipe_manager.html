@@ -1,8 +1,269 @@
 {% extends "frontend/common/main_template.html" %}
-{% block page_title %}
-    Recipe Manager
-{% endblock %}
+{% load inputs %}
+{% block page_title %}Recipe Manager{% endblock %}
 
 {% block content %}
-    <p>Some content here</p>
+    <div id="recipe-manager">
+        <div class="header-all-recipes">
+            <h2>All Recipes</h2>
+        </div>
+        <div class="all-recipes">
+            <div id="all_recipes_table" class="ag-theme-balham fill-height"></div>
+        </div>
+        <div class="header-all-ingredients">
+            <h2>All Ingredients</h2>
+        </div>
+        <div class="all-ingredients">
+            <div id="ingredients" class="ag-theme-balham fill-height"></div>
+        </div>
+        <div class="header-recipe">
+            <h2>Selected Recipe</h2>
+        </div>
+        <div class="recipe">
+            <form>
+                <input type="hidden" id="selected_row_node">
+                <input type="hidden" id="recipe_uri" name="recipe_uri">
+
+                {% float_input label='Introduction' name='introduction' hint="A story about how the grilled cheese came to be" multiline=True %}
+
+                <div class="flex-row-equalfill">
+                {% float_input label='Name' name='name' hint="Grilled Cheese" %}
+                {% float_input label='Slug' name='slug' hint="grilled-cheese" input_mask=slug_mask %}
+                </div>
+
+                {% float_input label='Description' name='description' hint="A sandwich made with melted cheese" multiline=True %}
+
+                <div class="flex-row-equalfill">
+                {% float_input label='Serves' name='serves' hint="1" %}
+                {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3" input_mask=tag_mask extra='style="flex:2"'%}
+{#                @todo it is unclear what flag is used for, need to add support for it#}
+                {% float_input input_type="select" label="Flag" name="flag" %}
+                </div>
+
+                {% float_input label='Method' name='method' hint="Add cheese to bread, toast." multiline=True %}
+                {% float_input label='Notes' name='notes' hint="Can use different cheeses than what is listed. Recipe is flexible." multiline=True %}
+
+                <label>Recipe Ingredients</label>
+                <div id="selected_ingredients" class="ag-theme-balham" style="height: 50vh"></div>
+            </form>
+            <div class="flex-row-equalfill">
+                <button class="oneline dark" onclick="create_recipe()">Create New</button>
+                <button class="oneline dark" disabled onclick="edit_recipe()">Edit <span id="edit-recipe-name"></span></button>
+                <button class="oneline dark" disabled onclick="delete_recipe()">Delete <span id="delete-recipe-name"></span></button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block css %}
+    <style>
+        #recipe-manager {
+            display: grid;
+            grid-template-columns: 1fr 30em;
+            grid-template-rows: 5em 1fr 5em 1fr;
+            gap: 0 var(--padding);
+            grid-template-areas: "header-all-recipes header-recipe" "all-recipes recipe" "header-all-ingredients recipe" "all-ingredients recipe";
+        }
+
+        #recipe-manager > .header-all-recipes {
+            grid-area: header-all-recipes;
+        }
+
+        #recipe-manager > .all-recipes {
+            grid-area: all-recipes;
+            resize: vertical;
+            overflow: auto;
+        }
+
+        #recipe-manager > .header-all-ingredients {
+            grid-area: header-all-ingredients;
+        }
+
+        #recipe-manager > .all-ingredients {
+            grid-area: all-ingredients;
+            resize: vertical;
+            overflow: auto;
+        }
+
+        #recipe-manager > .header-recipe {
+            grid-area: header-recipe;
+        }
+
+        #recipe-manager > .recipe {
+            grid-area: recipe;
+        }
+
+    .fill-height{
+        height: 100%;
+    }
+    </style>
+{% endblock %}
+{% block js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create a data grid to view the available recipes
+            let all_recipes_cols = [
+                {headerName: "Name", field: "name"},
+                {headerName: "Description", field: "description"},
+                {headerName: "Serves", field: "serves"},
+                {headerName: "Notes", field: "notes"},
+            ];
+            let all_recipes_grid = new agGrid.Grid(document.querySelector("#all_recipes_table"),{
+                columnDefs: all_recipes_cols,
+                defaultColDef: {
+                    flex: 1,
+                    sortable: true,
+                    resizable: true,
+                },
+                rowModelType: 'infinite',
+                rowSelection: 'single',
+                pagination: true,
+                paginationAutoPageSize: true,
+                // Set up the grid to paginate using the server side API
+                datasource: {
+                    getRows: async params => {
+                        //@todo recipe searching
+                        //params.searchKey = document.querySelector('#ingredient_filter').value;
+                        let response = await pants.get_recipes(params);
+
+                        if (response.ok) {
+                            let data = await response.json();
+                            params.successCallback(data['results'], data['count'])
+                        } else {
+                            params.failCallback();
+                        }
+                    }
+                }
+            });
+
+            // Register event to fill the form with the selected recipe's information
+            all_recipes_grid.gridOptions.api.addEventListener('rowSelected', args => {
+                // This event fires if a row is selected OR deselected, we only care if something gets selected
+                if (!args.node.selected) return;
+                let recipe = args.data;
+
+                document.querySelector('#introduction').value = recipe.introduction;
+                document.querySelector('#name').value = recipe.name;
+                document.querySelector('#description').value = recipe.description;
+                document.querySelector('#recipe_uri').value = recipe.url;
+                document.querySelector('#serves').value = recipe.serves;
+                document.querySelector('#flag').value = recipe.flag;
+                document.querySelector('#method').value = recipe.method;
+                document.querySelector('#notes').value = recipe.notes;
+
+                // These have masks that need synchronization as well
+                document.querySelector('#tags').value = recipe.tags.join(',');
+                document.querySelector('#slug').value = recipe.slug;
+
+                document.querySelector('#tags').pants_data.input_mask.updateValue();
+                document.querySelector('#slug').pants_data.input_mask.updateValue();
+
+                // Nutritional Data, these are all masked so the masks must be synchronized as well
+                /*
+                document.querySelector('#kilojoules').value = ingredient.kilojoules;
+                document.querySelector('#protein').value = ingredient.protein;
+                document.querySelector('#fibre').value = ingredient.fibre;
+                document.querySelector('#carbohydrate').value = ingredient.carbohydrate;
+                document.querySelector('#fat').value = ingredient.fat;
+                document.querySelector('#sugar').value = ingredient.sugar;
+                document.querySelector('#saturatedfat').value = ingredient.saturatedfat;
+                document.querySelector('#sodium').value = ingredient.sodium;
+
+                document.querySelector('#kilojoules').pants_data.input_mask.updateValue();
+                document.querySelector('#protein').pants_data.input_mask.updateValue();
+                document.querySelector('#fibre').pants_data.input_mask.updateValue();
+                document.querySelector('#carbohydrate').pants_data.input_mask.updateValue();
+                document.querySelector('#fat').pants_data.input_mask.updateValue();
+                document.querySelector('#sugar').pants_data.input_mask.updateValue();
+                document.querySelector('#saturatedfat').pants_data.input_mask.updateValue();
+                document.querySelector('#sodium').pants_data.input_mask.updateValue();
+
+                 */
+
+                // Also store a reference to this node so that we can refresh it
+                let row_node = document.querySelector('#selected_row_node');
+                if(typeof row_node.pants_data === "undefined"){
+                    row_node.pants_data = {}
+                }
+                row_node.pants_data.ag_data = args.node;
+
+                // Label the buttons to indicate the node that will be affected
+                let edit_btn_desc = document.querySelector('#edit-recipe-name');
+                let delete_btn_desc = document.querySelector('#delete-recipe-name');
+                edit_btn_desc.innerText = recipe.name;
+                delete_btn_desc.innerText = recipe.name;
+                // Since they start off disabled, enable them
+                edit_btn_desc.parentNode.disabled = false;
+                delete_btn_desc.parentNode.disabled = false;
+            });
+
+
+            // Create a grid to view the data
+            let columns = [
+                {headerName: "Name", field: "name"},
+                {headerName: "Description", field: "description"},
+                {headerName: "Serving", field: "serving"},
+                {headerName: "Notes", field: "notes"},
+            ];
+            let grid_options = {
+                columnDefs: columns,
+                rowModelType: 'infinite',
+                pagination: true,
+                paginationAutoPageSize: true,
+                // Set up the grid to paginate using the server side API
+                datasource: {
+                    getRows: async params => {
+                        //@todo component searching
+                        //params.searchKey = document.querySelector('#ingredient_filter').value;
+                        let response = await pants.get_ingredients(params);
+
+                        if (response.ok) {
+                            let data = await response.json();
+                            params.successCallback(data['results'], data['count'])
+                        } else {
+                            params.failCallback();
+                        }
+                    }
+                }
+            };
+            let all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
+
+
+            // Now set up another grid to display the chosen ingredients
+            let recipe_ingredients = new agGrid.Grid(document.querySelector('#selected_ingredients'), {
+                columnDefs: columns,
+                rowData: [],
+                pagination: true,
+                paginationAutoPageSize: true,
+            });
+
+            // Register the event to add ingredients to the recipe
+            all_ingredients.gridOptions.api.addEventListener('rowClicked', args => {
+                let ingredient = args.data;
+                if (ingredient.is_added === true) {
+                    // Reject adding the ingredient, flash the ingredient's corresponding row in the other table so the
+                    // user knows that it's not just an error
+                    let added_ingredient_row = args.data.recipe_node;
+                    recipe_ingredients.gridOptions.api.flashCells({rowNodes: [added_ingredient_row]});
+                    return
+                }
+                ingredient.original_id = args.node.id;
+                ingredient.is_added = true; // prevent adding the same ingredient twice
+
+                let rows = recipe_ingredients.gridOptions.api.updateRowData({
+                    add: [args.data]
+                });
+                args.data.recipe_node = rows.add[0] // Keep a reference to the added grid row
+            });
+            // Register the event to remove ingredients from the recipe
+            recipe_ingredients.gridOptions.api.addEventListener('rowClicked', args => {
+                // We need to inform the ingredients list this ingredient can be added again, and delete references to it
+                args.data.is_added = false;
+                delete args.data.recipe_node;
+                recipe_ingredients.gridOptions.api.updateRowData({
+                    remove: [args.data]
+                });
+            })
+        })
+    </script>
 {% endblock %}
