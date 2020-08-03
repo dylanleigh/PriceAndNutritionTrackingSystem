@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&family=Raleway&display=swap');
 
 
-/* Reset */
 body{
   margin: 0;
 }
@@ -43,7 +42,33 @@ body{
 
 h1,h2,h3,h4,h5,h6{
   font-family: var(--font-family-headings);
+  margin-top: 0.5em;
+  margin-bottom: 0.25em;
 }
+h1{
+  font-size: 2em;
+}
+h2{
+  font-size: 1.5em;
+}
+h3{
+  font-size: 1.25em;
+}
+
+/* Flex Utilties */
+.flex-row-between{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.flex-row-equalfill{
+  display: flex;
+  flex-direction: row;
+}
+.flex-row-equalfill>*{
+  flex:1;
+}
+
 
 /* Colors */
 :root{
@@ -87,4 +112,34 @@ h1,h2,h3,h4,h5,h6{
 }
 .menu .spacer{
   flex: 1;
+}
+
+/* Inputs */
+input:focus, textarea:focus{
+  box-shadow: inset 0 0 1px var(--shamrock-green);
+}
+
+button{
+    border-radius: var(--border-radius);
+    border: 1px solid black;
+}
+
+button.oneline{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+button.dark {
+    background: var(--gunmetal);
+    color: var(--pine-green);
+    font-weight: bold;
+    border-color: var(--pine-green);
+    padding: var(--padding);
+}
+button.dark:hover{
+    color: var(--shamrock-green);
+}
+button.dark:active{
+    box-shadow: inset 0 0 0.5em var(--pine-green);
 }

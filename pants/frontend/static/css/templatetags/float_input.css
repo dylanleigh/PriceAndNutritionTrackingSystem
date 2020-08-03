@@ -26,7 +26,7 @@
 
 .field > .field__input:placeholder-shown + .field__label {
     opacity: 0;
-    transform: translateY(3px);
+    transform: translateY(1px);
 }
 
 .field__input {
@@ -34,15 +34,18 @@
     box-sizing: border-box;
     border: 1px solid var(--gunmetal);
     padding: var(--label-spacing) .5em 0;
-    transition: all .2s ease-out;
+    transition: all .1s ease-out;
     width: 100%;
     resize: vertical;
     font-family: sans-serif;
     border-radius: var(--border-radius);
 }
 
+textarea.field__input{
+    height: 4.875em;
+}
+
 .field__input:hover, .field__input:focus {
-    outline: 0;
     border-color: var(--shamrock-green);
 }
 

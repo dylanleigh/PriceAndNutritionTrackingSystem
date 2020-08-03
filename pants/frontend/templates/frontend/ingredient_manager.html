@@ -4,7 +4,7 @@
     Ingredient Manager
 {% endblock %}
 {% block content %}
-    <div style="display: flex;gap: 1em">
+    <div style="display: flex;gap: 1em;flex-direction: row-reverse">
         <!-- A data grid to browse available ingredients -->
         <div style="flex:1">
             <div style="display: flex;justify-content: start;align-items: baseline;gap: 1em">
@@ -17,59 +17,68 @@
         </div>
 
         <!-- A form to edit the given ingredient -->
-        <div style="flex: 1">
-            <div style="display:flex;justify-content: space-between">
-                <h2>Information</h2>
-                <div>
-                    <button onclick="create_ingredient()">Create New</button>
-                    <button disabled onclick="edit_ingredient()" id="edit_desc">Edit <span></span></button>
-                    <button disabled onclick="delete_ingredient()" id="delete_desc">Delete <span></span></button>
-                </div>
-            </div>
+        <div id="ingredient_edit">
+            <h2>Information</h2>
             <form id="ingredient_edit_form" autocomplete="off">
                 <input type="hidden" id="selected_row_node">
                 <input type="hidden" id="ingredient_uri" name="ingredient_uri">
-                {% float_input label='Name' name='name' hint="Grilled Cheese" %}
-                {% float_input label='Slug' name='slug' hint="grilled-cheese" %}
-                {% float_input label='Description' name='description' hint="A sandwich made with melted cheese" multiline=True %}
-                <!-- You can't modify the owner, but I'm showing it here for this proof of concept -->
-                {% float_input label='Owner' name='owner' hint="A sandwich made with melted cheese" extra='disabled value=""' %}
-                {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3" %}
-                {% float_input label='Serving Size' name='serving' hint="in grams" %}
+
                 {% float_input label='Introduction' name='introduction' hint="Introductory paragraph explains ingredient" multiline=True %}
+                <div class="flex-row-equalfill">
+                    {% float_input label='Name' name='name' hint="Grilled Cheese" %}
+                    {% float_input label='Slug' name='slug' hint="grilled-cheese" %}
+                </div>
+
+                {% float_input label='Description' name='description' hint="A sandwich made with melted cheese" multiline=True %}
+
                 {% float_input label='Notes' name='notes' hint="Additional information about usage, types, etc." multiline=True %}
-
-
-                <h3>Nutritional Data</h3>
-                {% float_input label='kilojoules' name='kilojoules' %}
-                {% float_input label='protein' name='protein' hint="in grams" %}
-                {% float_input label='fibre' name='fibre' hint="in grams" %}
-                {% float_input label='carbohydrate' name='carbohydrate' hint="in grams" %}
-                {% float_input label='fat' name='fat' hint="in grams" %}
-                {% float_input label='sugar' name='sugar' hint="in grams" %}
-                {% float_input label='saturatedfat' name='saturatedfat' hint="in grams" %}
-                {% float_input label='sodium' name='sodium' hint="in milligrams" %}
+                <div class="flex-row-equalfill">
+                    {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3" %}
+                    <!-- You can't modify the owner, but I'm showing it here for this proof of concept -->
+                    {% float_input label='Owner' name='owner' hint="A sandwich made with melted cheese" extra='disabled value=""' %}
+                </div>
+                <h3>Nutrition</h3>
+                <div class="flex-row-equalfill">
+                        {% float_input label='Serving Size' name='serving' hint="in grams" %}
+                        {% float_input label='kilojoules' name='kilojoules' %}
+                    </div>
+                    <div class="flex-row-equalfill">
+                        {% float_input label='protein' name='protein' hint="in grams" %}
+                        {% float_input label='carbohydrate' name='carbohydrate' hint="in grams" %}
+                        {% float_input label='fat' name='fat' hint="in grams" %}
+                        {% float_input label='saturatedfat' name='saturatedfat' hint="in grams" %}
+                    </div>
+                    <div class="flex-row-equalfill">
+                        {% float_input label='sugar' name='sugar' hint="in grams" %}
+                        {% float_input label='sodium' name='sodium' hint="in milligrams" %}
+                        {% float_input label='fibre' name='fibre' hint="in grams" %}
+                    </div>
             </form>
+            <div class="flex-row-equalfill">
+                <button class="oneline dark" onclick="create_ingredient()">Create New</button>
+                <button class="oneline dark" disabled onclick="edit_ingredient()" id="edit_desc">Edit <span></span></button>
+                <button class="oneline dark" disabled onclick="delete_ingredient()" id="delete_desc">Delete <span></span></button>
+            </div>
         </div>
     </div>
 {% endblock %}
 {% block css %}
     <style>
-        .ingredients_controls {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .ingredients_controls > * {
-            flex: 1 1;
-        }
-
         .table_container {
             height: 50vh;
         }
 
         .table_container > .contained_table {
             height: 100%;
+        }
+        #ingredient_edit{
+            max-width: 30em;
+        }
+        #ingredient_edit button{
+            margin: 1px;
+        }
+        #ingredient_edit_form .field{
+            margin: 1px;
         }
     </style>
 {% endblock %}

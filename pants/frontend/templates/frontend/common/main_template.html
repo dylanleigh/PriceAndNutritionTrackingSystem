@@ -13,7 +13,6 @@
     {% block common_css %}
         <link rel="stylesheet" href="{% static "/css/reset.css" %}">
         <link rel="stylesheet" href="{% static "/css/main_template.css" %}">
-        <link rel="stylesheet" href="{% static "/css/styles.css" %}">
         <link rel="stylesheet" href="{% static "/css/templatetags/float_input.css" %}">
 
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
@@ -55,6 +54,8 @@
 {% block common_js %}
     <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="https://unpkg.com/imask@6.0.5/dist/imask.min.js"></script>
+    <script src="{% static "js/utils.js" %}"></script>
     <script src="{% static "js/pants_api.js" %}"></script>
     <script>
         pants = new Pants('1', {

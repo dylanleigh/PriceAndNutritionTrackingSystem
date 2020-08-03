@@ -151,11 +151,6 @@ class Pants {
      * @param json_details {Object} The information for the ingredient
      */
     async create_ingredient(json_details){
-        let form = document.querySelector('#ingredient_edit_form');
-        let tags = form.querySelector('[name=tags]').value.split(',');
-        // Remove empty tags
-        tags = tags.filter(tag => tag !== '');
-
         return this.authenticated_fetch(this.get_api_path('ingredient/'), {
             method: 'POST',
             headers: {
