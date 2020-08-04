@@ -20,7 +20,7 @@
             <h2>Selected Recipe</h2>
         </div>
         <div class="recipe">
-            <form>
+            <form autocomplete="off">
                 <input type="hidden" id="selected_row_node">
                 <input type="hidden" id="recipe_uri" name="recipe_uri">
 
@@ -147,7 +147,10 @@
                 document.querySelector('#description').value = recipe.description;
                 document.querySelector('#recipe_uri').value = recipe.url;
                 document.querySelector('#serves').value = recipe.serves;
-                document.querySelector('#flag').value = recipe.flag;
+                document.querySelector('#flag').value = recipe.flag || "";
+                let evt = document.createEvent("HTMLEvents");
+                evt.initEvent("change", false, true);
+                document.querySelector('#flag').dispatchEvent(evt); // Trigger event so that the label updates properly
                 document.querySelector('#method').value = recipe.method;
                 document.querySelector('#notes').value = recipe.notes;
 

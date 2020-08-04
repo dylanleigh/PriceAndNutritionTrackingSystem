@@ -5,7 +5,8 @@
                   placeholder="{{ label }}" {{ extra }}></textarea>
     {% elif type == "select" %}
         <select class="field__input" id="{{ name }}" name="{{ name }}" {{ extra }}>
-            <option value="">Not Implemented</option>
+            <option selected hidden disabled value="">{{ label }}</option>
+            <option value="a">Not Implemented</option>
         </select>
     {% else %}
         {# A regular input, the type should be an html 5 type#}
@@ -23,5 +24,12 @@
         }
         elem.pants_data.input_mask = IMask(elem, {{ input_mask }});
     })
+    {% endif %}
+    {% if type == 'select' %}
+{#        Select elements need to know what the current option is in order to style "nothing chosen"#}
+        document.getElementById("{{ name }}").dataset.picked_option = "";
+        document.getElementById("{{ name }}").addEventListener('change', function(){
+            this.dataset.picked_option = this.value;
+        })
     {% endif %}
 </script>
