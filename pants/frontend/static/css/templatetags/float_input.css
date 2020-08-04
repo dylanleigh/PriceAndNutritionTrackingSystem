@@ -58,9 +58,17 @@ textarea.field__input{
     border-color: var(--shamrock-green);
 }
 
-.field__input:placeholder-shown,
-select.field__input[data-picked_option=""]{
+/* Padding when detected empty */
+.field__input:placeholder-shown{
     padding: calc(var(--label-spacing) / 2) .5em calc(var(--label-spacing) / 2);
+}
+/* For some reason select elements are 2 px wider than inputs, normalize by going 50/50 */
+select.field__input{
+    padding: calc(var(--label-spacing) - 2px) .5em 0;
+}
+select.field__input[data-picked_option=""]{
+
+    padding: calc(var(--label-spacing) / 2 - 1px) .5em calc(var(--label-spacing) / 2 - 1px);
 }
 
 ::placeholder {
