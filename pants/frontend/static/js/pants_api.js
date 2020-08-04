@@ -203,6 +203,18 @@ class Pants {
         return this.authenticated_fetch(api_location.toString());
     }
 
+    /**
+     * Gets a single recipe, but this includes components as well
+     *
+     * @param {string} recipe_uri the uri for the recipe
+     *
+     * @returns {Promise<void>}
+     */
+    async get_recipe_full(recipe_uri){
+        // Fetch the data
+        return this.authenticated_fetch(recipe_uri);
+    }
+
 
 }
 

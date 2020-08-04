@@ -62,19 +62,19 @@ h3{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: baseline;
+  align-items: center;
 }
 .flex-row-between{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 }
 .flex-row_r-between{
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 }
 .flex-gap-regular{
   gap: var(--padding);
@@ -82,6 +82,7 @@ h3{
 .flex-row-equalfill{
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 .flex-row-equalfill>*{
   flex:1;

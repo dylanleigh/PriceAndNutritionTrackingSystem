@@ -149,3 +149,21 @@ class RecipeViewSet(viewsets.ModelViewSet):
    def get_queryset(self):
       return owner_or_global(Recipe, self.request.user)
 
+class RecipeNestedViewSet(viewsets.ModelViewSet):
+   """
+   API endpoint for getting a FULL view of the recipe, including components
+   @todo I added this so that I could get components, but perhaps if we aren't allowing listing recipes and components
+      together on purpose I should have added a Components api directly? But again that would only get used for getting
+      recipe components, since you can update components with the regular view set. Maybe just add a "?include_components=true"
+      query string option to other viewset?
+   """
+   permission_classes = [permissions.DjangoModelPermissions]
+   queryset = Recipe.objects.none()  # Required for DjangoModelPermissions to get Model
+
+   def get_serializer_class(self):
+      return RecipeNestedSerializer
+
+   def get_queryset(self):
+      return owner_or_global(Recipe, self.request.user)
+
+

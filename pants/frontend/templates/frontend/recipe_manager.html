@@ -7,13 +7,13 @@
         <div class="header-all-recipes">
             <h2>All Recipes</h2>
         </div>
-        <div class="all-recipes">
+        <div class="all-recipes resizable-vertical">
             <div id="all_recipes_table" class="ag-theme-balham fill-height"></div>
         </div>
         <div class="header-all-ingredients">
             <h2>All Ingredients</h2>
         </div>
-        <div class="all-ingredients">
+        <div class="all-ingredients resizable-vertical">
             <div id="ingredients" class="ag-theme-balham fill-height"></div>
         </div>
         <div class="header-recipe">
@@ -40,11 +40,16 @@
                 {% float_input input_type="select" label="Flag" name="flag" %}
                 </div>
 
+                <div id="recipe-components">
+{#                    A place to put all the components of the recipe once they are found#}
+
+                </div>
+
                 {% float_input label='Method' name='method' hint="Add cheese to bread, toast." multiline=True %}
                 {% float_input label='Notes' name='notes' hint="Can use different cheeses than what is listed. Recipe is flexible." multiline=True %}
 
                 <label>Recipe Ingredients</label>
-                <div id="selected_ingredients" class="ag-theme-balham" style="height: 50vh"></div>
+                <div id="selected_ingredients" class="ag-theme-balham resizable-vertical" style="height: 20vh"></div>
             </form>
             <div class="flex-row-equalfill">
                 <button class="oneline dark" onclick="create_recipe()">Create New</button>
@@ -53,6 +58,22 @@
             </div>
         </div>
     </div>
+{#    Template for a component of a recipe#}
+    <template id="recipe-component-template">
+        <div class="flex-row-start flex-align-center">
+            <label id="name">A Recipe Component</label>
+
+            <input id="component-type" type="hidden"/>
+            <input id="component-id" type="hidden"/>
+
+            <input id="amount" placeholder="amount" style="flex: 1;min-width: 0"/>
+            <select id="unit" style="flex: 1;min-width: 0">
+                <option value="weight">grams</option>
+                <option value="servings">servings</option>
+            </select>
+            <input id="note" placeholder="note" style="flex: 1;min-width: 0"/>
+        </div>
+    </template>
 
 {% endblock %}
 {% block css %}
@@ -71,8 +92,6 @@
 
         #recipe-manager > .all-recipes {
             grid-area: all-recipes;
-            resize: vertical;
-            overflow: auto;
         }
 
         #recipe-manager > .header-all-ingredients {
@@ -81,8 +100,6 @@
 
         #recipe-manager > .all-ingredients {
             grid-area: all-ingredients;
-            resize: vertical;
-            overflow: auto;
         }
 
         #recipe-manager > .header-recipe {
@@ -93,9 +110,19 @@
             grid-area: recipe;
         }
 
-    .fill-height{
-        height: 100%;
-    }
+        .fill-height{
+            height: 100%;
+        }
+
+        #recipe-manager .field,
+        #recipe-manager button {
+            margin: 1px;
+        }
+
+        .resizable-vertical{
+            resize: vertical;
+            overflow: auto;
+        }
     </style>
 {% endblock %}
 {% block js %}
@@ -161,6 +188,33 @@
                 document.querySelector('#tags').pants_data.input_mask.updateValue();
                 document.querySelector('#slug').pants_data.input_mask.updateValue();
 
+                // Components are not included in results for performance reasons, make a separate call to get those
+                pants.get_recipe_full(recipe.url)
+                    .then(response=>response.json())
+                    .then(json=>{
+                        // To avoid flash, we create a new node, fill it's children, then swap the two
+                        let recipe_components = document.getElementById("recipe-components");
+                        let new_recipe_components = recipe_components.cloneNode(true);
+                        new_recipe_components.textContent = "";
+
+                        json.components.forEach((component, idx)=>{
+                            let component_node = document.getElementById('recipe-component-template').content.cloneNode(true);
+                            component_node.getElementById("component-type").innerText = component.of_ingredient == null ? "recipe" : "ingredient";
+                            component_node.getElementById("component-id").innerText = component.of_ingredient || component.of_recipe;
+                            component_node.getElementById("name").innerText = component.name;
+                            component_node.getElementById("amount").value = component.servings || component.weight;
+                            component_node.getElementById("unit").value = component.servings == null ? "weight" : "servings"
+                            component_node.getElementById("note").value = component.note;
+                            new_recipe_components.appendChild(component_node);
+                        })
+
+                        recipe_components.replaceWith(new_recipe_components);
+                    })
+                    .catch(()=>{
+                        // Don't leave ingredients from last recipe in there.
+                        document.getElementById("recipe-components").textContent = '';
+                    })
+                //@todo support viewing and editing the components as well
                 // Nutritional Data, these are all masked so the masks must be synchronized as well
                 /*
                 document.querySelector('#kilojoules').value = ingredient.kilojoules;
@@ -201,7 +255,7 @@
             });
 
 
-            // Create a grid to view the data
+            // Create a grid to view all the components (ingredients OR other recipes)
             let columns = [
                 {headerName: "Name", field: "name"},
                 {headerName: "Description", field: "description"},

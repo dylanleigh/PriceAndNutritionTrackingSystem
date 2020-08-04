@@ -5,7 +5,7 @@
                   placeholder="{{ label }}" {{ extra }}></textarea>
     {% elif type == "select" %}
         <select class="field__input" id="{{ name }}" name="{{ name }}" {{ extra }}>
-            <option selected hidden disabled value="">{{ label }}</option>
+            <option value="">{{ label }}</option>
             <option value="a">Not Implemented</option>
         </select>
     {% else %}
