@@ -163,3 +163,12 @@ button.dark:hover{
 button.dark:active{
     box-shadow: inset 0 0 0.5em var(--pine-green);
 }
+button.text-only{
+  border: 0;
+  padding: 0;
+  color: var(--shamrock-green);
+  background: #0000;
+}
+button.text-only:hover{
+  color: var(--pine-green);
+}

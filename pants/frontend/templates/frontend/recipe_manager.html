@@ -27,21 +27,21 @@
                 {% float_input label='Introduction' name='introduction' hint="A story about how the grilled cheese came to be" multiline=True %}
 
                 <div class="flex-row-equalfill">
-                {% float_input label='Name' name='name' hint="Grilled Cheese" %}
-                {% float_input label='Slug' name='slug' hint="grilled-cheese" input_mask=slug_mask %}
+                    {% float_input label='Name' name='name' hint="Grilled Cheese" %}
+                    {% float_input label='Slug' name='slug' hint="grilled-cheese" input_mask=slug_mask %}
                 </div>
 
                 {% float_input label='Description' name='description' hint="A sandwich made with melted cheese" multiline=True %}
 
                 <div class="flex-row-equalfill">
-                {% float_input label='Serves' name='serves' hint="1" %}
-                {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3" input_mask=tag_mask extra='style="flex:2"'%}
-{#                @todo it is unclear what flag is used for, need to add support for it#}
-                {% float_input input_type="select" label="Flag" name="flag" %}
+                    {% float_input label='Serves' name='serves' hint="1" %}
+                    {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3" input_mask=tag_mask extra='style="flex:2"' %}
+                    {#                @todo it is unclear what flag is used for, need to add support for it#}
+                    {% float_input input_type="select" label="Flag" name="flag" %}
                 </div>
 
                 <div id="recipe-components">
-{#                    A place to put all the components of the recipe once they are found#}
+                    {#                    A place to put all the components of the recipe once they are found#}
 
                 </div>
 
@@ -53,26 +53,33 @@
             </form>
             <div class="flex-row-equalfill">
                 <button class="oneline dark" onclick="create_recipe()">Create New</button>
-                <button class="oneline dark" disabled onclick="edit_recipe()">Edit <span id="edit-recipe-name"></span></button>
-                <button class="oneline dark" disabled onclick="delete_recipe()">Delete <span id="delete-recipe-name"></span></button>
+                <button class="oneline dark" disabled onclick="edit_recipe()">Edit <span id="edit-recipe-name"></span>
+                </button>
+                <button class="oneline dark" disabled onclick="delete_recipe()">Delete <span
+                        id="delete-recipe-name"></span></button>
             </div>
         </div>
     </div>
-{#    Template for a component of a recipe#}
+    {#    Template for a component of a recipe#}
     <template id="recipe-component-template">
-        <div class="flex-row-start flex-align-center">
-            <label id="name">A Recipe Component</label>
+    <div style="display: contents">
+        <input id="component-type" type="hidden"/>
+        <input id="component-id" type="hidden"/>
 
-            <input id="component-type" type="hidden"/>
-            <input id="component-id" type="hidden"/>
+        <label id="name">A Recipe Component</label>
 
-            <input id="amount" placeholder="amount" style="flex: 1;min-width: 0"/>
-            <select id="unit" style="flex: 1;min-width: 0">
-                <option value="weight">grams</option>
-                <option value="servings">servings</option>
-            </select>
-            <input id="note" placeholder="note" style="flex: 1;min-width: 0"/>
-        </div>
+        <input id="amount" placeholder="amount" style="min-width: 0;text-align: right"/>
+        <select id="unit" style="min-width: 0">
+            <option value="weight">grams</option>
+            <option value="servings">servings</option>
+        </select>
+        <button type="button" onclick="this.classList.toggle('has-note');" class="text-only note-controls">
+            <i class="fas fa-plus fa-2x"></i>
+            <i class="fas fa-minus fa-2x"></i>
+        </button>
+        {% float_input label='Note' name='note' hint="Information about this specific ingredient in this specific recipe" multiline=True extra='class="resizable-vertical"' container_extra='style="grid-column: note-start / note-end"'%}
+{#        <textarea id="note" placeholder="note" class="resizable-vertical" style="grid-column: note-start / note-end"></textarea>#}
+    </div>
     </template>
 
 {% endblock %}
@@ -110,7 +117,7 @@
             grid-area: recipe;
         }
 
-        .fill-height{
+        .fill-height {
             height: 100%;
         }
 
@@ -119,10 +126,32 @@
             margin: 1px;
         }
 
-        .resizable-vertical{
+        .resizable-vertical {
             resize: vertical;
             overflow: auto;
         }
+
+        #recipe-components {
+            display: grid;
+            grid-template-columns: 1fr [note-start] 8em 7em 2em [note-end];
+            gap: 1px 1px;
+            margin: 1px;
+            align-items: center;
+        }
+
+        /* has-note on the note-controls class indicates the minus button should show, and the note itself should. It's absence means the opposite*/
+        button.note-controls:not(.has-note) .fa-minus{
+            display: none;
+        }
+        button.note-controls.has-note .fa-plus{
+            display: none;
+        }
+
+        button.note-controls:not(.has-note) + .field {
+            display: none;
+        }
+
+
     </style>
 {% endblock %}
 {% block js %}
@@ -135,7 +164,7 @@
                 {headerName: "Serves", field: "serves"},
                 {headerName: "Notes", field: "notes"},
             ];
-            let all_recipes_grid = new agGrid.Grid(document.querySelector("#all_recipes_table"),{
+            let all_recipes_grid = new agGrid.Grid(document.querySelector("#all_recipes_table"), {
                 columnDefs: all_recipes_cols,
                 defaultColDef: {
                     flex: 1,
@@ -190,14 +219,14 @@
 
                 // Components are not included in results for performance reasons, make a separate call to get those
                 pants.get_recipe_full(recipe.url)
-                    .then(response=>response.json())
-                    .then(json=>{
+                    .then(response => response.json())
+                    .then(json => {
                         // To avoid flash, we create a new node, fill it's children, then swap the two
                         let recipe_components = document.getElementById("recipe-components");
                         let new_recipe_components = recipe_components.cloneNode(true);
                         new_recipe_components.textContent = "";
 
-                        json.components.forEach((component, idx)=>{
+                        json.components.forEach((component, idx) => {
                             let component_node = document.getElementById('recipe-component-template').content.cloneNode(true);
                             component_node.getElementById("component-type").innerText = component.of_ingredient == null ? "recipe" : "ingredient";
                             component_node.getElementById("component-id").innerText = component.of_ingredient || component.of_recipe;
@@ -205,41 +234,25 @@
                             component_node.getElementById("amount").value = component.servings || component.weight;
                             component_node.getElementById("unit").value = component.servings == null ? "weight" : "servings"
                             component_node.getElementById("note").value = component.note;
+
+                            // Mark the controls with the has-note class if the component has a note
+                            if(component.note !== undefined && component.note.length > 0) {
+                                component_node.querySelector(".note-controls").classList.toggle("has-note");
+                            }
+
                             new_recipe_components.appendChild(component_node);
                         })
 
                         recipe_components.replaceWith(new_recipe_components);
                     })
-                    .catch(()=>{
+                    .catch(() => {
                         // Don't leave ingredients from last recipe in there.
                         document.getElementById("recipe-components").textContent = '';
                     })
-                //@todo support viewing and editing the components as well
-                // Nutritional Data, these are all masked so the masks must be synchronized as well
-                /*
-                document.querySelector('#kilojoules').value = ingredient.kilojoules;
-                document.querySelector('#protein').value = ingredient.protein;
-                document.querySelector('#fibre').value = ingredient.fibre;
-                document.querySelector('#carbohydrate').value = ingredient.carbohydrate;
-                document.querySelector('#fat').value = ingredient.fat;
-                document.querySelector('#sugar').value = ingredient.sugar;
-                document.querySelector('#saturatedfat').value = ingredient.saturatedfat;
-                document.querySelector('#sodium').value = ingredient.sodium;
-
-                document.querySelector('#kilojoules').pants_data.input_mask.updateValue();
-                document.querySelector('#protein').pants_data.input_mask.updateValue();
-                document.querySelector('#fibre').pants_data.input_mask.updateValue();
-                document.querySelector('#carbohydrate').pants_data.input_mask.updateValue();
-                document.querySelector('#fat').pants_data.input_mask.updateValue();
-                document.querySelector('#sugar').pants_data.input_mask.updateValue();
-                document.querySelector('#saturatedfat').pants_data.input_mask.updateValue();
-                document.querySelector('#sodium').pants_data.input_mask.updateValue();
-
-                 */
 
                 // Also store a reference to this node so that we can refresh it
                 let row_node = document.querySelector('#selected_row_node');
-                if(typeof row_node.pants_data === "undefined"){
+                if (typeof row_node.pants_data === "undefined") {
                     row_node.pants_data = {}
                 }
                 row_node.pants_data.ag_data = args.node;

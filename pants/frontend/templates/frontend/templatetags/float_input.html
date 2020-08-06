@@ -1,5 +1,5 @@
 {% load static %}
-<div class="field">
+<div class="field" {{ container_extra }}>
     {% if type == "text" and multiline %}
         <textarea class="field__input" id="{{ name }}" name="{{ name }}" type="{{ type }}"
                   placeholder="{{ label }}" {{ extra }}></textarea>
