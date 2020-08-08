@@ -24,6 +24,8 @@
                 <input type="hidden" id="selected_row_node">
                 <input type="hidden" id="recipe_uri" name="recipe_uri">
 
+                <float-input label="Test" name="test" hint="test"></float-input>
+
                 {% float_input label='Introduction' name='introduction' hint="A story about how the grilled cheese came to be" multiline=True %}
 
                 <div class="flex-row-equalfill">
@@ -66,16 +68,18 @@
         <input id="component-type" type="hidden"/>
         <input id="component-id" type="hidden"/>
 
-        <label id="name">A Recipe Component</label>
+        <label id="name" style="padding-left: var(--padding)">A Recipe Component</label>
 
-        <input id="amount" placeholder="amount" style="min-width: 0;text-align: right"/>
-        <select id="unit" style="min-width: 0">
-            <option value="weight">grams</option>
-            <option value="servings">servings</option>
-        </select>
+        {% float_input label="Amount" name="amount" extra='style="min-width: 0;text-align: right"' %}
+{#        <input id="amount" placeholder="amount" style="min-width: 0;text-align: right"/>#}
+
+        {% float_input input_type="select" label="Unit" name="unit" %}
+{#        <select id="unit" style="min-width: 0; margin-left: 1px">#}
+{#            <option value="weight">grams</option>#}
+{#            <option value="servings">servings</option>#}
+{#        </select>#}
         <button type="button" onclick="this.classList.toggle('has-note');" class="text-only note-controls">
-            <i class="fas fa-plus fa-2x"></i>
-            <i class="fas fa-minus fa-2x"></i>
+            <i class="fas fa-sticky-note fa-2x"></i>
         </button>
         {% float_input label='Note' name='note' hint="Information about this specific ingredient in this specific recipe" multiline=True extra='class="resizable-vertical"' container_extra='style="grid-column: note-start / note-end"'%}
 {#        <textarea id="note" placeholder="note" class="resizable-vertical" style="grid-column: note-start / note-end"></textarea>#}
@@ -133,25 +137,17 @@
 
         #recipe-components {
             display: grid;
-            grid-template-columns: 1fr [note-start] 8em 7em 2em [note-end];
-            gap: 1px 1px;
-            margin: 1px;
+            {#grid-template-columns: 1fr [note-start] 8em 7em 2em [note-end];#}
+{#            A somewhat hacky way to make this align with the 3 way split of fields above it #}
+            grid-template-columns: calc(33% + 1px) [note-start] calc(33% + 3px) 1fr 2em [note-end];
+            margin: var(--padding) 1px;
             align-items: center;
         }
 
-        /* has-note on the note-controls class indicates the minus button should show, and the note itself should. It's absence means the opposite*/
-        button.note-controls:not(.has-note) .fa-minus{
-            display: none;
-        }
-        button.note-controls.has-note .fa-plus{
-            display: none;
-        }
-
+        /* has-note on the note-controls class indicates note should show. It's absence means the opposite */
         button.note-controls:not(.has-note) + .field {
             display: none;
         }
-
-
     </style>
 {% endblock %}
 {% block js %}
@@ -232,6 +228,15 @@
                             component_node.getElementById("component-id").innerText = component.of_ingredient || component.of_recipe;
                             component_node.getElementById("name").innerText = component.name;
                             component_node.getElementById("amount").value = component.servings || component.weight;
+                            // Because I hate myself and made the float_inputs django templates, we need to create the options to add here too.
+                            let weightOption = document.createElement('option');
+                            weightOption.innerText = "grams";
+                            weightOption.value = "weight";
+                            let servingOption = document.createElement('option');
+                            servingOption.innerText = "servings";
+                            servingOption.value = "servings";
+                            component_node.getElementById("unit").appendChild(weightOption);
+                            component_node.getElementById("unit").appendChild(servingOption);
                             component_node.getElementById("unit").value = component.servings == null ? "weight" : "servings"
                             component_node.getElementById("note").value = component.note;
 

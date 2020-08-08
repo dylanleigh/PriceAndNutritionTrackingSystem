@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
         <script defer src="{% static "/js/solid.min.js" %}"></script>
         <script defer src="{% static "/js/fontawesome.min.js" %}"></script>
+{#        Not deferring this since otherwise we get flashing as tags get upgraded#}
+        <script src="{% static "/js/float_inputs.js" %}"></script>
     {% endblock %}
     {% block css %}
     {% endblock %}
