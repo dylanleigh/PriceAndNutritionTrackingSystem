@@ -23,11 +23,12 @@ from website import views as website
 
 # Viewsets for API added here, not in included 'app.urls' links
 # as they are all under the /api/ space
-from ingredients.views import IngredientViewSet
+from ingredients.views import IngredientViewSet, IngredientTagViewSet
 from recipes.views import RecipeViewSet
 from diary.views import DiaryFoodViewSet
 router = routers.DefaultRouter()
 router.register(r'ingredient', IngredientViewSet, 'ingredient')
+router.register(r'ingredienttag', IngredientTagViewSet, 'ingredienttag')
 router.register(r'recipe', RecipeViewSet, 'recipe')
 router.register(r'diaryfood', DiaryFoodViewSet, 'diaryfood')
 
@@ -49,4 +50,7 @@ urlpatterns = [
     url(r'^products/', include('products.urls')),
 
     url(r'^adminbackend/', admin.site.urls),
+
+    # Experimental Frontend
+    url(r'^frontend/', include('frontend.urls'))
 ]
