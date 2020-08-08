@@ -67,7 +67,6 @@ select.field__input{
     padding: calc(var(--label-spacing) - 2px) .5em 0;
 }
 select.field__input[data-picked_option=""]{
-
     padding: calc(var(--label-spacing) / 2 - 1px) .5em calc(var(--label-spacing) / 2 - 1px);
 }
 

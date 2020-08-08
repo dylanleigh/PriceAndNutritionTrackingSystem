@@ -40,9 +40,9 @@
                     <float-input id="flag" type="select" label="Flag"></float-input>
                 </div>
 
+                <h3>Recipe Ingredients</h3>
                 <div id="recipe-components">
                     {#                    A place to put all the components of the recipe once they are found#}
-
                 </div>
 
                 <float-input id='method' label='Method' hint="Add cheese to bread, toast." multiline="true"></float-input>
@@ -65,23 +65,21 @@
         <input id="component-type" type="hidden"/>
         <input id="component-id" type="hidden"/>
 
-        <label id="name" style="padding-left: var(--padding)">A Recipe Component</label>
+        <button type="button" onclick="this.parentElement.classList.toggle('has-note');" class="text-only">
+            <i class="fas fa-sticky-note fa-2x"></i>
+        </button>
+        <label id="name">A Recipe Component</label>
 
         <float-input id="amount" label="Amount" extra='style="min-width: 0;text-align: right"'></float-input>
-{#        <input id="amount" placeholder="amount" style="min-width: 0;text-align: right"/>#}
-
         <float-input id="unit" type="select" label="Unit">
             <option value="weight">grams</option>
             <option value="servings">servings</option>
         </float-input>
-{#        <select id="unit" style="min-width: 0; margin-left: 1px">#}
-{#            <option value="weight">grams</option>#}
-{#            <option value="servings">servings</option>#}
-{#        </select>#}
-        <button type="button" onclick="this.classList.toggle('has-note');" class="text-only note-controls">
-            <i class="fas fa-sticky-note fa-2x"></i>
+        <button type="button" onclick="this.parentElement.remove()" class="text-only">
+            <i class="fas fa-minus fa-2x"></i>
         </button>
-            <float-input id='note' label='Note' hint="Information about this specific ingredient in this specific recipe" multiline="true" extra='class="resizable-vertical"' style="grid-column: note-start / note-end"></float-input>
+
+        <float-input id='note' label='Note' hint="Information about this specific ingredient in this specific recipe" multiline="true" extra='class="resizable-vertical"' style="grid-column: note-start / note-end"></float-input>
     </div>
     </template>
 
@@ -91,7 +89,7 @@
         #recipe-manager {
             display: grid;
             grid-template-columns: 1fr 30em;
-            grid-template-rows: 5em 1fr 5em 1fr;
+            grid-template-rows: max-content 1fr max-content 1fr;
             gap: 0 var(--padding);
             grid-template-areas: "header-all-recipes header-recipe" "all-recipes recipe" "header-all-ingredients recipe" "all-ingredients recipe";
         }
@@ -138,13 +136,13 @@
             display: grid;
             {#grid-template-columns: 1fr [note-start] 8em 7em 2em [note-end];#}
 {#            A somewhat hacky way to make this align with the 3 way split of fields above it #}
-            grid-template-columns: calc(33% + 1px) [note-start] calc(33% + 3px) 1fr 2em [note-end];
+            grid-template-columns: 2em calc(33% + 1px - 2em) [note-start] calc(33% + 3px) 1fr 2em [note-end];
             margin: var(--padding) 1px;
             align-items: center;
         }
 
-        /* has-note on the note-controls class indicates note should show. It's absence means the opposite */
-        button.note-controls:not(.has-note) + .field {
+        /* has-note on the component-wrapper class indicates note should show. It's absence means the opposite */
+        .component-wrapper:not(.has-note) > #note {
             display: none;
         }
     </style>
@@ -230,7 +228,7 @@
 
                             // Mark the controls with the has-note class if the component has a note
                             if(component.note !== undefined && component.note.length > 0) {
-                                component_wrapper_node.querySelector(".note-controls").classList.toggle("has-note");
+                                component_wrapper_node.classList.toggle("has-note");
                             }
 
                         })

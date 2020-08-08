@@ -138,6 +138,13 @@ customElements.define('float-input',
             if(this.input_mask){
                 this.input_mask.updateValue();
             }
+
+            if(this.type === "select"){
+                // Need to trigger a change so that the data-picked_option updates
+                let evt = document.createEvent("HTMLEvents");
+                evt.initEvent("change", false, true);
+                this.querySelector(`[name="${this.id}"]`).dispatchEvent(evt);
+            }
         }
 
         get id(){
