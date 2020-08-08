@@ -24,22 +24,20 @@
                 <input type="hidden" id="selected_row_node">
                 <input type="hidden" id="recipe_uri" name="recipe_uri">
 
-                <float-input label="Test" name="test" hint="test"></float-input>
-
-                {% float_input label='Introduction' name='introduction' hint="A story about how the grilled cheese came to be" multiline=True %}
+                <float-input id='introduction' label='Introduction' hint="A story about how the grilled cheese came to be" multiline="true"></float-input>
 
                 <div class="flex-row-equalfill">
-                    {% float_input label='Name' name='name' hint="Grilled Cheese" %}
-                    {% float_input label='Slug' name='slug' hint="grilled-cheese" input_mask=slug_mask %}
+                    <float-input id='name' label='Name' hint="Grilled Cheese"></float-input>
+                    <float-input id='slug' label='Slug' hint="grilled-cheese" input_mask_name="slug_mask"></float-input>
                 </div>
 
-                {% float_input label='Description' name='description' hint="A sandwich made with melted cheese" multiline=True %}
+                <float-input id='description' label='Description' hint="A sandwich made with melted cheese" multiline="true"></float-input>
 
                 <div class="flex-row-equalfill">
-                    {% float_input label='Serves' name='serves' hint="1" %}
-                    {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3" input_mask=tag_mask extra='style="flex:2"' %}
+                    <float-input id='serves' label='Serves' hint="1"></float-input>
+                    <float-input id='tags' label='Tags' hint="tag1,tag2,tag3" input_mask=tag_mask extra='style="flex:2"'></float-input>
                     {#                @todo it is unclear what flag is used for, need to add support for it#}
-                    {% float_input input_type="select" label="Flag" name="flag" %}
+                    <float-input id="flag" type="select" label="Flag"></float-input>
                 </div>
 
                 <div id="recipe-components">
@@ -47,16 +45,15 @@
 
                 </div>
 
-                {% float_input label='Method' name='method' hint="Add cheese to bread, toast." multiline=True %}
-                {% float_input label='Notes' name='notes' hint="Can use different cheeses than what is listed. Recipe is flexible." multiline=True %}
+                <float-input id='method' label='Method' hint="Add cheese to bread, toast." multiline="true"></float-input>
+                <float-input id='notes' label='Notes' hint="Can use different cheeses than what is listed. Recipe is flexible." multiline="true"></float-input>
 
                 <label>Recipe Ingredients</label>
                 <div id="selected_ingredients" class="ag-theme-balham resizable-vertical" style="height: 20vh"></div>
             </form>
             <div class="flex-row-equalfill">
                 <button class="oneline dark" onclick="create_recipe()">Create New</button>
-                <button class="oneline dark" disabled onclick="edit_recipe()">Edit <span id="edit-recipe-name"></span>
-                </button>
+                <button class="oneline dark" disabled onclick="edit_recipe()">Edit <span id="edit-recipe-name"></span></button>
                 <button class="oneline dark" disabled onclick="delete_recipe()">Delete <span
                         id="delete-recipe-name"></span></button>
             </div>
@@ -64,16 +61,19 @@
     </div>
     {#    Template for a component of a recipe#}
     <template id="recipe-component-template">
-    <div style="display: contents">
+    <div class="component-wrapper" style="display: contents">
         <input id="component-type" type="hidden"/>
         <input id="component-id" type="hidden"/>
 
         <label id="name" style="padding-left: var(--padding)">A Recipe Component</label>
 
-        {% float_input label="Amount" name="amount" extra='style="min-width: 0;text-align: right"' %}
+        <float-input id="amount" label="Amount" extra='style="min-width: 0;text-align: right"'></float-input>
 {#        <input id="amount" placeholder="amount" style="min-width: 0;text-align: right"/>#}
 
-        {% float_input input_type="select" label="Unit" name="unit" %}
+        <float-input id="unit" type="select" label="Unit">
+            <option value="weight">grams</option>
+            <option value="servings">servings</option>
+        </float-input>
 {#        <select id="unit" style="min-width: 0; margin-left: 1px">#}
 {#            <option value="weight">grams</option>#}
 {#            <option value="servings">servings</option>#}
@@ -81,8 +81,7 @@
         <button type="button" onclick="this.classList.toggle('has-note');" class="text-only note-controls">
             <i class="fas fa-sticky-note fa-2x"></i>
         </button>
-        {% float_input label='Note' name='note' hint="Information about this specific ingredient in this specific recipe" multiline=True extra='class="resizable-vertical"' container_extra='style="grid-column: note-start / note-end"'%}
-{#        <textarea id="note" placeholder="note" class="resizable-vertical" style="grid-column: note-start / note-end"></textarea>#}
+            <float-input id='note' label='Note' hint="Information about this specific ingredient in this specific recipe" multiline="true" extra='class="resizable-vertical"' style="grid-column: note-start / note-end"></float-input>
     </div>
     </template>
 
@@ -210,47 +209,34 @@
                 document.querySelector('#tags').value = recipe.tags.join(',');
                 document.querySelector('#slug').value = recipe.slug;
 
-                document.querySelector('#tags').pants_data.input_mask.updateValue();
-                document.querySelector('#slug').pants_data.input_mask.updateValue();
-
                 // Components are not included in results for performance reasons, make a separate call to get those
                 pants.get_recipe_full(recipe.url)
                     .then(response => response.json())
                     .then(json => {
-                        // To avoid flash, we create a new node, fill it's children, then swap the two
                         let recipe_components = document.getElementById("recipe-components");
-                        let new_recipe_components = recipe_components.cloneNode(true);
-                        new_recipe_components.textContent = "";
+                        recipe_components.textContent = "";
 
                         json.components.forEach((component, idx) => {
                             let component_node = document.getElementById('recipe-component-template').content.cloneNode(true);
-                            component_node.getElementById("component-type").innerText = component.of_ingredient == null ? "recipe" : "ingredient";
-                            component_node.getElementById("component-id").innerText = component.of_ingredient || component.of_recipe;
-                            component_node.getElementById("name").innerText = component.name;
-                            component_node.getElementById("amount").value = component.servings || component.weight;
-                            // Because I hate myself and made the float_inputs django templates, we need to create the options to add here too.
-                            let weightOption = document.createElement('option');
-                            weightOption.innerText = "grams";
-                            weightOption.value = "weight";
-                            let servingOption = document.createElement('option');
-                            servingOption.innerText = "servings";
-                            servingOption.value = "servings";
-                            component_node.getElementById("unit").appendChild(weightOption);
-                            component_node.getElementById("unit").appendChild(servingOption);
-                            component_node.getElementById("unit").value = component.servings == null ? "weight" : "servings"
-                            component_node.getElementById("note").value = component.note;
+                            let component_wrapper_node = component_node.querySelector(".component-wrapper");
+                            recipe_components.appendChild(component_node);
+
+                            component_wrapper_node.querySelector("#component-type").innerText = component.of_ingredient == null ? "recipe" : "ingredient";
+                            component_wrapper_node.querySelector("#component-id").innerText = component.of_ingredient || component.of_recipe;
+                            component_wrapper_node.querySelector("#name").innerText = component.name;
+                            component_wrapper_node.querySelector("#amount").value = component.servings || component.weight;
+                            component_wrapper_node.querySelector("#unit").value = component.servings == null ? "weight" : "servings"
+                            component_wrapper_node.querySelector("#note").value = component.note;
 
                             // Mark the controls with the has-note class if the component has a note
                             if(component.note !== undefined && component.note.length > 0) {
-                                component_node.querySelector(".note-controls").classList.toggle("has-note");
+                                component_wrapper_node.querySelector(".note-controls").classList.toggle("has-note");
                             }
 
-                            new_recipe_components.appendChild(component_node);
                         })
-
-                        recipe_components.replaceWith(new_recipe_components);
                     })
-                    .catch(() => {
+                    .catch(e => {
+                        console.log(e);
                         // Don't leave ingredients from last recipe in there.
                         document.getElementById("recipe-components").textContent = '';
                     })

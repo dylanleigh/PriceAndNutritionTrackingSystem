@@ -9,6 +9,7 @@ customElements.define('float-input',
             } else if (this.type === 'select') {
                 field = `<select class="field__input" name="${this.id}" ${this.extra}>
                     <option value="">${this.label}</option>
+                    ${this.innerHTML}
                 </select>`;
             } else {
                 // A regular input, with the field determined by the type attribute
