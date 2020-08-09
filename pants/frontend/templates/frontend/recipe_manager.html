@@ -51,8 +51,8 @@
             <div class="flex-row-equalfill">
                 <button class="oneline dark" onclick="create_recipe()">Create New</button>
                 <button class="oneline dark" disabled onclick="edit_recipe()">Edit <span id="edit-recipe-name"></span></button>
-                <button class="oneline dark" disabled onclick="delete_recipe()">Delete <span
-                        id="delete-recipe-name"></span></button>
+                <button class="oneline dark" disabled onclick="delete_recipe()">Delete <span id="delete-recipe-name"></span></button>
+                <button onclick="get_components()">Test</button>
             </div>
         </div>
     </div>
@@ -61,6 +61,7 @@
     <div class="component-wrapper" style="display: contents">
         <input id="component-type" type="hidden"/>
         <input id="component-id" type="hidden"/>
+        <input id="recipe-or-ingredient-id" type="hidden"/>
 
         <button type="button" onclick="this.parentElement.classList.toggle('has-note');" class="text-only">
             <i class="fas fa-sticky-note fa-2x"></i>
@@ -215,6 +216,7 @@
                         json.components.forEach((component, idx) => {
                             add_component(
                                 component.of_ingredient == null ? "recipe" : "ingredient",
+                                component.id,
                                 component.of_ingredient || component.of_recipe,
                                 component.name,
                                 component.servings || component.weight,
@@ -282,6 +284,7 @@
                 let ingredient = args.data;
                 add_component(
                     "ingredient",
+                    undefined, // There is no database id since this is a newly added component
                     ingredient.url.split("/").slice(-2)[0],
                     ingredient.name,
                     "",
@@ -309,7 +312,7 @@
                 'introduction': form.querySelector('#introduction').value,
                 'notes': form.querySelector('#notes').value,
                 'method': form.querySelector('#method').value,
-                'components': []
+                'components': get_components()
             })
                 .then(resp => {
                     all_recipes_grid.gridOptions.api.refreshInfiniteCache();
@@ -319,13 +322,14 @@
         /**
          * Adds a component to the component list
          * @param type {string} either "recipe" or "ingredient"
-         * @param id {string} the id number of the component (not the url)
+         * @param id {string} the id number of the component (not the url) for this component relationship
+         * @param recipe_or_ingredient_id {string} the original recipe or ingredient id for this component
          * @param name {string} the name of the component
          * @param amount {string} how much of the component in units
          * @param unit {string} what unit the amount is in. Should be "weight" for grams, or "servings" for servings
          * @param note {string} any additional notes
          */
-        function add_component(type, id, name, amount, unit, note){
+        function add_component(type, id, recipe_or_ingredient_id, name, amount, unit, note){
             let recipe_components = document.getElementById("recipe-components");
 
             let component_node = document.getElementById('recipe-component-template').content.cloneNode(true);
@@ -334,16 +338,40 @@
 
             component_wrapper_node.querySelector("#component-type").value = type;
             component_wrapper_node.querySelector("#component-id").value = id;
+            component_wrapper_node.querySelector("#recipe-or-ingredient-id").value = recipe_or_ingredient_id;
             component_wrapper_node.querySelector("#name").innerText = name;
             component_wrapper_node.querySelector("#amount").value = amount;
             component_wrapper_node.querySelector("#unit").value = unit;
-            component_wrapper_node.querySelector("#note").value = note;
+            component_wrapper_node.querySelector("#note").value = note || "";
 
             // Mark the controls with the has-note class if the component has a note
             if(note !== undefined && note.length > 0) {
                 component_wrapper_node.classList.toggle("has-note");
             }
+        }
 
+        /**
+         * Gets all the components in the components list and returns a list suitable for passing onto the api
+         */
+        function get_components(){
+            let recipe_components = document.querySelectorAll("#recipe-components .component-wrapper");
+            let output = [];
+            recipe_components.forEach(component=>{
+                let component_obj = {
+                        "name": component.querySelector("#name").innerText,
+                        "note": component.classList.contains("has-note") ? component.querySelector("#note").value : "",
+                        // Set "servings" or "weight"
+                        [component.querySelector("#unit").value]: component.querySelector("#amount").value,
+                        // Set "of_ingredient" or "of_recipe"
+                        ["of_" + component.querySelector("#component-type").value]: component.querySelector("#recipe-or-ingredient-id").value,
+                    }
+                if(component.querySelector("#component-id").value){
+                    // Only set db id if it has been provided by the db
+                    component_obj["id"] = component.querySelector("#component-id").value;
+                }
+                output.push(component_obj)
+            })
+            return output;
         }
 
         function remove_all_components(){

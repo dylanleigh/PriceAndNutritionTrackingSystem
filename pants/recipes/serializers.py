@@ -37,7 +37,13 @@ class RecipeNestedSerializer(serializers.HyperlinkedModelSerializer):
          #owner=user,
          **validated_data)
       for comp in component_data:
-         Component.objects.create(**comp)
+         comp['in_recipe_id'] = recipe.id
+         new_component = Component.objects.create(**comp)
+         recipe.components.add(new_component)
+      for tag_name in tag_data:
+         new_tag = RecipeTag.objects.get_or_create(name=tag_name)[0]  # Returns a tuple, but we only want the object
+         recipe.tags.add(new_tag)
+
 
       return recipe
 
