@@ -27,6 +27,7 @@ API v1 (In Progress)
 - Add custom API response to get diary aggregate data (get_diary_aggs() calls) - note home page uses this but not above call for full details
 - Add price GET, POST/PUT/DELETE - user Ingredients only, or own prices on global ingredients?, supplier stringfield
 - Check object-level permission to ensure users can only change their own objects (not global ones)
+- Add auth methods suitable for HTTP servers and/or native/desktop/app clients
 - Document Django user permissions required to allow users to add/edit/delete DB objects
 
 NData and calculation DRYing (should be done before further recipe/diary work)
