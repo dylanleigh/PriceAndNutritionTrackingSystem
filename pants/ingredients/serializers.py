@@ -7,6 +7,7 @@ from .models import Ingredient, IngredientTag
 class CreatableSlugRelatedField(serializers.SlugRelatedField):
     """
     From: https://stackoverflow.com/questions/28009829/creating-and-saving-foreign-key-objects-using-a-slugrelatedfield
+    TODO extract this some where common, as it's used for both Recipe and Ingredient Tags
     """
 
     def to_internal_value(self, data):

@@ -20,7 +20,7 @@
             <h2>Selected Recipe</h2>
         </div>
         <div class="recipe">
-            <form autocomplete="off">
+            <form id="recipe-edit-form" autocomplete="off">
                 <input type="hidden" id="selected_row_node">
                 <input type="hidden" id="recipe_uri" name="recipe_uri">
 
@@ -47,9 +47,6 @@
 
                 <float-input id='method' label='Method' hint="Add cheese to bread, toast." multiline="true"></float-input>
                 <float-input id='notes' label='Notes' hint="Can use different cheeses than what is listed. Recipe is flexible." multiline="true"></float-input>
-
-                <label>Recipe Ingredients</label>
-                <div id="selected_ingredients" class="ag-theme-balham resizable-vertical" style="height: 20vh"></div>
             </form>
             <div class="flex-row-equalfill">
                 <button class="oneline dark" onclick="create_recipe()">Create New</button>
@@ -149,6 +146,7 @@
 {% endblock %}
 {% block js %}
     <script>
+        let all_recipes_grid;
         document.addEventListener('DOMContentLoaded', () => {
             // Create a data grid to view the available recipes
             let all_recipes_cols = [
@@ -157,7 +155,7 @@
                 {headerName: "Serves", field: "serves"},
                 {headerName: "Notes", field: "notes"},
             ];
-            let all_recipes_grid = new agGrid.Grid(document.querySelector("#all_recipes_table"), {
+            all_recipes_grid = new agGrid.Grid(document.querySelector("#all_recipes_table"), {
                 columnDefs: all_recipes_cols,
                 defaultColDef: {
                     flex: 1,
@@ -211,32 +209,24 @@
                 pants.get_recipe_full(recipe.url)
                     .then(response => response.json())
                     .then(json => {
-                        let recipe_components = document.getElementById("recipe-components");
-                        recipe_components.textContent = "";
+                        // Empty current components
+                        remove_all_components();
 
                         json.components.forEach((component, idx) => {
-                            let component_node = document.getElementById('recipe-component-template').content.cloneNode(true);
-                            let component_wrapper_node = component_node.querySelector(".component-wrapper");
-                            recipe_components.appendChild(component_node);
-
-                            component_wrapper_node.querySelector("#component-type").innerText = component.of_ingredient == null ? "recipe" : "ingredient";
-                            component_wrapper_node.querySelector("#component-id").innerText = component.of_ingredient || component.of_recipe;
-                            component_wrapper_node.querySelector("#name").innerText = component.name;
-                            component_wrapper_node.querySelector("#amount").value = component.servings || component.weight;
-                            component_wrapper_node.querySelector("#unit").value = component.servings == null ? "weight" : "servings"
-                            component_wrapper_node.querySelector("#note").value = component.note;
-
-                            // Mark the controls with the has-note class if the component has a note
-                            if(component.note !== undefined && component.note.length > 0) {
-                                component_wrapper_node.classList.toggle("has-note");
-                            }
-
+                            add_component(
+                                component.of_ingredient == null ? "recipe" : "ingredient",
+                                component.of_ingredient || component.of_recipe,
+                                component.name,
+                                component.servings || component.weight,
+                                component.servings == null ? "weight" : "servings",
+                                component.note
+                            );
                         })
                     })
                     .catch(e => {
                         console.log(e);
-                        // Don't leave ingredients from last recipe in there.
-                        document.getElementById("recipe-components").textContent = '';
+                        // Don't leave components from last recipe in there.
+                        remove_all_components();
                     })
 
                 // Also store a reference to this node so that we can refresh it
@@ -287,42 +277,77 @@
             };
             let all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
 
-
-            // Now set up another grid to display the chosen ingredients
-            let recipe_ingredients = new agGrid.Grid(document.querySelector('#selected_ingredients'), {
-                columnDefs: columns,
-                rowData: [],
-                pagination: true,
-                paginationAutoPageSize: true,
-            });
-
             // Register the event to add ingredients to the recipe
             all_ingredients.gridOptions.api.addEventListener('rowClicked', args => {
                 let ingredient = args.data;
-                if (ingredient.is_added === true) {
-                    // Reject adding the ingredient, flash the ingredient's corresponding row in the other table so the
-                    // user knows that it's not just an error
-                    let added_ingredient_row = args.data.recipe_node;
-                    recipe_ingredients.gridOptions.api.flashCells({rowNodes: [added_ingredient_row]});
-                    return
-                }
-                ingredient.original_id = args.node.id;
-                ingredient.is_added = true; // prevent adding the same ingredient twice
-
-                let rows = recipe_ingredients.gridOptions.api.updateRowData({
-                    add: [args.data]
-                });
-                args.data.recipe_node = rows.add[0] // Keep a reference to the added grid row
+                add_component(
+                    "ingredient",
+                    ingredient.url.split("/").slice(-2)[0],
+                    ingredient.name,
+                    "",
+                    "weight");
             });
-            // Register the event to remove ingredients from the recipe
-            recipe_ingredients.gridOptions.api.addEventListener('rowClicked', args => {
-                // We need to inform the ingredients list this ingredient can be added again, and delete references to it
-                args.data.is_added = false;
-                delete args.data.recipe_node;
-                recipe_ingredients.gridOptions.api.updateRowData({
-                    remove: [args.data]
-                });
-            })
         })
+
+        /**
+         * Creates a new recipe using the information in the recipe form
+         */
+        function create_recipe() {
+            let form = document.querySelector('#recipe-edit-form');
+            let tags = form.querySelector('#tags').value.split(',');
+            // Remove empty tags
+            tags = tags.filter(tag => tag !== '');
+
+            pants.create_recipe({
+                'name': form.querySelector('#name').value,
+                'slug': form.querySelector('#slug').value,
+                'description': form.querySelector('#description').value,
+                // @todo Cannot edit owner? Remove this if there is no case where this is possible
+                // 'owner': form.querySelector('[name=owner]').value,
+                'tags': tags,
+                'serves': form.querySelector('#serves').value,
+                'introduction': form.querySelector('#introduction').value,
+                'notes': form.querySelector('#notes').value,
+                'method': form.querySelector('#method').value,
+                'components': []
+            })
+                .then(resp => {
+                    all_recipes_grid.gridOptions.api.refreshInfiniteCache();
+                });
+        }
+
+        /**
+         * Adds a component to the component list
+         * @param type {string} either "recipe" or "ingredient"
+         * @param id {string} the id number of the component (not the url)
+         * @param name {string} the name of the component
+         * @param amount {string} how much of the component in units
+         * @param unit {string} what unit the amount is in. Should be "weight" for grams, or "servings" for servings
+         * @param note {string} any additional notes
+         */
+        function add_component(type, id, name, amount, unit, note){
+            let recipe_components = document.getElementById("recipe-components");
+
+            let component_node = document.getElementById('recipe-component-template').content.cloneNode(true);
+            let component_wrapper_node = component_node.querySelector(".component-wrapper");
+            recipe_components.appendChild(component_node);
+
+            component_wrapper_node.querySelector("#component-type").value = type;
+            component_wrapper_node.querySelector("#component-id").value = id;
+            component_wrapper_node.querySelector("#name").innerText = name;
+            component_wrapper_node.querySelector("#amount").value = amount;
+            component_wrapper_node.querySelector("#unit").value = unit;
+            component_wrapper_node.querySelector("#note").value = note;
+
+            // Mark the controls with the has-note class if the component has a note
+            if(note !== undefined && note.length > 0) {
+                component_wrapper_node.classList.toggle("has-note");
+            }
+
+        }
+
+        function remove_all_components(){
+            document.getElementById("recipe-components").textContent = "";
+        }
     </script>
 {% endblock %}

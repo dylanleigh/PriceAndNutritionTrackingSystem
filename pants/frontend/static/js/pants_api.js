@@ -84,7 +84,7 @@ class Pants {
     }
 
     /**
-     * Creates a new ingredient using the information in the input fields
+     * Creates a new ingredient
      * @param json_details {Object} The information for the ingredient
      */
     async create_ingredient(json_details){
@@ -213,6 +213,21 @@ class Pants {
     async get_recipe_full(recipe_uri){
         // Fetch the data
         return this.authenticated_fetch(recipe_uri);
+    }
+
+    /**
+     * Creates a new recipe
+     * @param json_details {Object} The information for the ingredient
+     */
+    async create_recipe(json_details){
+        return this.authenticated_fetch(this.get_api_path('recipe/'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json_details)
+        })
+            .then(resp => resp.json())
     }
 
 
