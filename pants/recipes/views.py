@@ -14,7 +14,7 @@ from django.views.generic.list import ListView
 from rest_framework import viewsets, permissions
 
 from .models import Recipe, RecipeTag
-from .serializers import RecipeListSerializer, RecipeNestedSerializer
+from .serializers import RecipeListSerializer, RecipeNestedSerializer, RecipeTagSerializer
 from targets.models import Target
 from ingredients.utils import get_nutrition_limits, owner_or_global
 
@@ -165,5 +165,14 @@ class RecipeNestedViewSet(viewsets.ModelViewSet):
 
    def get_queryset(self):
       return owner_or_global(Recipe, self.request.user)
+
+class RecipeTagViewSet(viewsets.ModelViewSet):
+   """
+   API Endpoint for viewing and editing Recipe Tags
+   """
+   queryset = RecipeTag.objects.all()
+
+   def get_serializer_class(self):
+      return RecipeTagSerializer
 
 

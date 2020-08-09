@@ -40,9 +40,6 @@ class IngredientSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class IngredientTagSerializer(serializers.HyperlinkedModelSerializer):
-
-
-
     class Meta:
         model = IngredientTag
         fields = "__all__"

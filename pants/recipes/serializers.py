@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from ingredients.serializers import CreatableSlugRelatedField
+from pants.models import UserSerializer
 from .models import Recipe, Component, RecipeTag, RecipeFlag
 
 
@@ -17,8 +19,7 @@ class RecipeNestedSerializer(serializers.HyperlinkedModelSerializer):
    Detail/Put serialiser for Recipe - includes nested Components
    """
    nutrition_data = serializers.ReadOnlyField()       # Calculated values
-   owner = serializers.ReadOnlyField()                # Current user or null, but immutable
-   tags = serializers.StringRelatedField(many=True)   # FIXME not editable yet
+   tags = CreatableSlugRelatedField(slug_field="name", many=True, queryset=RecipeTag.objects.all())
    flag = serializers.StringRelatedField()            # FIXME not editable yet
 
    # FIXME mention this in README/api docs, note there are two
@@ -28,12 +29,16 @@ class RecipeNestedSerializer(serializers.HyperlinkedModelSerializer):
    components = ComponentSerializer(many=True)
 
    def create(self, validated_data):
-      user = self.request.user # FIXME needs to be passed as extra context
+      user = self.context['request'].user  # FIXME needs to be passed as extra context
       # Take component data off, save remainder as recipe, then save components
       component_data = validated_data.pop('components')
-      recipe = Recipe.objects.create(owner=user, **validated_data)
+      tag_data = validated_data.pop('tags')
+      recipe = Recipe.objects.create(
+         #owner=user,
+         **validated_data)
       for comp in component_data:
-         Component.object.create(**comp)
+         Component.objects.create(**comp)
+
       return recipe
 
    # FIXME TODO def update(self, validated_data):
@@ -41,6 +46,7 @@ class RecipeNestedSerializer(serializers.HyperlinkedModelSerializer):
    class Meta:
       model = Recipe
       fields = '__all__'
+      read_only_fields = ['owner']
 
 
 class RecipeListSerializer(serializers.HyperlinkedModelSerializer):
@@ -49,12 +55,18 @@ class RecipeListSerializer(serializers.HyperlinkedModelSerializer):
    (nutrition_data calculated from the components is included)
    """
    nutrition_data = serializers.ReadOnlyField()       # Calculated values
-   owner = serializers.ReadOnlyField()                # Current user or null, but immutable
    tags = serializers.StringRelatedField(many=True)
    flag = serializers.StringRelatedField()
 
    class Meta:
       model = Recipe
       fields = '__all__'
+      read_only_fields = ['owner']
 
-
+class RecipeTagSerializer(serializers.HyperlinkedModelSerializer):
+   """
+   Serialize RecipeTags
+   """
+   class Meta:
+      model = RecipeTag
+      fields = '__all__'
