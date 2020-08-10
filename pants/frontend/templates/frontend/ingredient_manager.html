@@ -226,6 +226,7 @@
         function delete_ingredient() {
             pants.delete_ingredient(document.querySelector('#ingredient_uri').value)
                 .then(response => {
+                    all_ingredients.gridOptions.api.deselectAll();
                     all_ingredients.gridOptions.api.refreshInfiniteCache();
                 });
         }

@@ -230,6 +230,17 @@ class Pants {
             .then(resp => resp.json())
     }
 
+    /**
+     * Deletes the specified recipe
+     * @param recipe_uri {string} The recipe to delete
+     */
+    async delete_recipe(recipe_uri){
+        // Send the command to delete the recipe using the api
+        return this.authenticated_fetch(recipe_uri, {
+            method: 'DELETE',
+        })
+    }
+
 
 }
 

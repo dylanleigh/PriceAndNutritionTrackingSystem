@@ -52,7 +52,6 @@
                 <button class="oneline dark" onclick="create_recipe()">Create New</button>
                 <button class="oneline dark" disabled onclick="edit_recipe()">Edit <span id="edit-recipe-name"></span></button>
                 <button class="oneline dark" disabled onclick="delete_recipe()">Delete <span id="delete-recipe-name"></span></button>
-                <button onclick="get_components()">Test</button>
             </div>
         </div>
     </div>
@@ -315,6 +314,17 @@
                 'components': get_components()
             })
                 .then(resp => {
+                    all_recipes_grid.gridOptions.api.refreshInfiniteCache();
+                });
+        }
+
+        /**
+         * Deletes the currently selected recipe
+         */
+        function delete_recipe(){
+            pants.delete_recipe(document.querySelector('#recipe_uri').value)
+                .then(response => {
+                    all_recipes_grid.gridOptions.api.deselectAll();
                     all_recipes_grid.gridOptions.api.refreshInfiniteCache();
                 });
         }
