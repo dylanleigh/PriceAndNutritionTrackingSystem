@@ -231,6 +231,22 @@ class Pants {
     }
 
     /**
+     * Updates a recipe (identified by uri) based on the json object passed in
+     * @param uri {string} The URI that uniquely identifies the given recipe
+     * @param json_details {Object} The details that will be overwritten onto the recipe (details not included are unaffected)
+     */
+    async edit_recipe(uri, json_details) {
+        return this.authenticated_fetch(uri, {
+            method: 'PATCH',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(json_details)
+        })
+            .then(resp => resp.json())
+    }
+
+    /**
      * Deletes the specified recipe
      * @param recipe_uri {string} The recipe to delete
      */

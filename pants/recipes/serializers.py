@@ -30,7 +30,7 @@ class RecipeNestedSerializer(serializers.HyperlinkedModelSerializer):
 
    def create(self, validated_data):
       user = self.context['request'].user  # FIXME needs to be passed as extra context
-      # Take component data off, save remainder as recipe, then save components
+      # Take component and tag data off, save remainder as recipe, then save components and tags
       component_data = validated_data.pop('components')
       tag_data = validated_data.pop('tags')
       recipe = Recipe.objects.create(
@@ -43,11 +43,33 @@ class RecipeNestedSerializer(serializers.HyperlinkedModelSerializer):
       for tag_name in tag_data:
          new_tag = RecipeTag.objects.get_or_create(name=tag_name)[0]  # Returns a tuple, but we only want the object
          recipe.tags.add(new_tag)
+      return recipe
+
+   def update(self, recipe, validated_data):
+      # Get all the requested update fields except for the many to many tags and components
+      update_fields = [key for key in validated_data.keys() if key not in ['tags', 'components']]
+      for key in update_fields:
+         setattr(recipe, key, validated_data[key])
+      recipe.save(update_fields=update_fields)
+
+      if('tags' in validated_data):
+         # Update the tags for this recipe, delete all previous tags first
+         recipe.tags.clear()
+         for tag_name in validated_data['tags']:
+            new_tag = RecipeTag.objects.get_or_create(name=tag_name)[0]  # Returns a tuple, but we only want the object
+            recipe.tags.add(new_tag)
+
+      if('components' in validated_data):
+         # Update the components for this recipe
+         # @todo there is probably a more efficient way to do this, but for now clear and add is 'good enough'
+         recipe.components.all().delete()
+         for comp in validated_data['components']:
+            comp['in_recipe_id'] = recipe.id
+            new_component = Component.objects.create(**comp)
+            recipe.components.add(new_component)
 
 
       return recipe
-
-   # FIXME TODO def update(self, validated_data):
 
    class Meta:
       model = Recipe
