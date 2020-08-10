@@ -138,6 +138,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
    permission_classes = [permissions.DjangoModelPermissions]
    queryset = Recipe.objects.none()  # Required for DjangoModelPermissions to get Model
 
+   # To enable searching
+   search_fields = ['name']
+
    # Don't show components in list, but use serializer with nested
    # components for other actions (get/put/etc)
    def get_serializer_class(self):
