@@ -4,14 +4,14 @@
 
 {% block content %}
     <div id="recipe-manager">
-        <div class="header-all-recipes flex-row-start flex-gap-regular">
+        <div class="header-all-recipes flex-row-between flex-gap-regular">
             <h2>All Recipes</h2>
             <float-input id='recipe_filter' label='Search' extra='onkeyup="all_recipes_grid.gridOptions.api.refreshInfiniteCache()"'></float-input>
         </div>
         <div class="all-recipes resizable-vertical">
             <div id="all_recipes_table" class="ag-theme-balham fill-height"></div>
         </div>
-        <div class="header-all-ingredients flex-row-start flex-gap-regular">
+        <div class="header-all-ingredients flex-row-between flex-gap-regular">
             <h2>All Ingredients</h2>
             <float-input id='ingredient_filter' label='Search' extra='onkeyup="all_ingredients.gridOptions.api.refreshInfiniteCache()"'></float-input>
         </div>
@@ -90,7 +90,12 @@
             grid-template-columns: 1fr 30em;
             grid-template-rows: max-content 1fr max-content 1fr;
             gap: 0 var(--padding);
-            grid-template-areas: "header-all-recipes header-recipe" "all-recipes recipe" "header-all-ingredients recipe" "all-ingredients recipe";
+            grid-template-areas:    "header-all-recipes header-recipe"
+                                    "all-recipes recipe"
+                                    "header-all-ingredients recipe"
+                                    "all-ingredients recipe";
+
+            min-height: calc(100vh - 7em); /* Make it fill the screen as much as possible for less flash when picking a recipe*/
         }
 
         #recipe-manager > .header-all-recipes {

@@ -3,7 +3,7 @@
 {% block page_title %}Ingredient Manager{% endblock %}
 {% block content %}
     <div id="ingredient-manager">
-      <div class="header-all flex-row-start flex-gap-regular">
+      <div class="header-all flex-row-between flex-gap-regular">
           <h2>All Ingredients</h2>
           <float-input id='ingredient_filter' label='Search' extra='onkeyup="all_ingredients.gridOptions.api.refreshInfiniteCache()"'></float-input>
       </div>
@@ -67,6 +67,8 @@
       grid-template-rows: 4em 1fr;
       gap: 0 var(--padding);
       grid-template-areas: "header-all header" "ingredients-all ingredient";
+
+        min-height: calc(100vh - 7em); /* Make it fill as much of the screen as possible to start off*/
     }
     #ingredient-manager>.header-all { grid-area: header-all; }
     #ingredient-manager>.ingredients-all {
