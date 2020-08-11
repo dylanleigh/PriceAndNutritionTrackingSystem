@@ -133,6 +133,16 @@ h3{
 .menu .spacer{
   flex: 1;
 }
+.menu > .nav > .nav-item.active::after{
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 0.5em solid transparent;
+  border-right: 1em solid var(--shamrock-green);
+  border-bottom: 0.5em solid transparent;
+  position: absolute;
+  right: -0.2em;
+}
 
 /* Inputs */
 input:focus, textarea:focus{
