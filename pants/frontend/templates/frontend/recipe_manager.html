@@ -151,15 +151,61 @@
         let all_recipes_grid;
         let all_ingredients;
         document.addEventListener('DOMContentLoaded', () => {
-            // Create a data grid to view the available recipes
-            let all_recipes_cols = [
-                {headerName: "Name", field: "name"},
-                {headerName: "Description", field: "description"},
-                {headerName: "Serves", field: "serves"},
-                {headerName: "Notes", field: "notes"},
-            ];
+            /* Create a data grid to view the available recipes */
+
+            // Create cell renderers for specific columns
+            class actionButtonCellRenderer {
+                init(params){
+                    this.cell = document.createElement('div');
+                    this.cell.innerHTML = '<button class="dark" style="padding: 0;margin: 0"><i class="fas fa-carrot"></i></button>';
+
+                    // get references to the elements we want
+                    this.add_recipe_btn = this.cell.querySelector('button');
+                    this.add_recipe_btn.addEventListener('click', e=>{e.stopPropagation();params.onClick(params.data)});
+
+                    this.cell.setAttribute("class", "flex-row-equalfill");
+                    this.cell.setAttribute("style", "align-items:stretch;height:100%");
+                }
+
+                getGui(){
+                    return this.cell
+                }
+
+                refresh(){
+                    // return true to tell the grid we refreshed successfully
+                    return true;
+                }
+
+                destroy(){
+                    // do cleanup, remove event listener from button
+                }
+            }
             all_recipes_grid = new agGrid.Grid(document.querySelector("#all_recipes_table"), {
-                columnDefs: all_recipes_cols,
+                components: {
+                    actionsCell: actionButtonCellRenderer,
+                },
+                columnDefs: [
+                    {headerName: "Name", field: "name"},
+                    {headerName: "Description", field: "description"},
+                    {headerName: "Serves", field: "serves"},
+                    {headerName: "Notes", field: "notes"},
+                    {
+                        headerName: "Actions",
+                        cellRenderer:"actionsCell",
+                        cellRendererParams: {
+                            onClick: recipe=>{
+                                add_component(
+                                    "recipe",
+                                    undefined, // There is no database id since this is a newly added component
+                                    recipe.url.split("/").slice(-2)[0],
+                                    recipe.name,
+                                    "",
+                                    "servings");
+                            }
+                        },
+                        cellStyle: {"padding": "0"},
+                        maxWidth: 25}
+                ],
                 defaultColDef: {
                     flex: 1,
                     sortable: true,
@@ -251,14 +297,37 @@
 
 
             // Create a grid to view all the components (ingredients OR other recipes)
-            let columns = [
-                {headerName: "Name", field: "name"},
-                {headerName: "Description", field: "description"},
-                {headerName: "Serving", field: "serving"},
-                {headerName: "Notes", field: "notes"},
-            ];
             let grid_options = {
-                columnDefs: columns,
+                components: {
+                    actionsCell: actionButtonCellRenderer,
+                },
+                columnDefs: [
+                    {headerName: "Name", field: "name"},
+                    {headerName: "Description", field: "description"},
+                    {headerName: "Serving", field: "serving"},
+                    {headerName: "Notes", field: "notes"},
+                    {
+                        headerName: "Actions",
+                        cellRenderer:"actionsCell",
+                        cellRendererParams: {
+                            onClick: ingredient=>{
+                                add_component(
+                                    "ingredient",
+                                    undefined, // There is no database id since this is a newly added component
+                                    ingredient.url.split("/").slice(-2)[0],
+                                    ingredient.name,
+                                    "",
+                                    "weight");
+                            }
+                        },
+                        cellStyle: {"padding": "0"},
+                        maxWidth: 25}
+                ],
+                defaultColDef: {
+                    flex: 1,
+                    sortable: true,
+                    resizable: true,
+                },
                 rowModelType: 'infinite',
                 pagination: true,
                 paginationAutoPageSize: true,
@@ -278,18 +347,6 @@
                 }
             };
             all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
-
-            // Register the event to add ingredients to the recipe
-            all_ingredients.gridOptions.api.addEventListener('rowClicked', args => {
-                let ingredient = args.data;
-                add_component(
-                    "ingredient",
-                    undefined, // There is no database id since this is a newly added component
-                    ingredient.url.split("/").slice(-2)[0],
-                    ingredient.name,
-                    "",
-                    "weight");
-            });
         })
 
         /**

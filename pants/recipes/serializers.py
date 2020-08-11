@@ -1,3 +1,4 @@
+from django.db import transaction
 from rest_framework import serializers
 
 from ingredients.serializers import CreatableSlugRelatedField
@@ -28,6 +29,7 @@ class RecipeNestedSerializer(serializers.HyperlinkedModelSerializer):
    # they are not required for listing)
    components = ComponentSerializer(many=True)
 
+   @transaction.atomic
    def create(self, validated_data):
       user = self.context['request'].user  # FIXME needs to be passed as extra context
       # Take component and tag data off, save remainder as recipe, then save components and tags
@@ -45,6 +47,7 @@ class RecipeNestedSerializer(serializers.HyperlinkedModelSerializer):
          recipe.tags.add(new_tag)
       return recipe
 
+   @transaction.atomic
    def update(self, recipe, validated_data):
       # Get all the requested update fields except for the many to many tags and components
       update_fields = [key for key in validated_data.keys() if key not in ['tags', 'components']]
