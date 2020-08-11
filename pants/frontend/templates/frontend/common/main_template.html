@@ -30,17 +30,23 @@
 <div class="grid-container">
     <div class="menu">
         <div class="nav">
+            <a href="{% url 'website-index' %}" class="nav-item">
+                <i class="fas fa-home"></i>
+            </a>
             <a href="{% url 'ingredient_manager' %}" class="nav-item">
                 <i class="fas fa-carrot"></i>
             </a>
             <a href="{% url 'recipe_manager' %}" class="nav-item">
                 <i class="fas fa-hamburger"></i>
             </a>
-            <a href="{% url 'diaryfood-list' %}" class="nav-item">
+            <a href="{% url 'diarybreakdown-list' %}" class="nav-item">
                 <i class="fas fa-book"></i>
             </a>
+            <a href="{% url 'target-list' %}" class="nav-item">
+                <i class="fas fa-bullseye"></i>
+            </a>
             <div class="spacer"></div>
-            <a class="nav-item">
+            <a href="{% url 'website-login' %}" class="nav-item">
                 <i class="fas fa-user"></i>
             </a>
         </div>
