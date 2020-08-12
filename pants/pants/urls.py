@@ -24,7 +24,7 @@ from website import views as website
 # Viewsets for API added here, not in included 'app.urls' links
 # as they are all under the /api/ space
 from ingredients.views import IngredientViewSet, IngredientTagViewSet
-from recipes.views import RecipeViewSet, RecipeNestedViewSet, RecipeTagViewSet
+from recipes.views import RecipeViewSet, RecipeNestedViewSet, RecipeTagViewSet, RecipeFlagViewSet
 from diary.views import DiaryFoodViewSet
 from pants.views import UserViewSet
 router = routers.DefaultRouter()
@@ -33,6 +33,7 @@ router.register(r'ingredienttag', IngredientTagViewSet, 'ingredienttag')
 router.register(r'recipe', RecipeViewSet, 'recipe')
 router.register(r'recipe_full', RecipeNestedViewSet, 'recipef')
 router.register(r'recipe_tag', RecipeTagViewSet, 'recipe_tag')
+router.register(r'recipe_flag', RecipeFlagViewSet, 'recipe_flag')
 router.register(r'diaryfood', DiaryFoodViewSet, 'diaryfood')
 router.register(r'user', UserViewSet, 'user')
 

@@ -21,7 +21,7 @@ class RecipeNestedSerializer(serializers.HyperlinkedModelSerializer):
    """
    nutrition_data = serializers.ReadOnlyField()       # Calculated values
    tags = CreatableSlugRelatedField(slug_field="name", many=True, queryset=RecipeTag.objects.all())
-   flag = serializers.StringRelatedField()            # FIXME not editable yet
+   flag = CreatableSlugRelatedField(slug_field="name", allow_null=True, queryset=RecipeFlag.objects.all())
 
    # FIXME mention this in README/api docs, note there are two
    # serializers for Recipe
@@ -100,4 +100,12 @@ class RecipeTagSerializer(serializers.HyperlinkedModelSerializer):
    """
    class Meta:
       model = RecipeTag
+      fields = '__all__'
+
+class RecipeFlagSerializer(serializers.ModelSerializer):
+   """
+   Serialize RecipeFlags
+   """
+   class Meta:
+      model = RecipeFlag
       fields = '__all__'

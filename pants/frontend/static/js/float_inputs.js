@@ -58,6 +58,22 @@ customElements.define('float-input',
         // The actual input mask created by IMask
         input_mask = undefined;
 
+        /* Methods */
+
+        /**
+         * Add an option if the input type is a select
+         * @param value {string} the value of the new option
+         * @param text {string} the text of the new option
+         */
+        addOption(value, text){
+            if(this.type === 'select'){
+                let new_option = document.createElement('option');
+                new_option.value = value;
+                new_option.innerText = text;
+                this.querySelector(`[name="${this.id}"]`).appendChild(new_option)
+            }
+        }
+
         /* Attributes */
 
         // Determines what name the input should have

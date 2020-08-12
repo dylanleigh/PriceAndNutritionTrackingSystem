@@ -155,8 +155,13 @@
         let all_recipes_grid;
         let all_ingredients;
         document.addEventListener('DOMContentLoaded', () => {
-            /* Create a data grid to view the available recipes */
+            pants.get_recipe_flags().then(data=>
+                data.results.forEach(flag=>{
+                    document.querySelector('#flag').addOption(flag.name, `(${flag.char}) ${flag.name}`)
+                })
+            );
 
+            /* Create a data grid to view the available recipes */
             // Create cell renderers for specific columns
             class actionButtonCellRenderer {
                 init(params){
@@ -247,13 +252,8 @@
                 document.querySelector('#recipe_uri').value = recipe.url;
                 document.querySelector('#serves').value = recipe.serves;
                 document.querySelector('#flag').value = recipe.flag || "";
-                let evt = document.createEvent("HTMLEvents");
-                evt.initEvent("change", false, true);
-                document.querySelector('#flag').dispatchEvent(evt); // Trigger event so that the label updates properly
                 document.querySelector('#method').value = recipe.method;
                 document.querySelector('#notes').value = recipe.notes;
-
-                // These have masks that need synchronization as well
                 document.querySelector('#tags').value = recipe.tags.join(',');
                 document.querySelector('#slug').value = recipe.slug;
 
@@ -373,7 +373,8 @@
                 'introduction': form.querySelector('#introduction').value,
                 'notes': form.querySelector('#notes').value,
                 'method': form.querySelector('#method').value,
-                'components': get_components()
+                'components': get_components(),
+                'flag': form.querySelector('#flag').value
             })
                 .then(resp => {
                     all_recipes_grid.gridOptions.api.refreshInfiniteCache();
@@ -401,7 +402,8 @@
                 'introduction': form.querySelector('#introduction').value,
                 'notes': form.querySelector('#notes').value,
                 'method': form.querySelector('#method').value,
-                'components': get_components()
+                'components': get_components(),
+                'flag': form.querySelector('#flag').value
             })
                 .then(resp => {
                     let row_node = document.querySelector('#selected_row_node').pants_data.ag_data;

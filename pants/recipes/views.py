@@ -13,8 +13,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from rest_framework import viewsets, permissions
 
-from .models import Recipe, RecipeTag
-from .serializers import RecipeListSerializer, RecipeNestedSerializer, RecipeTagSerializer
+from .models import Recipe, RecipeTag, RecipeFlag
+from .serializers import RecipeListSerializer, RecipeNestedSerializer, RecipeTagSerializer, RecipeFlagSerializer
 from targets.models import Target
 from ingredients.utils import get_nutrition_limits, owner_or_global
 
@@ -177,5 +177,14 @@ class RecipeTagViewSet(viewsets.ModelViewSet):
 
    def get_serializer_class(self):
       return RecipeTagSerializer
+
+class RecipeFlagViewSet(viewsets.ModelViewSet):
+   """
+   API Endpoint for viewing and editing Recipe Flags
+   """
+   queryset = RecipeFlag.objects.all()
+
+   def get_serializer_class(self):
+      return RecipeFlagSerializer
 
 

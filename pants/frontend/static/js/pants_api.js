@@ -257,6 +257,17 @@ class Pants {
         })
     }
 
+    /**
+     * Gets a list of all recipe flags
+     * @returns {Promise<void>}
+     */
+    async get_recipe_flags(){
+        // Get the number of requested results
+        let api_location = new URL(this.get_api_path('recipe_flag/'));
+        // Fetch the data
+        return this.authenticated_fetch(api_location.toString()).then(resp=>resp.json());
+    }
+
 
 }
 
