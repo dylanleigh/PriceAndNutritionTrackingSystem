@@ -6232,32 +6232,6 @@
 },
 {
    "model": "ingredients.ingredient",
-   "pk": 234,
-   "fields": {
-      "kilojoules": null,
-      "protein": null,
-      "fibre": null,
-      "carbohydrate": null,
-      "fat": null,
-      "sugar": null,
-      "saturatedfat": null,
-      "sodium": null,
-      "created_at": "2020-04-14T02:28:45.077Z",
-      "updated_at": "2020-04-14T02:29:54.204Z",
-      "name": "test ing",
-      "slug": "test-ing",
-      "description": "",
-      "owner": [
-         "testuserbob"
-      ],
-      "serving": null,
-      "introduction": "",
-      "notes": "",
-      "tags": []
-   }
-},
-{
-   "model": "ingredients.ingredient",
    "pk": 235,
    "fields": {
       "kilojoules": "5230.0",
