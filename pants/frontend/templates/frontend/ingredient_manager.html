@@ -1,13 +1,10 @@
 {% extends "frontend/common/main_template.html" %}
-{% load inputs %}
-{% block page_title %}
-    Ingredient Manager
-{% endblock %}
+{% block page_title %}Ingredient Manager{% endblock %}
 {% block content %}
     <div id="ingredient-manager">
-      <div class="header-all flex-row-start flex-gap-regular">
+      <div class="header-all flex-row-between flex-gap-regular">
           <h2>All Ingredients</h2>
-                {% float_input label='Search' name='ingredient_filter' extra='onkeyup="all_ingredients.gridOptions.api.refreshInfiniteCache()"' %}
+          <float-input id='ingredient_filter' label='Search' extra='onkeyup="all_ingredients.gridOptions.api.refreshInfiniteCache()"'></float-input>
       </div>
       <div class="ingredients-all">
 
@@ -23,35 +20,34 @@
                 <input type="hidden" id="selected_row_node">
                 <input type="hidden" id="ingredient_uri" name="ingredient_uri">
 
-                {% float_input label='Introduction' name='introduction' hint="Introductory paragraph explains ingredient" multiline=True %}
+              <float-input id='introduction' label='Introduction' hint="Introductory paragraph explains ingredient" multiline="true" ></float-input>
                 <div class="flex-row-equalfill">
-                    {% float_input label='Name' name='name' hint="Grilled Cheese" %}
-                    {% float_input label='Slug' name='slug' hint="grilled-cheese" input_mask=slug_mask %}
+                    <float-input id='name' label='Name' hint="Grilled Cheese" ></float-input>
+                    <float-input id='slug' label='Slug' hint="grilled-cheese" input_mask_name="slug_mask" ></float-input>
                 </div>
 
-                {% float_input label='Description' name='description' hint="A sandwich made with melted cheese" multiline=True %}
-
-                {% float_input label='Notes' name='notes' hint="Additional information about usage, types, etc." multiline=True %}
+              <float-input id='description' label='Description' hint="A sandwich made with melted cheese" multiline="true" ></float-input>
+              <float-input id='notes' label='Notes' hint="Additional information about usage, types, etc." multiline="true" ></float-input>
                 <div class="flex-row-equalfill">
-                    {% float_input label='Tags' name='tags' hint="tag1,tag2,tag3" input_mask=tag_mask %}
+                    <float-input id='tags' label='Tags' hint="tag1,tag2,tag3" input_mask_name="tag_mask"></float-input>
                     <!-- You can't modify the owner, but I'm showing it here for this proof of concept -->
-                    {% float_input label='Owner' name='owner' hint="A sandwich made with melted cheese" extra='disabled value=""' %}
+                    <float-input id='owner' label='Owner' hint="A sandwich made with melted cheese" extra='disabled value=""'></float-input>
                 </div>
                 <h3>Nutrition</h3>
                 <div class="flex-row-equalfill">
-                        {% float_input label='Serving Size (g)' name='serving' hint="in grams" input_mask=nutrition_mask %}
-                        {% float_input label='kilojoules' name='kilojoules' input_mask=nutrition_mask %}
+                        <float-input id='serving' label='Serving Size (g)' hint="in grams" input_mask_name="nutrition_mask"></float-input>
+                        <float-input id='kilojoules' label='kilojoules' input_mask_name=nutrition_mask></float-input>
                     </div>
                     <div class="flex-row-equalfill">
-                        {% float_input label='protein (g)' name='protein' hint="in grams" input_mask=nutrition_mask %}
-                        {% float_input label='carbohydrate (g)' name='carbohydrate' hint="in grams" input_mask=nutrition_mask %}
-                        {% float_input label='fat (g)' name='fat' hint="in grams" input_mask=nutrition_mask %}
-                        {% float_input label='saturatedfat (g)' name='saturatedfat' hint="in grams" input_mask=nutrition_mask %}
+                        <float-input id='protein' label='protein (g)' hint="in grams" input_mask_name="nutrition_mask"></float-input>
+                        <float-input id='carbohydrate' label='carbohydrate (g)' hint="in grams" input_mask_name="nutrition_mask"></float-input>
+                        <float-input id='fat' label='fat (g)' hint="in grams" input_mask_name="nutrition_mask"></float-input>
+                        <float-input id='saturatedfat' label='saturatedfat (g)' hint="in grams" input_mask_name="nutrition_mask"></float-input>
                     </div>
                     <div class="flex-row-equalfill">
-                        {% float_input label='sugar (g)' name='sugar' hint="in grams" input_mask=nutrition_mask %}
-                        {% float_input label='sodium (mg)' name='sodium' hint="in milligrams" input_mask=nutrition_mask %}
-                        {% float_input label='fibre (g)' name='fibre' hint="in grams" input_mask=nutrition_mask %}
+                        <float-input id='sugar' label='sugar (g)' hint="in grams" input_mask_name="nutrition_mask"></float-input>
+                        <float-input id='sodium' label='sodium (mg)' hint="in milligrams" input_mask_name="nutrition_mask"></float-input>
+                        <float-input id='fibre' label='fibre (g)' hint="in grams" input_mask_name="nutrition_mask"></float-input>
                     </div>
             </form>
             <div class="flex-row-equalfill">
@@ -70,6 +66,8 @@
       grid-template-rows: 4em 1fr;
       gap: 0 var(--padding);
       grid-template-areas: "header-all header" "ingredients-all ingredient";
+
+        min-height: calc(100vh - 7em); /* Make it fill as much of the screen as possible to start off*/
     }
     #ingredient-manager>.header-all { grid-area: header-all; }
     #ingredient-manager>.ingredients-all {
@@ -120,7 +118,8 @@
                 // Set up the grid to paginate using the server side API
                 datasource: {
                     getRows: async params => {
-                        var response = await pants.get_ingredients(params);
+                        params.searchKey = document.querySelector('#ingredient_filter').value;
+                        let response = await pants.get_ingredients(params);
 
                         if (response.ok) {
                             let data = await response.json();
@@ -145,15 +144,10 @@
                 document.querySelector('#serving').value = ingredient.serving;
                 document.querySelector('#introduction').value = ingredient.introduction;
                 document.querySelector('#notes').value = ingredient.notes;
-
-                // These have masks that need synchronization as well
                 document.querySelector('#tags').value = ingredient.tags.join(',');
                 document.querySelector('#slug').value = ingredient.slug;
 
-                document.querySelector('#tags').pants_data.input_mask.updateValue();
-                document.querySelector('#slug').pants_data.input_mask.updateValue();
-
-                // Nutritional Data, these are all masked so the masks must be synchronized as well
+                // Nutritional Data
                 document.querySelector('#kilojoules').value = ingredient.kilojoules;
                 document.querySelector('#protein').value = ingredient.protein;
                 document.querySelector('#fibre').value = ingredient.fibre;
@@ -162,15 +156,6 @@
                 document.querySelector('#sugar').value = ingredient.sugar;
                 document.querySelector('#saturatedfat').value = ingredient.saturatedfat;
                 document.querySelector('#sodium').value = ingredient.sodium;
-
-                document.querySelector('#kilojoules').pants_data.input_mask.updateValue();
-                document.querySelector('#protein').pants_data.input_mask.updateValue();
-                document.querySelector('#fibre').pants_data.input_mask.updateValue();
-                document.querySelector('#carbohydrate').pants_data.input_mask.updateValue();
-                document.querySelector('#fat').pants_data.input_mask.updateValue();
-                document.querySelector('#sugar').pants_data.input_mask.updateValue();
-                document.querySelector('#saturatedfat').pants_data.input_mask.updateValue();
-                document.querySelector('#sodium').pants_data.input_mask.updateValue();
 
                 // Also store a reference to this node so that we can refresh it
                 // @todo change this to pants_data and provide a safe access function
@@ -242,6 +227,7 @@
         function delete_ingredient() {
             pants.delete_ingredient(document.querySelector('#ingredient_uri').value)
                 .then(response => {
+                    all_ingredients.gridOptions.api.deselectAll();
                     all_ingredients.gridOptions.api.refreshInfiniteCache();
                 });
         }

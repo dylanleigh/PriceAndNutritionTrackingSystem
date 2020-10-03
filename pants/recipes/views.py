@@ -13,8 +13,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from rest_framework import viewsets, permissions
 
-from .models import Recipe, RecipeTag
-from .serializers import RecipeListSerializer, RecipeNestedSerializer
+from .models import Recipe, RecipeTag, RecipeFlag
+from .serializers import RecipeListSerializer, RecipeNestedSerializer, RecipeTagSerializer, RecipeFlagSerializer
 from targets.models import Target
 from ingredients.utils import get_nutrition_limits, owner_or_global
 
@@ -138,6 +138,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
    permission_classes = [permissions.DjangoModelPermissions]
    queryset = Recipe.objects.none()  # Required for DjangoModelPermissions to get Model
 
+   # To enable searching
+   search_fields = ['name']
+
    # Don't show components in list, but use serializer with nested
    # components for other actions (get/put/etc)
    def get_serializer_class(self):
@@ -148,4 +151,40 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
    def get_queryset(self):
       return owner_or_global(Recipe, self.request.user)
+
+class RecipeNestedViewSet(viewsets.ModelViewSet):
+   """
+   API endpoint for getting a FULL view of the recipe, including components
+   @todo I added this so that I could get components, but perhaps if we aren't allowing listing recipes and components
+      together on purpose I should have added a Components api directly? But again that would only get used for getting
+      recipe components, since you can update components with the regular view set. Maybe just add a "?include_components=true"
+      query string option to other viewset?
+   """
+   permission_classes = [permissions.DjangoModelPermissions]
+   queryset = Recipe.objects.none()  # Required for DjangoModelPermissions to get Model
+
+   def get_serializer_class(self):
+      return RecipeNestedSerializer
+
+   def get_queryset(self):
+      return owner_or_global(Recipe, self.request.user)
+
+class RecipeTagViewSet(viewsets.ModelViewSet):
+   """
+   API Endpoint for viewing and editing Recipe Tags
+   """
+   queryset = RecipeTag.objects.all()
+
+   def get_serializer_class(self):
+      return RecipeTagSerializer
+
+class RecipeFlagViewSet(viewsets.ModelViewSet):
+   """
+   API Endpoint for viewing and editing Recipe Flags
+   """
+   queryset = RecipeFlag.objects.all()
+
+   def get_serializer_class(self):
+      return RecipeFlagSerializer
+
 

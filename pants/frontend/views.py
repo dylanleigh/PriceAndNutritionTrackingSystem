@@ -13,5 +13,11 @@ def ingredient_manager(request):
     return render(request, 'frontend/ingredient_manager.html', context)
 
 def recipe_manager(request):
-    return render(request, 'frontend/recipe_manager.html')
+    context = {
+        # Mask that ensures only lowercase letters, numbers and dashes
+        "slug_mask": r"{mask: /^[0-9a-z-]*$/}",
+        # Ensures only lowercase letters, numbers, dashes, and commas
+        "tag_mask": r"{mask: /^[0-9a-z,-]*$/}"
+    }
+    return render(request, 'frontend/recipe_manager.html', context)
 

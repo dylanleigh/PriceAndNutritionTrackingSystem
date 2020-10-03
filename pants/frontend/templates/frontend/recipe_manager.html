@@ -1,8 +1,487 @@
 {% extends "frontend/common/main_template.html" %}
-{% block page_title %}
-    Recipe Manager
-{% endblock %}
+{% block page_title %}Recipe Manager{% endblock %}
 
 {% block content %}
-    <p>Some content here</p>
+    <div id="recipe-manager">
+        <div class="header-all-recipes flex-row-between flex-gap-regular">
+            <h2>All Recipes</h2>
+            <float-input id='recipe_filter' label='Search' extra='onkeyup="all_recipes_grid.gridOptions.api.refreshInfiniteCache()"'></float-input>
+        </div>
+        <div class="all-recipes resizable-vertical">
+            <div id="all_recipes_table" class="ag-theme-balham fill-height"></div>
+        </div>
+        <div class="header-all-ingredients flex-row-between flex-gap-regular">
+            <h2>All Ingredients</h2>
+            <float-input id='ingredient_filter' label='Search' extra='onkeyup="all_ingredients.gridOptions.api.refreshInfiniteCache()"'></float-input>
+        </div>
+        <div class="all-ingredients resizable-vertical">
+            <div id="ingredients" class="ag-theme-balham fill-height"></div>
+        </div>
+        <div class="header-recipe">
+            <h2>Selected Recipe</h2>
+        </div>
+        <div class="recipe">
+            <form id="recipe-edit-form" autocomplete="off">
+                <input type="hidden" id="selected_row_node">
+                <input type="hidden" id="recipe_uri" name="recipe_uri">
+
+                <float-input id='introduction' label='Introduction' hint="A story about how the grilled cheese came to be" multiline="true"></float-input>
+
+                <div class="flex-row-equalfill">
+                    <float-input id='name' label='Name' hint="Grilled Cheese"></float-input>
+                    <float-input id='slug' label='Slug' hint="grilled-cheese" input_mask_name="slug_mask"></float-input>
+                </div>
+
+                <float-input id='description' label='Description' hint="A sandwich made with melted cheese" multiline="true"></float-input>
+
+                <div class="flex-row-equalfill">
+                    <float-input id='serves' label='Serves' hint="1"></float-input>
+                    <float-input id='tags' label='Tags' hint="tag1,tag2,tag3" input_mask=tag_mask extra='style="flex:2"'></float-input>
+                    {#                @todo it is unclear what flag is used for, need to add support for it#}
+                    <float-input id="flag" type="select" label="Flag"></float-input>
+                </div>
+
+                <h3>Recipe Ingredients</h3>
+                <div id="recipe-components">
+                    {#                    A place to put all the components of the recipe once they are found#}
+                </div>
+
+                <float-input id='method' label='Method' hint="Add cheese to bread, toast." multiline="true"></float-input>
+                <float-input id='notes' label='Notes' hint="Can use different cheeses than what is listed. Recipe is flexible." multiline="true"></float-input>
+            </form>
+            <div class="flex-row-equalfill">
+                <button class="oneline dark" onclick="create_recipe()">Create New</button>
+                <button class="oneline dark" disabled onclick="edit_recipe()">Edit <span id="edit-recipe-name"></span></button>
+                <button class="oneline dark" disabled onclick="delete_recipe()">Delete <span id="delete-recipe-name"></span></button>
+            </div>
+        </div>
+    </div>
+    {#    Template for a component of a recipe#}
+    <template id="recipe-component-template">
+    <div class="component-wrapper" style="display: contents">
+        <input id="component-type" type="hidden"/>
+        <input id="component-id" type="hidden"/>
+        <input id="recipe-or-ingredient-id" type="hidden"/>
+
+        <button type="button" onclick="this.parentElement.classList.toggle('has-note');" class="text-only">
+            <i class="fas fa-sticky-note fa-2x"></i>
+        </button>
+        <label id="name">A Recipe Component</label>
+
+        <float-input id="amount" label="Amount" extra='style="min-width: 0;text-align: right"'></float-input>
+        <float-input id="unit" type="select" label="Unit">
+            <option value="weight">grams</option>
+            <option value="servings">servings</option>
+        </float-input>
+        <button type="button" onclick="this.parentElement.remove()" class="text-only">
+            <i class="fas fa-minus fa-2x"></i>
+        </button>
+
+        <float-input id='note' label='Note' hint="Information about this specific ingredient in this specific recipe" multiline="true" extra='class="resizable-vertical"' style="grid-column: note-start / note-end"></float-input>
+    </div>
+    </template>
+
+{% endblock %}
+{% block css %}
+    <style>
+        #recipe-manager {
+            display: grid;
+            grid-template-columns: 1fr 30em;
+            grid-template-rows: max-content 1fr max-content 1fr;
+            gap: 0 var(--padding);
+            grid-template-areas:    "header-all-recipes header-recipe"
+                                    "all-recipes recipe"
+                                    "header-all-ingredients recipe"
+                                    "all-ingredients recipe";
+
+            min-height: calc(100vh - 7em); /* Make it fill the screen as much as possible for less flash when picking a recipe*/
+        }
+
+        #recipe-manager > .header-all-recipes {
+            grid-area: header-all-recipes;
+        }
+
+        #recipe-manager > .all-recipes {
+            grid-area: all-recipes;
+        }
+
+        #recipe-manager > .header-all-ingredients {
+            grid-area: header-all-ingredients;
+        }
+
+        #recipe-manager > .all-ingredients {
+            grid-area: all-ingredients;
+        }
+
+        #recipe-manager > .header-recipe {
+            grid-area: header-recipe;
+        }
+
+        #recipe-manager > .recipe {
+            grid-area: recipe;
+        }
+
+        .fill-height {
+            height: 100%;
+        }
+
+        #recipe-manager .field,
+        #recipe-manager button {
+            margin: 1px;
+        }
+
+        .resizable-vertical {
+            resize: vertical;
+            overflow: auto;
+        }
+
+        #recipe-components {
+            display: grid;
+            {#grid-template-columns: 1fr [note-start] 8em 7em 2em [note-end];#}
+{#            A somewhat hacky way to make this align with the 3 way split of fields above it #}
+            grid-template-columns: 2em calc(33% + 1px - 2em) [note-start] calc(33% + 3px) 1fr 2em [note-end];
+            margin: var(--padding) 1px;
+            align-items: center;
+        }
+
+        /* has-note on the component-wrapper class indicates note should show. It's absence means the opposite */
+        .component-wrapper:not(.has-note) > #note {
+            display: none;
+        }
+    </style>
+{% endblock %}
+{% block js %}
+    <script>
+        let all_recipes_grid;
+        let all_ingredients;
+        document.addEventListener('DOMContentLoaded', () => {
+            pants.get_recipe_flags().then(data=>
+                data.results.forEach(flag=>{
+                    document.querySelector('#flag').addOption(flag.name, `(${flag.char}) ${flag.name}`)
+                })
+            );
+
+            /* Create a data grid to view the available recipes */
+            // Create cell renderers for specific columns
+            class actionButtonCellRenderer {
+                init(params){
+                    this.cell = document.createElement('div');
+                    this.cell.innerHTML = '<button class="dark" style="padding: 0;margin: 0"><i class="fas fa-carrot"></i></button>';
+
+                    // get references to the elements we want
+                    this.add_recipe_btn = this.cell.querySelector('button');
+                    this.add_recipe_btn.addEventListener('click', e=>{e.stopPropagation();params.onClick(params.data)});
+
+                    this.cell.setAttribute("class", "flex-row-equalfill");
+                    this.cell.setAttribute("style", "align-items:stretch;height:100%");
+                }
+
+                getGui(){
+                    return this.cell
+                }
+
+                refresh(){
+                    // return true to tell the grid we refreshed successfully
+                    return true;
+                }
+
+                destroy(){
+                    // do cleanup, remove event listener from button
+                }
+            }
+            all_recipes_grid = new agGrid.Grid(document.querySelector("#all_recipes_table"), {
+                components: {
+                    actionsCell: actionButtonCellRenderer,
+                },
+                columnDefs: [
+                    {headerName: "Name", field: "name"},
+                    {headerName: "Description", field: "description"},
+                    {headerName: "Serves", field: "serves"},
+                    {headerName: "Notes", field: "notes"},
+                    {
+                        headerName: "Actions",
+                        cellRenderer:"actionsCell",
+                        cellRendererParams: {
+                            onClick: recipe=>{
+                                add_component(
+                                    "recipe",
+                                    undefined, // There is no database id since this is a newly added component
+                                    recipe.url.split("/").slice(-2)[0],
+                                    recipe.name,
+                                    "",
+                                    "servings");
+                            }
+                        },
+                        cellStyle: {"padding": "0"},
+                        maxWidth: 25}
+                ],
+                defaultColDef: {
+                    flex: 1,
+                    sortable: true,
+                    resizable: true,
+                },
+                rowModelType: 'infinite',
+                rowSelection: 'single',
+                pagination: true,
+                paginationAutoPageSize: true,
+                // Set up the grid to paginate using the server side API
+                datasource: {
+                    getRows: async params => {
+                        params.searchKey = document.querySelector('#recipe_filter').value;
+                        let response = await pants.get_recipes(params);
+
+                        if (response.ok) {
+                            let data = await response.json();
+                            params.successCallback(data['results'], data['count'])
+                        } else {
+                            params.failCallback();
+                        }
+                    }
+                }
+            });
+
+            // Register event to fill the form with the selected recipe's information
+            all_recipes_grid.gridOptions.api.addEventListener('rowSelected', args => {
+                // This event fires if a row is selected OR deselected, we only care if something gets selected
+                if (!args.node.selected) return;
+                let recipe = args.data;
+
+                document.querySelector('#introduction').value = recipe.introduction;
+                document.querySelector('#name').value = recipe.name;
+                document.querySelector('#description').value = recipe.description;
+                document.querySelector('#recipe_uri').value = recipe.url;
+                document.querySelector('#serves').value = recipe.serves;
+                document.querySelector('#flag').value = recipe.flag || "";
+                document.querySelector('#method').value = recipe.method;
+                document.querySelector('#notes').value = recipe.notes;
+                document.querySelector('#tags').value = recipe.tags.join(',');
+                document.querySelector('#slug').value = recipe.slug;
+
+                // Components are not included in results for performance reasons, make a separate call to get those
+                pants.get_recipe_full(recipe.url)
+                    .then(response => response.json())
+                    .then(json => {
+                        // Empty current components
+                        remove_all_components();
+
+                        json.components.forEach((component, idx) => {
+                            add_component(
+                                component.of_ingredient == null ? "recipe" : "ingredient",
+                                component.id,
+                                component.of_ingredient || component.of_recipe,
+                                component.name,
+                                component.servings || component.weight,
+                                component.servings == null ? "weight" : "servings",
+                                component.note
+                            );
+                        })
+                    })
+                    .catch(e => {
+                        console.log(e);
+                        // Don't leave components from last recipe in there.
+                        remove_all_components();
+                    })
+
+                // Also store a reference to this node so that we can refresh it
+                let row_node = document.querySelector('#selected_row_node');
+                if (typeof row_node.pants_data === "undefined") {
+                    row_node.pants_data = {}
+                }
+                row_node.pants_data.ag_data = args.node;
+
+                // Label the buttons to indicate the node that will be affected
+                let edit_btn_desc = document.querySelector('#edit-recipe-name');
+                let delete_btn_desc = document.querySelector('#delete-recipe-name');
+                edit_btn_desc.innerText = recipe.name;
+                delete_btn_desc.innerText = recipe.name;
+                // Since they start off disabled, enable them
+                edit_btn_desc.parentNode.disabled = false;
+                delete_btn_desc.parentNode.disabled = false;
+            });
+
+
+            // Create a grid to view all the components (ingredients OR other recipes)
+            let grid_options = {
+                components: {
+                    actionsCell: actionButtonCellRenderer,
+                },
+                columnDefs: [
+                    {headerName: "Name", field: "name"},
+                    {headerName: "Description", field: "description"},
+                    {headerName: "Serving", field: "serving"},
+                    {headerName: "Notes", field: "notes"},
+                    {
+                        headerName: "Actions",
+                        cellRenderer:"actionsCell",
+                        cellRendererParams: {
+                            onClick: ingredient=>{
+                                add_component(
+                                    "ingredient",
+                                    undefined, // There is no database id since this is a newly added component
+                                    ingredient.url.split("/").slice(-2)[0],
+                                    ingredient.name,
+                                    "",
+                                    "weight");
+                            }
+                        },
+                        cellStyle: {"padding": "0"},
+                        maxWidth: 25}
+                ],
+                defaultColDef: {
+                    flex: 1,
+                    sortable: true,
+                    resizable: true,
+                },
+                rowModelType: 'infinite',
+                pagination: true,
+                paginationAutoPageSize: true,
+                // Set up the grid to paginate using the server side API
+                datasource: {
+                    getRows: async params => {
+                        params.searchKey = document.querySelector('#ingredient_filter').value;
+                        let response = await pants.get_ingredients(params);
+
+                        if (response.ok) {
+                            let data = await response.json();
+                            params.successCallback(data['results'], data['count'])
+                        } else {
+                            params.failCallback();
+                        }
+                    }
+                }
+            };
+            all_ingredients = new agGrid.Grid(document.querySelector('#ingredients'), grid_options);
+        })
+
+        /**
+         * Creates a new recipe using the information in the recipe form
+         */
+        function create_recipe() {
+            let form = document.querySelector('#recipe-edit-form');
+            let tags = form.querySelector('#tags').value.split(',');
+            // Remove empty tags
+            tags = tags.filter(tag => tag !== '');
+
+            pants.create_recipe({
+                'name': form.querySelector('#name').value,
+                'slug': form.querySelector('#slug').value,
+                'description': form.querySelector('#description').value,
+                // @todo Cannot edit owner? Remove this if there is no case where this is possible
+                // 'owner': form.querySelector('[name=owner]').value,
+                'tags': tags,
+                'serves': form.querySelector('#serves').value,
+                'introduction': form.querySelector('#introduction').value,
+                'notes': form.querySelector('#notes').value,
+                'method': form.querySelector('#method').value,
+                'components': get_components(),
+                'flag': form.querySelector('#flag').value
+            })
+                .then(resp => {
+                    all_recipes_grid.gridOptions.api.refreshInfiniteCache();
+                });
+        }
+
+        /**
+         * Updates the recipe based on the values in the recipe form
+         */
+        function edit_recipe() {
+            let form = document.querySelector('#recipe-edit-form');
+            let recipe_uri = form.querySelector('#recipe_uri').value;
+            let tags = form.querySelector('#tags').value.split(',');
+            // Remove empty tags
+            tags = tags.filter(tag => tag !== '');
+
+            pants.edit_recipe(recipe_uri, {
+                'name': form.querySelector('#name').value,
+                'slug': form.querySelector('#slug').value,
+                'description': form.querySelector('#description').value,
+                // @todo Cannot edit owner? Remove this if there is no case where this is possible
+                // 'owner': form.querySelector('[name=owner]').value,
+                'tags': tags,
+                'serves': form.querySelector('#serves').value,
+                'introduction': form.querySelector('#introduction').value,
+                'notes': form.querySelector('#notes').value,
+                'method': form.querySelector('#method').value,
+                'components': get_components(),
+                'flag': form.querySelector('#flag').value
+            })
+                .then(resp => {
+                    let row_node = document.querySelector('#selected_row_node').pants_data.ag_data;
+                    row_node.setData(resp);
+                    all_recipes_grid.gridOptions.api.flashCells({
+                        rowNodes: [row_node]
+                    })
+                });
+        }
+
+        /**
+         * Deletes the currently selected recipe
+         */
+        function delete_recipe(){
+            pants.delete_recipe(document.querySelector('#recipe_uri').value)
+                .then(response => {
+                    all_recipes_grid.gridOptions.api.deselectAll();
+                    all_recipes_grid.gridOptions.api.refreshInfiniteCache();
+                });
+        }
+
+        /**
+         * Adds a component to the component list
+         * @param type {string} either "recipe" or "ingredient"
+         * @param id {string} the id number of the component (not the url) for this component relationship
+         * @param recipe_or_ingredient_id {string} the original recipe or ingredient id for this component
+         * @param name {string} the name of the component
+         * @param amount {string} how much of the component in units
+         * @param unit {string} what unit the amount is in. Should be "weight" for grams, or "servings" for servings
+         * @param note {string} any additional notes
+         */
+        function add_component(type, id, recipe_or_ingredient_id, name, amount, unit, note){
+            let recipe_components = document.getElementById("recipe-components");
+
+            let component_node = document.getElementById('recipe-component-template').content.cloneNode(true);
+            let component_wrapper_node = component_node.querySelector(".component-wrapper");
+            recipe_components.appendChild(component_node);
+
+            component_wrapper_node.querySelector("#component-type").value = type;
+            component_wrapper_node.querySelector("#component-id").value = id;
+            component_wrapper_node.querySelector("#recipe-or-ingredient-id").value = recipe_or_ingredient_id;
+            component_wrapper_node.querySelector("#name").innerText = name;
+            component_wrapper_node.querySelector("#amount").value = amount;
+            component_wrapper_node.querySelector("#unit").value = unit;
+            component_wrapper_node.querySelector("#note").value = note || "";
+
+            // Mark the controls with the has-note class if the component has a note
+            if(note !== undefined && note.length > 0) {
+                component_wrapper_node.classList.toggle("has-note");
+            }
+        }
+
+        /**
+         * Gets all the components in the components list and returns a list suitable for passing onto the api
+         */
+        function get_components(){
+            let recipe_components = document.querySelectorAll("#recipe-components .component-wrapper");
+            let output = [];
+            recipe_components.forEach(component=>{
+                let component_obj = {
+                        "name": component.querySelector("#name").innerText,
+                        "note": component.classList.contains("has-note") ? component.querySelector("#note").value : "",
+                        // Set "servings" or "weight"
+                        [component.querySelector("#unit").value]: component.querySelector("#amount").value,
+                        // Set "of_ingredient" or "of_recipe"
+                        ["of_" + component.querySelector("#component-type").value]: component.querySelector("#recipe-or-ingredient-id").value,
+                    }
+                if(component.querySelector("#component-id").value){
+                    // Only set db id if it has been provided by the db
+                    component_obj["id"] = component.querySelector("#component-id").value;
+                }
+                output.push(component_obj)
+            })
+            return output;
+        }
+
+        function remove_all_components(){
+            document.getElementById("recipe-components").textContent = "";
+        }
+    </script>
 {% endblock %}

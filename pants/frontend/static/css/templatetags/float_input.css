@@ -24,20 +24,29 @@
     z-index: 1;
 }
 
-.field > .field__input:placeholder-shown + .field__label {
+/*
+for inputs and text areas, we know it's empty when the placeholder is shown
+for selects, it's when the specially crafted data tag is empty
+
+In this case we make the label disappear and lower, so that it 'floats up and in' when needed
+*/
+.field > .field__input:placeholder-shown + .field__label,
+.field > select.field__input[data-picked_option=""] + .field__label
+{
     opacity: 0;
     transform: translateY(1px);
 }
 
 .field__input {
     --label-spacing: 1.1em;
+    background: white;
     box-sizing: border-box;
     border: 1px solid var(--gunmetal);
     padding: var(--label-spacing) .5em 0;
     transition: all .1s ease-out;
     width: 100%;
     resize: vertical;
-    font-family: sans-serif;
+    font-family: var(--font-family-content);
     border-radius: var(--border-radius);
 }
 
@@ -49,10 +58,23 @@ textarea.field__input{
     border-color: var(--shamrock-green);
 }
 
-.field__input:placeholder-shown {
+/* Padding when detected empty */
+.field__input:placeholder-shown{
     padding: calc(var(--label-spacing) / 2) .5em calc(var(--label-spacing) / 2);
+}
+/* For some reason select elements are 2 px wider than inputs, normalize by going 50/50 */
+select.field__input{
+    padding: calc(var(--label-spacing) - 2px) .5em 0;
+}
+select.field__input[data-picked_option=""]{
+    padding: calc(var(--label-spacing) / 2 - 1px) .5em calc(var(--label-spacing) / 2 - 1px);
 }
 
 ::placeholder {
     font-family: var(--font-family-content);
+}
+
+/* Any option with a value of "" will be considered unpicked, and thus should look like the placeholder */
+select.field__input[data-picked_option=""]{
+    color: grey;
 }

@@ -62,19 +62,19 @@ h3{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: baseline;
+  align-items: center;
 }
 .flex-row-between{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 }
 .flex-row_r-between{
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 }
 .flex-gap-regular{
   gap: var(--padding);
@@ -82,6 +82,7 @@ h3{
 .flex-row-equalfill{
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 .flex-row-equalfill>*{
   flex:1;
@@ -132,6 +133,16 @@ h3{
 .menu .spacer{
   flex: 1;
 }
+.menu > .nav > .nav-item.active::after{
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 0.5em solid transparent;
+  border-right: 1em solid var(--shamrock-green);
+  border-bottom: 0.5em solid transparent;
+  position: absolute;
+  right: -0.2em;
+}
 
 /* Inputs */
 input:focus, textarea:focus{
@@ -161,4 +172,13 @@ button.dark:hover{
 }
 button.dark:active{
     box-shadow: inset 0 0 0.5em var(--pine-green);
+}
+button.text-only{
+  border: 0;
+  padding: 0;
+  color: var(--shamrock-green);
+  background: #0000;
+}
+button.text-only:hover{
+  color: var(--pine-green);
 }

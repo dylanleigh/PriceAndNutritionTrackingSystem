@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
         <script defer src="{% static "/js/solid.min.js" %}"></script>
         <script defer src="{% static "/js/fontawesome.min.js" %}"></script>
+{#        Not deferring this since otherwise we get flashing as tags get upgraded#}
+        <script src="{% static "/js/float_inputs.js" %}"></script>
     {% endblock %}
     {% block css %}
     {% endblock %}
@@ -28,14 +30,23 @@
 <div class="grid-container">
     <div class="menu">
         <div class="nav">
-            <a href="/frontend" class="nav-item">
+            <a href="{% url 'website-index' %}" class="nav-item">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="{% url 'ingredient_manager' %}" class="nav-item">
                 <i class="fas fa-carrot"></i>
             </a>
-            <a href="/frontend/recipe" class="nav-item">
+            <a href="{% url 'recipe_manager' %}" class="nav-item">
                 <i class="fas fa-hamburger"></i>
             </a>
+            <a href="{% url 'diarybreakdown-list' %}" class="nav-item">
+                <i class="fas fa-book"></i>
+            </a>
+            <a href="{% url 'target-list' %}" class="nav-item">
+                <i class="fas fa-bullseye"></i>
+            </a>
             <div class="spacer"></div>
-            <a class="nav-item">
+            <a href="{% url 'website-login' %}" class="nav-item">
                 <i class="fas fa-user"></i>
             </a>
         </div>
@@ -51,6 +62,13 @@
     </div>
 </div>
 
+{% block menu_js %}
+{#    Js related to making the menu show where you are currently at.#}
+    <script>
+    // Find the menu item that matches the current url
+    document.querySelector(`.nav .nav-item[href='${window.location.pathname}']`).classList.add('active');
+    </script>
+{% endblock %}
 {% block common_js %}
     <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
