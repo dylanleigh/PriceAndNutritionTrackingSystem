@@ -1,28 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+<!--    <img alt="Vue logo" src="./assets/logo.png">-->
     <IngredientManager></IngredientManager>
   </div>
 </template>
 
 <script>
 import IngredientManager from './components/pages/ingredient-manager'
+import Cookies from 'js-cookie';
+import Pants from "@/assets/js/pants_api";
+
+
+let pants = new Pants('1', {
+            method: "Token",
+            token: Cookies.get("csrftoken")
+        });
 
 export default {
   name: 'App',
   components: {
     IngredientManager
+  },
+  provide: {
+    pants
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
