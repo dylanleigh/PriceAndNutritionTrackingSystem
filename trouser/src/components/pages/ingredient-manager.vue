@@ -1,7 +1,5 @@
 <template>
-    <layout-default current-loc="ingredient_manager">
-        <template v-slot:content>
-            <div id="ingredient-manager">
+    <div id="ingredient-manager">
                 <div class="header-all flex-row-between flex-gap-regular">
                     <h2>All Ingredients</h2>
                     <input-float id='ingredient_filter'
@@ -174,13 +172,10 @@
                         >Delete<span v-if="shortName"> {{shortName}}</span></button>
                     </div>
                 </div>
-            </div>
-        </template>
-    </layout-default>
+    </div>
 </template>
 
 <script>
-    import LayoutDefault from './layouts/layout-default'
     import InputFloat from '../inputs/input-float'
     import {AgGridVue} from 'ag-grid-vue'
     import "ag-grid-community/dist/styles/ag-grid.css";
@@ -189,7 +184,6 @@
     export default {
         name: "ingredient-manager",
         components: {
-            LayoutDefault,
             InputFloat,
             AgGridVue
         },

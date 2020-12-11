@@ -2,13 +2,13 @@
 <div class="grid-container">
     <div class="menu">
         <div class="nav">
-            <a v-for="(item, key) in menu_items"
+            <router-link v-for="(item, key) in menu_items"
                :key="key"
-               :href="item.url"
+               :to="item.url"
                class="nav-item"
                :class="{active: currentLoc === key}">
                 <fa-icon :icon="['fas', item.icon]"></fa-icon>
-            </a>
+            </router-link>
         </div>
     </div>
     <div class="quick-info">
@@ -27,36 +27,10 @@
         props:{
             currentLoc:{
                 type: String
-            }
-        },
-        data(){
-            return {
-                menu_items: {
-                    home: {
-                        url: '',
-                        icon: 'home'
-                    },
-                    ingredient_manager: {
-                        url: '',
-                        icon: 'carrot'
-                    },
-                    recipe_manager: {
-                        url: '',
-                        icon: 'hamburger'
-                    },
-                    diary: {
-                        url: '',
-                        icon: 'book'
-                    },
-                    target_manager: {
-                        url: '',
-                        icon: 'bullseye'
-                    },
-                    login: {
-                        url: '',
-                        icon: 'user'
-                    },
-                }
+            },
+            menu_items: {
+                type: Object,
+                required: true
             }
         }
     }
@@ -198,7 +172,7 @@ h3{
 .menu .spacer{
   flex: 1;
 }
-.menu > .nav > .nav-item.active::after{
+.menu > .nav > .nav-item.router-link-exact-active::after{
   content: "";
   width: 0;
   height: 0;
