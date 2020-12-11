@@ -259,9 +259,6 @@
                 return this.focusedNode != null;
             }
         },
-        watch:{
-
-        },
         methods: {
             /**
              * Updates the ingredient based on the values in the ingredients form

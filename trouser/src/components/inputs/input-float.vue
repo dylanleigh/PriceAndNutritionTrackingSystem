@@ -16,7 +16,7 @@
                 class="field__input"
                 :name="id"
                 :id="id"
-                ${this.extra}
+                v-bind="extra"
                 v-model="content"
                 @change="handleInput">
             <option value="">{{label}}</option>
