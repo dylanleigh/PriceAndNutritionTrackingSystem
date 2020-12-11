@@ -8,7 +8,8 @@
                 :type="type"
                 :placeholder="label"
                 v-bind="extra"
-                v-model="value"
+                v-model="content"
+                @keyup="$emit('keyup')"
                 @input="handleInput"></textarea>
         <select
                 v-else-if="type==='select'"
@@ -16,7 +17,7 @@
                 :name="id"
                 :id="id"
                 ${this.extra}
-                v-model="value"
+                v-model="content"
                 @change="handleInput">
             <option value="">{{label}}</option>
             <slot name="options"></slot>
@@ -29,7 +30,8 @@
                 :type="type"
                 :placeholder="label"
                 v-bind="extra"
-                v-model="value"
+                v-model="content"
+                @keyup="$emit('keyup')"
                 @input="handleInput">
         <label class="field__label" :for="id">{{label}}</label>
     </div>
@@ -158,6 +160,13 @@
                 },
                 // The actual input mask created by IMask
                 input_mask: undefined,
+                // The actual contents of the input
+                content: null
+            }
+        },
+        watch:{
+            value(newVal){
+                this.content = newVal;
             }
         },
         methods: {
@@ -178,7 +187,7 @@
              * Emits the input event with appropriate data when the value of the input field changes
              */
             handleInput() {
-                this.$emit('input', this.value)
+                this.$emit('input', this.content)
             }
         }
     }

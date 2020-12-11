@@ -4,8 +4,9 @@
             <div id="ingredient-manager">
                 <div class="header-all flex-row-between flex-gap-regular">
                     <h2>All Ingredients</h2>
-                    <input-float id='ingredient_filter' label='Search'
-                                 :extra='{onkeyup:"all_ingredients.gridOptions.api.refreshInfiniteCache()"}'></input-float>
+                    <input-float id='ingredient_filter'
+                                 label='Search'
+                                 @keyup="onSearch"></input-float>
                 </div>
                 <div class="ingredients-all">
 
@@ -13,6 +14,7 @@
                     <ag-grid-vue
                             id="ingredients"
                             class="contained_table ag-theme-balham"
+                            :gridOptions="gridOptions"
                             :datasource="datasource"
                             :columnDefs="columnDefs"
                             :defaulColDef="defaultColDef"
@@ -217,6 +219,7 @@
                     sortable: true,
                     resizable: true,
                 },
+                gridOptions: {},
                 rowData: [],
                 datasource: {
                     getRows: async params => {
@@ -388,6 +391,9 @@
                 // Also store a reference to this node so that we can refresh it
                 this.focusedNode = args.node;
             },
+            onSearch(){
+                this.gridOptions.api.refreshInfiniteCache();
+            }
         }
     }
 </script>
