@@ -31,17 +31,6 @@
                 <div class="ingredient">
                     <!-- A form to edit the given ingredient -->
                     <form id="ingredient_edit_form" autocomplete="off">
-                        <input
-                                type="hidden"
-                                id="selected_row_node"
-                        >
-                        <input
-                                type="hidden"
-                                id="ingredient_uri"
-                                name="ingredient_uri"
-                                v-model="ingredient.uri"
-                        >
-
                         <input-float
                                 id='introduction'
                                 label='Introduction'
@@ -169,18 +158,18 @@
                     <div class="flex-row-equalfill">
                         <button
                                 class="oneline dark"
-                                @click="create_ingredient"
+                                @click="createIngredient"
                         >Create New</button>
                         <button
                                 class="oneline dark"
                                 :disabled="!canEdit"
-                                @click="edit_ingredient"
+                                @click="editIngredient"
                                 id="edit_desc"
                         >Edit<span v-if="shortName"> {{shortName}}</span></button>
                         <button
                                 class="oneline dark"
                                 :disabled="!canDelete"
-                                @click="delete_ingredient"
+                                @click="deleteIngredient"
                                 id="delete_desc"
                         >Delete<span v-if="shortName"> {{shortName}}</span></button>
                     </div>
@@ -235,6 +224,7 @@
                     }
                 },
                 ingredient: {
+                    uri: null,
                     introduction: null,
                     name: null,
                     slug: null,
@@ -282,38 +272,33 @@
             /**
              * Updates the ingredient based on the values in the ingredients form
              */
-            edit_ingredient() {
-                let form = document.querySelector('#ingredient_edit_form');
-                let ingredient_uri = form.querySelector('#ingredient_uri').value;
-                let tags = form.querySelector('[name=tags]').value.split(',');
-                // Remove empty tags
-                tags = tags.filter(tag => tag !== '');
+            editIngredient() {
 
-                this.pants.edit_ingredient(ingredient_uri, {
-                    'name': form.querySelector('[name=name]').value,
-                    'slug': form.querySelector('[name=slug]').value,
-                    'description': form.querySelector('[name=description]').value,
+                this.pants.edit_ingredient(this.ingredient.uri, {
+                    name: this.ingredient.name,
+                    slug: this.ingredient.slug,
+                    description: this.ingredient.description,
                     // @todo Cannot edit owner? Remove this if there is no case where this is possible
                     // 'owner': form.querySelector('[name=owner]').value,
-                    'tags': tags,
-                    'serving': form.querySelector('[name=serving]').value,
-                    'introduction': form.querySelector('[name=introduction]').value,
-                    'notes': form.querySelector('[name=notes]').value,
+                    tags: this.ingredient.tags.split(',').filter(tag => tag !== ''), // Remove empty tags
+                    serving: this.ingredient.serving,
+                    introduction: this.ingredient.introduction,
+                    notes: this.ingredient.notes,
 
                     // Nutritional Data
-                    'kilojoules': form.querySelector('[name=kilojoules]').value,
-                    'protein': form.querySelector('[name=protein]').value,
-                    'fibre': form.querySelector('[name=fibre]').value,
-                    'carbohydrate': form.querySelector('[name=carbohydrate]').value,
-                    'fat': form.querySelector('[name=fat]').value,
-                    'sugar': form.querySelector('[name=sugar]').value,
-                    'saturatedfat': form.querySelector('[name=saturatedfat]').value,
-                    'sodium': form.querySelector('[name=sodium]').value,
+                    kilojoules: this.ingredient.kilojoules,
+                    protein: this.ingredient.protein,
+                    fibre: this.ingredient.fibre,
+                    carbohydrate: this.ingredient.carbohydrate,
+                    fat: this.ingredient.fat,
+                    sugar: this.ingredient.sugar,
+                    saturatedfat: this.ingredient.saturatedfat,
+                    sodium: this.ingredient.sodium,
                 })
                     .then(resp => {
-                        let row_node = document.querySelector('#selected_row_node').extra_data.ag_data;
+                        let row_node = this.focusedNode;
                         row_node.setData(resp);
-                        this.all_ingredients.gridOptions.api.flashCells({
+                        this.gridOptions.api.flashCells({
                             rowNodes: [row_node]
                         })
                     });
@@ -321,46 +306,44 @@
             /**
              * Deletes the currently selected ingredient
              */
-            delete_ingredient() {
-                this.pants.delete_ingredient(document.querySelector('#ingredient_uri').value)
+            deleteIngredient() {
+                this.pants.delete_ingredient(this.ingredient.uri)
                     .then(() => {
-                        this.all_ingredients.gridOptions.api.deselectAll();
-                        this.all_ingredients.gridOptions.api.refreshInfiniteCache();
+                        this.gridOptions.api.deselectAll();
+                        this.refreshTable();
+                        for(let key of Object.keys(this.ingredient)){
+                            this.ingredient[key] = ""
+                        }
                     });
             },
             /**
              * Creates a new ingredient using the information in the input fields
              */
-            create_ingredient() {
-                let form = document.querySelector('#ingredient_edit_form');
-                let tags = form.querySelector('[name=tags]').value.split(',');
-                // Remove empty tags
-                tags = tags.filter(tag => tag !== '');
-
+            createIngredient() {
                 this.pants.create_ingredient({
-                    'name': form.querySelector('[name=name]').value,
-                    'slug': form.querySelector('[name=slug]').value,
-                    'description': form.querySelector('[name=description]').value,
+                    name: this.ingredient.name,
+                    slug: this.ingredient.slug,
+                    description: this.ingredient.description,
                     // @todo Cannot edit owner? Remove this if there is no case where this is possible
                     // 'owner': form.querySelector('[name=owner]').value,
-                    'tags': tags,
-                    'serving': form.querySelector('[name=serving]').value,
-                    'introduction': form.querySelector('[name=introduction]').value,
-                    'notes': form.querySelector('[name=notes]').value,
+                    tags: this.ingredient.tags.split(',').filter(tag => tag !== ''), // Remove empty tags
+                    serving: this.ingredient.serving,
+                    introduction: this.ingredient.introduction,
+                    notes: this.ingredient.notes,
 
                     // Nutritional Data
-                    'kilojoules': form.querySelector('[name=kilojoules]').value,
-                    'protein': form.querySelector('[name=protein]').value,
-                    'fibre': form.querySelector('[name=fibre]').value,
-                    'carbohydrate': form.querySelector('[name=carbohydrate]').value,
-                    'fat': form.querySelector('[name=fat]').value,
-                    'sugar': form.querySelector('[name=sugar]').value,
-                    'saturatedfat': form.querySelector('[name=saturatedfat]').value,
-                    'sodium': form.querySelector('[name=sodium]').value,
+                    kilojoules: this.ingredient.kilojoules,
+                    protein: this.ingredient.protein,
+                    fibre: this.ingredient.fibre,
+                    carbohydrate: this.ingredient.carbohydrate,
+                    fat: this.ingredient.fat,
+                    sugar: this.ingredient.sugar,
+                    saturatedfat: this.ingredient.saturatedfat,
+                    sodium: this.ingredient.sodium,
                 })
                     .then(resp => {
                         console.log(resp);
-                        this.all_ingredients.gridOptions.api.refreshInfiniteCache();
+                        this.refreshTable();
                     })
             },
             onRowSelected(args) {
@@ -392,6 +375,9 @@
                 this.focusedNode = args.node;
             },
             onSearch(){
+                this.refreshTable();
+            },
+            refreshTable(){
                 this.gridOptions.api.refreshInfiniteCache();
             }
         }
