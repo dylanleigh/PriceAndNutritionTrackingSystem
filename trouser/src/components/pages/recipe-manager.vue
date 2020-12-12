@@ -118,13 +118,13 @@
                 <div id="recipe-components">
                     <recipe-component
                             v-for="component in recipe.components" :key="component.id"
-                            :name.sync="component.name"
+                            :id="component.id"
+                            :name="component.name"
+                            :recipe_or_ingredient_id="component.recipe_or_ingredient_id"
+                            :type="component.type"
                             :note.sync="component.note"
                             :unit.sync="component.unit"
                             :amount.sync="component.amount"
-                            :type.sync="component.type"
-                            :recipe_or_ingredient_id.sync="component.recipe_or_ingredient_id"
-                            :id.sync="component.id"
                     ></recipe-component>
                 </div>
 

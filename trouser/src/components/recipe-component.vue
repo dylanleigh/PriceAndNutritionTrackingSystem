@@ -2,29 +2,31 @@
     <div :class="{[$options.name]: true}">
         <button
                 type="button"
-                @click="note===null?note='':note=null"
+                @click="onClickNote"
                 class="text-only"
         >
             <fa-icon :icon="['fas', 'sticky-note']" size="2x"></fa-icon>
         </button>
-        <label id="name">A Recipe Component</label>
+        <label id="name">{{name}}</label>
 
         <input-float
                 :id="`${id}:amount`"
                 label="Amount"
                 :extra='{style:"min-width: 0;text-align: right"}'
+                v-model="synced.amount"
         ></input-float>
         <input-float
                 :id="`${id}:unit`"
                 type="select"
                 label="Unit"
+                v-model="synced.unit"
         >
             <option value="weight">grams</option>
             <option value="servings">servings</option>
         </input-float>
         <button
                 type="button"
-                @click="this.parentElement.remove()"
+                @click="$emit('delete-recipe-component', id)"
                 class="text-only"
         >
             <fa-icon :icon="['fas', 'minus']" size="2x"></fa-icon>
@@ -38,6 +40,7 @@
                 :multiline="true"
                 v-show="hasNote"
                 :extra='{class:{"resizable-vertical":true}}'
+                v-model="synced.note"
         ></input-float>
     </div>
 </template>
@@ -59,11 +62,34 @@
         },
         data() {
             return {
+                // Internal data storage for user editable properties
+                synced:{
+                    note: '',
+                    unit: null,
+                    amount: null,
+                },
+                // If the user has stated they wanted to add a note
+                wantsNote: false
             }
+        },
+        mounted(){
+            // Transfer synced props to internal data
+            this.synced.note = this.note;
+            this.synced.unit = this.unit;
+            this.synced.amount = this.amount;
+
+            // Do this so that deleting the note text does not immediately hide the note box
+            this.wantsNote = this.note !== '';
         },
         computed: {
             hasNote() {
-                return this.note !== null;
+                return this.note !== '' || this.wantsNote;
+            }
+        },
+        methods:{
+            onClickNote(){
+                this.wantsNote = !this.wantsNote;
+                this.note = ''
             }
         }
     }

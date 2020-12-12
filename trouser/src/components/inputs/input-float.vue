@@ -18,9 +18,10 @@
                 :id="id"
                 v-bind="extra"
                 v-model="content"
+                :data-picked_option="content"
                 @change="handleInput">
             <option value="">{{label}}</option>
-            <slot name="options"></slot>
+            <slot></slot>
         </select>
         <input
                 v-else
@@ -161,7 +162,7 @@
                 // The actual input mask created by IMask
                 input_mask: undefined,
                 // The actual contents of the input
-                content: null
+                content: ""
             }
         },
         watch:{
