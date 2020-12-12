@@ -14,7 +14,7 @@
                 label="Amount"
                 :extra='{style:"min-width: 0;text-align: right"}'
                 v-model="synced.amount"
-                @input="$emit('update:amount', synced.amount)"
+                @input="$emit('update:amount', parseFloat(synced.amount))"
         ></input-float>
         <input-float
                 :id="`${id}:unit`"
@@ -29,7 +29,7 @@
         </input-float>
         <button
                 type="button"
-                @click="$emit('delete-recipe-component', id)"
+                @click="$emit('delete')"
                 class="text-only"
         >
             <fa-icon :icon="['fas', 'minus']" size="2x"></fa-icon>
@@ -78,16 +78,16 @@
         },
         mounted(){
             // Transfer synced props to internal data
-            this.synced.note = this.note;
+            this.synced.note = this.note || '';
             this.synced.unit = this.unit;
             this.synced.amount = this.amount;
 
             // Do this so that deleting the note text does not immediately hide the note box
-            this.wantsNote = this.note !== '';
+            this.wantsNote = this.synced.note !== '';
         },
         computed: {
             hasNote() {
-                return this.note !== '' || this.wantsNote;
+                return this.synced.note !== '' || this.wantsNote;
             }
         },
         methods:{

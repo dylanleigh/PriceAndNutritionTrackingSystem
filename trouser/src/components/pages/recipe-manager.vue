@@ -117,7 +117,7 @@
                 <h3>Recipe Ingredients</h3>
                 <div id="recipe-components">
                     <recipe-component
-                            v-for="component in recipe.components" :key="component.id"
+                            v-for="(component, idx) in recipe.components" :key="idx"
                             :id="component.id"
                             :name="component.name"
                             :recipe_or_ingredient_id="component.recipe_or_ingredient_id"
@@ -125,6 +125,7 @@
                             :note.sync="component.note"
                             :unit.sync="component.unit"
                             :amount.sync="component.amount"
+                            @delete="recipe.components.splice(idx, 1)"
                     ></recipe-component>
                 </div>
 
@@ -348,9 +349,9 @@
              * Adds a component to the component list
              * @param {string} type either "recipe" or "ingredient"
              * @param {number} id the id number of the component (not the url) for this component relationship
-             * @param {number} recipe_or_ingredient_id the original recipe or ingredient id for this component
+             * @param {number|string} recipe_or_ingredient_id the original recipe or ingredient id for this component
              * @param {string} name the name of the component
-             * @param {number} amount how much of the component in units
+             * @param {number|string} amount how much of the component in units
              * @param {string} unit what unit the amount is in. Should be "weight" for grams, or "servings" for servings
              * @param {string} note any additional notes
              */
@@ -358,9 +359,9 @@
                 this.recipe.components.push({
                     type: type,
                     id: id,
-                    recipe_or_ingredient_id: recipe_or_ingredient_id,
+                    recipe_or_ingredient_id: parseFloat(recipe_or_ingredient_id),
                     name: name,
-                    amount: amount,
+                    amount: parseFloat(amount) || 0,
                     unit: unit,
                     note: note
                 });
@@ -420,7 +421,7 @@
                     introduction: this.recipe.introduction,
                     notes: this.recipe.notes,
                     method: this.recipe.method,
-                    components: this.recipe.components,
+                    components: this.get_components(),
                     flag: this.recipe.flag,
                 })
                     .then(() => {
@@ -459,7 +460,7 @@
                                 component.id,
                                 component.of_ingredient || component.of_recipe,
                                 component.name,
-                                parseFloat(component.servings) || parseFloat(component.weight),
+                                component.servings || component.weight,
                                 component.servings == null ? "weight" : "servings",
                                 component.note
                             );
