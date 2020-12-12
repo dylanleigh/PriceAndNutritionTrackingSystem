@@ -11,6 +11,7 @@
                 v-model="content"
                 @keyup="$emit('keyup')"
                 @input="handleInput"></textarea>
+<!--        For the select, we publish the selected option as the data-picked_option attribute to aid in styling -->
         <select
                 v-else-if="type==='select'"
                 class="field__input"
@@ -20,7 +21,7 @@
                 v-model="content"
                 :data-picked_option="content"
                 @change="handleInput">
-            <option value="">{{label}}</option>
+            <option value="" :hidden="hideDefaultOption">{{label}}</option>
             <slot></slot>
         </select>
         <input
@@ -49,15 +50,6 @@
                         elem.pants_data = {};
                     }
                     this.input_mask = IMask(elem, this.named_masks[this.input_mask_name]);
-                })
-            }
-
-            if(this.type === "select"){
-                // Select elements need to know what the current option is in order to style "nothing chosen"
-                this.querySelector(`[name="${this.id}"]`).dataset.picked_option = "";
-                this.querySelector(`[name="${this.id}"]`).addEventListener('change', function(){
-                    // 'this' is the select element
-                    this.dataset.picked_option = this.value;
                 })
             }
      */
@@ -147,6 +139,12 @@
                 return this.setAttribute("id");
             }
              */
+
+            /* Determines if the default option for select inputs should be hidden so that it cannot be picked manually*/
+            hideDefaultOption: {
+                type: Boolean,
+                default: false
+            }
         },
         data: function () {
             return {

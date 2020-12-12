@@ -14,12 +14,15 @@
                 label="Amount"
                 :extra='{style:"min-width: 0;text-align: right"}'
                 v-model="synced.amount"
+                @input="$emit('update:amount', synced.amount)"
         ></input-float>
         <input-float
                 :id="`${id}:unit`"
                 type="select"
                 label="Unit"
                 v-model="synced.unit"
+                @input="$emit('update:unit', synced.unit)"
+                :hide-default-option="true"
         >
             <option value="weight">grams</option>
             <option value="servings">servings</option>
@@ -41,6 +44,7 @@
                 v-show="hasNote"
                 :extra='{class:{"resizable-vertical":true}}'
                 v-model="synced.note"
+                @input="$emit('update:note', synced.note)"
         ></input-float>
     </div>
 </template>
@@ -55,7 +59,7 @@
             name: String,
             note: String,
             unit: String, // one of 'servings' or 'weight'
-            amount: String,
+            amount: Number,
             type: String,
             recipe_or_ingredient_id: Number,
             id: Number,

@@ -151,12 +151,12 @@
                 </button>
                 <button
                         class="oneline dark"
-                        :disabled="canEdit"
+                        :disabled="!canEdit"
                         @click="edit_recipe"
                 >Edit <span v-if="recipe.name"> {{recipe.name}}</span></button>
                 <button
                         class="oneline dark"
-                        :disabled="canDelete"
+                        :disabled="!canDelete"
                         @click="delete_recipe"
                 >Delete <span v-if="recipe.name"> {{recipe.name}}</span></button>
             </div>
@@ -282,7 +282,7 @@
 
                             if (response.ok) {
                                 let data = await response.json();
-                                params.successCallback(data['results'], data['count'])
+                                params.successCallback(data.results, data.count)
                             } else {
                                 params.failCallback();
                             }
@@ -347,10 +347,10 @@
             /**
              * Adds a component to the component list
              * @param {string} type either "recipe" or "ingredient"
-             * @param {string} id the id number of the component (not the url) for this component relationship
-             * @param {string} recipe_or_ingredient_id the original recipe or ingredient id for this component
+             * @param {number} id the id number of the component (not the url) for this component relationship
+             * @param {number} recipe_or_ingredient_id the original recipe or ingredient id for this component
              * @param {string} name the name of the component
-             * @param {string} amount how much of the component in units
+             * @param {number} amount how much of the component in units
              * @param {string} unit what unit the amount is in. Should be "weight" for grams, or "servings" for servings
              * @param {string} note any additional notes
              */
@@ -373,6 +373,10 @@
                     .then(() => {
                         this.recipeGrid.gridOptions.api.deselectAll();
                         this.recipeGrid.gridOptions.api.refreshInfiniteCache();
+                        // Clear form
+                        for(let key of Object.keys(this.recipe)){
+                            this.recipe[key] = null
+                        }
                     });
             },
             /**
@@ -434,7 +438,7 @@
                 this.recipe.introduction = recipe.introduction;
                 this.recipe.name = recipe.name;
                 this.recipe.description = recipe.description;
-                this.recipe.recipe_uri = recipe.url;
+                this.recipe.uri = recipe.url;
                 this.recipe.serves = recipe.serves;
                 this.recipe.flag = recipe.flag || "";
                 this.recipe.method = recipe.method;
@@ -455,7 +459,7 @@
                                 component.id,
                                 component.of_ingredient || component.of_recipe,
                                 component.name,
-                                component.servings || component.weight,
+                                parseFloat(component.servings) || parseFloat(component.weight),
                                 component.servings == null ? "weight" : "servings",
                                 component.note
                             );
