@@ -13,7 +13,7 @@
                     id="all_recipes_table"
                     class="ag-theme-balham fill-height"
                     :gridOptions="recipeGrid.gridOptions"
-                    :components="recipeGrid.components"
+                    :frameworkComponents="recipeGrid.frameworkComponents"
                     :columnDefs="recipeGrid.columnDefs"
                     :defaultColDef="recipeGrid.defaultColDef"
                     :rowModelType="recipeGrid.rowModelType"
@@ -37,7 +37,7 @@
                     id="ingredients"
                     class="ag-theme-balham fill-height"
                     :gridOptions="componentsGrid.gridOptions"
-                    :components="componentsGrid.components"
+                    :frameworkComponents="componentsGrid.frameworkComponents"
                     :columnDefs="componentsGrid.columnDefs"
                     :defaultColDef="componentsGrid.defaultColDef"
                     :rowModelType="componentsGrid.rowModelType"
@@ -116,7 +116,16 @@
 
                 <h3>Recipe Ingredients</h3>
                 <div id="recipe-components">
-                    <!--                    <recipe-component v-for="component in recipe.components" :key="component.id"></recipe-component>-->
+                    <recipe-component
+                            v-for="component in recipe.components" :key="component.id"
+                            :name.sync="component.name"
+                            :note.sync="component.note"
+                            :unit.sync="component.unit"
+                            :amount.sync="component.amount"
+                            :type.sync="component.type"
+                            :recipe_or_ingredient_id.sync="component.recipe_or_ingredient_id"
+                            :id.sync="component.id"
+                    ></recipe-component>
                 </div>
 
                 <input-float
@@ -158,46 +167,17 @@
 <script>
     import InputFloat from "@/components/inputs/input-float";
     import {AgGridVue} from 'ag-grid-vue';
-    // import RecipeComponent from "@/components/recipe-component";
+    import RecipeComponent from "@/components/recipe-component";
 
     import "ag-grid-community/dist/styles/ag-grid.css";
     import "ag-grid-community/dist/styles/ag-theme-balham.css";
 
-    // Create cell renderers for specific columns
-    class actionButtonCellRenderer {
-        init(params) {
-            this.cell = document.createElement('div');
-            this.cell.innerHTML = '<button class="dark" style="padding: 0;margin: 0"><i class="fas fa-carrot"></i></button>';
-
-            // get references to the elements we want
-            this.add_recipe_btn = this.cell.querySelector('button');
-            this.add_recipe_btn.addEventListener('click', e => {
-                e.stopPropagation();
-                params.onClick(params.data)
-            });
-
-            this.cell.setAttribute("class", "flex-row-equalfill");
-            this.cell.setAttribute("style", "align-items:stretch;height:100%");
-        }
-
-        getGui() {
-            return this.cell
-        }
-
-        refresh() {
-            // return true to tell the grid we refreshed successfully
-            return true;
-        }
-
-        destroy() {
-            // do cleanup, remove event listener from button
-        }
-    }
+    import ActionButtonCellRenderer from '@/components/cell-renderers/action-button';
 
     export default {
         name: "recipe-manager",
         components: {
-            // RecipeComponent,
+            RecipeComponent,
             InputFloat,
             AgGridVue
         },
@@ -206,8 +186,8 @@
             return {
                 recipeGrid: {
                     gridOptions: {},
-                    components: {
-                        actionsCell: actionButtonCellRenderer,
+                    frameworkComponents: {
+                        actionsCell: ActionButtonCellRenderer,
                     },
                     columnDefs: [
                         {headerName: "Name", field: "name"},
@@ -226,7 +206,8 @@
                                         recipe.name,
                                         "",
                                         "servings");
-                                }
+                                },
+                                icon: "carrot"
                             },
                             cellStyle: {"padding": "0"},
                             maxWidth: 25
@@ -258,8 +239,8 @@
                 },
                 componentsGrid: {
                     gridOptions: {},
-                    components: {
-                        actionsCell: actionButtonCellRenderer,
+                    frameworkComponents: {
+                        actionsCell: ActionButtonCellRenderer,
                     },
                     columnDefs: [
                         {headerName: "Name", field: "name"},
@@ -278,7 +259,8 @@
                                         ingredient.name,
                                         "",
                                         "weight");
-                                }
+                                },
+                                icon: "carrot"
                             },
                             cellStyle: {"padding": "0"},
                             maxWidth: 25
@@ -487,15 +469,6 @@
 
                 // Also store a reference to this node so that we can refresh it
                 this.focusedNode = args.node;
-
-                // Label the buttons to indicate the node that will be affected
-                let edit_btn_desc = document.querySelector('#edit-recipe-name');
-                let delete_btn_desc = document.querySelector('#delete-recipe-name');
-                edit_btn_desc.innerText = recipe.name;
-                delete_btn_desc.innerText = recipe.name;
-                // Since they start off disabled, enable them
-                edit_btn_desc.parentNode.disabled = false;
-                delete_btn_desc.parentNode.disabled = false;
             }
         }
     }
@@ -540,8 +513,8 @@
         height: 100%;
     }
 
-    #recipe-manager .field,
-    #recipe-manager button {
+    #recipe-manager >>> .field,
+    #recipe-manager >>> button {
         margin: 1px;
     }
 
@@ -559,8 +532,7 @@
         align-items: center;
     }
 
-    /* has-note on the component-wrapper class indicates note should show. It's absence means the opposite */
-    .component-wrapper:not(.has-note) > #note {
-        display: none;
+    #recipe-components >>> .recipe-component .note{
+        grid-column: note-start / note-end
     }
 </style>

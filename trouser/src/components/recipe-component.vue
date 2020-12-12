@@ -1,32 +1,41 @@
 <template>
     <div :class="{[$options.name]: true}">
-        <button type="button" @click="note===null?note='':note=null" class="text-only">
-            <fa-icon :icon="['fas', 'sticky-note']"></fa-icon>
-            <i class="fas fa-sticky-note fa-2x"></i>
+        <button
+                type="button"
+                @click="note===null?note='':note=null"
+                class="text-only"
+        >
+            <fa-icon :icon="['fas', 'sticky-note']" size="2x"></fa-icon>
         </button>
         <label id="name">A Recipe Component</label>
 
         <input-float
-                id="amount"
+                :id="`${id}:amount`"
                 label="Amount"
                 :extra='{style:"min-width: 0;text-align: right"}'
         ></input-float>
         <input-float
-                id="unit"
+                :id="`${id}:unit`"
                 type="select"
-                label="Unit">
+                label="Unit"
+        >
             <option value="weight">grams</option>
             <option value="servings">servings</option>
         </input-float>
-        <button type="button" onclick="this.parentElement.remove()" class="text-only">
-            <i class="fas fa-minus fa-2x"></i>
+        <button
+                type="button"
+                @click="this.parentElement.remove()"
+                class="text-only"
+        >
+            <fa-icon :icon="['fas', 'minus']" size="2x"></fa-icon>
         </button>
 
         <input-float
-                id='note'
+                :id="`${id}:note`"
+                class="note"
                 label='Note'
                 hint="Information about this specific ingredient in this specific recipe"
-                multiline="true"
+                :multiline="true"
                 v-show="hasNote"
                 :extra='{class:{"resizable-vertical":true}}'
         ></input-float>
@@ -35,44 +44,33 @@
 
 <script>
     import InputFloat from "@/components/inputs/input-float";
+
     export default {
         name: "recipe-component",
         components: {InputFloat},
-        props:{
+        props: {
             name: String,
             note: String,
             unit: String, // one of 'servings' or 'weight'
             amount: String,
             type: String,
-            recipe_or_ingredient_id: String,
-            id: String,
+            recipe_or_ingredient_id: Number,
+            id: Number,
         },
-        data(){
+        data() {
             return {
-                type: null,
-                id: null,
-                "recipe-or-ingredient-id": null,
-                note: null
             }
         },
-        computed:{
-            hasNote(){
+        computed: {
+            hasNote() {
                 return this.note !== null;
             }
         }
     }
 </script>
 
-<style scoped>
-    /* has-note on the component-wrapper class indicates note should show. It's absence means the opposite */
-    /*.recipe-component:not(.has-note) > #note {*/
-    /*    display: none;*/
-    /*}*/
-    .recipe-component{
+<style>
+    .recipe-component {
         display: contents;
     }
-    #note{
-        grid-column: note-start / note-end
-    }
-
 </style>

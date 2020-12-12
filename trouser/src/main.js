@@ -18,7 +18,8 @@ import {
     faBook,
     faBullseye,
     faUser,
-    faStickyNote
+    faStickyNote,
+    faMinus
 } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
@@ -29,7 +30,8 @@ library.add(
     faBook,
     faBullseye,
     faUser,
-    faStickyNote)
+    faStickyNote,
+    faMinus)
 Vue.component('fa-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
