@@ -186,7 +186,7 @@ class Pants {
 
         // Handle sorting options
         let ordering = [];
-        for (let id of options.sortModel) {
+        for (let id of options.sortModel || []) {
             let param = '';
             param += id.sort === 'desc' ? '-' : '';
             param += id.colId;
@@ -262,10 +262,40 @@ class Pants {
      * @returns {Promise<void>}
      */
     async get_recipe_flags(){
-        // Get the number of requested results
         let api_location = new URL(this.get_api_path('recipe_flag/'));
         // Fetch the data
         return this.authenticated_fetch(api_location.toString()).then(resp=>resp.json());
+    }
+
+    /**
+     * Creates a diary food entry with the given details
+     * @param json_details
+     * @returns {Promise<void>}
+     */
+    async create_diaryfood(json_details){
+        return this.authenticated_fetch(this.get_api_path('diaryfood/'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json_details)
+        })
+            .then(resp => resp.json())
+    }
+
+    /**
+     * Get all diaryfood objects in a list
+     * @returns {Promise<void>}
+     */
+    async get_diaryfood(){
+        // Fetch the data
+        return this.authenticated_fetch(this.get_api_path('diaryfood/'))
+            .then(resp=>resp.json());
+    }
+
+    async get_target(){
+        return this.authenticated_fetch(this.get_api_path('target/'))
+            .then(resp=>resp.json())
     }
 
 
