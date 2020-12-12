@@ -10,7 +10,8 @@
                 v-bind="extra"
                 v-model="content"
                 @keyup="$emit('keyup')"
-                @input="handleInput"></textarea>
+                @input="handleInput"
+                ref="input"></textarea>
         <!--        For the select, we publish the selected option as the data-picked_option attribute to aid in styling -->
         <select
                 v-else-if="type==='select'"
@@ -34,25 +35,14 @@
                 v-bind="extra"
                 v-model="content"
                 @keyup="$emit('keyup')"
-                @input="handleInput">
+                @input="handleInput"
+                ref="input">
         <label class="field__label" :for="id">{{label}}</label>
     </div>
 </template>
 
 <script>
-    // TODO translate this imperative code
-    /*
-    // Setup events and callbacks
-            if(this.input_mask_name){
-                window.addEventListener('load', ()=>{
-                    let elem = this.querySelector(`[name="${this.id}"]`);
-                    if(typeof elem.pants_data === "undefined"){
-                        elem.pants_data = {};
-                    }
-                    this.input_mask = IMask(elem, this.named_masks[this.input_mask_name]);
-                })
-            }
-     */
+    import IMask from 'imask'
     export default {
         name: "input-float",
         props: {
@@ -82,25 +72,14 @@
                 default: ''
             },
             // Object of additional attributes that should go on this input
-            extra: {
-                type: Object
-            },
+            extra: Object,
             // Object of additional attributes that should go on the container for this input
-            container_extra: {
-                type: Object
-            },
-            /* @todo input masks
+            container_extra: Object,
             // input mask is for js input masking options with IMask library.
             // Should be the name of a named mask in this element
             // TODO make it so that you can specify your own mask?
-            get input_mask_name() {
-                return this.getAttribute("input_mask_name");
-            }
+            input_mask_name: String,
 
-            set input_mask_name(value) {
-                return this.setAttribute("input_mask_name", value)
-            }
-             */
             // @todo hint support
             // hint is a paragraph explaining what could be put in, or limitations to inputs. Possibly should be made visible on focus
             hint: {
@@ -131,15 +110,6 @@
             }
              */
 
-            /* @todo id getter setter
-            get id(){
-                return this.getAttribute("id");
-            }
-            set id(value){
-                return this.setAttribute("id");
-            }
-             */
-
             /* Determines if the default option for select inputs should be hidden so that it cannot be picked manually*/
             hideDefaultOption: {
                 type: Boolean,
@@ -163,9 +133,19 @@
                 content: ""
             }
         },
+        mounted(){
+            if(this.input_mask_name){
+                this.input_mask = IMask(this.$refs.input, this.named_masks[this.input_mask_name]);
+            }
+        },
         watch: {
             value(newVal) {
-                this.content = newVal;
+                if(this.input_mask){
+                    this.input_mask.unmaskedValue = newVal;
+                }
+                else{
+                    this.content = newVal;
+                }
             }
         },
         methods: {
@@ -186,7 +166,7 @@
              * Emits the input event with appropriate data when the value of the input field changes
              */
             handleInput() {
-                this.$emit('input', this.content)
+                this.$emit('input', this.input_mask ? this.input_mask.masked : this.content)
             }
         }
     }
