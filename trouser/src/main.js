@@ -40,6 +40,7 @@ Vue.config.productionTip = false
 import IngredientManager from './components/pages/ingredient-manager'
 import RecipeManager from './components/pages/recipe-manager'
 import Diary from './components/pages/diary'
+import TargetManager from '@/components/pages/target-manager'
 
 new Vue({
     render: h => h(App),
@@ -48,6 +49,7 @@ new Vue({
             {path: '/ingredient_manager', component: IngredientManager},
             {path: '/recipe_manager', component: RecipeManager},
             {path: '/diary', component: Diary},
+            {path: '/target_manager', component: TargetManager},
         ]
     })
 }).$mount('#app')

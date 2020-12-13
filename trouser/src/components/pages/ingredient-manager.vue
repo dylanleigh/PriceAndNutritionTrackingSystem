@@ -203,7 +203,6 @@
                     resizable: true,
                 },
                 gridOptions: {},
-                rowData: [],
                 datasource: {
                     getRows: async params => {
                         params.searchKey = document.querySelector('#ingredient_filter').value;
