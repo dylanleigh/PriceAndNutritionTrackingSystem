@@ -51,6 +51,9 @@ class DiaryFoodViewSet(viewsets.ModelViewSet):
     serializer_class = DiaryFoodSerializer
     permission_classes = [permissions.DjangoModelPermissions]
     queryset = DiaryFood.objects.none()  # Required for DjangoModelPermissions to get Model
+    filterset_fields = {
+        'start_time': ['gte', 'lte', 'exact', 'gt', 'lt'],
+    }
 
     def get_queryset(self):
        user = self.request.user

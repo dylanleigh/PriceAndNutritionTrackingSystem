@@ -285,11 +285,21 @@ class Pants {
 
     /**
      * Get all diaryfood objects in a list
+     * @param options {Object} Sort and filter options
+     * @param options.min_start {string} ISO date string, only return results whose start_time >= this
+     * @param options.max_start {string} ISO date string, only return results whose start_time <= this
      * @returns {Promise<void>}
      */
-    async get_diaryfood(){
-        // Fetch the data
-        return this.authenticated_fetch(this.get_api_path('diaryfood/'))
+    async get_diaryfood(options){
+        // Set up the query string to search if necessary
+        let api_location = new URL(this.get_api_path('diaryfood/'));
+        if(options.min_start !== undefined){
+            api_location.searchParams.set('start_time__gte', options.min_start);
+        }
+        if(options.max_start !== undefined){
+            api_location.searchParams.set('start_time__lte', options.max_start);
+        }
+        return this.authenticated_fetch(api_location.toString())
             .then(resp=>resp.json());
     }
 
