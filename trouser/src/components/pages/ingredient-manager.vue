@@ -1,177 +1,178 @@
 <template>
     <div id="ingredient-manager">
-                <div class="header-all flex-row-between flex-gap-regular">
-                    <h2>All Ingredients</h2>
-                    <input-float id='ingredient_filter'
-                                 label='Search'
-                                 @keyup="onSearch"></input-float>
-                </div>
-                <div class="ingredients-all">
+        <div class="header-all flex-row-between flex-gap-regular">
+            <h2>All Ingredients</h2>
+            <input-float id='ingredient_filter'
+                         label='Search'
+                         @keyup="onSearch"></input-float>
+        </div>
+        <div class="ingredients-all">
 
-                    <!-- A data grid to browse available ingredients -->
-                    <ag-grid-vue
-                            id="ingredients"
-                            class="contained_table ag-theme-balham"
-                            :gridOptions="gridOptions"
-                            :datasource="datasource"
-                            :columnDefs="columnDefs"
-                            :defaulColDef="defaultColDef"
-                            :pagination="true"
-                            :paginationAutoPageSize="true"
-                            @row-selected="onRowSelected"
-                            rowModelType='infinite'
-                            rowSelection='single'
-                    />
+            <!-- A data grid to browse available ingredients -->
+            <ag-grid-vue
+                    id="ingredients"
+                    class="contained_table ag-theme-balham"
+                    :gridOptions="gridOptions"
+                    :datasource="datasource"
+                    :columnDefs="columnDefs"
+                    :defaulColDef="defaultColDef"
+                    :pagination="true"
+                    :paginationAutoPageSize="true"
+                    @row-selected="onRowSelected"
+                    rowModelType='infinite'
+                    rowSelection='single'
+            />
+        </div>
+        <div class="header">
+            <h2>Information</h2>
+        </div>
+        <div class="ingredient">
+            <!-- A form to edit the given ingredient -->
+            <form id="ingredient_edit_form" autocomplete="off">
+                <input-float
+                        id='introduction'
+                        label='Introduction'
+                        hint="Introductory paragraph explains ingredient"
+                        :multiline="true"
+                        v-model="ingredient.introduction"
+                ></input-float>
+                <div class="flex-row-equalfill">
+                    <input-float
+                            id='name'
+                            label='Name'
+                            hint="Grilled Cheese"
+                            v-model="ingredient.name"
+                    ></input-float>
+                    <input-float
+                            id='slug'
+                            label='Slug'
+                            hint="grilled-cheese"
+                            input_mask_name="slug_mask"
+                            v-model="ingredient.slug"
+                    ></input-float>
                 </div>
-                <div class="header">
-                    <h2>Information</h2>
-                </div>
-                <div class="ingredient">
-                    <!-- A form to edit the given ingredient -->
-                    <form id="ingredient_edit_form" autocomplete="off">
-                        <input-float
-                                id='introduction'
-                                label='Introduction'
-                                hint="Introductory paragraph explains ingredient"
-                                :multiline="true"
-                                v-model="ingredient.introduction"
-                        ></input-float>
-                        <div class="flex-row-equalfill">
-                            <input-float
-                                    id='name'
-                                    label='Name'
-                                    hint="Grilled Cheese"
-                                    v-model="ingredient.name"
-                            ></input-float>
-                            <input-float
-                                    id='slug'
-                                    label='Slug'
-                                    hint="grilled-cheese"
-                                    input_mask_name="slug_mask"
-                                    v-model="ingredient.slug"
-                            ></input-float>
-                        </div>
 
-                        <input-float
-                                id='description'
-                                label='Description'
-                                hint="A sandwich made with melted cheese"
-                                :multiline="true"
-                                v-model="ingredient.description"
-                        ></input-float>
-                        <input-float
-                                id='notes'
-                                label='Notes'
-                                hint="Additional information about usage, types, etc."
-                                :multiline="true"
-                                v-model="ingredient.notes"
-                        ></input-float>
-                        <div class="flex-row-equalfill">
-                            <input-float
-                                    id='tags'
-                                    label='Tags'
-                                    hint="tag1,tag2,tag3"
-                                    input_mask_name="tag_mask"
-                                    v-model="ingredient.tags"
-                            ></input-float>
-                            <!-- You can't modify the owner, but I'm showing it here for this proof of concept -->
-                            <input-float
-                                    id='owner'
-                                    label='Owner'
-                                    hint="A sandwich made with melted cheese"
-                                    :extra='{disabled: true, value:""}'
-                                    v-model="ingredient.owner"
-                            ></input-float>
-                        </div>
-                        <h3>Nutrition</h3>
-                        <div class="flex-row-equalfill">
-                            <input-float
-                                    id='serving'
-                                    label='Serving Size (g)'
-                                    hint="in grams"
-                                    input_mask_name="nutrition_mask"
-                                    v-model="ingredient.serving"
-                            ></input-float>
-                            <input-float
-                                    id='kilojoules'
-                                    label='kilojoules'
-                                    input_mask_name=nutrition_mask
-                                    v-model="ingredient.kilojoules"
-                            ></input-float>
-                        </div>
-                        <div class="flex-row-equalfill">
-                            <input-float
-                                    id='protein'
-                                    label='protein (g)'
-                                    hint="in grams"
-                                    input_mask_name="nutrition_mask"
-                                    v-model="ingredient.protein"
-                            ></input-float>
-                            <input-float
-                                    id='carbohydrate'
-                                    label='carbohydrate (g)'
-                                    hint="in grams"
-                                    input_mask_name="nutrition_mask"
-                                    v-model="ingredient.carbohydrate"
-                            ></input-float>
-                            <input-float
-                                    id='fat'
-                                    label='fat (g)'
-                                    hint="in grams"
-                                    input_mask_name="nutrition_mask"
-                                    v-model="ingredient.fat"
-                            ></input-float>
-                            <input-float
-                                    id='saturatedfat'
-                                    label='saturatedfat (g)'
-                                    hint="in grams"
-                                    input_mask_name="nutrition_mask"
-                                    v-model="ingredient.saturatedfat"
-                            ></input-float>
-                        </div>
-                        <div class="flex-row-equalfill">
-                            <input-float
-                                    id='sugar'
-                                    label='sugar (g)'
-                                    hint="in grams"
-                                    input_mask_name="nutrition_mask"
-                                    v-model="ingredient.sugar"
-                            ></input-float>
-                            <input-float
-                                    id='sodium'
-                                    label='sodium (mg)'
-                                    hint="in milligrams"
-                                    input_mask_name="nutrition_mask"
-                                    v-model="ingredient.sodium"
-                            ></input-float>
-                            <input-float
-                                    id='fibre'
-                                    label='fibre (g)'
-                                    hint="in grams"
-                                    input_mask_name="nutrition_mask"
-                                    v-model="ingredient.fibre"
-                            ></input-float>
-                        </div>
-                    </form>
-                    <div class="flex-row-equalfill">
-                        <button
-                                class="oneline dark"
-                                @click="createIngredient"
-                        >Create New</button>
-                        <button
-                                class="oneline dark"
-                                :disabled="!canEdit"
-                                @click="editIngredient"
-                                id="edit_desc"
-                        >Edit<span v-if="shortName"> {{shortName}}</span></button>
-                        <button
-                                class="oneline dark"
-                                :disabled="!canDelete"
-                                @click="deleteIngredient"
-                                id="delete_desc"
-                        >Delete<span v-if="shortName"> {{shortName}}</span></button>
-                    </div>
+                <input-float
+                        id='description'
+                        label='Description'
+                        hint="A sandwich made with melted cheese"
+                        :multiline="true"
+                        v-model="ingredient.description"
+                ></input-float>
+                <input-float
+                        id='notes'
+                        label='Notes'
+                        hint="Additional information about usage, types, etc."
+                        :multiline="true"
+                        v-model="ingredient.notes"
+                ></input-float>
+                <div class="flex-row-equalfill">
+                    <input-float
+                            id='tags'
+                            label='Tags'
+                            hint="tag1,tag2,tag3"
+                            input_mask_name="tag_mask"
+                            v-model="ingredient.tags"
+                    ></input-float>
+                    <!-- You can't modify the owner, but I'm showing it here for this proof of concept -->
+                    <input-float
+                            id='owner'
+                            label='Owner'
+                            hint="A sandwich made with melted cheese"
+                            :extra='{disabled: true, value:""}'
+                            v-model="ingredient.owner"
+                    ></input-float>
                 </div>
+                <h3>Nutrition</h3>
+                <div class="flex-row-equalfill">
+                    <input-float
+                            id='serving'
+                            label='Serving Size (g)'
+                            hint="in grams"
+                            input_mask_name="nutrition_mask"
+                            v-model="ingredient.serving"
+                    ></input-float>
+                    <input-float
+                            id='kilojoules'
+                            label='kilojoules'
+                            input_mask_name=nutrition_mask
+                            v-model="ingredient.kilojoules"
+                    ></input-float>
+                </div>
+                <div class="flex-row-equalfill">
+                    <input-float
+                            id='protein'
+                            label='protein (g)'
+                            hint="in grams"
+                            input_mask_name="nutrition_mask"
+                            v-model="ingredient.protein"
+                    ></input-float>
+                    <input-float
+                            id='carbohydrate'
+                            label='carbohydrate (g)'
+                            hint="in grams"
+                            input_mask_name="nutrition_mask"
+                            v-model="ingredient.carbohydrate"
+                    ></input-float>
+                    <input-float
+                            id='fat'
+                            label='fat (g)'
+                            hint="in grams"
+                            input_mask_name="nutrition_mask"
+                            v-model="ingredient.fat"
+                    ></input-float>
+                    <input-float
+                            id='saturatedfat'
+                            label='saturatedfat (g)'
+                            hint="in grams"
+                            input_mask_name="nutrition_mask"
+                            v-model="ingredient.saturatedfat"
+                    ></input-float>
+                </div>
+                <div class="flex-row-equalfill">
+                    <input-float
+                            id='sugar'
+                            label='sugar (g)'
+                            hint="in grams"
+                            input_mask_name="nutrition_mask"
+                            v-model="ingredient.sugar"
+                    ></input-float>
+                    <input-float
+                            id='sodium'
+                            label='sodium (mg)'
+                            hint="in milligrams"
+                            input_mask_name="nutrition_mask"
+                            v-model="ingredient.sodium"
+                    ></input-float>
+                    <input-float
+                            id='fibre'
+                            label='fibre (g)'
+                            hint="in grams"
+                            input_mask_name="nutrition_mask"
+                            v-model="ingredient.fibre"
+                    ></input-float>
+                </div>
+            </form>
+            <div class="flex-row-equalfill">
+                <button
+                        class="oneline dark"
+                        @click="createIngredient"
+                >Create New
+                </button>
+                <button
+                        class="oneline dark"
+                        :disabled="!canEdit"
+                        @click="editIngredient"
+                        id="edit_desc"
+                >Edit<span v-if="shortName"> {{shortName}}</span></button>
+                <button
+                        class="oneline dark"
+                        :disabled="!canDelete"
+                        @click="deleteIngredient"
+                        id="delete_desc"
+                >Delete<span v-if="shortName"> {{shortName}}</span></button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -239,10 +240,10 @@
                 focusedNode: null,
             }
         },
-        computed:{
-            shortName(){
+        computed: {
+            shortName() {
                 let short_name = '';
-                if(this.ingredient.name == null) return;
+                if (this.ingredient.name == null) return;
 
                 if (this.ingredient.name.length > 13) {
                     short_name = this.ingredient.name.slice(0, 10) + '...';
@@ -251,10 +252,10 @@
                 }
                 return short_name;
             },
-            canEdit(){
+            canEdit() {
                 return this.focusedNode != null;
             },
-            canDelete(){
+            canDelete() {
                 return this.focusedNode != null;
             }
         },
@@ -301,7 +302,7 @@
                     .then(() => {
                         this.gridOptions.api.deselectAll();
                         this.refreshTable();
-                        for(let key of Object.keys(this.ingredient)){
+                        for (let key of Object.keys(this.ingredient)) {
                             this.ingredient[key] = ""
                         }
                     });
@@ -364,10 +365,10 @@
                 // Also store a reference to this node so that we can refresh it
                 this.focusedNode = args.node;
             },
-            onSearch(){
+            onSearch() {
                 this.refreshTable();
             },
-            refreshTable(){
+            refreshTable() {
                 this.gridOptions.api.refreshInfiniteCache();
             }
         }
