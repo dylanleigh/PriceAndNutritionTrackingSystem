@@ -9,18 +9,35 @@
                     onclick="change_time()"
             >{{staticVals.text.changeTimeBtn[timeSpecificity]}}</button>
             <div class="float_input-group" v-show="timeSpecificity!==staticVals.timeSpecificity.JUST_NOW">
-                <float-input id="date" label="Date" type="date" v-show="timeSpecificity!==staticVals.timeSpecificity.TODAY_AT"></float-input>
-                <float-input id="time" label="Time" type="time" style="display: none"></float-input>
+                <input-float
+                        id="date"
+                        label="Date"
+                        type="date"
+                        v-show="timeSpecificity!==staticVals.timeSpecificity.TODAY_AT"
+                ></input-float>
+                <input-float
+                        id="time"
+                        label="Time"
+                        type="time"
+                ></input-float>
             </div>
             <span>I ate</span>
         </span>
 
             <div class="float_input-group">
-                <float-input id="amount" label="Amount" extra="style='text-align:right;max-width:6em'"></float-input>
-                <float-input id="unit" label="Unit" type="select">
+                <input-float
+                        id="amount"
+                        label="Amount"
+                        :extra="{style:'text-align:right;max-width:6em'}"
+                ></input-float>
+                <input-float
+                        id="unit"
+                        label="Unit"
+                        type="select"
+                >
                     <option value="weight">Grams</option>
                     <option value="servings">Servings</option>
-                </float-input>
+                </input-float>
             </div>
             <span>of</span>
             <!--        {#        <float-input id="component" label="Food" ></float-input>#}-->
@@ -43,17 +60,21 @@
     script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js">/script>
      */
     // Setup variables to access form inputs
-        let date = document.getElementById('date');
+
+        import InputFloat from "@/components/inputs/input-float";
+    let date = document.getElementById('date');
         let time = document.getElementById('time');
         let amount = document.getElementById('amount');
         let unit = document.getElementById('unit');
         let component = document.getElementById('component');
+/* @Todo translate this pre setup code
 
         // Setup obvious defaults, if you are coming here you probably want to record what happened right now
         let sysDate = new Date(),
             userDate = new Date(Date.UTC(sysDate.getFullYear(), sysDate.getMonth(), sysDate.getDate(), sysDate.getHours(), sysDate.getMinutes(), 0));
         date.valueAsDate = userDate;
         time.valueAsDate = userDate;
+        */
 
         /* @todo figure out how to deal with tagify, or if I really want that.
             function suggestionItemTemplate(recipe) {
@@ -123,6 +144,7 @@
 
     export default {
         name: "diary",
+        components: {InputFloat},
         inject: ['pants'],
         data(){
             return{
