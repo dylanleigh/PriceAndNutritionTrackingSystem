@@ -15,7 +15,7 @@
         />
         <div class="form">
             <input-float
-                id="name"
+                    id="name"
             ></input-float>
         </div>
     </div>
@@ -29,14 +29,14 @@
 
     export default {
         name: "target-manager",
-        components:{
+        components: {
             InputFloat,
             AgGridVue
         },
         inject: ['pants'],
-        data(){
-            return{
-                targetsGrid:{
+        data() {
+            return {
+                targetsGrid: {
                     columnDefs: [
                         {headerName: "Name", field: "name", sort: 'asc'},
                         {headerName: "Description", field: "description"},
@@ -47,7 +47,7 @@
                         sortable: true,
                         resizable: true,
                     },
-                    gridOptions:{},
+                    gridOptions: {},
                     datasource: {
                         getRows: async params => {
                             // @todo implement search
@@ -57,7 +57,7 @@
                         }
                     },
                 },
-                target:{
+                target: {
                     url: null,
                     name: null,
                     slug: null,
@@ -69,7 +69,7 @@
                 }
             }
         },
-        methods:{
+        methods: {
             onRowSelected(args) {
                 return args;
             }
