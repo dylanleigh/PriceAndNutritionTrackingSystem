@@ -1,5 +1,5 @@
 <template>
-    <div class="field" v-bind="container_extra">
+    <div class="field" :id="id + '-container'" v-bind="container_extra">
         <textarea
                 v-if="type==='text' && multiline"
                 class="field__input"

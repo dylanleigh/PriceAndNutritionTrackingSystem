@@ -19,7 +19,17 @@ import {
     faBullseye,
     faUser,
     faStickyNote,
-    faMinus
+    faMinus,
+    faCheck,
+    faMoneyBillAlt,
+    faBolt,
+    faEgg,
+    faBreadSlice,
+    faTint,
+    faTintSlash,
+    faSeedling,
+    faStroopwafel,
+    faCubes,
 } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
@@ -31,7 +41,18 @@ library.add(
     faBullseye,
     faUser,
     faStickyNote,
-    faMinus)
+    faMinus,
+    faCheck,
+    faMoneyBillAlt,
+    faBolt,
+    faEgg,
+    faBreadSlice,
+    faTint,
+    faTintSlash,
+    faSeedling,
+    faStroopwafel,
+    faCubes,
+)
 Vue.component('fa-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
