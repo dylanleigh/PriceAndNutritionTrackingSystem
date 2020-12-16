@@ -44,3 +44,23 @@ class TargetSerializer(serializers.HyperlinkedModelSerializer):
       max = Maximums.objects.create(**max_data)
       target.maximum = max
       return target
+
+   @transaction.atomic
+   def update(self, target, validated_data):
+      # Get all the requested update fields except for the nested objects
+      update_fields = [key for key in validated_data.keys() if key not in ['minimum', 'maximum']]
+      for key in update_fields:
+         setattr(target, key, validated_data[key])
+      target.save(update_fields=update_fields)
+
+      if ('minimum' in validated_data):
+         for key in validated_data['minimum']:
+            setattr(target.minimum, key, validated_data['minimum'][key])
+         target.minimum.save()
+
+      if ('maximum' in validated_data):
+         for key in validated_data['maximum']:
+            setattr(target.maximum, key, validated_data['maximum'][key])
+         target.maximum.save()
+
+      return target

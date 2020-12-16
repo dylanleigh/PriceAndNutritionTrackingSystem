@@ -9,10 +9,12 @@
 class Target {
     /**
      * Creates a target api subclass instance, with a fetch function from the PANTS API collection class
-     * @param {function} api_fetch_function The function to use when fetching data, takes a relative api location, and an object of fetch options
+     * @param {function} api_fetch_function Fetches api data, takes an absolute api location, and an object of fetch options
+     * @param {function} api_prefixer_function Converts relative api path to absolute, takes a relative api location
      */
-    constructor(api_fetch_function){
+    constructor(api_fetch_function, api_prefixer_function){
         this.fetch = api_fetch_function;
+        this.api_prefix = api_prefixer_function
     }
 
     /**
@@ -20,7 +22,7 @@ class Target {
      * @param json_details {Object} The information for the target
      */
     async create(json_details){
-        return this.fetch('target/', {
+        return this.fetch(this.api_prefix('target/'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,6 +30,33 @@ class Target {
             body: JSON.stringify(json_details)
         })
             .then(resp => resp.json());
+    }
+
+    /**
+     * Updates a target (identified by uri) based on the json object passed in
+     * @param uri {string} The URI that uniquely identifies the given target
+     * @param json_details {Object} The details that will be overwritten onto the target (details not included are unaffected)
+     */
+    async update(uri, json_details) {
+        return this.fetch(uri, {
+            method: 'PATCH',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(json_details)
+        })
+            .then(resp => resp.json())
+    }
+
+    /**
+     * Deletes the specified target
+     * @param uri {string} The URI that uniquely identifies the given target
+     */
+    async delete(uri){
+        // Send the command to delete the recipe using the api
+        return this.fetch(uri, {
+            method: 'DELETE',
+        })
     }
 }
 
@@ -337,7 +366,9 @@ class Pants {
             .then(resp=>resp.json())
     }
 
-    Target = new Target((path, options)=>{return this.authenticated_fetch(this.get_api_path(path), options)})
+    // @todo have to pass arrow functions to preserve this, how to preserve this information?
+    //  Target should probably be subclasses from some API base class, and Pants should just be an api collection class?
+    Target = new Target((path, options)=>this.authenticated_fetch(path, options), (relative)=>this.get_api_path(relative))
 }
 
 export default Pants;

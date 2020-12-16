@@ -175,7 +175,8 @@
                     daily: false,
                     minimum: {...nutritionObj},
                     maximum: {...nutritionObj}
-                }
+                },
+                focusedNode: null
             }
         },
         computed:{
@@ -188,6 +189,9 @@
         },
         methods: {
             onRowSelected(args) {
+                // This event fires if a row is selected OR deselected, we only care if something gets selected
+                if (!args.node.selected) return;
+
                 let target = args.data;
                 this.target.name = target.name;
                 this.target.slug = target.slug;
@@ -215,6 +219,8 @@
                 this.target.maximum.fibre = target.maximum.fibre;
                 this.target.maximum.sodium = target.maximum.sodium;
                 this.target.maximum.sugar = target.maximum.sugar;
+
+                this.focusedNode = args.node;
             },
             createTarget(){
                 this.pants.Target.create({
@@ -225,12 +231,31 @@
                     minimum: this.target.minimum,
                     maximum: this.target.maximum,
                 })
+                    .then(()=>{
+                        this.refreshTable();
+                    })
             },
             editTarget(){
-
+                this.pants.Target.update(this.target.url, {
+                    name: this.target.name,
+                    slug: this.target.slug,
+                    description: this.target.description,
+                    daily: this.target.daily,
+                    minimum: this.target.minimum,
+                    maximum: this.target.maximum,
+                }).then(resp => {
+                        let row_node = this.focusedNode;
+                        row_node.setData(resp);
+                        this.targetsGrid.gridOptions.api.flashCells({
+                            rowNodes: [row_node]
+                        })
+                    });
             },
             deleteTarget(){
-
+                this.pants.Target.delete(this.target.url).then(()=>this.refreshTable());
+            },
+            refreshTable() {
+                this.targetsGrid.gridOptions.api.refreshInfiniteCache();
             }
         }
     }
