@@ -22,7 +22,7 @@
                 v-model="content"
                 :data-picked_option="content"
                 @change="handleInput">
-            <option value="" :hidden="hideDefaultOption">{{label}}</option>
+            <option value="" :hidden="hideDefaultOption" v-if="label">{{label}}</option>
             <slot></slot>
         </select>
         <input

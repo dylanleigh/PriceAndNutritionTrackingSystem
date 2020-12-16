@@ -6,7 +6,7 @@
                     id="time-text"
                     class="text-only"
                     type="button"
-                    onclick="change_time()"
+                    @click="change_time"
             >{{staticVals.text.changeTimeBtn[timeSpecificity]}}</button>
             <div class="float_input-group" v-show="timeSpecificity!==staticVals.timeSpecificity.JUST_NOW">
                 <input-float
@@ -40,13 +40,18 @@
                 </input-float>
             </div>
             <span>of</span>
-            <!--        {#        <float-input id="component" label="Food" ></float-input>#}-->
-            <input id="component">
+            <input-float
+                    id="entry-type"
+                    label="Food"
+                    type="select"
+                    :hide-default-option="true"
+            >
+                <option value="recipe">Recipe</option>
+                <option value="ingredient">Ingredient</option>
+                <option value="one-off">One-off Food</option>
+            </input-float>
             <button class="dark" type="button" onclick="create_diaryfood()">Add</button>
         </form>
-        <div id="chart-container">
-            <canvas id="chart"></canvas>
-        </div>
     </div>
 </template>
 
@@ -61,68 +66,69 @@
      */
     // Setup variables to access form inputs
 
-        import InputFloat from "@/components/inputs/input-float";
+    import InputFloat from "@/components/inputs/input-float";
+
     let date = document.getElementById('date');
-        let time = document.getElementById('time');
-        let amount = document.getElementById('amount');
-        let unit = document.getElementById('unit');
-        let component = document.getElementById('component');
-/* @Todo translate this pre setup code
+    let time = document.getElementById('time');
+    let amount = document.getElementById('amount');
+    let unit = document.getElementById('unit');
+    let component = document.getElementById('component');
+    /* @Todo translate this pre setup code
 
-        // Setup obvious defaults, if you are coming here you probably want to record what happened right now
-        let sysDate = new Date(),
-            userDate = new Date(Date.UTC(sysDate.getFullYear(), sysDate.getMonth(), sysDate.getDate(), sysDate.getHours(), sysDate.getMinutes(), 0));
-        date.valueAsDate = userDate;
-        time.valueAsDate = userDate;
-        */
+            // Setup obvious defaults, if you are coming here you probably want to record what happened right now
+            let sysDate = new Date(),
+                userDate = new Date(Date.UTC(sysDate.getFullYear(), sysDate.getMonth(), sysDate.getDate(), sysDate.getHours(), sysDate.getMinutes(), 0));
+            date.valueAsDate = userDate;
+            time.valueAsDate = userDate;
+            */
 
-        /* @todo figure out how to deal with tagify, or if I really want that.
-            function suggestionItemTemplate(recipe) {
-                return `
-                    <div ${this.getAttributes(recipe)}
-                        class='tagify__dropdown__item'
-                        tabindex="0"
-                        role="option">
-                        <strong>${recipe.name}</strong>
+    /* @todo figure out how to deal with tagify, or if I really want that.
+        function suggestionItemTemplate(recipe) {
+            return `
+                <div ${this.getAttributes(recipe)}
+                    class='tagify__dropdown__item'
+                    tabindex="0"
+                    role="option">
+                    <strong>${recipe.name}</strong>
+                </div>
+            `
+        }
+
+        // Setup combobox for selecting/specifying ingredient/recipe/one off food
+        function tagTemplate(recipe) {
+            return `
+                <tag title="${recipe.url}"
+                        contenteditable='false'
+                        spellcheck='false'
+                        tabIndex="-1"
+                        class="tagify__tag"
+                        ${this.getAttributes(recipe)}>
+                    <x title='' class='tagify__tag__removeBtn' role='button' aria-label='remove tag'></x>
+                    <div>
+                        <span class='tagify__tag-text'>${recipe.name}</span>
                     </div>
-                `
-            }
+                </tag>
+            `
+        }
 
-            // Setup combobox for selecting/specifying ingredient/recipe/one off food
-            function tagTemplate(recipe) {
-                return `
-                    <tag title="${recipe.url}"
-                            contenteditable='false'
-                            spellcheck='false'
-                            tabIndex="-1"
-                            class="tagify__tag"
-                            ${this.getAttributes(recipe)}>
-                        <x title='' class='tagify__tag__removeBtn' role='button' aria-label='remove tag'></x>
-                        <div>
-                            <span class='tagify__tag-text'>${recipe.name}</span>
-                        </div>
-                    </tag>
-                `
+    let tagify = new Tagify(component, {
+        maxTags: 1,
+        whitelist: [],
+        templates: {
+            tag: tagTemplate,
+            dropdownItem: suggestionItemTemplate,
+            dropdownItemNoMatch: function (data) {
+                return `No match. Create one time entry for: ${data.value}`
             }
+        },
+        dropdown: {
+            enabled: 0,
+            searchKeys: ['name']
+        }
+    })
 
-        let tagify = new Tagify(component, {
-            maxTags: 1,
-            whitelist: [],
-            templates: {
-                tag: tagTemplate,
-                dropdownItem: suggestionItemTemplate,
-                dropdownItemNoMatch: function (data) {
-                    return `No match. Create one time entry for: ${data.value}`
-                }
-            },
-            dropdown: {
-                enabled: 0,
-                searchKeys: ['name']
-            }
-        })
-
-        // listen to any keystrokes which modify tagify's input
-        tagify.on('input', onInput)
+    // listen to any keystrokes which modify tagify's input
+    tagify.on('input', onInput)
 */
     let tagify = {}
 
@@ -133,8 +139,8 @@
             TODAY_AT: 'today-at',
             ON_DATETIME: 'on-datetime'
         },
-        text:{
-            changeTimeBtn:{
+        text: {
+            changeTimeBtn: {
                 'just-now': "Just now,",
                 'today-at': "Today at",
                 'on-datetime': "On",
@@ -146,65 +152,65 @@
         name: "diary",
         components: {InputFloat},
         inject: ['pants'],
-        data(){
-            return{
+        data() {
+            return {
                 staticVals: _static,
                 timeSpecificity: _static.timeSpecificity.JUST_NOW,
                 currentTarget: null
             }
         },
-        mounted(){
+        mounted() {
             // Get the user's current daily target so that we can normalize all charts
-        /* @todo figure out how to handle Chart, or if I really want it.
-            this.pants.get_target()
-                .then(resp=>this.currentTarget=resp.results)
-                .then(()=>{
-                    this.pants.get_diaryfood()
-                    .then(()=> {
-                        // Convert the response into a graphable set of categories.
-                        var ctx = document.getElementById('chart').getContext('2d');
-                        new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                datasets: [{
-                                    label: '# of Votes',
-                                    data: [12, 19, 3, 5, 2, 3],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)',
-                                        'rgba(255, 159, 64, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                maintainAspectRatio: false,
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
+            /* @todo figure out how to handle Chart, or if I really want it.
+                this.pants.get_target()
+                    .then(resp=>this.currentTarget=resp.results)
+                    .then(()=>{
+                        this.pants.get_diaryfood()
+                        .then(()=> {
+                            // Convert the response into a graphable set of categories.
+                            var ctx = document.getElementById('chart').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                    datasets: [{
+                                        label: '# of Votes',
+                                        data: [12, 19, 3, 5, 2, 3],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
                                     }]
-                                }
-                            },
-                        });
+                                },
+                                options: {
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
+                                },
+                            });
+                        })
                     })
-                })
-            */
+                */
         },
-        methods:{
+        methods: {
             onInput(e) {
                 var value = e.detail.value;
                 tagify.settings.whitelist.length = 0; // reset the whitelist
@@ -234,12 +240,12 @@
                         tagify.loading(false).dropdown.show.call(tagify, value); // render the suggestions dropdown
                     })
             },
-            create_diaryfood(){
+            create_diaryfood() {
                 let component_data = JSON.parse(component.value)[0];
                 this.pants.create_diaryfood({
-                    'start_time':(new Date(date.value + "T" + time.value)).toISOString(),
+                    'start_time': (new Date(date.value + "T" + time.value)).toISOString(),
                     // Set 'servings' or 'weight'
-                    [unit.value]:amount.value,
+                    [unit.value]: amount.value,
                     // Set 'of_ingredient' or 'of_recipe' or 'name' depending on what has been entered
                     [component_data.url === undefined
                         ? 'name'
@@ -251,10 +257,13 @@
             },
             // Setup progressively being able to specify more specifically when you ate the food
             change_time() {
-                if(this.timeSpecificity === _static.timeSpecificity.JUST_NOW){
+                if (this.timeSpecificity === _static.timeSpecificity.JUST_NOW) {
                     this.timeSpecificity = _static.timeSpecificity.TODAY_AT;
-                } else if (this.timeSpecificity === _static.timeSpecificity.TODAY_AT){
+                } else if (this.timeSpecificity === _static.timeSpecificity.TODAY_AT) {
                     this.timeSpecificity = _static.timeSpecificity.ON_DATETIME;
+                } else {
+                    this.timeSpecificity = _static.timeSpecificity.JUST_NOW;
+                    // @todo reset date, time to now
                 }
             },
         }
@@ -267,12 +276,12 @@
           integrity="sha512-hqxNYuIWMQISqScYH0xQ3i8kH4MMxhJYlp7mfYvBGJKSGyliqk7SXRK3MxBuUnSwA1XeV+S+y3ad4oF+xD6kpA=="
           crossorigin="anonymous"/>
      */
-#diary_entry_form > span
-        {
-            margin-left: 1em;
-            margin-right: 1em;
-        }
-    #chart-container{
+    #diary_entry_form > span {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+
+    #chart-container {
         width: 100%;
         height: 8em;
         position: relative;
