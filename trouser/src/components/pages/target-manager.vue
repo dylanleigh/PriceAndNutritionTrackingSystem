@@ -63,6 +63,25 @@
                         v-model="target.maximum[nutrient]"
                     ></input-float>
                 </div>
+
+                <button
+                        class="oneline dark"
+                        type="button"
+                        @click="createTarget"
+                >Create New
+                </button>
+                <button
+                        class="oneline dark"
+                        type="button"
+                        :disabled="!canEdit"
+                        @click="editTarget"
+                >Edit</button>
+                <button
+                        class="oneline dark"
+                        type="button"
+                        :disabled="!canDelete"
+                        @click="deleteTarget"
+                >Delete</button>
             </form>
         </div>
     </div>
@@ -159,6 +178,14 @@
                 }
             }
         },
+        computed:{
+            canEdit(){
+                return this.target.url != null;
+            },
+            canDelete(){
+                return this.target.url != null;
+            }
+        },
         methods: {
             onRowSelected(args) {
                 let target = args.data;
@@ -188,6 +215,22 @@
                 this.target.maximum.fibre = target.maximum.fibre;
                 this.target.maximum.sodium = target.maximum.sodium;
                 this.target.maximum.sugar = target.maximum.sugar;
+            },
+            createTarget(){
+                this.pants.Target.create({
+                    name: this.target.name,
+                    slug: this.target.slug,
+                    description: this.target.description,
+                    daily: this.target.daily,
+                    minimum: this.target.minimum,
+                    maximum: this.target.maximum,
+                })
+            },
+            editTarget(){
+
+            },
+            deleteTarget(){
+
             }
         }
     }

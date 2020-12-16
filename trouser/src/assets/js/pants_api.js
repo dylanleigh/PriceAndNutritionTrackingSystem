@@ -2,6 +2,35 @@
 * This is a connector for javascript to the PANTS api.
 */
 
+
+/**
+ * Target API subclass
+ */
+class Target {
+    /**
+     * Creates a target api subclass instance, with a fetch function from the PANTS API collection class
+     * @param {function} api_fetch_function The function to use when fetching data, takes a relative api location, and an object of fetch options
+     */
+    constructor(api_fetch_function){
+        this.fetch = api_fetch_function;
+    }
+
+    /**
+     * Creates a new target
+     * @param json_details {Object} The information for the target
+     */
+    async create(json_details){
+        return this.fetch('target/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json_details)
+        })
+            .then(resp => resp.json());
+    }
+}
+
 /**
  * Encompassing class for the API, manages connecting to the remote resource and ferrying results back
  */
@@ -217,7 +246,7 @@ class Pants {
 
     /**
      * Creates a new recipe
-     * @param json_details {Object} The information for the ingredient
+     * @param json_details {Object} The information for the target
      */
     async create_recipe(json_details){
         return this.authenticated_fetch(this.get_api_path('recipe/'), {
@@ -308,7 +337,7 @@ class Pants {
             .then(resp=>resp.json())
     }
 
-
+    Target = new Target((path, options)=>{return this.authenticated_fetch(this.get_api_path(path), options)})
 }
 
 export default Pants;
