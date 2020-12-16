@@ -6,7 +6,7 @@
                     id="time-text"
                     class="text-only"
                     type="button"
-                    @click="change_time"
+                    @click="changeTime"
             >{{staticVals.text.changeTimeBtn[timeSpecificity]}}</button>
             <div class="float_input-group" v-show="timeSpecificity!==staticVals.timeSpecificity.JUST_NOW">
                 <input-float
@@ -45,13 +45,48 @@
                     label="Food"
                     type="select"
                     :hide-default-option="true"
+                    v-model="entryType"
             >
-                <option value="recipe">Recipe</option>
-                <option value="ingredient">Ingredient</option>
-                <option value="one-off">One-off Food</option>
+                <option :value="staticVals.entryType.RECIPE">Recipe</option>
+                <option :value="staticVals.entryType.INGREDIENT">Ingredient</option>
+                <option :value="staticVals.entryType.ONE_OFF_FOOD">One-off Food</option>
             </input-float>
-            <button class="dark" type="button" onclick="create_diaryfood()">Add</button>
+            <button class="dark" type="button" onclick="createDiaryFood()">Add</button>
         </form>
+
+        <div v-show="entryType === staticVals.entryType.RECIPE" class="food-selection">
+            <ag-grid-vue
+                    id="all_recipes_table"
+                    class="ag-theme-balham recipe-grid"
+                    :gridOptions="recipeGrid.gridOptions"
+                    :frameworkComponents="recipeGrid.frameworkComponents"
+                    :columnDefs="recipeGrid.columnDefs"
+                    :defaultColDef="recipeGrid.defaultColDef"
+                    :rowModelType="recipeGrid.rowModelType"
+                    :rowSelection="recipeGrid.rowSelection"
+                    :pagination="recipeGrid.pagination"
+                    :paginationAutoPageSize="recipeGrid.paginationAutoPageSize"
+                    :datasource="recipeGrid.datasource"
+                    @row-selected="onRecipeRowSelected"
+            ></ag-grid-vue>
+        </div>
+        <div v-show="entryType === staticVals.entryType.INGREDIENT" class="food-selection">
+            <ag-grid-vue
+                    id="ingredients"
+                    class="ag-theme-balham ingredient-grid"
+                    :gridOptions="componentsGrid.gridOptions"
+                    :frameworkComponents="componentsGrid.frameworkComponents"
+                    :columnDefs="componentsGrid.columnDefs"
+                    :defaultColDef="componentsGrid.defaultColDef"
+                    :rowModelType="componentsGrid.rowModelType"
+                    :pagination="componentsGrid.pagination"
+                    :paginationAutoPageSize="componentsGrid.paginationAutoPageSize"
+                    :datasource="componentsGrid.datasource"
+            ></ag-grid-vue>
+        </div>
+        <div v-show="entryType === staticVals.entryType.ONE_OFF_FOOD" class="food-selection">
+            <p>One Off</p>
+        </div>
     </div>
 </template>
 
@@ -67,6 +102,13 @@
     // Setup variables to access form inputs
 
     import InputFloat from "@/components/inputs/input-float";
+    import ActionButtonCellRenderer from "@/components/cell-renderers/action-button";
+
+
+    import {AgGridVue} from 'ag-grid-vue';
+
+    import "ag-grid-community/dist/styles/ag-grid.css";
+    import "ag-grid-community/dist/styles/ag-theme-balham.css";
 
     let date = document.getElementById('date');
     let time = document.getElementById('time');
@@ -82,56 +124,6 @@
             time.valueAsDate = userDate;
             */
 
-    /* @todo figure out how to deal with tagify, or if I really want that.
-        function suggestionItemTemplate(recipe) {
-            return `
-                <div ${this.getAttributes(recipe)}
-                    class='tagify__dropdown__item'
-                    tabindex="0"
-                    role="option">
-                    <strong>${recipe.name}</strong>
-                </div>
-            `
-        }
-
-        // Setup combobox for selecting/specifying ingredient/recipe/one off food
-        function tagTemplate(recipe) {
-            return `
-                <tag title="${recipe.url}"
-                        contenteditable='false'
-                        spellcheck='false'
-                        tabIndex="-1"
-                        class="tagify__tag"
-                        ${this.getAttributes(recipe)}>
-                    <x title='' class='tagify__tag__removeBtn' role='button' aria-label='remove tag'></x>
-                    <div>
-                        <span class='tagify__tag-text'>${recipe.name}</span>
-                    </div>
-                </tag>
-            `
-        }
-
-    let tagify = new Tagify(component, {
-        maxTags: 1,
-        whitelist: [],
-        templates: {
-            tag: tagTemplate,
-            dropdownItem: suggestionItemTemplate,
-            dropdownItemNoMatch: function (data) {
-                return `No match. Create one time entry for: ${data.value}`
-            }
-        },
-        dropdown: {
-            enabled: 0,
-            searchKeys: ['name']
-        }
-    })
-
-    // listen to any keystrokes which modify tagify's input
-    tagify.on('input', onInput)
-*/
-    let tagify = {}
-
     const _static = {
         // Enum describing how specific the user wants to be when specifying the time of an entry
         timeSpecificity: {
@@ -145,102 +137,158 @@
                 'today-at': "Today at",
                 'on-datetime': "On",
             }
+        },
+        units:{
+            cost: '$',
+            kilojoules: 'kcal',
+            protein: 'g',
+            carbohydrate: 'g',
+            fat: 'g',
+            saturatedfat: 'g',
+            fibre: 'g',
+            sodium: 'mg',
+            sugar: 'g',
+        },
+        entryType:{
+            RECIPE: "recipe",
+            INGREDIENT: "ingredient",
+            ONE_OFF_FOOD: "one-off-food"
         }
     }
 
     export default {
         name: "diary",
-        components: {InputFloat},
+        components: {InputFloat, AgGridVue},
         inject: ['pants'],
         data() {
             return {
                 staticVals: _static,
                 timeSpecificity: _static.timeSpecificity.JUST_NOW,
-                currentTarget: null
+                // The users current daily target, by which all nutrient amounts are compared
+                currentTarget: null,
+                entryType: "recipe",
+                // The currently input one off food values
+                // @todo this is the same nutrient set as for target
+                oneOffFood:{
+                    cost: null,
+                    kilojoules: null,
+                    protein: null,
+                    carbohydrate: null,
+                    fat: null,
+                    saturatedfat: null,
+                    fibre: null,
+                    sodium: null,
+                    sugar: null,
+                },
+                recipeGrid: {
+                    gridOptions: {},
+                    frameworkComponents: {
+                        actionsCell: ActionButtonCellRenderer,
+                    },
+                    columnDefs: [
+                        {headerName: "Name", field: "name"},
+                        {headerName: "Description", field: "description"},
+                        {headerName: "Serves", field: "serves"},
+                        {headerName: "Notes", field: "notes"},
+                        {
+                            headerName: "Actions",
+                            cellRenderer: "actionsCell",
+                            cellRendererParams: {
+                                onClick: recipe => {
+                                    this.add_component(
+                                        "recipe",
+                                        undefined, // There is no database id since this is a newly added component
+                                        recipe.url.split("/").slice(-2)[0],
+                                        recipe.name,
+                                        "",
+                                        "servings");
+                                },
+                                icon: "carrot"
+                            },
+                            cellStyle: {"padding": "0"},
+                            maxWidth: 25
+                        }
+                    ],
+                    defaultColDef: {
+                        flex: 1,
+                        sortable: true,
+                        resizable: true,
+                    },
+                    rowModelType: 'infinite',
+                    rowSelection: 'single',
+                    pagination: true,
+                    paginationAutoPageSize: true,
+                    // Set up the grid to paginate using the server side API
+                    datasource: {
+                        getRows: async params => {
+                            // params.searchKey = document.querySelector('#recipe_filter').value;
+                            let response = await this.pants.get_recipes(params);
+
+                            if (response.ok) {
+                                let data = await response.json();
+                                params.successCallback(data['results'], data['count'])
+                            } else {
+                                params.failCallback();
+                            }
+                        }
+                    }
+                },
+                componentsGrid: {
+                    gridOptions: {},
+                    frameworkComponents: {
+                        actionsCell: ActionButtonCellRenderer,
+                    },
+                    columnDefs: [
+                        {headerName: "Name", field: "name"},
+                        {headerName: "Description", field: "description"},
+                        {headerName: "Serving", field: "serving"},
+                        {headerName: "Notes", field: "notes"},
+                        {
+                            headerName: "Actions",
+                            cellRenderer: "actionsCell",
+                            cellRendererParams: {
+                                onClick: ingredient => {
+                                    this.add_component(
+                                        "ingredient",
+                                        undefined, // There is no database id since this is a newly added component
+                                        ingredient.url.split("/").slice(-2)[0],
+                                        ingredient.name,
+                                        "",
+                                        "weight");
+                                },
+                                icon: "carrot"
+                            },
+                            cellStyle: {"padding": "0"},
+                            maxWidth: 25
+                        }
+                    ],
+                    defaultColDef: {
+                        flex: 1,
+                        sortable: true,
+                        resizable: true,
+                    },
+                    rowModelType: 'infinite',
+                    pagination: true,
+                    paginationAutoPageSize: true,
+                    // Set up the grid to paginate using the server side API
+                    datasource: {
+                        getRows: async params => {
+                            //params.searchKey = document.querySelector('#ingredient_filter').value;
+                            let response = await this.pants.get_ingredients(params);
+
+                            if (response.ok) {
+                                let data = await response.json();
+                                params.successCallback(data.results, data.count)
+                            } else {
+                                params.failCallback();
+                            }
+                        }
+                    }
+                },
             }
         },
-        mounted() {
-            // Get the user's current daily target so that we can normalize all charts
-            /* @todo figure out how to handle Chart, or if I really want it.
-                this.pants.get_target()
-                    .then(resp=>this.currentTarget=resp.results)
-                    .then(()=>{
-                        this.pants.get_diaryfood()
-                        .then(()=> {
-                            // Convert the response into a graphable set of categories.
-                            var ctx = document.getElementById('chart').getContext('2d');
-                            new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                    datasets: [{
-                                        label: '# of Votes',
-                                        data: [12, 19, 3, 5, 2, 3],
-                                        backgroundColor: [
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(255, 206, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgba(255, 99, 132, 1)',
-                                            'rgba(54, 162, 235, 1)',
-                                            'rgba(255, 206, 86, 1)',
-                                            'rgba(75, 192, 192, 1)',
-                                            'rgba(153, 102, 255, 1)',
-                                            'rgba(255, 159, 64, 1)'
-                                        ],
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    maintainAspectRatio: false,
-                                    scales: {
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero: true
-                                            }
-                                        }]
-                                    }
-                                },
-                            });
-                        })
-                    })
-                */
-        },
         methods: {
-            onInput(e) {
-                var value = e.detail.value;
-                tagify.settings.whitelist.length = 0; // reset the whitelist
-
-                // https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
-                // let controller; // for aborting the call, originally this was outside of the function.
-                //controller && controller.abort();
-                //controller = new AbortController();
-
-                // show loading animation and hide the suggestions dropdown
-                tagify.loading(true).dropdown.hide.call(tagify);
-
-                this.pants.get_recipes({
-                    startRow: 0,
-                    endRow: 5,
-                    searchKey: value,
-                })
-                    .then(RES => RES.json())
-                    .then(function (response) {
-                        // Give each recipe a 'value' that Tagify will use and the API will understand
-                        let results = response.results.map(recipe => {
-                            recipe['value'] = recipe['url'];
-                            return recipe
-                        })
-                        // update whitelist Array in-place
-                        tagify.settings.whitelist.splice(0, results.length, ...results)
-                        tagify.loading(false).dropdown.show.call(tagify, value); // render the suggestions dropdown
-                    })
-            },
-            create_diaryfood() {
+            createDiaryFood() {
                 let component_data = JSON.parse(component.value)[0];
                 this.pants.create_diaryfood({
                     'start_time': (new Date(date.value + "T" + time.value)).toISOString(),
@@ -256,7 +304,7 @@
                 })
             },
             // Setup progressively being able to specify more specifically when you ate the food
-            change_time() {
+            changeTime() {
                 if (this.timeSpecificity === _static.timeSpecificity.JUST_NOW) {
                     this.timeSpecificity = _static.timeSpecificity.TODAY_AT;
                 } else if (this.timeSpecificity === _static.timeSpecificity.TODAY_AT) {
@@ -266,6 +314,9 @@
                     // @todo reset date, time to now
                 }
             },
+            onRecipeRowSelected(args) {
+                console.log(args);
+            }
         }
     }
 </script>
@@ -285,5 +336,17 @@
         width: 100%;
         height: 8em;
         position: relative;
+    }
+    .diary{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .food-selection{
+            flex: 1;
+            .recipe-grid,.ingredient-grid{
+                height: 100%;
+            }
+        }
     }
 </style>
