@@ -227,7 +227,7 @@
                     name: this.target.name,
                     slug: this.target.slug,
                     description: this.target.description,
-                    daily: this.target.daily,
+                    daily_target: this.target.daily,
                     minimum: this.target.minimum,
                     maximum: this.target.maximum,
                 })
@@ -240,7 +240,7 @@
                     name: this.target.name,
                     slug: this.target.slug,
                     description: this.target.description,
-                    daily: this.target.daily,
+                    daily_target: this.target.daily,
                     minimum: this.target.minimum,
                     maximum: this.target.maximum,
                 }).then(resp => {
