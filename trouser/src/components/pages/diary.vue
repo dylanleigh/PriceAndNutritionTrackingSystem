@@ -68,7 +68,7 @@
                     :paginationAutoPageSize="recipeGrid.paginationAutoPageSize"
                     :datasource="recipeGrid.datasource"
                     @row-selected="onRecipeRowSelected"
-            ></ag-grid-vue>
+            />
         </div>
         <div v-show="entryType === staticVals.entryType.INGREDIENT" class="food-selection">
             <ag-grid-vue
@@ -82,23 +82,25 @@
                     :pagination="componentsGrid.pagination"
                     :paginationAutoPageSize="componentsGrid.paginationAutoPageSize"
                     :datasource="componentsGrid.datasource"
-            ></ag-grid-vue>
+            />
         </div>
         <div v-show="entryType === staticVals.entryType.ONE_OFF_FOOD" class="food-selection">
-            <p>One Off</p>
+            <div v-for="nutrient in Object.keys(oneOffFood)"
+                    :key="nutrient"
+                 class="nutrient-input"
+            >
+                <fa-icon :icon="['fas', staticVals.icons.nutrients[nutrient]]" fixedWidth/>
+                <input-float
+                        :id="nutrient"
+                        :label="`${nutrient} (${staticVals.units[nutrient]})`"
+                        v-model="oneOffFood[nutrient]"
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    /*
-{#    TODO: Is this necessary? We don't really need time conversion between timezones if we can help it#}
-    {#    script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/1.24.1/luxon.min.js" integrity="sha512-IdHIbxMZbKEa2OSI0CcqlrgENti38ygeddwz6wOwjzSWygIYeJvHkvU1EFBCT1L471JM2QX36y8exP2QhgcB3A==" crossorigin="anonymous">/script>#}
-    script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.17.7/tagify.min.js"
-            integrity="sha512-Kngmb6PkMXOkg76SHxpcsy2HQasqClt4KKl7jUe5IuG+Jg7l8PSjXtPNHKE+8wBIHARedIiOEqaca+hZQIzD/A=="
-            crossorigin="anonymous"> /script>
-    script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js">/script>
-     */
     // Setup variables to access form inputs
 
     import InputFloat from "@/components/inputs/input-float";
@@ -136,6 +138,19 @@
                 'just-now': "Just now,",
                 'today-at': "Today at",
                 'on-datetime': "On",
+            }
+        },
+        icons:{
+            nutrients:{
+                cost:"money-bill-alt",
+                kilojoules:"bolt",
+                protein:"egg",
+                carbohydrate:"bread-slice",
+                fat:"tint",
+                saturatedfat:"tint-slash",
+                fibre:"seedling",
+                sodium:"stroopwafel",
+                sugar:"cubes",
             }
         },
         units:{
@@ -347,6 +362,11 @@
             .recipe-grid,.ingredient-grid{
                 height: 100%;
             }
+        }
+
+        .nutrient-input{
+            display: flex;
+            align-items: center;
         }
     }
 </style>
