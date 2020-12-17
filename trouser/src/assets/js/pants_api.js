@@ -58,6 +58,16 @@ class Target {
             method: 'DELETE',
         })
     }
+
+    /**
+     * Gets the daily target for the current user
+     * @return {object} the object specifying the daily target
+     */
+    async getDaily(){
+        // Send the command to delete the recipe using the api
+        return this.fetch(this.api_prefix('daily_target'))
+            .then(resp=>resp.json());
+    }
 }
 
 /**

@@ -55,9 +55,11 @@
         </form>
 
         <target-summary
-            :value="5"
-            :target-max-value="7"
-            :target-min-value="4"
+                v-for="nutrient in Object.keys(staticVals.nutrientValues)"
+                :key="nutrient"
+                :value="0"
+                :target-min-value="dailyTarget.min[nutrient]"
+                :target-max-value="dailyTarget.max[nutrient]"
         ></target-summary>
         <div v-show="entryType === staticVals.entryType.RECIPE" class="food-selection">
             <ag-grid-vue
@@ -91,7 +93,7 @@
         </div>
         <div v-show="entryType === staticVals.entryType.ONE_OFF_FOOD" class="food-selection">
             <div v-for="nutrient in Object.keys(oneOffFood)"
-                    :key="nutrient"
+                 :key="nutrient"
                  class="nutrient-input"
             >
                 <fa-icon :icon="['fas', staticVals.icons.nutrients[nutrient]]" fixedWidth/>
@@ -146,20 +148,20 @@
                 'on-datetime': "On",
             }
         },
-        icons:{
-            nutrients:{
-                cost:"money-bill-alt",
-                kilojoules:"bolt",
-                protein:"egg",
-                carbohydrate:"bread-slice",
-                fat:"tint",
-                saturatedfat:"tint-slash",
-                fibre:"seedling",
-                sodium:"stroopwafel",
-                sugar:"cubes",
+        icons: {
+            nutrients: {
+                cost: "money-bill-alt",
+                kilojoules: "bolt",
+                protein: "egg",
+                carbohydrate: "bread-slice",
+                fat: "tint",
+                saturatedfat: "tint-slash",
+                fibre: "seedling",
+                sodium: "stroopwafel",
+                sugar: "cubes",
             }
         },
-        units:{
+        units: {
             cost: '$',
             kilojoules: 'kcal',
             protein: 'g',
@@ -170,11 +172,22 @@
             sodium: 'mg',
             sugar: 'g',
         },
-        entryType:{
+        entryType: {
             RECIPE: "recipe",
             INGREDIENT: "ingredient",
             ONE_OFF_FOOD: "one-off-food"
-        }
+        },
+        nutrientValues: {
+        cost: null,
+        kilojoules: null,
+        protein: null,
+        carbohydrate: null,
+        fat: null,
+        saturatedfat: null,
+        fibre: null,
+        sodium: null,
+        sugar: null,
+    }
     }
 
     export default {
@@ -190,17 +203,7 @@
                 entryType: "recipe",
                 // The currently input one off food values
                 // @todo this is the same nutrient set as for target
-                oneOffFood:{
-                    cost: null,
-                    kilojoules: null,
-                    protein: null,
-                    carbohydrate: null,
-                    fat: null,
-                    saturatedfat: null,
-                    fibre: null,
-                    sodium: null,
-                    sugar: null,
-                },
+                oneOffFood: {..._static.nutrientValues},
                 recipeGrid: {
                     gridOptions: {},
                     frameworkComponents: {
@@ -306,7 +309,21 @@
                         }
                     }
                 },
+                dailyTarget: {
+                    min: {..._static.nutrientValues},
+                    max: {..._static.nutrientValues}
+                }
             }
+        },
+        beforeMount(){
+            this.pants.Target.getDaily()
+            .then(resp=> {
+                let target = resp.results[0];
+                for(let nutrient of Object.keys(this.staticVals.nutrientValues)){
+                    this.dailyTarget.max[nutrient] = parseFloat(target.maximum[nutrient]) || 0;
+                    this.dailyTarget.min[nutrient] = parseFloat(target.minimum[nutrient]) || 0;
+                }
+            });
         },
         methods: {
             createDiaryFood() {
@@ -358,19 +375,21 @@
         height: 8em;
         position: relative;
     }
-    .diary{
+
+    .diary {
         height: 100%;
         display: flex;
         flex-direction: column;
 
-        .food-selection{
+        .food-selection {
             flex: 1;
-            .recipe-grid,.ingredient-grid{
+
+            .recipe-grid, .ingredient-grid {
                 height: 100%;
             }
         }
 
-        .nutrient-input{
+        .nutrient-input {
             display: flex;
             align-items: center;
         }

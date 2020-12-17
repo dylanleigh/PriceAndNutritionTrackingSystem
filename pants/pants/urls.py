@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from rest_framework import routers
 
-from targets.views import TargetViewSet
+from targets.views import TargetViewSet, DailyTargetViewSet
 from website import views as website
 
 # Viewsets for API added here, not in included 'app.urls' links
@@ -37,6 +37,7 @@ router.register(r'recipe_tag', RecipeTagViewSet, 'recipe_tag')
 router.register(r'recipe_flag', RecipeFlagViewSet, 'recipe_flag')
 router.register(r'diaryfood', DiaryFoodViewSet, 'diaryfood')
 router.register(r'target', TargetViewSet, 'target')
+router.register(r'daily_target', DailyTargetViewSet, 'daily_target')
 router.register(r'user', UserViewSet, 'user')
 
 urlpatterns = [

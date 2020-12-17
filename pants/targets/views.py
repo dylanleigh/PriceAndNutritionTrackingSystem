@@ -39,3 +39,16 @@ class TargetViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
        user = self.request.user
        return Target.objects.filter(user=user)
+
+class DailyTargetViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint to get current daily target
+    """
+    serializer_class = TargetSerializer
+    permission_classes = [permissions.DjangoModelPermissions]
+    queryset = Target.objects.none()  # Required for DjangoModelPermissions to get Model
+
+    def get_queryset(self):
+       user = self.request.user
+       # @todo how to return just the exact daily target, or limit the results to 1
+       return Target.objects.filter(user=user, daily_target=True)
