@@ -54,6 +54,11 @@
             <button class="dark" type="button" onclick="createDiaryFood()">Add</button>
         </form>
 
+        <target-summary
+            :value="5"
+            :target-max-value="7"
+            :target-min-value="4"
+        ></target-summary>
         <div v-show="entryType === staticVals.entryType.RECIPE" class="food-selection">
             <ag-grid-vue
                     id="all_recipes_table"
@@ -111,6 +116,7 @@
 
     import "ag-grid-community/dist/styles/ag-grid.css";
     import "ag-grid-community/dist/styles/ag-theme-balham.css";
+    import TargetSummary from "@/components/informational/target-summary";
 
     let date = document.getElementById('date');
     let time = document.getElementById('time');
@@ -173,7 +179,7 @@
 
     export default {
         name: "diary",
-        components: {InputFloat, AgGridVue},
+        components: {TargetSummary, InputFloat, AgGridVue},
         inject: ['pants'],
         data() {
             return {
