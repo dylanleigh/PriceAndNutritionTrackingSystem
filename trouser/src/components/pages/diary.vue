@@ -1,48 +1,46 @@
 <template>
     <div :class="$options.name">
         <form id="diary_entry_form" class="flex-row-start">
-        <span>
             <button
                     id="time-text"
                     class="text-only"
                     type="button"
                     @click="changeTime"
             >{{staticVals.text.changeTimeBtn[timeSpecificity]}}</button>
-            <div class="float_input-group" v-show="timeSpecificity!==staticVals.timeSpecificity.JUST_NOW">
-                <input-float
-                        id="date"
-                        label="Date"
-                        type="date"
-                        v-show="timeSpecificity!==staticVals.timeSpecificity.TODAY_AT"
-                ></input-float>
-                <input-float
-                        id="time"
-                        label="Time"
-                        type="time"
-                ></input-float>
-            </div>
-            <span>I ate</span>
-        </span>
 
-            <div class="float_input-group">
-                <input-float
-                        id="amount"
-                        label="Amount"
-                        :extra="{style:'text-align:right;max-width:6em'}"
-                ></input-float>
-                <input-float
-                        id="unit"
-                        label="Unit"
-                        type="select"
-                >
-                    <option value="weight">Grams</option>
-                    <option value="servings">Servings</option>
-                </input-float>
-            </div>
+            <input-float
+                    id="date"
+                    label="Date"
+                    type="date"
+                    v-show="timeSpecificity===staticVals.timeSpecificity.ON_DATETIME"
+            />
+            <input-float
+                    id="time"
+                    label="Time"
+                    type="time"
+                    v-show="timeSpecificity!==staticVals.timeSpecificity.JUST_NOW"
+            />
+
+            <span>I ate</span>
+
+            <input-float
+                    id="amount"
+                    label="Amount"
+                    :extra="{style:'text-align:right;max-width:6em'}"
+            />
+            <input-float
+                    id="unit"
+                    label="Unit"
+                    type="select"
+            >
+                <option value="weight">Grams</option>
+                <option value="servings">Servings</option>
+            </input-float>
+
             <span>of</span>
+
             <input-float
                     id="entry-type"
-                    label="Food"
                     type="select"
                     :hide-default-option="true"
                     v-model="entryType"
@@ -51,22 +49,23 @@
                 <option :value="staticVals.entryType.INGREDIENT">Ingredient</option>
                 <option :value="staticVals.entryType.ONE_OFF_FOOD">One-off Food</option>
             </input-float>
+
             <button class="dark" type="button" onclick="createDiaryFood()">Add</button>
         </form>
 
         <div class="nutrientTargets">
             <div
-                v-for="nutrient in Object.keys(staticVals.nutrientValues)"
-                :key="nutrient"
-                class="dailyTargetNutrient"
-        >
+                    v-for="nutrient in Object.keys(staticVals.nutrientValues)"
+                    :key="nutrient"
+                    class="dailyTargetNutrient"
+            >
                 <fa-icon :icon="['fas', staticVals.icons.nutrients[nutrient]]" fixedWidth/>
-            <label>{{nutrient}}</label>
-            <target-summary
-                :value="diaryFoodNutrientTotals[nutrient] || 0"
-                :target-min-value="dailyTarget.min[nutrient] || 0"
-                :target-max-value="dailyTarget.max[nutrient] || 0"/>
-        </div>
+                <label>{{nutrient}}</label>
+                <target-summary
+                        :value="diaryFoodNutrientTotals[nutrient] || 0"
+                        :target-min-value="dailyTarget.min[nutrient] || 0"
+                        :target-max-value="dailyTarget.max[nutrient] || 0"/>
+            </div>
         </div>
 
 
@@ -324,38 +323,38 @@
                     max: {..._static.nutrientValues}
                 },
                 // All the foods eaten in the last 24 hours
-                diaryFoods:[]
+                diaryFoods: []
             }
         },
-        beforeMount(){
+        beforeMount() {
             this.pants.Target.getDaily()
-            .then(resp=> {
-                let target = resp.results[0];
-                for(let nutrient of Object.keys(this.staticVals.nutrientValues)){
-                    this.dailyTarget.max[nutrient] = parseFloat(target.maximum[nutrient]) || 0;
-                    this.dailyTarget.min[nutrient] = parseFloat(target.minimum[nutrient]) || 0;
-                }
-            });
+                .then(resp => {
+                    let target = resp.results[0];
+                    for (let nutrient of Object.keys(this.staticVals.nutrientValues)) {
+                        this.dailyTarget.max[nutrient] = parseFloat(target.maximum[nutrient]) || 0;
+                        this.dailyTarget.min[nutrient] = parseFloat(target.minimum[nutrient]) || 0;
+                    }
+                });
             // Get all DiaryFood entries for the last 24 hours
-            const yesterday = (new Date((new Date()) - 24*60*60*1000)).toISOString().replace('T', ' ');
+            const yesterday = (new Date((new Date()) - 24 * 60 * 60 * 1000)).toISOString().replace('T', ' ');
             this.pants.DiaryFood.get_all({
-                filterDict:{
-                    'start_time':['gte', yesterday]
+                filterDict: {
+                    'start_time': ['gte', yesterday]
                 }
-            }).then(resp=>{
+            }).then(resp => {
                 this.diaryFoods = resp.results;
             })
         },
-        computed:{
+        computed: {
             /**
              * The totals for each nutrient we are tracking
              * @returns {{}}
              */
-            diaryFoodNutrientTotals(){
+            diaryFoodNutrientTotals() {
                 let totals = {...this.staticVals.nutrientValues};
-                this.diaryFoods.forEach(entry=>{
-                    for(let nutrient of Object.keys(totals)){
-                        if(totals[nutrient] == null) totals[nutrient] = 0;
+                this.diaryFoods.forEach(entry => {
+                    for (let nutrient of Object.keys(totals)) {
+                        if (totals[nutrient] == null) totals[nutrient] = 0;
                         totals[nutrient] += parseFloat(entry[nutrient]) || 0;
                     }
                 })
@@ -402,10 +401,6 @@
           integrity="sha512-hqxNYuIWMQISqScYH0xQ3i8kH4MMxhJYlp7mfYvBGJKSGyliqk7SXRK3MxBuUnSwA1XeV+S+y3ad4oF+xD6kpA=="
           crossorigin="anonymous"/>
      */
-    #diary_entry_form > span {
-        margin-left: 1em;
-        margin-right: 1em;
-    }
 
     #chart-container {
         width: 100%;
@@ -417,6 +412,13 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+
+        #diary_entry_form{
+            display: flex;
+            >*:not(:last-child){
+                margin-right: 0.5em;
+            }
+        }
 
         .food-selection {
             flex: 1;
@@ -431,11 +433,12 @@
             align-items: center;
         }
 
-        .nutrientTargets{
+        .nutrientTargets {
             display: grid;
             grid-template-columns: max-content max-content 1fr;
             grid-gap: 0.5em;
-            .dailyTargetNutrient{
+
+            .dailyTargetNutrient {
                 display: contents;
             }
         }

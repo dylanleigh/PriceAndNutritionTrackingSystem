@@ -21,6 +21,7 @@
                 v-bind="extra"
                 v-model="content"
                 :data-picked_option="content"
+                :data-has-label="!!label"
                 @change="handleInput">
             <option value="" :hidden="hideDefaultOption" v-if="label">{{label}}</option>
             <slot></slot>
@@ -139,12 +140,14 @@
             }
         },
         watch: {
-            value(newVal) {
-                if(this.input_mask){
-                    this.input_mask.unmaskedValue = newVal;
-                }
-                else{
-                    this.content = newVal;
+            value: {
+                immediate: true,
+                handler: function (newVal) {
+                    if (this.input_mask) {
+                        this.input_mask.unmaskedValue = newVal ?? "";
+                    } else {
+                        this.content = newVal ?? "";
+                    }
                 }
             }
         },
@@ -245,6 +248,9 @@
                 padding: calc(var(--label-spacing) / 2 - 1px) .5em calc(var(--label-spacing) / 2 - 1px);
                 /* Any option with a value of "" will be considered unpicked, and thus should look like the placeholder */
                 color: grey;
+            }
+            &:not([data-has-label]){
+                padding: calc(var(--label-spacing) / 2 - 1px) .5em calc(var(--label-spacing) / 2 - 1px);
             }
         }
 
