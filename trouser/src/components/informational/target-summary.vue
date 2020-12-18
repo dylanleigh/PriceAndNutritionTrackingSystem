@@ -13,7 +13,7 @@ Component used to display a value in the context of a target range min and max v
     >
         <p
                 class="current-value"
-        >{{value}}</p>
+        >{{displayValue}}</p>
         <p
                 class="min-value"
                 :style="{left: `${percentMin * 100}%`}"
@@ -24,13 +24,14 @@ Component used to display a value in the context of a target range min and max v
                 v-show="showDetail"
         >{{targetMaxValue}}</p>
         <div class="bar" :class="{
-            under: value < targetMinValue,
-            reached: value >= targetMinValue && value <= targetMaxValue,
-            over: value > targetMaxValue}">
+            under: displayValue < targetMinValue,
+            reached: displayValue >= targetMinValue && value <= targetMaxValue,
+            over: displayValue > targetMaxValue}">
             <div class="value-portion" :style="{flexGrow: percentValue}"></div>
-            <div class="remaining-portion" :style="{flexGrow: 1 - percentValue}"></div>
+            <div class="proposed-portion" :style="{flexGrow: percentProposed}"></div>
+            <div class="remaining-portion" :style="{flexGrow: percentRemaining}"></div>
             <div class="min-val-tick" :style="{left: `${percentMin * 100}%`, transform: percentMin >= 1 ? 'translateX(-200%)' : false}"></div>
-            <div class="max-val-tick"></div>
+            <div class="max-val-tick" :style="{left: `${percentMax * 100}%`, transform: 'translateX(-100%)'}"></div>
         </div>
     </div>
 </template>
@@ -50,7 +51,14 @@ Component used to display a value in the context of a target range min and max v
             targetMaxValue: {
                 type: Number,
                 required: true
-            }
+            },
+            // A proposed relative amount (e.g. +2, -3, etc). If set, the value shown will be the value + proposedChange
+            // and what proportions of the total value are the original value and proposed change will be made obvious
+            // @todo support negative changes better
+            proposedChange: {
+                type: [Number, null],
+                default: null
+            },
         },
         data() {
             return {
@@ -61,11 +69,28 @@ Component used to display a value in the context of a target range min and max v
             }
         },
         computed: {
+            // Determines the actual shown value, including any proposed change
+            displayValue(){
+                return this.value + (this.proposedChange || 0);
+            },
+            // Gets the largest value we consider, whether that's one of the targets, or the displayValue itself
+            largestValue(){
+                return Math.max(this.displayValue, this.targetMaxValue, this.targetMinValue)
+            },
             percentValue() {
-                return this.value / this.targetMaxValue;
+                return this.value / this.largestValue;
+            },
+            percentProposed() {
+                return this.proposedChange / this.largestValue;
+            },
+            percentRemaining() {
+                return 1 - (this.displayValue / this.largestValue);
             },
             percentMin(){
-                return this.targetMinValue / this.targetMaxValue;
+                return this.targetMinValue / this.largestValue;
+            },
+            percentMax(){
+                return this.targetMaxValue / this.largestValue;
             },
             /**
              * Determines if greater detail should be shown for this component
@@ -88,11 +113,19 @@ Component used to display a value in the context of a target range min and max v
             .value-portion {
                 background: black;
                 height: var(--bar-height);
+                transition: all 0.3s;
+            }
+
+            .proposed-portion {
+                background: rgba(0, 0, 0, 0.5);
+                height: var(--bar-height);
+                transition: all 0.3s;
             }
 
             .remaining-portion {
                 background: rgba(0, 0, 0, 0.2);
                 height: var(--bar-height);
+                transition: all 0.3s;
             }
 
             .min-val-tick, .max-val-tick {
@@ -102,6 +135,7 @@ Component used to display a value in the context of a target range min and max v
                 height: 1em;
                 position: absolute;
                 bottom: var(--bar-height);
+                transition: all 0.3s;
             }
             .max-val-tick{
                 // We define the position from the left edge, but do not want to exceed outer edge of bar
@@ -110,28 +144,28 @@ Component used to display a value in the context of a target range min and max v
 
             &.under{
                 .value-portion{
-                    background: red;
+                    background: rgb(124, 105, 0);
                 }
-                .remaining-portion{
-                    background: rgba(255, 0, 0, 0.2);
+                .proposed-portion{
+                    background: rgba(124, 105, 0, 0.2);
                 }
             }
 
             &.reached{
                 .value-portion{
-                    background: green;
+                    background: rgb(36, 123, 0);
                 }
-                .remaining-portion{
-                    background: rgba(0, 255, 0, 0.2);
+                .proposed-portion{
+                    background: rgba(36, 123, 0, 0.5);
                 }
             }
 
             &.over{
                 .value-portion{
-                    background: yellow;
+                    background: rgb(210, 0, 50);
                 }
-                .remaining-portion{
-                    background: rgba(255, 255, 0, 0.2);
+                .proposed-portion{
+                    background: rgba(210, 0, 50, .5);
                 }
             }
         }

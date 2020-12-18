@@ -6,7 +6,8 @@
                     class="text-only"
                     type="button"
                     @click="changeTime"
-            >{{staticVals.text.changeTimeBtn[timeSpecificity]}}</button>
+            >{{staticVals.text.changeTimeBtn[timeSpecificity]}}
+            </button>
 
             <input-float
                     id="date"
@@ -63,6 +64,7 @@
                 <label>{{nutrient}}</label>
                 <target-summary
                         :value="diaryFoodNutrientTotals[nutrient] || 0"
+                        :proposed-change="oneOffFood[nutrient] || 0"
                         :target-min-value="dailyTarget.min[nutrient] || 0"
                         :target-max-value="dailyTarget.max[nutrient] || 0"/>
             </div>
@@ -389,7 +391,11 @@
                 }
             },
             onRecipeRowSelected(args) {
-                console.log(args);
+                // This event fires if a row is selected OR deselected, we only care if something gets selected
+                if (!args.node.selected) return;
+                for (const nutrient of Object.keys(this.oneOffFood)) {
+                    this.oneOffFood[nutrient] = parseFloat(args.data.nutrition_data[nutrient]) || 0;
+                }
             }
         }
     }
@@ -413,9 +419,10 @@
         display: flex;
         flex-direction: column;
 
-        #diary_entry_form{
+        #diary_entry_form {
             display: flex;
-            >*:not(:last-child){
+
+            > *:not(:last-child) {
                 margin-right: 0.5em;
             }
         }
