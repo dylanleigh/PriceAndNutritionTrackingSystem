@@ -7,9 +7,13 @@ Component used to display a value in the context of a target range min and max v
     <div
             :class="$options.name"
             :data-show-detail="showDetail"
-            @click="showDetail = !showDetail"
+            @click="forceDetail = !forceDetail"
+            @mouseover="hovering = true"
+            @mouseleave="hovering = false"
     >
-        <p>{{value}}</p>
+        <p
+                class="current-value"
+        >{{value}}</p>
         <p
                 class="min-value"
                 :style="{left: `${percentMin * 100}%`}"
@@ -19,10 +23,13 @@ Component used to display a value in the context of a target range min and max v
                 class="max-value"
                 v-show="showDetail"
         >{{targetMaxValue}}</p>
-        <div class="bar" :class="{under: value < targetMinValue, reached: value >= targetMinValue && value <= targetMaxValue, over: value > targetMaxValue}">
+        <div class="bar" :class="{
+            under: value < targetMinValue,
+            reached: value >= targetMinValue && value <= targetMaxValue,
+            over: value > targetMaxValue}">
             <div class="value-portion" :style="{flexGrow: percentValue}"></div>
             <div class="remaining-portion" :style="{flexGrow: 1 - percentValue}"></div>
-            <div class="min-val-tick" :style="{left: `${percentMin * 100}%`}"></div>
+            <div class="min-val-tick" :style="{left: `${percentMin * 100}%`, transform: percentMin >= 1 ? 'translateX(-200%)' : false}"></div>
             <div class="max-val-tick"></div>
         </div>
     </div>
@@ -48,7 +55,9 @@ Component used to display a value in the context of a target range min and max v
         data() {
             return {
                 // If true, the target value and other additional values will be shown
-                showDetail: false
+                forceDetail: false,
+                // If the summary currently has the mouse over it
+                hovering: false,
             }
         },
         computed: {
@@ -57,6 +66,12 @@ Component used to display a value in the context of a target range min and max v
             },
             percentMin(){
                 return this.targetMinValue / this.targetMaxValue;
+            },
+            /**
+             * Determines if greater detail should be shown for this component
+             */
+            showDetail(){
+                return this.forceDetail || this.hovering;
             }
         }
     }
@@ -84,11 +99,12 @@ Component used to display a value in the context of a target range min and max v
                 content: "";
                 background-color: black;
                 width: 1px;
-                height: calc(var(--bar-height) + 1em);
+                height: 1em;
                 position: absolute;
-                bottom: 0;
+                bottom: var(--bar-height);
             }
             .max-val-tick{
+                // We define the position from the left edge, but do not want to exceed outer edge of bar
                 right: 0;
             }
 
@@ -120,9 +136,18 @@ Component used to display a value in the context of a target range min and max v
             }
         }
 
+        .current-value{
+            margin-left: 0.5em;
+        }
+
         .min-value,.max-value{
             position: absolute;
             top: 0;
+            font-size: 0.8em;
+            padding: 0.2em;
+            background: black;
+            color: white;
+            border-radius: var(--border-radius);
         }
         .min-value{
             transform: translateX(calc(-100% - 0.5em));

@@ -2,13 +2,12 @@
 * This is a connector for javascript to the PANTS api.
 */
 
-
 /**
- * Target API subclass
+ * Abstract base class for the various APIs
  */
-class Target {
+class _ApiBase {
     /**
-     * Creates a target api subclass instance, with a fetch function from the PANTS API collection class
+     * Creates an api subclass instance, with a fetch function from the PANTS API collection class
      * @param {function} api_fetch_function Fetches api data, takes an absolute api location, and an object of fetch options
      * @param {function} api_prefixer_function Converts relative api path to absolute, takes a relative api location
      */
@@ -18,11 +17,13 @@ class Target {
     }
 
     /**
-     * Creates a new target
+     * Creates a new API object
+     * @param api_location {string} The relative api location (e.g. 'target/') that this object will be created at
      * @param json_details {Object} The information for the target
+     * @internal
      */
-    async create(json_details){
-        return this.fetch(this.api_prefix('target/'), {
+    async _create_at_location(api_location, json_details){
+        return this.fetch(this.api_prefix(api_location), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,9 +34,67 @@ class Target {
     }
 
     /**
-     * Updates a target (identified by uri) based on the json object passed in
-     * @param uri {string} The URI that uniquely identifies the given target
-     * @param json_details {Object} The details that will be overwritten onto the target (details not included are unaffected)
+     * Gets a list of api objects, supports searching, limit, offset, ordering
+     *
+     * @param {string} api_location relative api_location for this object collection (e.g. 'target/')
+     * @param {Object} options Options to pass to the api
+     * @param {number} options.offset Which ingredient to start returning results from
+     * @param {number} options.limit Maximum number of results to return
+     * @param {number} options.startRow Which ingredient to start returning results from (obsolete, use offset)
+     * @param {number} options.endRow The last ingredient to return results from, exclusive (obsolete, use limit)
+     * @param {string} options.ordering
+     * @param {string} options.searchKey A string by which results will be filtered
+     * @param {string} options.filterDict A dictionary of filters,
+     *                      key is the property to be filtered on,
+     *                      value is array [filter operator, property value]
+     *
+     * @returns {Promise<void>}
+     * @internal
+     */
+    async _get_all_at_location(api_location, options) {
+        // Convert location to URL to ease adding params
+        let api_location_url = new URL(this.api_prefix(api_location));
+
+        if(typeof options === 'object'){
+            // Get the number of requested results
+            let offset = options.offset ?? options.startRow ?? 0;
+            if(offset) api_location_url.searchParams.set('offset', offset.toString());
+
+            let limit = options.limit ?? (options.endRow - options.startRow);
+            if (limit) api_location_url.searchParams.set('limit', limit.toString());
+
+            if(options.sortModel){
+                // Handle sorting options
+                let ordering = [];
+                for (let id of options.sortModel) {
+                    let param = '';
+                    param += id.sort === 'desc' ? '-' : '';
+                    param += id.colId;
+                    ordering.push(param)
+                }
+                api_location_url.searchParams.set('ordering', ordering.join(','));
+            }
+
+            if(options.searchKey){
+                // Handle searching options
+                api_location_url.searchParams.set('search', options.searchKey);
+            }
+
+            if(options.filterDict){
+                for(const [property, value] of Object.entries(options.filterDict)){
+                    api_location_url.searchParams.set(`${property}__${value[0]}`, value[1]);
+                }
+            }
+        }
+
+        // Fetch the data
+        return this.fetch(api_location_url.toString()).then(resp=>resp.json());
+    }
+
+    /**
+     * Updates an API object based on the json object passed in
+     * @param uri {string} The absolute URI that uniquely identifies the given API object
+     * @param json_details {Object} The details that will be overwritten onto the API object (details not included are unaffected)
      */
     async update(uri, json_details) {
         return this.fetch(uri, {
@@ -49,14 +108,28 @@ class Target {
     }
 
     /**
-     * Deletes the specified target
-     * @param uri {string} The URI that uniquely identifies the given target
+     * Deletes the specified api object
+     * @param uri {string} The absolute URI that uniquely identifies the given target
      */
     async delete(uri){
-        // Send the command to delete the recipe using the api
+        // Send the command to delete the API object using the api
         return this.fetch(uri, {
             method: 'DELETE',
         })
+    }
+}
+
+/**
+ * Target API subclass
+ */
+class Target extends  _ApiBase{
+
+    /**
+     * Creates a new target
+     * @param json_details {Object} The information for the target
+     */
+    async create(json_details){
+        return super._create_at_location('target/', json_details);
     }
 
     /**
@@ -67,6 +140,35 @@ class Target {
         // Send the command to delete the recipe using the api
         return this.fetch(this.api_prefix('daily_target'))
             .then(resp=>resp.json());
+    }
+}
+
+/**
+ * DiaryFood API subclass
+ */
+class DiaryFood extends _ApiBase{
+
+    /**
+     * Creates a new DiaryFood
+     * @param json_details {Object} The information for the DiaryFood
+     */
+    async create(json_details){
+        return super._create_at_location('diaryfood/', json_details);
+    }
+
+    /**
+     * Gets a list of DiaryFood object, supports searching, limit, offset, ordering
+     *
+     * @param {Object} options Options to pass to the api
+     * @param {number} options.limit Maximum number of results to return
+     * @param {number} options.offset Which ingredient to start returning results from
+     * @param {string} options.ordering
+     * @param {string} options.searchKey A string by which results will be filtered
+     *
+     * @returns {Promise<void>}
+     */
+    async get_all(options){
+        return super._get_all_at_location('diaryfood/', options)
     }
 }
 
@@ -376,9 +478,12 @@ class Pants {
             .then(resp=>resp.json())
     }
 
-    // @todo have to pass arrow functions to preserve this, how to preserve this information?
+    // @todo have to pass arrow functions to preserve 'this', how to preserve 'this' information?
     //  Target should probably be subclasses from some API base class, and Pants should just be an api collection class?
-    Target = new Target((path, options)=>this.authenticated_fetch(path, options), (relative)=>this.get_api_path(relative))
+    Target = new Target((path, options)=>this.authenticated_fetch(path, options), (relative)=>this.get_api_path(relative));
+    DiaryFood = new DiaryFood((path, options)=>this.authenticated_fetch(path, options), (relative)=>this.get_api_path(relative));
+
+
 }
 
 export default Pants;

@@ -54,13 +54,22 @@
             <button class="dark" type="button" onclick="createDiaryFood()">Add</button>
         </form>
 
-        <target-summary
+        <div class="nutrientTargets">
+            <div
                 v-for="nutrient in Object.keys(staticVals.nutrientValues)"
                 :key="nutrient"
-                :value="0"
-                :target-min-value="dailyTarget.min[nutrient]"
-                :target-max-value="dailyTarget.max[nutrient]"
-        ></target-summary>
+                class="dailyTargetNutrient"
+        >
+                <fa-icon :icon="['fas', staticVals.icons.nutrients[nutrient]]" fixedWidth/>
+            <label>{{nutrient}}</label>
+            <target-summary
+                :value="diaryFoodNutrientTotals[nutrient] || 0"
+                :target-min-value="dailyTarget.min[nutrient] || 0"
+                :target-max-value="dailyTarget.max[nutrient] || 0"/>
+        </div>
+        </div>
+
+
         <div v-show="entryType === staticVals.entryType.RECIPE" class="food-selection">
             <ag-grid-vue
                     id="all_recipes_table"
@@ -177,17 +186,18 @@
             INGREDIENT: "ingredient",
             ONE_OFF_FOOD: "one-off-food"
         },
+        // A template object showing all the nutrient keys we care about
         nutrientValues: {
-        cost: null,
-        kilojoules: null,
-        protein: null,
-        carbohydrate: null,
-        fat: null,
-        saturatedfat: null,
-        fibre: null,
-        sodium: null,
-        sugar: null,
-    }
+            cost: null,
+            kilojoules: null,
+            protein: null,
+            carbohydrate: null,
+            fat: null,
+            saturatedfat: null,
+            fibre: null,
+            sodium: null,
+            sugar: null,
+        }
     }
 
     export default {
@@ -312,7 +322,9 @@
                 dailyTarget: {
                     min: {..._static.nutrientValues},
                     max: {..._static.nutrientValues}
-                }
+                },
+                // All the foods eaten in the last 24 hours
+                diaryFoods:[]
             }
         },
         beforeMount(){
@@ -324,6 +336,31 @@
                     this.dailyTarget.min[nutrient] = parseFloat(target.minimum[nutrient]) || 0;
                 }
             });
+            // Get all DiaryFood entries for the last 24 hours
+            const yesterday = (new Date((new Date()) - 24*60*60*1000)).toISOString().replace('T', ' ');
+            this.pants.DiaryFood.get_all({
+                filterDict:{
+                    'start_time':['gte', yesterday]
+                }
+            }).then(resp=>{
+                this.diaryFoods = resp.results;
+            })
+        },
+        computed:{
+            /**
+             * The totals for each nutrient we are tracking
+             * @returns {{}}
+             */
+            diaryFoodNutrientTotals(){
+                let totals = {...this.staticVals.nutrientValues};
+                this.diaryFoods.forEach(entry=>{
+                    for(let nutrient of Object.keys(totals)){
+                        if(totals[nutrient] == null) totals[nutrient] = 0;
+                        totals[nutrient] += parseFloat(entry[nutrient]) || 0;
+                    }
+                })
+                return totals;
+            }
         },
         methods: {
             createDiaryFood() {
@@ -392,6 +429,15 @@
         .nutrient-input {
             display: flex;
             align-items: center;
+        }
+
+        .nutrientTargets{
+            display: grid;
+            grid-template-columns: max-content max-content 1fr;
+            grid-gap: 0.5em;
+            .dailyTargetNutrient{
+                display: contents;
+            }
         }
     }
 </style>
