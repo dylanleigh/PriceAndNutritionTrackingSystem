@@ -12,15 +12,16 @@ Component used to display a value in the context of a target range min and max v
             @mouseleave="hovering = false"
     >
         <p
-                class="current-value"
-        >{{displayValue}}</p>
+                class="label-displayVal"
+        >{{displayValue.toLocaleString(undefined, {maximumFractionDigits: 2})}}</p>
         <p
-                class="min-value"
+                class="label-min"
                 :style="{left: `${percentMin * 100}%`}"
                 v-show="showDetail"
         >{{targetMinValue}}</p>
         <p
-                class="max-value"
+                class="label-max"
+                :style="{right: `${(1 - percentMax) * 100}%`}"
                 v-show="showDetail"
         >{{targetMaxValue}}</p>
         <div class="bar" :class="{
@@ -105,6 +106,7 @@ Component used to display a value in the context of a target range min and max v
 <style scoped lang="scss">
     .target-summary {
         position: relative;
+        --transition-speed: 0.5s;
         .bar {
             --bar-height: 3px;
             display: flex;
@@ -113,19 +115,20 @@ Component used to display a value in the context of a target range min and max v
             .value-portion {
                 background: black;
                 height: var(--bar-height);
-                transition: all 0.3s;
+                transition: all var(--transition-speed);
             }
 
             .proposed-portion {
                 background: rgba(0, 0, 0, 0.5);
                 height: var(--bar-height);
-                transition: all 0.3s;
+                transition: all var(--transition-speed);
             }
 
             .remaining-portion {
-                background: rgba(0, 0, 0, 0.2);
-                height: var(--bar-height);
-                transition: all 0.3s;
+                height: 0;
+                transition: all var(--transition-speed);
+                align-self: center;
+                border-top: 1px dashed #0002;
             }
 
             .min-val-tick, .max-val-tick {
@@ -135,7 +138,7 @@ Component used to display a value in the context of a target range min and max v
                 height: 1em;
                 position: absolute;
                 bottom: var(--bar-height);
-                transition: all 0.3s;
+                transition: all var(--transition-speed);
             }
             .max-val-tick{
                 // We define the position from the left edge, but do not want to exceed outer edge of bar
@@ -170,11 +173,12 @@ Component used to display a value in the context of a target range min and max v
             }
         }
 
-        .current-value{
+        .label-displayVal{
             margin-left: 0.5em;
         }
 
-        .min-value,.max-value{
+        .label-min,
+        .label-max{
             position: absolute;
             top: 0;
             font-size: 0.8em;
@@ -182,12 +186,13 @@ Component used to display a value in the context of a target range min and max v
             background: black;
             color: white;
             border-radius: var(--border-radius);
+            transition: all var(--transition-speed);
         }
-        .min-value{
+        .label-min{
             transform: translateX(calc(-100% - 0.5em));
         }
-        .max-value{
-            right: 0.5em;
+        .label-max{
+            transform: translateX(-0.5em);
         }
     }
 </style>

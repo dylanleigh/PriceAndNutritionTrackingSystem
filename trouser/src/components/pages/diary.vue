@@ -27,12 +27,14 @@
             <input-float
                     id="amount"
                     label="Amount"
+                    v-model="entry.amount"
                     :extra="{style:'text-align:right;max-width:6em'}"
             />
             <input-float
                     id="unit"
-                    label="Unit"
                     type="select"
+                    :hide-default-option="true"
+                    v-model="entry.unit"
             >
                 <option value="weight">Grams</option>
                 <option value="servings">Servings</option>
@@ -54,6 +56,14 @@
             <button class="dark" type="button" onclick="createDiaryFood()">Add</button>
         </form>
 
+        <!-- Shows all the foods recorded in the last 24 hours -->
+        <div class="diaryFoods" >
+            <ul>
+                <li v-for="food in diaryFoods" :key="food.url">{{food.name}}</li>
+            </ul>
+        </div>
+
+        <!-- Shows how close user is to achieving their daily targets -->
         <div class="nutrientTargets">
             <div
                     v-for="nutrient in Object.keys(staticVals.nutrientValues)"
@@ -64,7 +74,7 @@
                 <label>{{nutrient}}</label>
                 <target-summary
                         :value="diaryFoodNutrientTotals[nutrient] || 0"
-                        :proposed-change="oneOffFood[nutrient] || 0"
+                        :proposed-change="proposedEntryNutrients[nutrient] || 0"
                         :target-min-value="dailyTarget.min[nutrient] || 0"
                         :target-max-value="dailyTarget.max[nutrient] || 0"/>
             </div>
@@ -96,9 +106,11 @@
                     :columnDefs="componentsGrid.columnDefs"
                     :defaultColDef="componentsGrid.defaultColDef"
                     :rowModelType="componentsGrid.rowModelType"
+                    :rowSelection="componentsGrid.rowSelection"
                     :pagination="componentsGrid.pagination"
                     :paginationAutoPageSize="componentsGrid.paginationAutoPageSize"
                     :datasource="componentsGrid.datasource"
+                    @row-selected="onIngredientRowSelected"
             />
         </div>
         <div v-show="entryType === staticVals.entryType.ONE_OFF_FOOD" class="food-selection">
@@ -130,11 +142,6 @@
     import "ag-grid-community/dist/styles/ag-theme-balham.css";
     import TargetSummary from "@/components/informational/target-summary";
 
-    let date = document.getElementById('date');
-    let time = document.getElementById('time');
-    let amount = document.getElementById('amount');
-    let unit = document.getElementById('unit');
-    let component = document.getElementById('component');
     /* @Todo translate this pre setup code
 
             // Setup obvious defaults, if you are coming here you probably want to record what happened right now
@@ -211,6 +218,20 @@
                 timeSpecificity: _static.timeSpecificity.JUST_NOW,
                 // The users current daily target, by which all nutrient amounts are compared
                 currentTarget: null,
+                // The current proposed entry
+                entry:{
+                    unit: "weight",
+                    amount: 0
+                    // For nutrition calculations (the server would normally handle this but we pre-calculate on the front end for visualization)
+                    // See the 'proposedEntryNutrients' computed property.
+                },
+                // Stores the currently selected recipe/ingredient
+                selected:{
+                    // If a row is selected in both tables, we want to know which was most recent
+                    mostRecentIsRecipe: false,
+                    recipe: null,
+                    ingredient: null
+                },
                 entryType: "recipe",
                 // The currently input one off food values
                 // @todo this is the same nutrient set as for target
@@ -303,6 +324,7 @@
                         resizable: true,
                     },
                     rowModelType: 'infinite',
+                    rowSelection: 'single',
                     pagination: true,
                     paginationAutoPageSize: true,
                     // Set up the grid to paginate using the server side API
@@ -349,7 +371,7 @@
         },
         computed: {
             /**
-             * The totals for each nutrient we are tracking
+             * The total for each nutrient we are tracking of all foods entered in the last 24 hours
              * @returns {{}}
              */
             diaryFoodNutrientTotals() {
@@ -361,10 +383,48 @@
                     }
                 })
                 return totals;
+            },
+            /**
+             * The nutrients that would be added if we were to commit the currently selected amount and unit of chosen food item
+             */
+            proposedEntryNutrients(){
+                let totals = {...this.staticVals.nutrientValues};
+
+                if(this.selected.mostRecentIsRecipe && this.selected.recipe != null) {
+                    let chosenGrams = 0; // How much of this recipe in grams did the user propose to add
+                    let gramsInRecipe = this.selected.recipe.nutrition_data.grams; // How many grams the recipe creates if followed as is
+                    if(this.entry.unit === 'servings'){
+                        let gramsPerServing = gramsInRecipe / parseFloat(this.selected.recipe.serves) || 1; // g/recipe / servings/recipe = g/serving
+                        chosenGrams = gramsPerServing * this.entry.amount;
+                    } else {
+                        chosenGrams = this.entry.amount; //
+                    }
+                    let ratio = chosenGrams / gramsInRecipe;
+                    for (let nutrient of Object.keys(totals)) {
+                        totals[nutrient] = (parseFloat(this.selected.recipe.nutrition_data[nutrient]) * ratio) || 0;
+                    }
+                } else if (this.selected.ingredient != null) {
+                    // Scale according to the desired number of grams
+                    let storedGramUnit = 1000; // All nutrition info is stored per kg for an ingredient
+                    let chosenAmountInGrams = 0; // need to know how many grams user has chosen
+                    if(this.entry.unit === 'servings'){
+                        // Convert servings to grams
+                        let servingSize = parseFloat(this.selected.ingredient.serving);
+                        chosenAmountInGrams = servingSize * this.entry.amount;
+                    } else {
+                        chosenAmountInGrams = this.entry.amount;
+                    }
+                    let ratio = chosenAmountInGrams / storedGramUnit;
+                    for (let nutrient of Object.keys(totals)) {
+                        totals[nutrient] = (parseFloat(this.selected.ingredient.nutrition_data[nutrient]) * ratio) || 0;
+                    }
+                }
+                return totals;
             }
         },
         methods: {
             createDiaryFood() {
+                /*
                 let component_data = JSON.parse(component.value)[0];
                 this.pants.create_diaryfood({
                     'start_time': (new Date(date.value + "T" + time.value)).toISOString(),
@@ -378,6 +438,7 @@
                             : 'of_ingredient')
                         ]: component_data.url === undefined ? component_data.name : component_data.url,
                 })
+                 */
             },
             // Setup progressively being able to specify more specifically when you ate the food
             changeTime() {
@@ -393,9 +454,24 @@
             onRecipeRowSelected(args) {
                 // This event fires if a row is selected OR deselected, we only care if something gets selected
                 if (!args.node.selected) return;
+
                 for (const nutrient of Object.keys(this.oneOffFood)) {
                     this.oneOffFood[nutrient] = parseFloat(args.data.nutrition_data[nutrient]) || 0;
                 }
+
+                this.selected.recipe = args.data;
+                this.selected.mostRecentIsRecipe = true;
+            },
+            onIngredientRowSelected(args) {
+                // This event fires if a row is selected OR deselected, we only care if something gets selected
+                if (!args.node.selected) return;
+
+                for (const nutrient of Object.keys(this.oneOffFood)) {
+                    this.oneOffFood[nutrient] = parseFloat(args.data.nutrition_data[nutrient]) || 0;
+                }
+
+                this.selected.ingredient = args.data;
+                this.selected.mostRecentIsRecipe = false;
             }
         }
     }
