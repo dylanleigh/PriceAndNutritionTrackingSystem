@@ -1,5 +1,10 @@
 <template>
-    <div class="field" :id="id + '-container'" v-bind="container_extra">
+    <div
+            class="field"
+            :id="id + '-container'"
+            v-bind="container_extra"
+            :class="{disabled:disabled}"
+    >
         <textarea
                 v-if="type==='text' && multiline"
                 class="field__input"
@@ -9,6 +14,7 @@
                 :placeholder="label"
                 v-bind="extra"
                 v-model="content"
+                :disabled="disabled"
                 @keyup="$emit('keyup')"
                 @input="handleInput"
                 ref="input"></textarea>
@@ -20,6 +26,7 @@
                 :id="id"
                 v-bind="extra"
                 v-model="content"
+                :disabled="disabled"
                 :data-picked_option="content"
                 :data-has-label="!!label"
                 @change="handleInput">
@@ -35,6 +42,7 @@
                 :placeholder="label"
                 v-bind="extra"
                 v-model="content"
+                :disabled="disabled"
                 @keyup="$emit('keyup')"
                 @input="handleInput"
                 ref="input">
@@ -113,6 +121,11 @@
 
             /* Determines if the default option for select inputs should be hidden so that it cannot be picked manually*/
             hideDefaultOption: {
+                type: Boolean,
+                default: false
+            },
+            // If the input should be disabled or not
+            disabled:{
                 type: Boolean,
                 default: false
             }
@@ -257,7 +270,19 @@
         > textarea.field__input {
             height: 4.875em;
         }
+
+        &.disabled{
+            >.field__label{
+                color: black;
+            }
+
+            > .field__input{
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(0,0,0,0.1);
+                &::placeholder{
+                    color: black;
+                }
+            }
+        }
     }
-
-
 </style>

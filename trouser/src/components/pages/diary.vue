@@ -53,7 +53,7 @@
                 <option :value="staticVals.entryType.ONE_OFF_FOOD">One-off Food</option>
             </input-float>
 
-            <button class="dark" type="button" onclick="createDiaryFood()">Add</button>
+            <button class="dark" type="button" @click="createDiaryFood">Add</button>
         </form>
 
         <!-- Shows all the foods recorded in the last 24 hours -->
@@ -64,14 +64,21 @@
         </div>
 
         <!-- Shows how close user is to achieving their daily targets -->
-        <div class="nutrientTargets">
+        <div
+                class="nutrientTargets"
+        >
             <div
                     v-for="nutrient in Object.keys(staticVals.nutrientValues)"
                     :key="nutrient"
                     class="dailyTargetNutrient"
             >
                 <fa-icon :icon="['fas', staticVals.icons.nutrients[nutrient]]" fixedWidth/>
-                <label>{{nutrient}}</label>
+                <input-float
+                        :id="nutrient"
+                        :label="`${nutrient} (${staticVals.units[nutrient]})`"
+                        v-model="oneOffFood[nutrient]"
+                        :disabled="entryType !== staticVals.entryType.ONE_OFF_FOOD"
+                />
                 <target-summary
                         :value="diaryFoodNutrientTotals[nutrient] || 0"
                         :proposed-change="proposedEntryNutrients[nutrient] || 0"
@@ -112,19 +119,6 @@
                     :datasource="componentsGrid.datasource"
                     @row-selected="onIngredientRowSelected"
             />
-        </div>
-        <div v-show="entryType === staticVals.entryType.ONE_OFF_FOOD" class="food-selection">
-            <div v-for="nutrient in Object.keys(oneOffFood)"
-                 :key="nutrient"
-                 class="nutrient-input"
-            >
-                <fa-icon :icon="['fas', staticVals.icons.nutrients[nutrient]]" fixedWidth/>
-                <input-float
-                        :id="nutrient"
-                        :label="`${nutrient} (${staticVals.units[nutrient]})`"
-                        v-model="oneOffFood[nutrient]"
-                />
-            </div>
         </div>
     </div>
 </template>
@@ -227,8 +221,6 @@
                 },
                 // Stores the currently selected recipe/ingredient
                 selected:{
-                    // If a row is selected in both tables, we want to know which was most recent
-                    mostRecentIsRecipe: false,
                     recipe: null,
                     ingredient: null
                 },
@@ -360,14 +352,7 @@
                     }
                 });
             // Get all DiaryFood entries for the last 24 hours
-            const yesterday = (new Date((new Date()) - 24 * 60 * 60 * 1000)).toISOString().replace('T', ' ');
-            this.pants.DiaryFood.get_all({
-                filterDict: {
-                    'start_time': ['gte', yesterday]
-                }
-            }).then(resp => {
-                this.diaryFoods = resp.results;
-            })
+            this.refreshTodaysDiaryFoods();
         },
         computed: {
             /**
@@ -390,7 +375,7 @@
             proposedEntryNutrients(){
                 let totals = {...this.staticVals.nutrientValues};
 
-                if(this.selected.mostRecentIsRecipe && this.selected.recipe != null) {
+                if(this.entryType === this.staticVals.entryType.RECIPE && this.selected.recipe != null) {
                     let chosenGrams = 0; // How much of this recipe in grams did the user propose to add
                     let gramsInRecipe = this.selected.recipe.nutrition_data.grams; // How many grams the recipe creates if followed as is
                     if(this.entry.unit === 'servings'){
@@ -403,7 +388,7 @@
                     for (let nutrient of Object.keys(totals)) {
                         totals[nutrient] = (parseFloat(this.selected.recipe.nutrition_data[nutrient]) * ratio) || 0;
                     }
-                } else if (this.selected.ingredient != null) {
+                } else if (this.entryType === this.staticVals.entryType.INGREDIENT && this.selected.ingredient != null) {
                     // Scale according to the desired number of grams
                     let storedGramUnit = 1000; // All nutrition info is stored per kg for an ingredient
                     let chosenAmountInGrams = 0; // need to know how many grams user has chosen
@@ -418,19 +403,74 @@
                     for (let nutrient of Object.keys(totals)) {
                         totals[nutrient] = (parseFloat(this.selected.ingredient.nutrition_data[nutrient]) * ratio) || 0;
                     }
+                } else {
+                    // Use the one off food values
+                    for (let nutrient of Object.keys(totals)) {
+                        totals[nutrient] = (this.oneOffFood[nutrient]) || 0;
+                    }
                 }
                 return totals;
             }
         },
+        watch:{
+            entryType(newValue){
+                if (newValue !== this.staticVals.entryType.ONE_OFF_FOOD){
+                    for(let nutrient of Object.keys(this.staticVals.nutrientValues)){
+                        this.oneOffFood[nutrient] = null;
+                    }
+                }
+            }
+        },
         methods: {
+            /**
+             * Gets the diary foods logged from the past day, updating the internally stored copy from the db
+             */
+            refreshTodaysDiaryFoods(){
+                const yesterday = (new Date((new Date()) - 24 * 60 * 60 * 1000)).toISOString().replace('T', ' ');
+                return this.pants.DiaryFood.get_all({
+                    filterDict: {
+                        'start_time': ['gte', yesterday]
+                    }
+                }).then(resp => {
+                    this.diaryFoods = resp.results;
+                })
+            },
             createDiaryFood() {
+                let requestObject = {
+                    // @todo properly get start time
+                    'start_time': (new Date(/*date.value + "T" + time.value*/)).toISOString(),
+                    // Set 'servings' or 'weight'
+                    [this.entry.unit]: this.entry.amount,
+                };
+                // What food gets added depends on what view we are in
+                if(this.entryType === this.staticVals.entryType.RECIPE && this.selected.recipe !== null){
+                    requestObject["of_recipe"] = this.selected.recipe.url;
+                } else if(this.entryType === this.staticVals.entryType.INGREDIENT && this.selected.ingredient !== null){
+                    requestObject["of_ingredient"] = this.selected.ingredient.url;
+                } else {
+                    // @todo allow specifying a name for this food
+                    requestObject["name"] = "Custom Food"
+                    // @todo properly set up one time food entry
+                }
+                this.pants.DiaryFood.create(requestObject).then(()=>{
+                    this.refreshTodaysDiaryFoods().then(()=>{
+                        if(requestObject['of_recipe']) {
+                            this.recipeGrid.gridOptions.api.deselectAll();
+                            this.selected.recipe = null;
+                        }
+                        else if(requestObject['of_ingredient']) {
+                            this.componentsGrid.gridOptions.api.deselectAll();
+                            this.selected.ingredient = null;
+                        }
+                    });
+                });
                 /*
                 let component_data = JSON.parse(component.value)[0];
                 this.pants.create_diaryfood({
                     'start_time': (new Date(date.value + "T" + time.value)).toISOString(),
                     // Set 'servings' or 'weight'
                     [unit.value]: amount.value,
-                    // Set 'of_ingredient' or 'of_recipe' or 'name' depending on what has been entered
+                    // Set 'of_ingredient', 'of_recipe' or 'name' depending on what has been entered
                     [component_data.url === undefined
                         ? 'name'
                         : (component_data.url.split("/").slice(-3)[0] === 'recipe'
@@ -455,41 +495,19 @@
                 // This event fires if a row is selected OR deselected, we only care if something gets selected
                 if (!args.node.selected) return;
 
-                for (const nutrient of Object.keys(this.oneOffFood)) {
-                    this.oneOffFood[nutrient] = parseFloat(args.data.nutrition_data[nutrient]) || 0;
-                }
-
                 this.selected.recipe = args.data;
-                this.selected.mostRecentIsRecipe = true;
             },
             onIngredientRowSelected(args) {
                 // This event fires if a row is selected OR deselected, we only care if something gets selected
                 if (!args.node.selected) return;
 
-                for (const nutrient of Object.keys(this.oneOffFood)) {
-                    this.oneOffFood[nutrient] = parseFloat(args.data.nutrition_data[nutrient]) || 0;
-                }
-
                 this.selected.ingredient = args.data;
-                this.selected.mostRecentIsRecipe = false;
             }
         }
     }
 </script>
 
 <style scoped lang="scss">
-    /* @todo how to deal with this linked css?
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.17.7/tagify.min.css"
-          integrity="sha512-hqxNYuIWMQISqScYH0xQ3i8kH4MMxhJYlp7mfYvBGJKSGyliqk7SXRK3MxBuUnSwA1XeV+S+y3ad4oF+xD6kpA=="
-          crossorigin="anonymous"/>
-     */
-
-    #chart-container {
-        width: 100%;
-        height: 8em;
-        position: relative;
-    }
-
     .diary {
         height: 100%;
         display: flex;
@@ -518,8 +536,9 @@
 
         .nutrientTargets {
             display: grid;
-            grid-template-columns: max-content max-content 1fr;
+            grid-template-columns: max-content 9em 1fr;
             grid-gap: 0.5em;
+            align-items: center;
 
             .dailyTargetNutrient {
                 display: contents;
