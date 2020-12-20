@@ -412,7 +412,7 @@
                 } else {
                     // Use the one off food values
                     for (let nutrient of Object.keys(totals)) {
-                        totals[nutrient] = (this.oneOffFood[nutrient]) || 0;
+                        totals[nutrient] = parseFloat(this.oneOffFood[nutrient]) || 0;
                     }
                 }
                 return totals;
@@ -453,10 +453,12 @@
                     requestObject["of_recipe"] = this.selected.recipe.url;
                 } else if (this.entryType === this.staticVals.entryType.INGREDIENT && this.selected.ingredient !== null) {
                     requestObject["of_ingredient"] = this.selected.ingredient.url;
-                } else {
+                } else if (this.entryType === this.staticVals.entryType.ONE_OFF_FOOD) {
                     // @todo allow specifying a name for this food
                     requestObject["name"] = "Custom Food"
                     // @todo properly set up one time food entry
+                } else {
+                    alert('Please select a food from the table, or use the "One Off Food" option');
                 }
                 this.pants.DiaryFood.create(requestObject).then(() => {
                     this.refreshTodaysDiaryFoods().then(() => {

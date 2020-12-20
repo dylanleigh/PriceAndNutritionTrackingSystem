@@ -42,9 +42,17 @@
     .layout-default {
         display: grid;
         grid-template-columns: var(--menu-collapsed-width) 1fr;
-        grid-template-rows: 5em 1fr;
+        // Right now the 'quick info' section is unused, unsure if I want to remove it, or utilize it.
+        grid-template-rows: 0 1fr;
         gap: 1px 1px;
         grid-template-areas: "menu quick-info" "menu content";
+
+        .quick-info {
+            grid-area: quick-info;
+            padding: var(--padding);
+            display: flex;
+            align-items: center;
+        }
     }
 </style>
 
@@ -76,12 +84,7 @@
         grid-area: menu;
     }
 
-    .quick-info {
-        grid-area: quick-info;
-        padding: var(--padding);
-        display: flex;
-        align-items: center;
-    }
+
 
     .content {
         grid-area: content;
@@ -107,6 +110,7 @@
     }
 
     /* Flex Utilties */
+    /* @todo extract these into sass mixins instead */
     .flex-row-start {
         display: flex;
         flex-direction: row;
@@ -144,6 +148,7 @@
 
 
     /* Colors */
+    /* @todo keep these specific colors, but also specify semantic colors that use these for semantic consistency */
     :root {
         --gunmetal: hsla(227, 15%, 24%, 1);
         --baby-powder: hsla(100, 100%, 99%, 1);
@@ -204,6 +209,7 @@
     }
 
     /* Inputs */
+    /* @todo move this to the float input component */
     input:focus, textarea:focus {
         box-shadow: inset 0 0 1px var(--shamrock-green);
     }

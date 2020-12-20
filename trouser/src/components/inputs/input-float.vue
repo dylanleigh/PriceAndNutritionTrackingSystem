@@ -97,7 +97,7 @@
             },
 
             // Determines what value the input should currently hold
-            value: {},
+            value: [String, Number],
             /* @todo value getter setter
 
             get value(){

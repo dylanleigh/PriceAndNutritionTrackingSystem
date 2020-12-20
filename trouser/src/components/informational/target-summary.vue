@@ -57,7 +57,7 @@ Component used to display a value in the context of a target range min and max v
             // and what proportions of the total value are the original value and proposed change will be made obvious
             // @todo support negative changes better
             proposedChange: {
-                type: [Number, null],
+                type: Number,
                 default: null
             },
         },
