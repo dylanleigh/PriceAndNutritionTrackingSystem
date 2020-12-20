@@ -26,9 +26,11 @@ Component used to display a value in the context of a target range min and max v
         >{{targetMaxValue}}</p>
         <div class="bar" :class="{
             under: displayValue < targetMinValue,
-            reached: displayValue >= targetMinValue && value <= targetMaxValue,
+            reached: displayValue >= targetMinValue && displayValue <= targetMaxValue,
             over: displayValue > targetMaxValue}">
-            <div class="value-portion" :style="{flexGrow: percentValue}"></div>
+            <template v-for="(value, idx) in percentValues">
+                <div class="value-portion" :key="idx" :style="{flexGrow: value, backgroundColor: valueColors !== null ? valueColors[idx] : false}"></div>
+            </template>
             <div class="proposed-portion" :style="{flexGrow: percentProposed}"></div>
             <div class="remaining-portion" :style="{flexGrow: percentRemaining}"></div>
             <div class="min-val-tick" :style="{left: `${percentMin * 100}%`, transform: percentMin >= 1 ? 'translateX(-200%)' : false}"></div>
@@ -41,8 +43,9 @@ Component used to display a value in the context of a target range min and max v
     export default {
         name: "target-summary",
         props: {
+            // The value shown can either be a number, or an array of numbers that will be summed together for the final display
             value: {
-                type: Number,
+                type: [Number, Array],
                 required: true
             },
             targetMinValue: {
@@ -60,6 +63,15 @@ Component used to display a value in the context of a target range min and max v
                 type: Number,
                 default: null
             },
+            // If set, the provided color will be used instead of the automatic yellow/green/red for under/within/over
+            // target. If an array of colors is provided then:
+            // - If the value is a single number, the first color is in the array is used
+            // - If the value is an array of numbers, the colors will be used in order for each piece portion of the value
+            // This is useful for helping to correlate how the portions of different targets are contributed by the same food.
+            valueColors:{
+                type: [String, Array],
+                default: null
+            }
         },
         data() {
             return {
@@ -70,16 +82,27 @@ Component used to display a value in the context of a target range min and max v
             }
         },
         computed: {
+            // Ensures the value is an array of numbers, even if a single number is passed in
+            valueAsArray(){
+                if(Array.isArray(this.value)) return this.value;
+                return [this.value];
+            },
+            // Ensures the value is a single number, even if an array of numbers is passed in
+            valueAsNumber(){
+                if(typeof this.value === 'number') return this.value;
+                return this.value.reduce((sum, val)=>sum+val);
+            },
             // Determines the actual shown value, including any proposed change
             displayValue(){
-                return this.value + (this.proposedChange || 0);
+                return this.valueAsNumber + (this.proposedChange || 0);
             },
             // Gets the largest value we consider, whether that's one of the targets, or the displayValue itself
             largestValue(){
                 return Math.max(this.displayValue, this.targetMaxValue, this.targetMinValue)
             },
-            percentValue() {
-                return this.value / this.largestValue;
+            // An array of percentages, corresponding to what percent of the largest value each value component takes up
+            percentValues() {
+                return this.valueAsArray.map(val => val / this.largestValue);
             },
             percentProposed() {
                 return this.proposedChange / this.largestValue;

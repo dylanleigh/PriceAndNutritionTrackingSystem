@@ -18,7 +18,7 @@
                             :disabled="entryType !== staticVals.entryType.ONE_OFF_FOOD"
                     />
                     <target-summary
-                            :value="diaryFoodNutrientTotals[nutrient] || 0"
+                            :value="diaryFoodNutrientArray[nutrient] || [0]"
                             :proposed-change="proposedEntryNutrients[nutrient] || 0"
                             :target-min-value="dailyTarget.min[nutrient] || 0"
                             :target-max-value="dailyTarget.max[nutrient] || 0"/>
@@ -26,6 +26,7 @@
             </div>
 
             <!-- Shows all the foods recorded in the last 24 hours -->
+            <h2>Foods from the past 24 hours</h2>
             <div class="diaryFoods">
                 <ul>
                     <li v-for="food in diaryFoods" :key="food.url">{{food.name}}</li>
@@ -371,6 +372,19 @@
                     for (let nutrient of Object.keys(totals)) {
                         if (totals[nutrient] == null) totals[nutrient] = 0;
                         totals[nutrient] += parseFloat(entry[nutrient]) || 0;
+                    }
+                })
+                return totals;
+            },
+            /**
+             * Gets an array of each nutrient value across all diary foods
+             */
+            diaryFoodNutrientArray(){
+                 let totals = {...this.staticVals.nutrientValues};
+                this.diaryFoods.forEach(entry => {
+                    for (let nutrient of Object.keys(totals)) {
+                        if (totals[nutrient] == null) totals[nutrient] = [];
+                        totals[nutrient].push(parseFloat(entry[nutrient]) || 0);
                     }
                 })
                 return totals;
