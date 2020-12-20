@@ -1,124 +1,130 @@
 <template>
     <div :class="$options.name">
-        <form id="diary_entry_form" class="flex-row-start">
-            <button
-                    id="time-text"
-                    class="text-only"
-                    type="button"
-                    @click="changeTime"
-            >{{staticVals.text.changeTimeBtn[timeSpecificity]}}
-            </button>
+        <h1 class="header-add">Add to Diary</h1>
+        <h1 class="header-display">Current Diary</h1>
+        <div class="display-forms">
+            <!-- Shows how close user is to achieving their daily targets -->
+            <div class="nutrientTargets">
+                <div
+                        v-for="nutrient in Object.keys(staticVals.nutrientValues)"
+                        :key="nutrient"
+                        class="dailyTargetNutrient"
+                >
+                    <fa-icon :icon="['fas', staticVals.icons.nutrients[nutrient]]" fixedWidth/>
+                    <input-float
+                            :id="nutrient"
+                            :label="`${nutrient} (${staticVals.units[nutrient]})`"
+                            v-model="oneOffFood[nutrient]"
+                            :disabled="entryType !== staticVals.entryType.ONE_OFF_FOOD"
+                    />
+                    <target-summary
+                            :value="diaryFoodNutrientTotals[nutrient] || 0"
+                            :proposed-change="proposedEntryNutrients[nutrient] || 0"
+                            :target-min-value="dailyTarget.min[nutrient] || 0"
+                            :target-max-value="dailyTarget.max[nutrient] || 0"/>
+                </div>
+            </div>
 
-            <input-float
-                    id="date"
-                    label="Date"
-                    type="date"
-                    v-show="timeSpecificity===staticVals.timeSpecificity.ON_DATETIME"
-            />
-            <input-float
-                    id="time"
-                    label="Time"
-                    type="time"
-                    v-show="timeSpecificity!==staticVals.timeSpecificity.JUST_NOW"
-            />
-
-            <span>I ate</span>
-
-            <input-float
-                    id="amount"
-                    label="Amount"
-                    v-model="entry.amount"
-                    :extra="{style:'text-align:right;max-width:6em'}"
-            />
-            <input-float
-                    id="unit"
-                    type="select"
-                    :hide-default-option="true"
-                    v-model="entry.unit"
-            >
-                <option value="weight">Grams</option>
-                <option value="servings">Servings</option>
-            </input-float>
-
-            <span>of</span>
-
-            <input-float
-                    id="entry-type"
-                    type="select"
-                    :hide-default-option="true"
-                    v-model="entryType"
-            >
-                <option :value="staticVals.entryType.RECIPE">Recipe</option>
-                <option :value="staticVals.entryType.INGREDIENT">Ingredient</option>
-                <option :value="staticVals.entryType.ONE_OFF_FOOD">One-off Food</option>
-            </input-float>
-
-            <button class="dark" type="button" @click="createDiaryFood">Add</button>
-        </form>
-
-        <!-- Shows all the foods recorded in the last 24 hours -->
-        <div class="diaryFoods" >
-            <ul>
-                <li v-for="food in diaryFoods" :key="food.url">{{food.name}}</li>
-            </ul>
-        </div>
-
-        <!-- Shows how close user is to achieving their daily targets -->
-        <div
-                class="nutrientTargets"
-        >
-            <div
-                    v-for="nutrient in Object.keys(staticVals.nutrientValues)"
-                    :key="nutrient"
-                    class="dailyTargetNutrient"
-            >
-                <fa-icon :icon="['fas', staticVals.icons.nutrients[nutrient]]" fixedWidth/>
-                <input-float
-                        :id="nutrient"
-                        :label="`${nutrient} (${staticVals.units[nutrient]})`"
-                        v-model="oneOffFood[nutrient]"
-                        :disabled="entryType !== staticVals.entryType.ONE_OFF_FOOD"
-                />
-                <target-summary
-                        :value="diaryFoodNutrientTotals[nutrient] || 0"
-                        :proposed-change="proposedEntryNutrients[nutrient] || 0"
-                        :target-min-value="dailyTarget.min[nutrient] || 0"
-                        :target-max-value="dailyTarget.max[nutrient] || 0"/>
+            <!-- Shows all the foods recorded in the last 24 hours -->
+            <div class="diaryFoods">
+                <ul>
+                    <li v-for="food in diaryFoods" :key="food.url">{{food.name}}</li>
+                </ul>
             </div>
         </div>
 
 
-        <div v-show="entryType === staticVals.entryType.RECIPE" class="food-selection">
-            <ag-grid-vue
-                    id="all_recipes_table"
-                    class="ag-theme-balham recipe-grid"
-                    :gridOptions="recipeGrid.gridOptions"
-                    :frameworkComponents="recipeGrid.frameworkComponents"
-                    :columnDefs="recipeGrid.columnDefs"
-                    :defaultColDef="recipeGrid.defaultColDef"
-                    :rowModelType="recipeGrid.rowModelType"
-                    :rowSelection="recipeGrid.rowSelection"
-                    :pagination="recipeGrid.pagination"
-                    :paginationAutoPageSize="recipeGrid.paginationAutoPageSize"
-                    :datasource="recipeGrid.datasource"
-                    @row-selected="onRecipeRowSelected"
-            />
-        </div>
-        <div v-show="entryType === staticVals.entryType.INGREDIENT" class="food-selection">
-            <ag-grid-vue
-                    id="ingredients"
-                    class="ag-theme-balham ingredient-grid"
-                    :gridOptions="componentsGrid.gridOptions"
-                    :frameworkComponents="componentsGrid.frameworkComponents"
-                    :columnDefs="componentsGrid.columnDefs"
-                    :defaultColDef="componentsGrid.defaultColDef"
-                    :rowModelType="componentsGrid.rowModelType"
-                    :rowSelection="componentsGrid.rowSelection"
-                    :pagination="componentsGrid.pagination"
-                    :paginationAutoPageSize="componentsGrid.paginationAutoPageSize"
-                    :datasource="componentsGrid.datasource"
-                    @row-selected="onIngredientRowSelected"
-            />
+        <div class="add-forms">
+            <!-- The form for adding more diary entries -->
+            <form id="diary_entry_form" class="flex-row-start">
+                <button
+                        id="time-text"
+                        class="text-only"
+                        type="button"
+                        @click="changeTime"
+                >{{staticVals.text.changeTimeBtn[timeSpecificity]}}
+                </button>
+
+                <input-float
+                        id="date"
+                        label="Date"
+                        type="date"
+                        v-show="timeSpecificity===staticVals.timeSpecificity.ON_DATETIME"
+                />
+                <input-float
+                        id="time"
+                        label="Time"
+                        type="time"
+                        v-show="timeSpecificity!==staticVals.timeSpecificity.JUST_NOW"
+                />
+
+                <span>I ate</span>
+
+                <input-float
+                        id="amount"
+                        label="Amount"
+                        v-model="entry.amount"
+                        :extra="{style:'text-align:right;max-width:6em'}"
+                />
+                <input-float
+                        id="unit"
+                        type="select"
+                        :hide-default-option="true"
+                        v-model="entry.unit"
+                >
+                    <option value="weight">Grams</option>
+                    <option value="servings">Servings</option>
+                </input-float>
+
+                <span>of</span>
+
+                <input-float
+                        id="entry-type"
+                        type="select"
+                        :hide-default-option="true"
+                        v-model="entryType"
+                >
+                    <option :value="staticVals.entryType.RECIPE">Recipe</option>
+                    <option :value="staticVals.entryType.INGREDIENT">Ingredient</option>
+                    <option :value="staticVals.entryType.ONE_OFF_FOOD">One-off Food</option>
+                </input-float>
+
+                <button class="dark" type="button" @click="createDiaryFood">Add</button>
+            </form>
+
+            <!-- Shows the tables for picking an existing food to add -->
+            <div v-show="entryType === staticVals.entryType.RECIPE" class="food-selection">
+                <ag-grid-vue
+                        id="all_recipes_table"
+                        class="ag-theme-balham recipe-grid"
+                        :gridOptions="recipeGrid.gridOptions"
+                        :frameworkComponents="recipeGrid.frameworkComponents"
+                        :columnDefs="recipeGrid.columnDefs"
+                        :defaultColDef="recipeGrid.defaultColDef"
+                        :rowModelType="recipeGrid.rowModelType"
+                        :rowSelection="recipeGrid.rowSelection"
+                        :pagination="recipeGrid.pagination"
+                        :paginationAutoPageSize="recipeGrid.paginationAutoPageSize"
+                        :datasource="recipeGrid.datasource"
+                        @row-selected="onRecipeRowSelected"
+                />
+            </div>
+            <div v-show="entryType === staticVals.entryType.INGREDIENT" class="food-selection">
+                <ag-grid-vue
+                        id="ingredients"
+                        class="ag-theme-balham ingredient-grid"
+                        :gridOptions="componentsGrid.gridOptions"
+                        :frameworkComponents="componentsGrid.frameworkComponents"
+                        :columnDefs="componentsGrid.columnDefs"
+                        :defaultColDef="componentsGrid.defaultColDef"
+                        :rowModelType="componentsGrid.rowModelType"
+                        :rowSelection="componentsGrid.rowSelection"
+                        :pagination="componentsGrid.pagination"
+                        :paginationAutoPageSize="componentsGrid.paginationAutoPageSize"
+                        :datasource="componentsGrid.datasource"
+                        @row-selected="onIngredientRowSelected"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -213,14 +219,14 @@
                 // The users current daily target, by which all nutrient amounts are compared
                 currentTarget: null,
                 // The current proposed entry
-                entry:{
+                entry: {
                     unit: "weight",
-                    amount: 0
+                    amount: 100
                     // For nutrition calculations (the server would normally handle this but we pre-calculate on the front end for visualization)
                     // See the 'proposedEntryNutrients' computed property.
                 },
                 // Stores the currently selected recipe/ingredient
-                selected:{
+                selected: {
                     recipe: null,
                     ingredient: null
                 },
@@ -372,13 +378,13 @@
             /**
              * The nutrients that would be added if we were to commit the currently selected amount and unit of chosen food item
              */
-            proposedEntryNutrients(){
+            proposedEntryNutrients() {
                 let totals = {...this.staticVals.nutrientValues};
 
-                if(this.entryType === this.staticVals.entryType.RECIPE && this.selected.recipe != null) {
+                if (this.entryType === this.staticVals.entryType.RECIPE && this.selected.recipe != null) {
                     let chosenGrams = 0; // How much of this recipe in grams did the user propose to add
                     let gramsInRecipe = this.selected.recipe.nutrition_data.grams; // How many grams the recipe creates if followed as is
-                    if(this.entry.unit === 'servings'){
+                    if (this.entry.unit === 'servings') {
                         let gramsPerServing = gramsInRecipe / parseFloat(this.selected.recipe.serves) || 1; // g/recipe / servings/recipe = g/serving
                         chosenGrams = gramsPerServing * this.entry.amount;
                     } else {
@@ -392,7 +398,7 @@
                     // Scale according to the desired number of grams
                     let storedGramUnit = 1000; // All nutrition info is stored per kg for an ingredient
                     let chosenAmountInGrams = 0; // need to know how many grams user has chosen
-                    if(this.entry.unit === 'servings'){
+                    if (this.entry.unit === 'servings') {
                         // Convert servings to grams
                         let servingSize = parseFloat(this.selected.ingredient.serving);
                         chosenAmountInGrams = servingSize * this.entry.amount;
@@ -412,10 +418,10 @@
                 return totals;
             }
         },
-        watch:{
-            entryType(newValue){
-                if (newValue !== this.staticVals.entryType.ONE_OFF_FOOD){
-                    for(let nutrient of Object.keys(this.staticVals.nutrientValues)){
+        watch: {
+            entryType(newValue) {
+                if (newValue !== this.staticVals.entryType.ONE_OFF_FOOD) {
+                    for (let nutrient of Object.keys(this.staticVals.nutrientValues)) {
                         this.oneOffFood[nutrient] = null;
                     }
                 }
@@ -425,7 +431,7 @@
             /**
              * Gets the diary foods logged from the past day, updating the internally stored copy from the db
              */
-            refreshTodaysDiaryFoods(){
+            refreshTodaysDiaryFoods() {
                 const yesterday = (new Date((new Date()) - 24 * 60 * 60 * 1000)).toISOString().replace('T', ' ');
                 return this.pants.DiaryFood.get_all({
                     filterDict: {
@@ -443,22 +449,21 @@
                     [this.entry.unit]: this.entry.amount,
                 };
                 // What food gets added depends on what view we are in
-                if(this.entryType === this.staticVals.entryType.RECIPE && this.selected.recipe !== null){
+                if (this.entryType === this.staticVals.entryType.RECIPE && this.selected.recipe !== null) {
                     requestObject["of_recipe"] = this.selected.recipe.url;
-                } else if(this.entryType === this.staticVals.entryType.INGREDIENT && this.selected.ingredient !== null){
+                } else if (this.entryType === this.staticVals.entryType.INGREDIENT && this.selected.ingredient !== null) {
                     requestObject["of_ingredient"] = this.selected.ingredient.url;
                 } else {
                     // @todo allow specifying a name for this food
                     requestObject["name"] = "Custom Food"
                     // @todo properly set up one time food entry
                 }
-                this.pants.DiaryFood.create(requestObject).then(()=>{
-                    this.refreshTodaysDiaryFoods().then(()=>{
-                        if(requestObject['of_recipe']) {
+                this.pants.DiaryFood.create(requestObject).then(() => {
+                    this.refreshTodaysDiaryFoods().then(() => {
+                        if (requestObject['of_recipe']) {
                             this.recipeGrid.gridOptions.api.deselectAll();
                             this.selected.recipe = null;
-                        }
-                        else if(requestObject['of_ingredient']) {
+                        } else if (requestObject['of_ingredient']) {
                             this.componentsGrid.gridOptions.api.deselectAll();
                             this.selected.ingredient = null;
                         }
@@ -509,9 +514,38 @@
 
 <style scoped lang="scss">
     .diary {
+        display: grid;
+        grid-template-columns: 1fr 30em;
+        grid-template-rows: 4em 1fr;
+        gap: 0 var(--padding);
+        grid-template-areas: 'header-add header-display' 'diary-add diary-display';
+
         height: 100%;
-        display: flex;
-        flex-direction: column;
+
+        .header-add{
+            grid-area: header-add;
+        }
+        .header-display{
+            grid-area: header-display;
+        }
+
+        .add-forms{
+            grid-area: diary-add;
+            display: flex;
+            flex-direction: column;
+
+            .food-selection {
+                flex: 1;
+
+                .recipe-grid, .ingredient-grid {
+                    height: 100%;
+                }
+            }
+        }
+
+        .display-forms{
+            grid-area: diary-display;
+        }
 
         #diary_entry_form {
             display: flex;
@@ -521,13 +555,7 @@
             }
         }
 
-        .food-selection {
-            flex: 1;
 
-            .recipe-grid, .ingredient-grid {
-                height: 100%;
-            }
-        }
 
         .nutrient-input {
             display: flex;
