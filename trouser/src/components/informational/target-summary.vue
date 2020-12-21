@@ -29,7 +29,7 @@ Component used to display a value in the context of a target range min and max v
             reached: displayValue >= targetMinValue && displayValue <= targetMaxValue,
             over: displayValue > targetMaxValue}">
             <template v-for="(value, idx) in percentValues">
-                <div class="value-portion" :key="idx" :style="{flexGrow: value, backgroundColor: valueColors !== null ? valueColors[idx] : false}"></div>
+                <div class="value-portion" :key="idx" :style="{flexGrow: value, backgroundColor: valueColors !== null && valueColors[idx] !== null ? valueColors[idx] : null}"></div>
             </template>
             <div class="proposed-portion" :style="{flexGrow: percentProposed}"></div>
             <div class="remaining-portion" :style="{flexGrow: percentRemaining}"></div>
@@ -68,6 +68,7 @@ Component used to display a value in the context of a target range min and max v
             // - If the value is a single number, the first color is in the array is used
             // - If the value is an array of numbers, the colors will be used in order for each piece portion of the value
             // This is useful for helping to correlate how the portions of different targets are contributed by the same food.
+            // If the color for a given index is null, the default yellow/green/red will be used
             valueColors:{
                 type: [String, Array],
                 default: null

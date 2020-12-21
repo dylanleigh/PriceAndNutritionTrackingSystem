@@ -17,11 +17,14 @@
                             v-model="oneOffFood[nutrient]"
                             :disabled="entryType !== staticVals.entryType.ONE_OFF_FOOD"
                     />
+                    <!-- @todo extract the value-color logic here to a computed property/setting-->
                     <target-summary
                             :value="diaryFoodNutrientArray[nutrient] || [0]"
                             :proposed-change="proposedEntryNutrients[nutrient] || 0"
                             :target-min-value="dailyTarget.min[nutrient] || 0"
-                            :target-max-value="dailyTarget.max[nutrient] || 0"/>
+                            :target-max-value="dailyTarget.max[nutrient] || 0"
+                            :value-colors="highlightedFood === null || diaryFoods === null ? null : diaryFoods.map((value, index) => {return index === highlightedFood ? 'orange' : null})"
+                    />
                 </div>
             </div>
 
@@ -29,7 +32,12 @@
             <h2>Foods from the past 24 hours</h2>
             <div class="diaryFoods">
                 <ul>
-                    <li v-for="food in diaryFoods" :key="food.url">{{food.name}}</li>
+                    <li
+                            v-for="(food, idx) in diaryFoods"
+                            :key="food.url"
+                            @mouseover="highlightedFood = idx"
+                            @mouseleave="highlightedFood = null"
+                    >{{highlightedFood === idx ? '-->' : ''}}{{food.name}}</li>
                 </ul>
             </div>
         </div>
@@ -346,7 +354,9 @@
                     max: {..._static.nutrientValues}
                 },
                 // All the foods eaten in the last 24 hours
-                diaryFoods: []
+                diaryFoods: [],
+                // If not null, an index indicating which diaryFood should be highlighted at the moment
+                highlightedFood: 0
             }
         },
         beforeMount() {
