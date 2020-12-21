@@ -37,7 +37,8 @@
                             :key="food.url"
                             @mouseover="highlightedFood = idx"
                             @mouseleave="highlightedFood = null"
-                    >{{highlightedFood === idx ? '-->' : ''}}{{food.name}}</li>
+                    >{{highlightedFood === idx ? '-->' : ''}}{{food.name}}
+                    </li>
                 </ul>
             </div>
         </div>
@@ -389,8 +390,8 @@
             /**
              * Gets an array of each nutrient value across all diary foods
              */
-            diaryFoodNutrientArray(){
-                 let totals = {...this.staticVals.nutrientValues};
+            diaryFoodNutrientArray() {
+                let totals = {...this.staticVals.nutrientValues};
                 this.diaryFoods.forEach(entry => {
                     for (let nutrient of Object.keys(totals)) {
                         if (totals[nutrient] == null) totals[nutrient] = [];
@@ -548,14 +549,15 @@
 
         height: 100%;
 
-        .header-add{
+        .header-add {
             grid-area: header-add;
         }
-        .header-display{
+
+        .header-display {
             grid-area: header-display;
         }
 
-        .add-forms{
+        .add-forms {
             grid-area: diary-add;
             display: flex;
             flex-direction: column;
@@ -569,7 +571,7 @@
             }
         }
 
-        .display-forms{
+        .display-forms {
             grid-area: diary-display;
         }
 
@@ -580,7 +582,6 @@
                 margin-right: 0.5em;
             }
         }
-
 
 
         .nutrient-input {
