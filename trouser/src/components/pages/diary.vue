@@ -60,12 +60,14 @@
                         label="Date"
                         type="date"
                         v-show="timeSpecificity===staticVals.timeSpecificity.ON_DATETIME"
+                        v-model="entry.date"
                 />
                 <input-float
                         id="time"
                         label="Time"
                         type="time"
                         v-show="timeSpecificity!==staticVals.timeSpecificity.JUST_NOW"
+                        v-model="entry.time"
                 />
 
                 <span>I ate</span>
@@ -152,14 +154,17 @@
     import "ag-grid-community/dist/styles/ag-theme-balham.css";
     import TargetSummary from "@/components/informational/target-summary";
 
-    /* @Todo translate this pre setup code
-
-            // Setup obvious defaults, if you are coming here you probably want to record what happened right now
-            let sysDate = new Date(),
-                userDate = new Date(Date.UTC(sysDate.getFullYear(), sysDate.getMonth(), sysDate.getDate(), sysDate.getHours(), sysDate.getMinutes(), 0));
-            date.valueAsDate = userDate;
-            time.valueAsDate = userDate;
-            */
+    // Setup obvious defaults, if you are coming here you probably want to record what happened right now
+    // @todo set up the 'current time' just before its seen/used rather than on load to prevent stale times getting logged
+    let sysDate = new Date();
+    // This conversion is necessary to get the datetime as the user would expect it to look
+    let userDate = new Date(Date.UTC(
+        sysDate.getFullYear(),
+        sysDate.getMonth(),
+        sysDate.getDate(),
+        sysDate.getHours(),
+        sysDate.getMinutes(),
+        0)); // The time input element doesn't support seconds, so the seconds value doesn't matter
 
     const _static = {
         // Enum describing how specific the user wants to be when specifying the time of an entry
@@ -215,7 +220,9 @@
             fibre: null,
             sodium: null,
             sugar: null,
-        }
+        },
+        // The current day and time
+        now: new Date()
     }
 
     export default {
@@ -230,6 +237,8 @@
                 currentTarget: null,
                 // The current proposed entry
                 entry: {
+                    date: userDate.toISOString().split('T')[0],
+                    time: userDate.toISOString().split('T')[1].slice(0, 5),
                     unit: "weight",
                     amount: 100
                     // For nutrition calculations (the server would normally handle this but we pre-calculate on the front end for visualization)
@@ -357,7 +366,7 @@
                 // All the foods eaten in the last 24 hours
                 diaryFoods: [],
                 // If not null, an index indicating which diaryFood should be highlighted at the moment
-                highlightedFood: 0
+                highlightedFood: null
             }
         },
         beforeMount() {
@@ -468,8 +477,8 @@
             },
             createDiaryFood() {
                 let requestObject = {
-                    // @todo properly get start time
-                    'start_time': (new Date(/*date.value + "T" + time.value*/)).toISOString(),
+                    // Convert input time to ISO time (server should be in UTC)
+                    'start_time': (new Date(this.entry.date + "T" + this.entry.time)).toISOString(),
                     // Set 'servings' or 'weight'
                     [this.entry.unit]: this.entry.amount,
                 };
