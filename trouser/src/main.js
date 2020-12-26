@@ -58,6 +58,7 @@ Vue.component('fa-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 
 // Import router components
+import Home from './components/pages/home'
 import IngredientManager from './components/pages/ingredient-manager'
 import RecipeManager from './components/pages/recipe-manager'
 import Diary from './components/pages/diary'
@@ -67,6 +68,7 @@ new Vue({
     render: h => h(App),
     router: new VueRouter({
         routes: [
+            {path: '/', component: Home},
             {path: '/ingredient_manager', component: IngredientManager},
             {path: '/recipe_manager', component: RecipeManager},
             {path: '/diary', component: Diary},
