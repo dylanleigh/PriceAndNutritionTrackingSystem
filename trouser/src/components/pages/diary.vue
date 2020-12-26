@@ -1,7 +1,7 @@
 <template>
     <div :class="$options.name">
         <h1 class="header-add">Add to Diary</h1>
-        <h1 class="header-display">Current Diary</h1>
+        <h1 class="header-display">Target Progress</h1>
         <div class="display-forms">
             <!-- Shows how close user is to achieving their daily targets -->
             <div class="nutrientTargets">
@@ -29,7 +29,18 @@
             </div>
 
             <!-- Shows all the foods recorded in the last 24 hours -->
-            <h2>Foods from the past 24 hours</h2>
+            <h2 class="time-period-header">
+                <span>Foods from </span>
+                <input-float
+                        type="select"
+                        id="targetTimePeriod"
+                        v-model="targetTimePeriod"
+                >
+                    <option :value="staticVals.timePeriod.PAST_24">the past 24 hours</option>
+                    <option :value="staticVals.timePeriod.TODAY">today</option>
+                    <option :value="staticVals.timePeriod.YESTERDAY">yesterday</option>
+                </input-float>
+            </h2>
             <div class="diaryFoods">
                 <ul>
                     <li
@@ -145,7 +156,6 @@
     // Setup variables to access form inputs
 
     import InputFloat from "@/components/inputs/input-float";
-    import ActionButtonCellRenderer from "@/components/cell-renderers/action-button";
 
 
     import {AgGridVue} from 'ag-grid-vue';
@@ -172,6 +182,12 @@
             JUST_NOW: 'just-now',
             TODAY_AT: 'today-at',
             ON_DATETIME: 'on-datetime'
+        },
+        // Enum describing the various time periods that can be selected for viewing the diary
+        timePeriod:{
+            PAST_24: 0,
+            TODAY: 1,
+            YESTERDAY: 2
         },
         text: {
             changeTimeBtn: {
@@ -255,32 +271,11 @@
                 oneOffFood: {..._static.nutrientValues},
                 recipeGrid: {
                     gridOptions: {},
-                    frameworkComponents: {
-                        actionsCell: ActionButtonCellRenderer,
-                    },
                     columnDefs: [
                         {headerName: "Name", field: "name"},
                         {headerName: "Description", field: "description"},
                         {headerName: "Serves", field: "serves"},
                         {headerName: "Notes", field: "notes"},
-                        {
-                            headerName: "Actions",
-                            cellRenderer: "actionsCell",
-                            cellRendererParams: {
-                                onClick: recipe => {
-                                    this.add_component(
-                                        "recipe",
-                                        undefined, // There is no database id since this is a newly added component
-                                        recipe.url.split("/").slice(-2)[0],
-                                        recipe.name,
-                                        "",
-                                        "servings");
-                                },
-                                icon: "carrot"
-                            },
-                            cellStyle: {"padding": "0"},
-                            maxWidth: 25
-                        }
                     ],
                     defaultColDef: {
                         flex: 1,
@@ -308,32 +303,11 @@
                 },
                 componentsGrid: {
                     gridOptions: {},
-                    frameworkComponents: {
-                        actionsCell: ActionButtonCellRenderer,
-                    },
                     columnDefs: [
                         {headerName: "Name", field: "name"},
                         {headerName: "Description", field: "description"},
                         {headerName: "Serving", field: "serving"},
-                        {headerName: "Notes", field: "notes"},
-                        {
-                            headerName: "Actions",
-                            cellRenderer: "actionsCell",
-                            cellRendererParams: {
-                                onClick: ingredient => {
-                                    this.add_component(
-                                        "ingredient",
-                                        undefined, // There is no database id since this is a newly added component
-                                        ingredient.url.split("/").slice(-2)[0],
-                                        ingredient.name,
-                                        "",
-                                        "weight");
-                                },
-                                icon: "carrot"
-                            },
-                            cellStyle: {"padding": "0"},
-                            maxWidth: 25
-                        }
+                        {headerName: "Notes", field: "notes"}
                     ],
                     defaultColDef: {
                         flex: 1,
@@ -366,7 +340,8 @@
                 // All the foods eaten in the last 24 hours
                 diaryFoods: [],
                 // If not null, an index indicating which diaryFood should be highlighted at the moment
-                highlightedFood: null
+                highlightedFood: null,
+                targetTimePeriod: _static.timePeriod.PAST_24
             }
         },
         beforeMount() {
@@ -378,8 +353,8 @@
                         this.dailyTarget.min[nutrient] = parseFloat(target.minimum[nutrient]) || 0;
                     }
                 });
-            // Get all DiaryFood entries for the last 24 hours
-            this.refreshTodaysDiaryFoods();
+            // Get all DiaryFood entries for the chosen time period
+            this.refreshTimePeriodDiaryFoods();
         },
         computed: {
             /**
@@ -459,17 +434,44 @@
                         this.oneOffFood[nutrient] = null;
                     }
                 }
+            },
+            targetTimePeriod(){
+                this.refreshTimePeriodDiaryFoods();
             }
         },
         methods: {
             /**
              * Gets the diary foods logged from the past day, updating the internally stored copy from the db
              */
-            refreshTodaysDiaryFoods() {
-                const yesterday = (new Date((new Date()) - 24 * 60 * 60 * 1000)).toISOString().replace('T', ' ');
+            refreshTimePeriodDiaryFoods() {
+                if(!(this.targetTimePeriod in Object.values(this.staticVals.timePeriod))){
+                    console.error(`Target time period ${this.targetTimePeriod} was not a valid value`);
+                    return;
+                }
+                // @todo the api should be in charge of converting from local time to server time, not this component
+                let start_time,
+                    end_time;
+                const NOW = new Date(),
+                    ONE_DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
+                let mostRecentMidnight = new Date(NOW.getTime());
+                mostRecentMidnight.setHours(0, 0, 0, 0);
+                if(this.targetTimePeriod === this.staticVals.timePeriod.PAST_24){
+                    start_time = new Date(NOW - ONE_DAY_IN_MILLISECONDS);
+                    end_time = NOW;
+                } else if (this.targetTimePeriod === this.staticVals.timePeriod.TODAY){
+                    start_time = mostRecentMidnight;
+                    end_time = new Date(mostRecentMidnight.getTime() + ONE_DAY_IN_MILLISECONDS);
+                } else if (this.targetTimePeriod === this.staticVals.timePeriod.YESTERDAY){
+                    start_time = new Date(mostRecentMidnight.getTime() - ONE_DAY_IN_MILLISECONDS);
+                    end_time = mostRecentMidnight;
+                }
+                // Convert to time value server will understand
+                start_time = start_time.toISOString().replace('T', ' ');
+                end_time = end_time.toISOString().replace('T', ' ');
+
                 return this.pants.DiaryFood.get_all({
                     filterDict: {
-                        'start_time': ['gte', yesterday]
+                        'start_time': [['>=', start_time], ['<=', end_time]]
                     }
                 }).then(resp => {
                     this.diaryFoods = resp.results;
@@ -495,7 +497,7 @@
                     alert('Please select a food from the table, or use the "One Off Food" option');
                 }
                 this.pants.DiaryFood.create(requestObject).then(() => {
-                    this.refreshTodaysDiaryFoods().then(() => {
+                    this.refreshTimePeriodDiaryFoods().then(() => {
                         if (requestObject['of_recipe']) {
                             this.recipeGrid.gridOptions.api.deselectAll();
                             this.selected.recipe = null;
@@ -582,6 +584,14 @@
 
         .display-forms {
             grid-area: diary-display;
+
+            .time-period-header{
+                display: flex;
+                align-items: center;
+                >*:first-child{
+                    margin-right: 0.5em;
+                }
+            }
         }
 
         #diary_entry_form {

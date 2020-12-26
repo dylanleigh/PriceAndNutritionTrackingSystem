@@ -46,8 +46,8 @@ class _ApiBase {
      * @param {string} options.searchKey A string by which results will be filtered
      * @param {string} options.filterDict A dictionary of filters,
      *                      key is the property to be filtered on,
-     *                      value is array [filter operator, property value]
-     *
+     *                      value is filter array [filter operator, property value] or array of filter arrays (to filter same property in multiple ways, e.g. both less than and greater than)
+     *                      filter operator is should be in standard js notation, e.g. use '<' to get less than, or '>=' to get greater than or equal to.
      * @returns {Promise<void>}
      * @internal
      */
@@ -82,13 +82,36 @@ class _ApiBase {
 
             if(options.filterDict){
                 for(const [property, value] of Object.entries(options.filterDict)){
-                    api_location_url.searchParams.set(`${property}__${value[0]}`, value[1]);
+                    // If the value is a direct filter array, then make it an array of filter arrays
+                    let filters = value;
+                    if(!Array.isArray(filters[0])) filters = [filters];
+
+                    for(let filterArray of filters){
+                        if(filterArray[0] in this._jsFilterTranslation){
+                            api_location_url.searchParams.set(`${property}${this._jsFilterTranslation[filterArray[0]]}`, filterArray[1]);
+                        } else {
+                            console.error(`Filter array has comparator ${filterArray[0]}, which cannot be translated to django filter string.`)
+                        }
+                    }
                 }
             }
         }
 
         // Fetch the data
         return this.fetch(api_location_url.toString()).then(resp=>resp.json());
+    }
+
+    /**
+     * Dictionary describing how the given js filter string converts to a django filter string so that the api accepts it
+     * @type {{}}
+     * @private
+     */
+    _jsFilterTranslation = {
+        '<': '__lt',
+        '<=': '__lte',
+        '>': '__gt',
+        '>=': '__gte',
+        '==': '',
     }
 
     /**
