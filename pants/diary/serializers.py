@@ -5,6 +5,12 @@ from .models import DiaryFood
 class DiaryFoodSerializer(serializers.HyperlinkedModelSerializer):
    nutrition_data = serializers.ReadOnlyField()
 
+   def create(self, validated_data):
+      # Ensure the current user is specified
+      if 'user' not in validated_data:
+         validated_data['user'] = self.context['request'].user
+      return DiaryFood.objects.create(**validated_data)
+
    class Meta:
       model = DiaryFood
 
