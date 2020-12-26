@@ -1,7 +1,6 @@
 from django.conf.urls import url
-from . import views
+from django.views.generic import TemplateView
 
 urlpatterns = [
-    url(r'^$', views.ingredient_manager, name='ingredient_manager'),
-    url(r'^recipe$', views.recipe_manager, name='recipe_manager')
+    url(r'^$', TemplateView.as_view(template_name="frontend/index.html"), name='frontend'),
 ]
