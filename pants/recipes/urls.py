@@ -1,34 +1,34 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from . import views
 
 urlpatterns = [
    # /recipes/
-   url(r'^$', views.RecipeListView.as_view(), name='recipe-list'),
+   re_path(r'^$', views.RecipeListView.as_view(), name='recipe-list'),
 
    # /recipes/all/
-   url(
+   re_path(
       r'^all/$',
       views.RecipeListAllView.as_view(),
       name='recipe-list-all',
    ),
 
    # /recipe/csvexport/
-   url(
+   re_path(
       r'^csvexport/$',
       views.RecipeCSVExportView,
       name='recipe-csv-export',
    ),
 
    # /recipes/tag/<tag>/
-   url(
+   re_path(
       r'^tag/([0-9A-Za-z_-]+)/$',
       views.RecipeListByTagView.as_view(),
       name='recipe-list-by-tag',
    ),
 
    # /recipes/<slug>/
-   url(
+   re_path(
       r'^(?P<slug>[-\w]+)/$',
       views.RecipeDetailView.as_view(),
       name='recipe-detail'

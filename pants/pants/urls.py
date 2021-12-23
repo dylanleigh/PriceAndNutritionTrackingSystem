@@ -5,16 +5,15 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 Examples:
 Function views
     1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+    2. Add a URL to urlpatterns:  re_path(r'^$', views.home, name='home')
 Class-based views
     1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+    2. Add a URL to urlpatterns:  re_path(r'^$', Home.as_view(), name='home')
 Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+    2. Add a URL to urlpatterns:  re_path(r'^blog/', include('blog.urls'))
 """
-from django.urls import path, include
-from django.conf.urls import url
+from django.urls import path, include, re_path
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from rest_framework import routers
@@ -38,24 +37,24 @@ router.register(r'diaryfood', DiaryFoodViewSet, 'diaryfood')
 router.register(r'user', UserViewSet, 'user')
 
 urlpatterns = [
-    url(r'^$', website.index, name='website-index'),
-    url(r'^wearpants/', auth_views.LoginView.as_view(template_name='website/login.html'), name='website-login'),
-    url(r'^logout/', auth_views.LogoutView.as_view(template_name="website/logout.html"), name='website-logout'),
-    url(r'^about/', website.about, name='website-about'),
+    re_path(r'^$', website.index, name='website-index'),
+    re_path(r'^wearpants/', auth_views.LoginView.as_view(template_name='website/login.html'), name='website-login'),
+    re_path(r'^logout/', auth_views.LogoutView.as_view(template_name="website/logout.html"), name='website-logout'),
+    re_path(r'^about/', website.about, name='website-about'),
 
     # REST Framework API
     path('api/1/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Django template Frontend
-    url(r'^diary/', include('diary.urls')),
-    url(r'^recipes/', include('recipes.urls')),
-    url(r'^ingredients/', include('ingredients.urls')),
-    url(r'^targets/', include('targets.urls')),
-    url(r'^products/', include('products.urls')),
+    re_path(r'^diary/', include('diary.urls')),
+    re_path(r'^recipes/', include('recipes.urls')),
+    re_path(r'^ingredients/', include('ingredients.urls')),
+    re_path(r'^targets/', include('targets.urls')),
+    re_path(r'^products/', include('products.urls')),
 
-    url(r'^adminbackend/', admin.site.urls),
+    re_path(r'^adminbackend/', admin.site.urls),
 
     # Experimental Frontend
-    url(r'^frontend/', include('frontend.urls'))
+    re_path(r'^frontend/', include('frontend.urls'))
 ]
