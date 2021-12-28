@@ -157,6 +157,8 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/wearpants/'
 LOGIN_REDIRECT_URL = 'website-index'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # Constants used for nutritional calculations
 # DO NOT EDIT THESE
 # They are chemical constants, not preferences
