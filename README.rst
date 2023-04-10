@@ -164,18 +164,26 @@ Micronutrients
 Installation
 ============
 
-It is highly recommended that PANTS is installed in a virtualenv, and
-comes with a requirements.txt for pip::
+::
 
-   virtualenv -p python3 pants
-   cd pants
-   . bin/activate
    git clone https://github.com/dylanleigh/PriceAndNutritionTrackingSystem.git
    cd PriceAndNutritionTrackingSystem
-   pip install -r requirements.txt
+
+VirtualEnv
+----------
+
+It is highly recommended that PANTS is installed in a virtual environment, and
+comes with a requirements.txt for pip::
+
+   python3 -m venv env
+   source env/bin/activate
 
 Requirements
 ------------
+
+::
+
+   pip install -r requirements.txt
 
 These will be installed automatically via pip:
 
@@ -209,8 +217,8 @@ Warning
    The Django Secret Key is used to generate session tokens and other
    cryptographically important things. Keeping it in an environment
    variable makes it easier to have seperate, secure secrets on different
-   installations. If someone knows the secret key it may be possible to
-   login as admin users and mess with things, so keep it secret.
+   installations. **If someone knows the secret key it may be possible to
+   login as admin users and mess with things, so keep it secret**.
 
 Setup 2: Migrations and Admin User
 ----------------------------------
